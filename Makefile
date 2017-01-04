@@ -4,7 +4,11 @@ install: compile
 	mkdir -p shippable
 	cp -rf engine/* target/* shippable
 
-compile: zentaworkaround javabuild engine.compiled
+compile: zentaworkaround javabuild engine.compiled javadoc
+
+javadoc:
+	mvn javadoc:javadoc
+	mvn javadoc:test-javadoc
 
 include /usr/share/zenta-tools/model.rules
 
