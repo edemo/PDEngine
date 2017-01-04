@@ -1,0 +1,2 @@
+#!/bin/bash
+rsync -e "ssh -p 22022" -ar shippable/ shippable@demokracia.rulez.org:/var/www/adadocs/PDEngine/$BUILD_NUMBER

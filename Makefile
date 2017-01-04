@@ -1,11 +1,19 @@
-all: zentaworkaround javabuild engine.compiled
+all: install
+
+install: compile
+	mkdir -p shippable
+	cp -rf engine/* target/* shippable
+
+compile: zentaworkaround javabuild engine.compiled
 
 include /usr/share/zenta-tools/model.rules
 
 testenv:
 	docker run --rm -p 5900:5900 -v $$(pwd):/pdengine -w /pdengine -it pdengine
 
-javabuild:
+javabuild: target/PDEngine-0.0.1-SNAPSHOT.jar
+
+target/PDEngine-0.0.1-SNAPSHOT.jar:
 	mvn clean install
 
 clean:

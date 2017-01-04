@@ -482,6 +482,9 @@ rankedChoices have a list of properly formatted RankedChoice instances, where:
     </element>
     <element xsi:type="zenta:BasicRelationship" id="9c5b44cc-000f-4a8f-88e5-33aad2a76fa4" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="3b2e88d7-580d-45c6-b182-e17b97b18bdb" target="0675b859-df4c-4176-b2b5-dba307bdaa8f"/>
   </folder>
-  <element xsi:type="zenta:BasicRelationship" name="Basic Relation" id="basicrelation" source="basicobject" target="basicobject"/>
+  <element xsi:type="zenta:BasicRelationship" name="Basic Relation" id="basicrelation" source="basicobject" target="basicobject">
+    <property key="minOccurs" value="-1/-1"/>
+    <property key="maxOccurs" value="-1/-1"/>
+  </element>
   <element xsi:type="zenta:BasicObject" name="Basic Object" id="basicobject"/>
 </zenta:model>
