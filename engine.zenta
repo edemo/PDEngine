@@ -277,7 +277,7 @@
     </element>
     <element xsi:type="zenta:BasicObject" name="Manage votes" id="9386718b-3caf-4152-8386-0df9deeb35d3" ancestor="e1dcc278-0e1a-4399-99a4-04706212b230"/>
     <element xsi:type="zenta:BasicObject" name="create vote" id="53971969-fee5-4442-a283-98d7f5b2c94f" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>POST /vote (String votename, List&lt;String> neededAssurances, List&lt;String> countedAssurances, bool isPrivate, minEndorsements: int =0) -> VoteAdminInfo
+      <documentation>POST /vote (String votename, List[String> neededAssurances, List[String> countedAssurances, bool isPrivate, minEndorsements: int =0) -> VoteAdminInfo
 
 VoteAdminInfo has
 voteId: String
@@ -291,8 +291,8 @@ adminKey: String
     <element xsi:type="zenta:BasicRelationship" id="b708cb8c-9acd-4d22-aa3e-44f6adba1ef8" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="53971969-fee5-4442-a283-98d7f5b2c94f" target="52a7518e-0405-44a7-a064-a5bed0a5cee7"/>
     <element xsi:type="zenta:BasicObject" name="formally validates all inputs" id="8df17038-a79c-4a09-8a7d-5c4d736ca126" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
       <documentation>String votename: for length and characters contained
-List&lt;String> neededAssurances: for length and characters contained. no empty string. can be empty. no two strings are the same
-List&lt;String> countedAssurances: for length and characters contained. can be empty string. no two strings are the same. nonempty
+List[String> neededAssurances: for length and characters contained. no empty string. can be empty. no two strings are the same
+List[String> countedAssurances: for length and characters contained. can be empty string. no two strings are the same. nonempty
 bool private: true or false
 </documentation>
     </element>
@@ -300,37 +300,37 @@ bool private: true or false
     <element xsi:type="zenta:BasicObject" name="returns an unique vote id for reference and administrator key for vote management" id="4254c731-94cd-4f02-9e1b-362d5d46496a" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
     <element xsi:type="zenta:BasicRelationship" id="c55dbcdf-9117-470b-8b54-a36b0bcf8aed" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="53971969-fee5-4442-a283-98d7f5b2c94f" target="4254c731-94cd-4f02-9e1b-362d5d46496a"/>
     <element xsi:type="zenta:BasicObject" name="Add choice" id="d311158f-1d7b-4288-86d2-a258d7a63741" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>POST /choice/&amp;lt;voteId>/&lt;choiceId>/&lt;adminKey> (String choice) -> String choiceId</documentation>
+      <documentation>POST /choice/[voteId>/[choiceId>/[adminKey> (String choice) -> String choiceId</documentation>
     </element>
     <element xsi:type="zenta:BasicRelationship" id="d76715c6-170f-4711-9dc6-6c70f6b839c7" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="9386718b-3caf-4152-8386-0df9deeb35d3" target="d311158f-1d7b-4288-86d2-a258d7a63741"/>
     <element xsi:type="zenta:BasicObject" name="show vote" id="5c0244e2-2097-4b3b-abed-9dbefdcd45ac" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>GET /vote/&lt;voteId>/&lt;adminKey> -> JSON vote</documentation>
+      <documentation>GET /vote/[voteId>/[adminKey> -> JSON vote</documentation>
     </element>
     <element xsi:type="zenta:BasicRelationship" id="9e90c385-bcc9-4104-9e9a-98009500babf" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="9386718b-3caf-4152-8386-0df9deeb35d3" target="5c0244e2-2097-4b3b-abed-9dbefdcd45ac"/>
     <element xsi:type="zenta:BasicObject" name="delete choice" id="3044c21c-7606-4098-8176-9dd5b93c20ad" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>DEL /choice/&lt;voteId>/&lt;choiceId>/&lt;adminKey> -> &quot;OK&quot;</documentation>
+      <documentation>DEL /choice/[voteId>/[choiceId>/[adminKey> -> &quot;OK&quot;</documentation>
     </element>
     <element xsi:type="zenta:BasicRelationship" id="529fc836-330b-4dfe-b3aa-a2687ba9fb9a" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="9386718b-3caf-4152-8386-0df9deeb35d3" target="3044c21c-7606-4098-8176-9dd5b93c20ad"/>
     <element xsi:type="zenta:BasicObject" name="delete vote" id="48822135-c613-40d5-8c46-e983a378c527" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>DEL /vote/&lt;voteId>/&lt;adminKey> ->OK</documentation>
+      <documentation>DEL /vote/[voteId>/[adminKey> ->OK</documentation>
     </element>
     <element xsi:type="zenta:BasicRelationship" id="1c75cc64-c99c-47c5-8513-d3c41c373543" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="9386718b-3caf-4152-8386-0df9deeb35d3" target="48822135-c613-40d5-8c46-e983a378c527"/>
     <element xsi:type="zenta:BasicObject" name="modify vote" id="5c3beb4c-34cf-4557-8a5c-71a594f65ed0" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>PUT /vote/&lt;voteId>/&lt;adminKey> (String votename )-> VoteAdminInfo</documentation>
+      <documentation>PUT /vote/[voteId>/[adminKey> (String votename )-> VoteAdminInfo</documentation>
     </element>
     <element xsi:type="zenta:BasicRelationship" id="5eeea838-1c1a-4ca6-b749-4578ce977b2b" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="9386718b-3caf-4152-8386-0df9deeb35d3" target="5c3beb4c-34cf-4557-8a5c-71a594f65ed0"/>
     <element xsi:type="zenta:BasicObject" name="modify choice" id="9a443205-d873-4413-8c2d-d6e1e7e5e520" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>PUT /choice/&lt;voteId>/&lt;choiceId>/&lt;adminKey> ( String choice) -> &quot;OK&quot;</documentation>
+      <documentation>PUT /choice/[voteId>/[choiceId>/[adminKey> ( String choice) -> &quot;OK&quot;</documentation>
     </element>
     <element xsi:type="zenta:BasicRelationship" id="1d87838e-badf-4c5f-a2a7-03d41a161678" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="9386718b-3caf-4152-8386-0df9deeb35d3" target="9a443205-d873-4413-8c2d-d6e1e7e5e520"/>
     <element xsi:type="zenta:BasicObject" name="set vote parameters" id="7c3a6172-f528-466e-9148-65417b26950b" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>PUT /voteparameters/&lt;voteId> (String adminKey, Int minEndorsements, bool canAddin, bool canEndorse, bool canVote, bool canView) -> &quot;OK&quot;
+      <documentation>PUT /voteparameters/[voteId> (String adminKey, Int minEndorsements, bool canAddin, bool canEndorse, bool canVote, bool canView) -> &quot;OK&quot;
 </documentation>
     </element>
     <element xsi:type="zenta:BasicRelationship" id="872e4482-8877-4a63-a8bf-30d253a2cd61" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="9386718b-3caf-4152-8386-0df9deeb35d3" target="7c3a6172-f528-466e-9148-65417b26950b"/>
     <element xsi:type="zenta:BasicObject" name="Vote" id="7f02363b-d542-483a-8a14-9780b27bfe7d" ancestor="e1dcc278-0e1a-4399-99a4-04706212b230"/>
     <element xsi:type="zenta:BasicObject" name="Cast vote" id="6c21fece-0382-4d6a-bf96-b47aee86228b" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>POST /castvote/&lt;voteId>/&lt;ballotId>(List&lt;RankedChoice> rankedChoices) -> OK
+      <documentation>POST /castvote/[voteId>/[ballotId>(List[RankedChoice> rankedChoices) -> OK
 
 RankedChoice properties:
 String choiceId 
@@ -348,7 +348,7 @@ String choiceId: id of existing choice in the vote with voteid</documentation>
     <element xsi:type="zenta:BasicObject" name="returns a unique choice id" id="7683ba2c-37ee-47ad-a990-5dd1e1de20b4" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
     <element xsi:type="zenta:BasicRelationship" id="b90679bc-552a-4036-a10e-5fd8e17807d7" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="d311158f-1d7b-4288-86d2-a258d7a63741" target="7683ba2c-37ee-47ad-a990-5dd1e1de20b4"/>
     <element xsi:type="zenta:BasicObject" name="Endorse option" id="5f737430-7fcb-417a-8b06-9026c5231a0f" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>POST /endorse/&lt;voteId>/&lt;choiceId>/&lt;adminKey> (String userName) -> &quot;OK&quot;</documentation>
+      <documentation>POST /endorse/[voteId>/[choiceId>/[adminKey> (String userName) -> &quot;OK&quot;</documentation>
     </element>
     <element xsi:type="zenta:BasicRelationship" id="dfa72f58-804d-4b08-9176-ad61c3e2702f" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="7f02363b-d542-483a-8a14-9780b27bfe7d" target="5f737430-7fcb-417a-8b06-9026c5231a0f"/>
     <element xsi:type="zenta:BasicRelationship" id="8e69e9b5-3974-4145-bfdd-491c0e1164fb" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="9a443205-d873-4413-8c2d-d6e1e7e5e520" target="af499e94-b21e-4295-8f22-efe9e9e0be15"/>
@@ -372,7 +372,7 @@ String newstage: one of &quot;created&quot;, </documentation>
     <element xsi:type="zenta:BasicObject" name="registers the choice with the vote" id="bca855a3-fb1d-4d5e-9c69-1339dcd5cd70" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
     <element xsi:type="zenta:BasicRelationship" id="922ff5e0-51f3-4a3c-ad31-7342914ee14c" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="d311158f-1d7b-4288-86d2-a258d7a63741" target="bca855a3-fb1d-4d5e-9c69-1339dcd5cd70"/>
     <element xsi:type="zenta:BasicObject" name="Obtain ballot" id="8715adde-bba4-4000-bbd5-d40f1cccaf22" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-      <documentation>GET /ballot/&lt;voteId>/&lt;adminKey> -> string ballotId</documentation>
+      <documentation>GET /ballot/[voteId>/[adminKey> -> string ballotId</documentation>
     </element>
     <element xsi:type="zenta:BasicRelationship" id="779f5e60-c32e-425b-b133-3dddcc43811c" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="9386718b-3caf-4152-8386-0df9deeb35d3" target="8715adde-bba4-4000-bbd5-d40f1cccaf22"/>
     <element xsi:type="zenta:BasicObject" name="validate inputs" id="976582f6-9a8c-441e-b6eb-638f8f1fa01b" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">

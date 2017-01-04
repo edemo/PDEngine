@@ -1,0 +1,18 @@
+<checks>
+<check
+		title="Model Errors"
+      	modelfile="engine.rich"
+      	modelbasepath="//error"
+      	modelnamepath="@type"
+      	modelvaluepath="concat(//element[@id=current()/@element]/@name,' ',@name)"
+        modelerrorid="$p1/object/error/@errorID"
+      	inputfile="engine.rich"
+      	inputbasepath="//nonexistent"
+      	inputnamepath=""
+      	inputvaluepath=""
+        inputerrorid="$p1"
+        errorURL="concat('http://adadocs.demokracia.rulez.org/engine/#',$p1)"
+        errortitlestring="zenta:modelErrorTitle($p1,$p2)"
+        errordescription="zenta:modelErrorDescription($p1,$p2)"
+      	/>
+</checks>
