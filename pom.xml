@@ -23,6 +23,7 @@
           <executions>
               <execution>
                   <id>xml-doclet</id>
+                  <phase>prepare-package</phase>
                   <goals>
                       <goal>javadoc</goal>
                   </goals>
@@ -46,6 +47,11 @@
   		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>
   		<version>4.11</version>
+  	</dependency>
+  	<dependency>
+                          <groupId>com.github.markusbernhardt</groupId>
+                          <artifactId>xml-doclet</artifactId>
+                          <version>1.0.5</version>
   	</dependency>
   </dependencies>
 </project>
