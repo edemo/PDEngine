@@ -2,9 +2,12 @@ all: install
 
 install: compile
 	mkdir -p shippable
-	cp -rf engine/* target/* shippable
+	cp -rf engine/* target/* engine-testcases.xml engine-testcases.txt shippable
 
-compile: zentaworkaround javabuild engine.compiled javadoc
+compile: zentaworkaround javabuild engine.compiled engine-testcases.xml javadoc
+
+engine-testcases.xml: engine.richescape
+	zenta-xslt-runner -xsl:generate_test_cases.xslt -s engine.richescape outputbase=engine-
 
 javadoc:
 	mvn javadoc:javadoc
