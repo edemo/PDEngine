@@ -50,7 +50,7 @@ public abstract class BaseEntity implements Entity {
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {
-		_dirty = false;
+		_dirty = true;
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
