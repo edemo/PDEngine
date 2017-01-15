@@ -15,14 +15,12 @@
 		<xsl:value-of select="@name"/>
 	</xsl:template>
 
-    <xsl:template match="element[@id='basicobject']|connection[@id='basicrelation']" mode="varlistentry">
+    <xsl:template match="element[@id='basicobject']|connection[@id='basicrelation']" mode="varlistentry" priority="4">
     </xsl:template>
 
         <!--xsl:template match="element[@xsi:type!='zenta:ZentaDiagramModel' and @xsi:type!='zenta:SketchModel']"
                 mode="varlistentry" priority="5"/-->
-    <xsl:template match="folder[property[@key='display']/@value='hidden']" mode="varlistList"/>
-    
-
+    <xsl:template match="folder[property[@key='display']/@value='hidden']" mode="varlist"/>
 
         <xsl:template match="element[@xsi:type!='zenta:ZentaDiagramModel' and @xsi:type!='zenta:SketchModel']"
                 mode="elementDetails" priority="5">
