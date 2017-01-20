@@ -528,6 +528,9 @@ rankedChoices have a list of properly formatted RankedChoice instances, where:
         <child xsi:type="zenta:DiagramObject" id="327971c8-f3d0-4979-9e0d-cf86255c8e2e" zentaElement="4a96dc05-56d0-4528-b49b-31e3782da526">
           <bounds x="240" y="-72" width="-1" height="-1"/>
         </child>
+        <child xsi:type="zenta:DiagramObject" id="0dbd12cd-bd10-4ab5-8916-e662a8cf3248" zentaElement="c88f8cfa-470d-4e01-8f88-78cf068819a5">
+          <bounds x="103" y="169" width="222"/>
+        </child>
       </element>
       <element xsi:type="zenta:BasicObject" name="The same vote can be tallied for different ADA assurances and &quot;no assurance&quot;  group." id="caa1450a-091a-4989-8627-98077a4196a4" ancestor="e1d3f9d2-3886-41be-9150-a18a2e5a649a"/>
       <element xsi:type="zenta:BasicObject" name="The engine can be used by ADA users and content providers to run a vote, and ADA users to participate in it." id="62a8ca26-9404-4753-bfd3-abbbe5f8592c" ancestor="e1d3f9d2-3886-41be-9150-a18a2e5a649a"/>
@@ -544,6 +547,7 @@ election&#x2019;s bulletin board.
 the ballots published on the bulletin board.
 https://bensmyth.com/files/Smyth10-definition-verifiability.LNCS.pdf</documentation>
       </element>
+      <element xsi:type="zenta:BasicObject" name="Voting is impossible because ADA is unavailable" id="c88f8cfa-470d-4e01-8f88-78cf068819a5" ancestor="93f42372-3328-43cb-8be3-f952a10169fd"/>
     </folder>
     <folder name="2. Objectives" id="6c9fd1b4-8f45-499d-8949-b24015751dce">
       <folder name="1. End-to-end verifiability" id="cc0e3e4f-4806-4e5e-b7d2-aeea3d061bdf">
