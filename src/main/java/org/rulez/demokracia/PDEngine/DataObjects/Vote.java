@@ -1,6 +1,10 @@
 package org.rulez.demokracia.PDEngine.DataObjects;
 
-public class Vote {
+import org.rulez.demokracia.PDEngine.Persistence.BaseEntity;
+
+public class Vote extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	public String name;
 
