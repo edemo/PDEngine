@@ -10,8 +10,11 @@ engine-testcases.xml: engine.richescape
 	zenta-xslt-runner -xsl:generate_test_cases.xslt -s engine.richescape outputbase=engine-
 
 javadoc:
-	mvn javadoc:javadoc
-	mvn javadoc:test-javadoc
+	mkdir -p target/production target/test
+	CLASSPATH=$$(echo $$(find ~/.m2/repository/ -name '*.jar'|grep -v jdk14 )|sed 's/ /:/g')\
+     javadoc -doclet com.github.markusbernhardt.xmldoclet.XmlDoclet -sourcepath src/main/java -d target/production org.rulez.demokracia.PDEngine
+	CLASSPATH=$$(echo $$(find ~/.m2/repository/ -name '*.jar'|grep -v jdk14 )|sed 's/ /:/g')\
+     javadoc -doclet com.github.markusbernhardt.xmldoclet.XmlDoclet -sourcepath src/test/java -d target/test org.rulez.demokracia.PDEngine
 
 include /usr/share/zenta-tools/model.rules
 
