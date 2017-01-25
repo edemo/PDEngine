@@ -1,3 +1,16 @@
+Universal preferential voting control server
+features:
+- REST API
+- Condorcet - Shulze method support
+- ballot managment
+- ADA login support (optional)
+- liquid democracy support
+- voks acredited support
+- voks weight support
+- secure system
+- flexibility confuguration
+
+
 This is the voting engine core.
 
 You can find it in the big picture of things here:
@@ -6,6 +19,8 @@ http://adadocs.demokracia.rulez.org/adadocs/edemo/master/KDEA/index.html#701bb9c
 The design documentation is here:
 http://adadocs.demokracia.rulez.org/PDEngine/edemo/master/index.html
 
+hungarian REST API dcumentation (the above is the normative!):
+https://docs.google.com/document/d/1OfiW5jRzdRuli-4wmBedvsatGIfEgHGzq5Cm5cAzKzk/edit?usp=sharing
 
 # For developers
 
