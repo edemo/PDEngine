@@ -17,6 +17,10 @@ public class Vote {
 	public String voteId;
 	public long creationTime;
 	public int minEndorsements;
+	public boolean canAddin;
+	public boolean canEndorse;
+	public boolean canVote;
+	public boolean canView;
 
 	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements) {
 		name = voteName;

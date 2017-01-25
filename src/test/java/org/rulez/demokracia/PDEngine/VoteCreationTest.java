@@ -6,7 +6,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
 import org.rulez.demokracia.PDEngine.annotations.tested_behaviour;
@@ -16,19 +15,7 @@ import org.rulez.demokracia.PDEngine.annotations.tested_operation;
 @tested_feature("Manage votes")
 @tested_operation("create vote")
 @tested_behaviour("Creates a vote")
-public class VoteCreationTest {
-
-	static final String voteName = "Votename";
-	private VoteAdminInfo adminInfo;
-
-	@Before
-	public void setUp() {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances = new ArrayList<String>();
-		boolean isPrivate = true;
-		int minEndorsements = 0;
-		adminInfo = VoteRegistry.create(voteName,neededAssurances, countedAssurances, isPrivate, minEndorsements);
-	}
+public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void create_creates_a_vote_with_the_given_name() {
