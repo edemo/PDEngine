@@ -11,9 +11,9 @@ engine-testcases.xml: engine.richescape
 
 javadoc:
 	mkdir -p target/production target/test
-	CLASSPATH=$$(echo $$(find ~/.m2/repository/ -name '*.jar'|grep -v jdk14 )|sed 's/ /:/g')\
+	CLASSPATH=/usr/local/lib/xml-doclet.jar\
      javadoc -doclet com.github.markusbernhardt.xmldoclet.XmlDoclet -sourcepath src/main/java -d target/production org.rulez.demokracia.PDEngine
-	CLASSPATH=$$(echo $$(find ~/.m2/repository/ -name '*.jar'|grep -v jdk14 )|sed 's/ /:/g')\
+	CLASSPATH=/usr/local/lib/xml-doclet.jar\
      javadoc -doclet com.github.markusbernhardt.xmldoclet.XmlDoclet -sourcepath src/test/java -d target/test org.rulez.demokracia.PDEngine
 
 include /usr/share/zenta-tools/model.rules
