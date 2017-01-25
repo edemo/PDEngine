@@ -79,12 +79,56 @@
   	<xsl:variable name="testcases">
       <xsl:apply-templates select="/" mode="gatherTestCases"/>
   	</xsl:variable>
+  	<xsl:variable name="behaviours">
+		<xsl:copy-of select="zenta:listBehaviours($testcases)"/>
+  	</xsl:variable>
 	<xsl:result-document href="{$outputbase}implementedTestCases.xml">
 		<xsl:copy-of select="$testcases"/>
 	</xsl:result-document>
 	<xsl:result-document href="{$outputbase}implementedBehaviours.xml">
-		<xsl:copy-of select="zenta:listBehaviours($testcases)"/>
+		<xsl:copy-of select="$behaviours"/>
 	</xsl:result-document>
+	<xsl:result-document href="{$outputbase}implementedBehaviours.docbook">
+		<xsl:apply-templates select="$behaviours" mode="behaviourDocbook"/>
+	</xsl:result-document>
+  </xsl:template>
+  
+  <xsl:template match="features" mode="behaviourDocbook">
+  	<article version="5.0">
+  		<title>Implemented behaviours</title>
+      <xsl:apply-templates select="*" mode="#current"/>
+  	</article>
+  </xsl:template>
+
+  <xsl:template match="feature|operation" mode="behaviourDocbook">
+  	<section>
+  		<xsl:variable name="titlestring" select="concat(node-name(.),': ',@name)"/>
+  		<xsl:attribute name="id" select="$titlestring"/>
+  		<title>
+  			<xsl:value-of select="$titlestring"/>
+  		</title>
+      <xsl:apply-templates select="*" mode="#current"/>
+  	</section>
+  </xsl:template>
+
+  <xsl:template match="behaviour" mode="behaviourDocbook">
+  	<section>
+  		<xsl:attribute name="id" select="@name"/>
+  		<title>
+  			<xsl:value-of select="@name"/>
+  		</title>
+  		<para>
+  			<itemizedlist>
+      			<xsl:apply-templates select="*" mode="#current"/>
+  			</itemizedlist>
+  		</para>
+  	</section>
+  </xsl:template>
+
+  <xsl:template match="testcase" mode="behaviourDocbook">
+  	<listitem><para>
+  		<xsl:value-of select="@doc"/>
+  	</para></listitem>
   </xsl:template>
 
 </xsl:stylesheet>

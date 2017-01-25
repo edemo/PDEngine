@@ -8,7 +8,7 @@ shippable:
 
 compile: zentaworkaround javabuild engine.compiled codedocs
 
-codedocs: shippable/engine-testcases.xml shippable/engine-implementedBehaviours.xml
+codedocs: shippable/engine-testcases.xml shippable/engine-implementedBehaviours.xml shippable/engine-implementedBehaviours.html
 
 shippable/engine-testcases.xml: engine.richescape shippable
 	zenta-xslt-runner -xsl:generate_test_cases.xslt -s engine.richescape outputbase=shippable/engine-
