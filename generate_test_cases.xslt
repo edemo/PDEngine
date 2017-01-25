@@ -48,7 +48,7 @@ Behaviour: <xsl:value-of select="@name"/>
         <xsl:variable name="feature" select="."/>
         <xsl:for-each select="zenta:neighboursOnPath(/,$feature,'contains,1')">
             <xsl:variable name="operation" select="."/>
-                <xsl:for-each select="zenta:neighboursOnPath($root,$operation,'does,1')">
+                <xsl:for-each select="zenta:neighboursOnPath($root,$operation,'does/is done by,1')">
                     <xsl:variable name="testcase" select="."/>
                     <testcase name="{concat($feature/@name,'/', $operation/@name, '; ', $testcase/@name)}"
                         feature="{$feature/@name}"
