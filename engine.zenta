@@ -4,7 +4,7 @@
     <folder name="2. Functions" id="8b296020-2208-4702-adc8-bb471b766128">
       <folder name="01. Create Vote" id="6d47f760-d2ac-4f7d-98a5-b1f9e99cfc49">
         <element xsi:type="zenta:BasicObject" name="Creates a vote" id="52a7518e-0405-44a7-a064-a5bed0a5cee7" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
-          <documentation>A new vote appears in the database, with  needed- and countedAssurances, isClosed, vote id, creation time (unix time), minEndorsements and admin key.</documentation>
+          <documentation>A new vote appears in the database, with  needed- and countedAssurances, isPrivate, vote id, creation time (unix time), minEndorsements and admin key.</documentation>
         </element>
         <element xsi:type="zenta:BasicObject" name="create vote" id="53971969-fee5-4442-a283-98d7f5b2c94f" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
           <documentation>POST /vote (String votename, List&lt;String> neededAssurances, List&lt;String> countedAssurances, bool isPrivate, minEndorsements: int =0) -> VoteAdminInfo
