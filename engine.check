@@ -11,8 +11,24 @@
       	inputnamepath=""
       	inputvaluepath=""
         inputerrorid="$p1"
-        errorURL="concat('http://adadocs.demokracia.rulez.org/engine/#',$p1)"
+        errorURL="concat('http://adadocs.demokracia.rulez.org/PDEngine/edemo/master/index.html#',$p1)"
         errortitlestring="zenta:modelErrorTitle($p1,$p2)"
         errordescription="zenta:modelErrorDescription($p1,$p2)"
+      	/>
+<check
+		title="Unimplemented behaviours"
+      	modelfile="shippable/engine-testcases.xml"
+      	modelbasepath="//testcase"
+      	modelnamepath="@name"
+      	modelvaluepath="''"
+        modelerrorid="zenta:engineErrorId($p1)"
+      	inputfile="shippable/engine-implementedTestCases.xml"
+      	inputbasepath="//testcase"
+      	inputnamepath="@modelmatch"
+      	inputvaluepath="''"
+        inputerrorid="$p1//object/testcase/@name"
+        errorURL="concat('http://adadocs.demokracia.rulez.org/PDEngine/edemo/master/index.html#',$p1)"
+        errortitlestring="zenta:engineErrorTitle($p1)"
+        errordescription="zenta:engineErrorDescription($p1, $p2)"
       	/>
 </checks>

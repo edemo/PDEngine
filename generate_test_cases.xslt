@@ -53,7 +53,10 @@ Behaviour: <xsl:value-of select="@name"/>
                     <testcase name="{concat($feature/@name,'/', $operation/@name, '; ', $testcase/@name)}"
                         feature="{$feature/@name}"
                         operation="{$operation/@name}"
-                        testcase="{$testcase/@name}">
+                        testcase="{$testcase/@name}"
+                        featureid="{$feature/@id}"
+                        operationid="{$operation/@id}"
+                        testcaseid="{$testcase/@id}">
                         <xsl:copy-of select="$testcase/documentation/(text()|*)"/>
                     </testcase>
                     <xsl:for-each select="zenta:neighboursOnPath($root,$testcase,'is tested by/tests,2,testcase')">

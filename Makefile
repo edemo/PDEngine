@@ -18,9 +18,9 @@ shippable/engine-implementedBehaviours.xml: javadoc shippable
 
 javadoc:
 	mkdir -p target/production target/test
-	CLASSPATH=/usr/local/lib/xml-doclet.jar\
+	CLASSPATH=/usr/local/lib/xml-doclet.jar:~/.m2/repository/junit/junit/4.11/junit-4.11.jar:target/classes\
      javadoc -doclet com.github.markusbernhardt.xmldoclet.XmlDoclet -sourcepath src/main/java -d target/production org.rulez.demokracia.PDEngine
-	CLASSPATH=/usr/local/lib/xml-doclet.jar\
+	CLASSPATH=/usr/local/lib/xml-doclet.jar:~/.m2/repository/junit/junit/4.11/junit-4.11.jar:target/classes\
      javadoc -doclet com.github.markusbernhardt.xmldoclet.XmlDoclet -sourcepath src/test/java -d target/test org.rulez.demokracia.PDEngine
 
 include /usr/share/zenta-tools/model.rules
@@ -37,9 +37,9 @@ clean:
 	git clean -fdx
 	rm -rf zenta-tools
 
-inputs/engine.issues.xml:
+inputs/engine.issues.xml: shippable/engine-implementedBehaviours.xml shippable/engine-testcases.xml
 	mkdir -p inputs
-	getGithubIssues https://api.github.com label:auto_inconsistency+repo:edemo/PDEngine >inputs/engine.issues.xml
+	getGithubIssues https://api.github.com "repo:edemo/PDEngine&per_page=100" >inputs/engine.issues.xml
 
 zentaworkaround:
 	mkdir -p ~/.zenta/.metadata/.plugins/org.eclipse.e4.workbench/

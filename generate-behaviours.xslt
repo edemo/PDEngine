@@ -25,9 +25,13 @@
 	<testcase>
 		<xsl:attribute name="name" select="@name"/>
 		<xsl:attribute name="doc" select="replace(@name,'_', ' ')"/>
-		<xsl:attribute name="feature" select="zenta:getAnnotation(.,'tested_feature')"/>
-		<xsl:attribute name="operation" select="zenta:getAnnotation(.,'tested_operation')"/>
-		<xsl:attribute name="behaviour" select="zenta:getAnnotation(.,'tested_behaviour')"/>
+		<xsl:variable name="feature" select="zenta:getAnnotation(.,'tested_feature')"/>
+		<xsl:variable name="operation" select="zenta:getAnnotation(.,'tested_operation')"/>
+		<xsl:variable name="behaviour" select="zenta:getAnnotation(.,'tested_behaviour')"/>
+		<xsl:attribute name="feature" select="$feature"/>
+		<xsl:attribute name="operation" select="$operation"/>
+		<xsl:attribute name="behaviour" select="$behaviour"/>
+		<xsl:attribute name="modelmatch" select="concat($feature,'/', $operation, '; ', $behaviour)"/>
 	</testcase>
   </xsl:template>
 
