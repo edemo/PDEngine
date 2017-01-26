@@ -14,11 +14,12 @@ public class VoteRegistry {
 			String voteName,
 			List<String> neededAssurances,
 			List<String> countedAssurances,
-			boolean isPrivate,
+			boolean isClosed,
 			int minEndorsements) {
 		VoteAdminInfo admininfo = new VoteAdminInfo();
-		admininfo.adminKey = RandomUtils.createRandomKey();
-		Vote vote = new Vote(voteName);
+		Vote vote = new Vote(voteName, neededAssurances, countedAssurances, isClosed, minEndorsements);
+		admininfo.adminKey=vote.adminKey;
+		admininfo.voteId= vote.voteId;
 		votes.put(admininfo.adminKey, vote);
 		return admininfo;
 	}
