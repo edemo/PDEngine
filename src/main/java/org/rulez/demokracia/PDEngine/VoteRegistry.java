@@ -1,5 +1,6 @@
 package org.rulez.demokracia.PDEngine;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,10 @@ public class VoteRegistry implements IVoteManager {
 			List<String> neededAssurances,
 			List<String> countedAssurances,
 			boolean isClosed,
-			int minEndorsements) {
+			int minEndorsements) throws  Exception {
+
+
+
 		VoteAdminInfo admininfo = new VoteAdminInfo();
 		Vote vote = new Vote(voteName, neededAssurances, countedAssurances, isClosed, minEndorsements);
 		admininfo.adminKey=vote.adminKey;
