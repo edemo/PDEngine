@@ -22,7 +22,10 @@ public class Vote {
 	public boolean canVote;
 	public boolean canView;
 
-	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements) {
+	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements) throws Exception {
+
+		checkVoteName(voteName);
+
 		name = voteName;
 		this.adminKey = RandomUtils.createRandomKey();
 		this.voteId = RandomUtils.createRandomKey();
@@ -31,6 +34,31 @@ public class Vote {
 		this.isPrivate = isClosed;
 		this.minEndorsements = minEndorsements;
 		this.creationTime = Instant.now().getEpochSecond();
+
+	}
+
+	public static void checkVoteName(String voteName) throws Exception{
+
+
+		if (voteName.length() < 3) {
+			Exception e = new Exception("Vote name is too short!");
+
+			throw e;
+		}
+
+		if (voteName.length() > 255) {
+			Exception e = new Exception("Vote name is too long!");
+
+			throw e;
+		}
+
+		if (!voteName.matches("(\\d|\\w)+")) {
+			//[^\W\d_] or [a-zA-Z].
+
+			Exception e = new Exception("Wrong characters in the vote name!");
+
+			throw e;
+		}
 
 	}
 

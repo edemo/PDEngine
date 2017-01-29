@@ -1,5 +1,6 @@
 package org.rulez.demokracia.PDEngine;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.Map;
 import org.rulez.demokracia.PDEngine.DataObjects.Vote;
 import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
 
-public class VoteRegistry {
+public class VoteRegistry  {
 	private static Map<String, Vote> votes = new HashMap<String, Vote>();
 
 	public static VoteAdminInfo create(
@@ -15,7 +16,10 @@ public class VoteRegistry {
 			List<String> neededAssurances,
 			List<String> countedAssurances,
 			boolean isClosed,
-			int minEndorsements) {
+			int minEndorsements) throws  Exception {
+
+
+
 		VoteAdminInfo admininfo = new VoteAdminInfo();
 		Vote vote = new Vote(voteName, neededAssurances, countedAssurances, isClosed, minEndorsements);
 		admininfo.adminKey=vote.adminKey;

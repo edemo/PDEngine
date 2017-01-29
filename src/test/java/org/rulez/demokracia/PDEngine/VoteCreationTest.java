@@ -28,7 +28,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 	
 	@Test
-	public void neededAssurances_contains_the_assurances_of_the_input() {
+	public void neededAssurances_contains_the_assurances_of_the_input() throws Exception {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = true;
@@ -44,7 +44,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 	
 	@Test
-	public void countedAssurances_contains_the_assurances_of_the_input() {
+	public void countedAssurances_contains_the_assurances_of_the_input() throws Exception {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = true;
@@ -60,7 +60,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void isPrivate_is_the_same_what_is_given_in_create() {
+	public void isPrivate_is_the_same_what_is_given_in_create() throws Exception {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = false;
@@ -76,7 +76,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void create_creates_a_vote_with_creationTime() {
+	public void create_creates_a_vote_with_creationTime() throws Exception {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = false;
@@ -95,7 +95,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void minEndorsements_is_the_same_what_is_given_in_create() {
+	public void minEndorsements_is_the_same_what_is_given_in_create() throws Exception {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = false;
@@ -109,5 +109,124 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertNotNull(adminInfo.adminKey);
 		assertEquals(VoteRegistry.getByKey(adminInfo.adminKey).adminKey, adminInfo.adminKey);
 	}
+
+
+
+	@Test
+	public void votename_contains_wrong_characters_input1() {
+		List<String> neededAssurances = new ArrayList<String>();
+		List<String> countedAssurances= new ArrayList<String>();
+		boolean isPrivate = true;
+		int minEndorsements = 0;
+		neededAssurances.add("magyar");
+		String wrongVotename = "This contains space";
+
+		try {
+			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+			fail();
+		} catch (Exception e) {
+			// expected
+			assertEquals(e.getMessage(),"Wrong characters in the vote name!");
+		}
+
+	}
+
+	@Test
+	public void votename_contains_wrong_characters_input2() {
+		List<String> neededAssurances = new ArrayList<String>();
+		List<String> countedAssurances= new ArrayList<String>();
+		boolean isPrivate = true;
+		int minEndorsements = 0;
+		neededAssurances.add("magyar");
+		String wrongVotename = "thiscontainstab\\\t";
+
+		try {
+			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+			fail();
+		} catch (Exception e) {
+			// expected
+			assertEquals(e.getMessage(),"Wrong characters in the vote name!");
+		}
+
+	}
+
+	@Test
+	public void votename_to_long_sring_input() {
+		List<String> neededAssurances = new ArrayList<String>();
+		List<String> countedAssurances= new ArrayList<String>();
+		boolean isPrivate = true;
+		int minEndorsements = 0;
+		neededAssurances.add("magyar");
+		String wrongVotename = "thisIsTooLongqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweeqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweweqweqw";
+
+		try {
+			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+			fail();
+		} catch (Exception e) {
+			// expected
+			assertEquals(e.getMessage(),"Vote name is too long!");
+		}
+
+	}
+
+	@Test
+	public void votename_to_short_sring_input() {
+		List<String> neededAssurances = new ArrayList<String>();
+		List<String> countedAssurances= new ArrayList<String>();
+		boolean isPrivate = true;
+		int minEndorsements = 0;
+		neededAssurances.add("magyar");
+		String wrongVotename = "a";
+
+		try {
+			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+			fail();
+		} catch (Exception e) {
+			// expected
+			assertEquals(e.getMessage(),"Vote name is too short!");
+		}
+
+	}
+
+	@Test
+	public void neededAssurances_to_long_sring_input() {
+		List<String> neededAssurances = new ArrayList<String>();
+		List<String> countedAssurances= new ArrayList<String>();
+		boolean isPrivate = true;
+		int minEndorsements = 0;
+		neededAssurances.add("thisIsTooLongqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweeqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweweqweqw");
+		String Votename = "magyar";
+
+		try {
+			VoteAdminInfo secondVote = VoteRegistry.create(Votename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+			fail();
+		} catch (Exception e) {
+			// expected
+			assertEquals(e.getMessage(),"neededAssurance is too long!");
+		}
+
+	}
+
+	@Test
+	public void countedAssurances_to_long_sring_input() {
+		List<String> neededAssurances = new ArrayList<String>();
+		List<String> countedAssurances= new ArrayList<String>();
+		boolean isPrivate = true;
+		int minEndorsements = 0;
+		countedAssurances.add("thisIsTooLongqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweeqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweweqweqw");
+		String Votename = "magyar";
+
+		try {
+			VoteAdminInfo secondVote = VoteRegistry.create(Votename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+			fail();
+		} catch (Exception e) {
+			// expected
+			assertEquals(e.getMessage(),"countedAssurances is too long!");
+		}
+
+	}
+
+
+
 
 }
