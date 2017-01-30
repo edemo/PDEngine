@@ -28,7 +28,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 	
 	@Test
-	public void neededAssurances_contains_the_assurances_of_the_input() throws Exception {
+	public void neededAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = true;
@@ -44,7 +44,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 	
 	@Test
-	public void countedAssurances_contains_the_assurances_of_the_input() throws Exception {
+	public void countedAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = true;
@@ -60,7 +60,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void isPrivate_is_the_same_what_is_given_in_create() throws Exception {
+	public void isPrivate_is_the_same_what_is_given_in_create() throws ReportedException {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = false;
@@ -76,7 +76,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void create_creates_a_vote_with_creationTime() throws Exception {
+	public void create_creates_a_vote_with_creationTime() throws ReportedException {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = false;
@@ -95,7 +95,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void minEndorsements_is_the_same_what_is_given_in_create() throws Exception {
+	public void minEndorsements_is_the_same_what_is_given_in_create() throws ReportedException {
 		List<String> neededAssurances = new ArrayList<String>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = false;
@@ -124,7 +124,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		try {
 			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
 			fail();
-		} catch (Exception e) {
+		} catch (ReportedException e) {
 			// expected
 			assertEquals(e.getMessage(),"Wrong characters in the vote name!");
 		}
@@ -143,7 +143,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		try {
 			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
 			fail();
-		} catch (Exception e) {
+		} catch (ReportedException e) {
 			// expected
 			assertEquals(e.getMessage(),"Wrong characters in the vote name!");
 		}
@@ -162,7 +162,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		try {
 			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
 			fail();
-		} catch (Exception e) {
+		} catch (ReportedException e) {
 			// expected
 			assertEquals(e.getMessage(),"Vote name is too long!");
 		}
@@ -181,10 +181,25 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		try {
 			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
 			fail();
-		} catch (Exception e) {
+		} catch (ReportedException e) {
 			// expected
 			assertEquals(e.getMessage(),"Vote name is too short!");
 		}
+
+	}
+
+	@Test
+	public void votename_local_character_input() throws ReportedException {
+		List<String> neededAssurances = new ArrayList<String>();
+		List<String> countedAssurances= new ArrayList<String>();
+		boolean isPrivate = true;
+		int minEndorsements = 0;
+		neededAssurances.add("magyar");
+		String localVotename = "ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ";
+
+		VoteAdminInfo secondVote = VoteRegistry.create(localVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+
+		assertEquals(VoteRegistry.getByKey(secondVote.adminKey).name, localVotename);
 
 	}
 
@@ -200,7 +215,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		try {
 			VoteAdminInfo secondVote = VoteRegistry.create(Votename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
 			fail();
-		} catch (Exception e) {
+		} catch (ReportedException e) {
 			// expected
 			assertEquals(e.getMessage(),"neededAssurance is too long!");
 		}
@@ -219,7 +234,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		try {
 			VoteAdminInfo secondVote = VoteRegistry.create(Votename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
 			fail();
-		} catch (Exception e) {
+		} catch (ReportedException e) {
 			// expected
 			assertEquals(e.getMessage(),"countedAssurances is too long!");
 		}

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.rulez.demokracia.PDEngine.RandomUtils;
+import org.rulez.demokracia.PDEngine.ReportedException;
 
 public class Vote {
 
@@ -22,9 +23,8 @@ public class Vote {
 	public boolean canVote;
 	public boolean canView;
 
-	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements) throws Exception {
+	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements)  {
 
-		checkVoteName(voteName);
 
 		name = voteName;
 		this.adminKey = RandomUtils.createRandomKey();
@@ -37,29 +37,6 @@ public class Vote {
 
 	}
 
-	public static void checkVoteName(String voteName) throws Exception{
 
-
-		if (voteName.length() < 3) {
-			Exception e = new Exception("Vote name is too short!");
-
-			throw e;
-		}
-
-		if (voteName.length() > 255) {
-			Exception e = new Exception("Vote name is too long!");
-
-			throw e;
-		}
-
-		if (!voteName.matches("(\\d|\\w)+")) {
-			//[^\W\d_] or [a-zA-Z].
-
-			Exception e = new Exception("Wrong characters in the vote name!");
-
-			throw e;
-		}
-
-	}
 
 }
