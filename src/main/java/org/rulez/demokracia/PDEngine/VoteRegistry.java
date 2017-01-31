@@ -48,8 +48,9 @@ public class VoteRegistry  {
         }
 
         if (!voteName.matches("(\\d|\\w)+")) {
+            //(\d|\w)+
             //[^\W\d_] or [a-zA-Z].
-
+            //        /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s/g
             ReportedException e = new ReportedException("Wrong characters in the vote name!");
 
             throw e;
