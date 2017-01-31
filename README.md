@@ -66,7 +66,7 @@ When you code, please keep these in mind:
   - if the other test tests something unrelated (e.g. you implement validation, and the other test breaks the validation
    rules in the setup part), then the best way is to fix the setup.
   - if it is the same functionality than your test (e.g. the specification has actually changed, or the architect was sloppy
-    and have given conflicting rules), then modify the assertions or delete the name of the test. At your discretion.
+    and have given conflicting rules), then modify the assertions or delete the the test. At your discretion.
    The related rule of thumb: a test is useful if it enhances the test coverage. In some cases testing the exact same thing
    in the code tests totally unrelated aspects of the specification. Remember: test case names are sentences of the documentation.
    If none of the above stands, the test is just hindering us. If only the second stands, sometimes it is still better to delete the test.
