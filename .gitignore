@@ -1,3 +1,9 @@
+<<<<<<< Updated upstream
 ./.idea/
 *.iml
 ./target/
+=======
+/.idea
+*.iml
+/target
+>>>>>>> Stashed changes
