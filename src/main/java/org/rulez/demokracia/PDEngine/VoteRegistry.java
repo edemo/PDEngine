@@ -1,12 +1,15 @@
 package org.rulez.demokracia.PDEngine;
 
-import java.io.IOException;
+import org.rulez.demokracia.PDEngine.DataObjects.Vote;
+import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-import org.rulez.demokracia.PDEngine.DataObjects.Vote;
-import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
+
 
 public class VoteRegistry  {
 	private static Map<String, Vote> votes = new HashMap<String, Vote>();
@@ -34,6 +37,9 @@ public class VoteRegistry  {
 
     public static void checkVoteName(String voteName) throws ReportedException {
 
+		Pattern p = Pattern.compile("(\\d|\\w)+", Pattern.UNICODE_CHARACTER_CLASS);
+
+        Matcher m = p.matcher(voteName);
 
         if (voteName.length() < 3) {
             ReportedException e = new ReportedException("Vote name is too short!");
@@ -47,10 +53,8 @@ public class VoteRegistry  {
             throw e;
         }
 
-        if (!voteName.matches("(\\d|\\w)+")) {
+        if (!m.matches()) {
             //(\d|\w)+
-            //[^\W\d_] or [a-zA-Z].
-            //        /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s/g
             ReportedException e = new ReportedException("Wrong characters in the vote name!");
 
             throw e;
