@@ -3,17 +3,12 @@ package org.rulez.demokracia.PDEngine;
 import org.rulez.demokracia.PDEngine.DataObjects.Vote;
 import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+import java.util.*;
 import java.util.regex.Matcher;
-
-import org.rulez.demokracia.PDEngine.DataObjects.Vote;
-import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
+import java.util.regex.Pattern;
 
 public class VoteRegistry  {
-	private static Map<String, Vote> votes = new HashMap<String, Vote>();
+	private static Map<String, Vote> votes = new HashMap<>();
 
 	public static VoteAdminInfo create(
 			String voteName,
@@ -38,28 +33,18 @@ public class VoteRegistry  {
 
     public static void checkVoteName(String voteName) throws ReportedException {
 
-		Pattern p = Pattern.compile("(\\d|\\w)+", Pattern.UNICODE_CHARACTER_CLASS);
 
-        Matcher m = p.matcher(voteName);
 		Integer checkValue = checkString(voteName);
 
 		if (checkValue == 1) {
-			ReportedException e = new ReportedException("Vote name is too short!");
-			throw e;
+            throw new ReportedException("Vote name is too short!");
 		} else if (checkValue == 2) {
-			ReportedException e = new ReportedException("Vote name is too long!");
-			throw e;
+            throw new ReportedException("Vote name is too long!");
 		} else if (checkValue == 3) {
-			ReportedException e = new ReportedException("Wrong characters in the vote name!");
-			throw e;
+            throw new ReportedException("Wrong characters in the vote name!");
 		}
 
-        if (!m.matches()) {
-            //(\d|\w)+
-            ReportedException e = new ReportedException("Wrong characters in the vote name!");
 
-            throw e;
-        }
     }
 
     public static void checkNeededAssurances (List<String> assurance) throws ReportedException {
@@ -67,25 +52,22 @@ public class VoteRegistry  {
 		Integer checkValue = checkAssurances(assurance);
 
 		if (checkValue == 1) {
-			ReportedException e = new ReportedException("neededAssurance is too short!");
-			throw e;
+            throw new ReportedException("neededAssurance is too short!");
 		} else if (checkValue == 2) {
-			ReportedException e = new ReportedException("neededAssurance is too long!");
-			throw e;
+            throw new ReportedException("neededAssurance is too long!");
 		} else if (checkValue == 3) {
-			ReportedException e = new ReportedException("Wrong characters in the vote name!");
-			throw e;
+            throw new ReportedException("Wrong characters in the vote name!");
         } else if (checkValue == 4) {
-            ReportedException e = new ReportedException("neededAssurance contains duplicated values!");
-            throw e;
+            throw new ReportedException("neededAssurance contains duplicated values!");
         }
 	}
 
 	private static Integer checkAssurances(List<String> list) throws ReportedException{
 
 		//Set<T> duplicates = new LinkedHashSet<T>();
-		Set<String> uniques = new HashSet<String>();
-		Integer ret =0;
+
+		Set<String> uniques = new HashSet<>();
+		Integer ret;
 
 		for (String temp : list) {
 
@@ -110,6 +92,10 @@ public class VoteRegistry  {
 		//2 too long
 		//3 contains wroeng cahracter
 
+		Pattern p = Pattern.compile("(\\d|\\w)+", Pattern.UNICODE_CHARACTER_CLASS);
+
+		Matcher m = p.matcher(inputString);
+
 		if (inputString.length() < 3) {
 			return 1;
 		}
@@ -118,10 +104,8 @@ public class VoteRegistry  {
 			return 2;
 		}
 
-		if (!inputString.matches("(\\d|\\w)+")) {
+		if (!m.matches()) {
 			//(\d|\w)+
-			//[^\W\d_] or [a-zA-Z].
-			//        /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s/g
 			return 3;
 		}
 
