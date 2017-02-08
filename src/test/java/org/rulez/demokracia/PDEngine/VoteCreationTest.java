@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
@@ -32,7 +33,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	@Test
 	public void neededAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		List<String> neededAssurances = new ArrayList<>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		neededAssurances.add("magyar");
@@ -47,8 +48,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	
 	@Test
 	public void countedAssurances_contains_the_assurances_of_the_input() throws ReportedException {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		countedAssurances.add("magyar");
@@ -63,8 +64,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void isPrivate_is_the_same_what_is_given_in_create() throws ReportedException {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = false;
 		int minEndorsements = 0;
 		VoteAdminInfo secondVote = voteManager.createVote("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
@@ -136,7 +137,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	@Test
 	public void votename_contains_wrong_characters_input2() {
 		List<String> neededAssurances = new ArrayList<>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		neededAssurances.add("magyar");
@@ -177,8 +178,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void votename_to_short_sring_input() {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		neededAssurances.add("magyar");
@@ -196,8 +197,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void votename_local_character_input() throws ReportedException {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		neededAssurances.add("magyar");
@@ -213,8 +214,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void neededAssurances_to_long_sring_input() {
-        List<String> neededAssurances = new ArrayList<String>();
-        List<String> countedAssurances = new ArrayList<String>();
+        List<String> neededAssurances = new ArrayList<>();
+        List<String> countedAssurances = new ArrayList<>();
 
         boolean isPrivate = true;
         int minEndorsements = 0;
@@ -239,8 +240,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
     @Test
     public void neededAssurances_to_short_sring_input() {
-        List<String> neededAssurances = new ArrayList<String>();
-        List<String> countedAssurances= new ArrayList<String>();
+        List<String> neededAssurances = new ArrayList<>();
+        List<String> countedAssurances= new ArrayList<>();
         boolean isPrivate = true;
         int minEndorsements = 0;
         neededAssurances.add("a1");
@@ -296,8 +297,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
     @Test
     public void neededAssurance_local_character_input() throws ReportedException {
-        List<String> neededAssurances = new ArrayList<String>();
-        List<String> countedAssurances= new ArrayList<String>();
+        List<String> neededAssurances = new ArrayList<>();
+        List<String> countedAssurances= new ArrayList<>();
         boolean isPrivate = true;
         int minEndorsements = 0;
         neededAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
@@ -368,8 +369,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 		@Test
 		public void countedAssurances_duplicated_input() {
-			List<String> neededAssurances = new ArrayList<String>();
-			List<String> countedAssurances= new ArrayList<String>();
+			List<String> neededAssurances = new ArrayList<>();
+			List<String> countedAssurances= new ArrayList<>();
 			boolean isPrivate = true;
 			int minEndorsements = 0;
 			countedAssurances.add("thisIsSame");
@@ -389,8 +390,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 		@Test
 		public void neededAssurances_duplicated_input() {
-			List<String> neededAssurances = new ArrayList<String>();
-			List<String> countedAssurances= new ArrayList<String>();
+			List<String> neededAssurances = new ArrayList<>();
+			List<String> countedAssurances= new ArrayList<>();
 			boolean isPrivate = true;
 			int minEndorsements = 0;
 			neededAssurances.add("thisIsSame");
@@ -467,8 +468,8 @@ public void countedAssurance_to_long_sring_input() {
 
 	@Test
 	public void countedAssurance_contains_wrong_characters_input1() {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		countedAssurances.add("This contains space");
@@ -486,8 +487,8 @@ public void countedAssurance_to_long_sring_input() {
 
 	@Test
 	public void countedAssurance_contains_wrong_characters_input2() {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		countedAssurances.add("thiscontainstab\t");
@@ -505,8 +506,8 @@ public void countedAssurance_to_long_sring_input() {
 
 	@Test
 	public void countedAssurance_local_character_input() throws ReportedException {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		countedAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
