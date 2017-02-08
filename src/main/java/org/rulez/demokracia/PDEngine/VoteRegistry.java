@@ -8,9 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VoteRegistry  {
-	private static Map<String, Vote> votes = new HashMap<>();
 
-	public static VoteAdminInfo create(
+	private static Map<String, Vote> votes = new HashMap<>();
+	private enum  ErrorReason {STR_LONG,STR_SHORT,CHAR_NOT_VALID,DUPLICATE_VALUE,READY}
+
+
+    public static VoteAdminInfo create(
 			String voteName,
 			List<String> neededAssurances,
 			List<String> countedAssurances,
@@ -18,6 +21,8 @@ public class VoteRegistry  {
 			int minEndorsements) throws ReportedException {
 
         checkVoteName(voteName);
+        checkNeededAssurances(neededAssurances);
+        checkCountedAssurances(countedAssurances);
 
 		VoteAdminInfo admininfo = new VoteAdminInfo();
 		Vote vote = new Vote (voteName, neededAssurances, countedAssurances, isClosed, minEndorsements);
@@ -34,13 +39,13 @@ public class VoteRegistry  {
     public static void checkVoteName(String voteName) throws ReportedException {
 
 
-		Integer checkValue = checkString(voteName);
+		ErrorReason checkValue = checkString(voteName);
 
-		if (checkValue == 1) {
+		if (checkValue == ErrorReason.STR_SHORT) {
             throw new ReportedException("Vote name is too short!");
-		} else if (checkValue == 2) {
+		} else if (checkValue == ErrorReason.STR_LONG) {
             throw new ReportedException("Vote name is too long!");
-		} else if (checkValue == 3) {
+		} else if (checkValue ==ErrorReason.CHAR_NOT_VALID ) {
             throw new ReportedException("Wrong characters in the vote name!");
 		}
 
@@ -49,67 +54,79 @@ public class VoteRegistry  {
 
     public static void checkNeededAssurances (List<String> assurance) throws ReportedException {
 
-		Integer checkValue = checkAssurances(assurance);
+		ErrorReason checkValue = checkAssurances(assurance);
 
-		if (checkValue == 1) {
+		if (checkValue == ErrorReason.STR_SHORT) {
             throw new ReportedException("neededAssurance is too short!");
-		} else if (checkValue == 2) {
+		} else if (checkValue == ErrorReason.STR_LONG) {
             throw new ReportedException("neededAssurance is too long!");
-		} else if (checkValue == 3) {
-            throw new ReportedException("Wrong characters in the vote name!");
-        } else if (checkValue == 4) {
+		} else if (checkValue == ErrorReason.CHAR_NOT_VALID) {
+            throw new ReportedException("Wrong characters in the neededAssurance!");
+        } else if (checkValue == ErrorReason.DUPLICATE_VALUE) {
             throw new ReportedException("neededAssurance contains duplicated values!");
         }
 	}
 
-	private static Integer checkAssurances(List<String> list) throws ReportedException{
+    public static void checkCountedAssurances (List<String> assurance) throws ReportedException {
+
+        ErrorReason checkValue = checkAssurances(assurance);
+
+        if (checkValue == ErrorReason.STR_SHORT) {
+            throw new ReportedException("countedAssurance is too short!");
+        } else if (checkValue == ErrorReason.STR_LONG) {
+            throw new ReportedException("countedAssurance is too long!");
+        } else if (checkValue == ErrorReason.CHAR_NOT_VALID) {
+            throw new ReportedException("Wrong characters in the countedAssurance!");
+        } else if (checkValue == ErrorReason.DUPLICATE_VALUE) {
+            throw new ReportedException("countedAssurance contains duplicated values!");
+        }
+    }
+
+	private static ErrorReason checkAssurances(List<String> list) throws ReportedException{
 
 		//Set<T> duplicates = new LinkedHashSet<T>();
 
 		Set<String> uniques = new HashSet<>();
-		Integer ret;
+		ErrorReason ret = ErrorReason.READY;
 
 		for (String temp : list) {
 
 			ret = checkString(temp);
 
 			if (!uniques.add(temp)) {
-				ret = 4;
+				ret = ErrorReason.DUPLICATE_VALUE;
 			}
 
-			if (ret != 0){
-				return ret;
+			if (ret != ErrorReason.READY ){
+                return ret;
 			}
-		}
+        }
 
-		return 0;
-
+        return ret;
 	}
 
-	private static Integer checkString (String inputString){
-		// return 0: String ready
-		// return 1 too short
-		//2 too long
-		//3 contains wroeng cahracter
+	private static ErrorReason checkString (String inputString){
+
+
 
 		Pattern p = Pattern.compile("(\\d|\\w)+", Pattern.UNICODE_CHARACTER_CLASS);
 
 		Matcher m = p.matcher(inputString);
 
 		if (inputString.length() < 3) {
-			return 1;
+			return ErrorReason.STR_SHORT;
 		}
 
 		if (inputString.length() > 255) {
-			return 2;
+			return ErrorReason.STR_LONG;
 		}
 
 		if (!m.matches()) {
 			//(\d|\w)+
-			return 3;
+			return ErrorReason.CHAR_NOT_VALID;
 		}
 
-		return 0;
+		return ErrorReason.READY;
 	}
 
 }

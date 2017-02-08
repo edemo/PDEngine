@@ -245,8 +245,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
     @Test
     public void neededAssurances_contains_wrong_characters_input1() {
-        List<String> neededAssurances = new ArrayList<String>();
-        List<String> countedAssurances= new ArrayList<String>();
+        List<String> neededAssurances = new ArrayList<>();
+        List<String> countedAssurances= new ArrayList<>();
         boolean isPrivate = true;
         int minEndorsements = 0;
         neededAssurances.add("This contains space");
@@ -264,8 +264,8 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
     @Test
     public void neededAssurances_contains_wrong_characters_input2() {
-        List<String> neededAssurances = new ArrayList<String>();
-        List<String> countedAssurances= new ArrayList<String>();
+        List<String> neededAssurances = new ArrayList<>();
+        List<String> countedAssurances = new ArrayList<>();
         boolean isPrivate = true;
         int minEndorsements = 0;
         neededAssurances.add("thiscontainstab\t");
@@ -349,7 +349,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 				fail();
 			} catch (ReportedException e) {
 				// expected
-				assertEquals(e.getMessage(),"countedAssurances contains duplicated values!");
+				assertEquals(e.getMessage(),"countedAssurance contains duplicated values!");
 			}
 
 
