@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	
 	@Test
 	public void neededAssurances_contains_the_assurances_of_the_input() throws ReportedException {
-		List<String> neededAssurances = new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
@@ -97,7 +98,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void minEndorsements_is_the_same_what_is_given_in_create() throws ReportedException {
-		List<String> neededAssurances = new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = false;
 		int minEndorsements = 42;
@@ -111,16 +112,16 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertEquals(voteManager.getVote(adminInfo.voteId).adminKey, adminInfo.adminKey);
 	}
 
-// voteName validation tests
-
 	@Test
-	public void votename_contains_wrong_characters_input1()  {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
+	public void votename_contains_wrong_characters_input1() throws ReportedException {
+		List<String> neededAssurances = new ArrayList<>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		neededAssurances.add("magyar");
 		String wrongVotename = "This contains spaces";
+
+		// VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances,countedAssurances,isPrivate,minEndorsements);
 
 		try {
 			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
@@ -134,7 +135,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void votename_contains_wrong_characters_input2() {
-		List<String> neededAssurances = new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
@@ -153,12 +154,16 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void votename_to_long_sring_input() {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
+		List<String> neededAssurances = new ArrayList<>();
+		List<String> countedAssurances= new ArrayList<>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
+		int length = 256;
+		char[] charArray = new char[length];
+		Arrays.fill(charArray, 'w');
+		String str256 = new String(charArray);
 		neededAssurances.add("magyar");
-		String wrongVotename = "thisIsTooLongqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweeqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweweqweqw";
+ 		String wrongVotename = str256;
 
 		try {
 			VoteAdminInfo secondVote = VoteRegistry.create(wrongVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
@@ -208,12 +213,19 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void neededAssurances_to_long_sring_input() {
-		List<String> neededAssurances = new ArrayList<String>();
-		List<String> countedAssurances= new ArrayList<String>();
-		boolean isPrivate = true;
-		int minEndorsements = 0;
-		neededAssurances.add("thisIsTooLongqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweeqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweqweqweqweqweqweqweqweqweqweqweqweqweqwqweqweweqweqw");
-		String Votename = "magyar";
+        List<String> neededAssurances = new ArrayList<String>();
+        List<String> countedAssurances = new ArrayList<String>();
+
+        boolean isPrivate = true;
+        int minEndorsements = 0;
+        int length = 256;
+
+        char[] charArray = new char[length];
+        Arrays.fill(charArray, 'w');
+        String str256 = new String(charArray);
+
+        neededAssurances.add(str256);
+        String Votename = "magyar";
 
 		try {
 			VoteAdminInfo secondVote = VoteRegistry.create(Votename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
@@ -436,7 +448,11 @@ public void countedAssurance_to_long_sring_input() {
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = true;
 		int minEndorsements = 0;
-		countedAssurances.add("a1");
+        int length = 256;
+        char[] charArray = new char[length];
+        Arrays.fill(charArray, 'w');
+        String str256 = new String(charArray);
+		countedAssurances.add(str256);
 		String Votename = "magyar";
 
 		try {
