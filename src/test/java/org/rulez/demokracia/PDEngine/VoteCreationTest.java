@@ -225,6 +225,80 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	}
 
+    @Test
+    public void neededAssurances_to_short_sring_input() {
+        List<String> neededAssurances = new ArrayList<String>();
+        List<String> countedAssurances= new ArrayList<String>();
+        boolean isPrivate = true;
+        int minEndorsements = 0;
+        neededAssurances.add("a1");
+        String Votename = "magyar";
+
+        try {
+            VoteAdminInfo secondVote = VoteRegistry.create(Votename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+            fail();
+        } catch (ReportedException e) {
+            // expected
+            assertEquals(e.getMessage(),"neededAssurance is too short!");
+        }
+
+    }
+
+    @Test
+    public void neededAssurances_contains_wrong_characters_input1() {
+        List<String> neededAssurances = new ArrayList<>();
+        List<String> countedAssurances= new ArrayList<>();
+        boolean isPrivate = true;
+        int minEndorsements = 0;
+        neededAssurances.add("This contains space");
+        String voteName = "magyar";
+
+        try {
+            VoteAdminInfo secondVote = VoteRegistry.create(voteName,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+            fail();
+        } catch (ReportedException e) {
+            // expected
+            assertEquals(e.getMessage(),"Wrong characters in the neededAssurance!");
+        }
+
+    }
+
+    @Test
+    public void neededAssurances_contains_wrong_characters_input2() {
+        List<String> neededAssurances = new ArrayList<>();
+        List<String> countedAssurances = new ArrayList<>();
+        boolean isPrivate = true;
+        int minEndorsements = 0;
+        neededAssurances.add("thiscontainstab\t");
+        String vooteName = "magyar";
+
+        try {
+            VoteAdminInfo secondVote = VoteRegistry.create(vooteName,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+            fail();
+        } catch (ReportedException e) {
+            // expected
+            assertEquals(e.getMessage(),"Wrong characters in the neededAssurance!");
+        }
+
+    }
+
+    @Test
+    public void neededAssurance_local_character_input() throws ReportedException {
+        List<String> neededAssurances = new ArrayList<String>();
+        List<String> countedAssurances= new ArrayList<String>();
+        boolean isPrivate = true;
+        int minEndorsements = 0;
+        neededAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
+        String localVotename = "magyar";
+
+        VoteAdminInfo secondVote = VoteRegistry.create(localVotename,neededAssurances, countedAssurances, isPrivate, minEndorsements );
+
+        assertEquals(VoteRegistry.getByKey(secondVote.adminKey).name, localVotename);
+
+    }
+
+
+    //countedAssurances validation tests
 	@Test
 	public void neededAssurances_to_short_sring_input() {
 		List<String> neededAssurances = new ArrayList<String>();
@@ -239,7 +313,6 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			fail();
 		} catch (ReportedException e) {
 			// expected
-<<<<<<< b729debc7c946d0603eaefe5f638247337fbe029
 			assertEquals(e.getMessage(),"neededAssurance is too short!");
 		}
 
@@ -296,7 +369,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 				fail();
 			} catch (ReportedException e) {
 				// expected
-				assertEquals(e.getMessage(),"countedAssurances contains duplicated values!");
+				assertEquals(e.getMessage(),"countedAssurance contains duplicated values!");
 			}
 
 
