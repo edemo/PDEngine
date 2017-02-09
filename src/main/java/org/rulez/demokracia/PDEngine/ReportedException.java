@@ -1,10 +1,10 @@
 package org.rulez.demokracia.PDEngine;
 
-/**
- * Created by krisz on 2017. 01. 30..
- */
 public class ReportedException extends Exception {
-    public ReportedException () {
+
+	private static final long serialVersionUID = 3322550743512295289L;
+
+	public ReportedException () {
 
     }
 

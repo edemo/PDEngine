@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.rulez.demokracia.PDEngine.RandomUtils;
-import org.rulez.demokracia.PDEngine.ReportedException;
 
 public class Vote {
 
