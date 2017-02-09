@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.rulez.demokracia.PDEngine.RandomUtils;
+import org.rulez.demokracia.PDEngine.ReportedException;
 
 public class Vote {
 
@@ -22,7 +23,9 @@ public class Vote {
 	public boolean canVote;
 	public boolean canView;
 
-	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements) {
+	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements)  {
+
+
 		name = voteName;
 		this.adminKey = RandomUtils.createRandomKey();
 		this.voteId = RandomUtils.createRandomKey();
@@ -33,5 +36,7 @@ public class Vote {
 		this.creationTime = Instant.now().getEpochSecond();
 
 	}
+
+
 
 }
