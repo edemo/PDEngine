@@ -26,7 +26,7 @@ javadoc:
 include /usr/share/zenta-tools/model.rules
 
 testenv:
-	docker run --rm -p 5900:5900 -v $$(pwd):/pdengine -w /pdengine -it pdengine
+	docker run --rm -p 5900:5900 -v $$(pwd):/pdengine -w /pdengine -it magwas/pdengine
 
 javabuild: target/PDEngine-0.0.1-SNAPSHOT.jar
 
