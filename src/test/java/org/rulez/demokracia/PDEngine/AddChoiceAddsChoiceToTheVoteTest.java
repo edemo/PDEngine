@@ -20,7 +20,7 @@ public class AddChoiceAddsChoiceToTheVoteTest extends CreatedDefaultChoice{
 	private Choice choice;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		String theChoice = choiceId;
 		choice = getChoice(theChoice);

@@ -14,7 +14,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 
 	private Vote vote;
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		vote = voteManager.getVote(adminInfo.voteId);
 		int minEndorsements = 3;
