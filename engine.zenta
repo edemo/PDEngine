@@ -43,7 +43,7 @@ canView: False; users can view the vote result
             <bounds x="481" y="24" width="-1" height="-1"/>
             <sourceConnection xsi:type="zenta:Connection" id="82094b25-2637-454a-8397-72698b9d70b8" source="956b4318-90e2-426e-8ed0-0a55b80df7de" target="4a9c69dd-cb4e-4b60-8d1d-0193a9683481" relationship="38423ba8-724e-4333-8faf-24dbf7e29c54"/>
           </child>
-          <child xsi:type="zenta:DiagramObject" id="38ce3d05-16da-45b8-8650-4eb171547c10" targetConnections="17e462d6-4972-4b18-a49f-e67535fff63d" zentaElement="52a7518e-0405-44a7-a064-a5bed0a5cee7">
+          <child xsi:type="zenta:DiagramObject" id="38ce3d05-16da-45b8-8650-4eb171547c10" targetConnections="17e462d6-4972-4b18-a49f-e67535fff63d dd76980e-edcb-442e-b072-9fd272714905" zentaElement="52a7518e-0405-44a7-a064-a5bed0a5cee7">
             <bounds x="48" y="204" height="97"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="8135241f-d3b0-4116-b123-2f59489459d1" targetConnections="b60b30dd-3a75-4860-af65-509a7bcbd95e" zentaElement="8df17038-a79c-4a09-8a7d-5c4d736ca126">
@@ -58,7 +58,13 @@ canView: False; users can view the vote result
           <child xsi:type="zenta:DiagramObject" id="4e0f6ad6-e0ed-4a05-8b1b-16be253ba52d" targetConnections="b9cb34c4-1d71-4bb7-9146-7a93ed70568a" zentaElement="248342eb-7583-480e-a2ef-471863169423">
             <bounds x="888" y="204" height="97"/>
           </child>
+          <child xsi:type="zenta:DiagramObject" id="f01c2ae3-ce15-42c3-a9da-3f267b66b669" zentaElement="d5849b0f-c029-4ad6-b827-741105d070ff">
+            <bounds x="73" y="402" width="-1" height="-1"/>
+            <sourceConnection xsi:type="zenta:Connection" id="dd76980e-edcb-442e-b072-9fd272714905" source="f01c2ae3-ce15-42c3-a9da-3f267b66b669" target="38ce3d05-16da-45b8-8650-4eb171547c10" relationship="ff1c46f0-c61e-4979-a88c-0dcf3eb760e4"/>
+          </child>
         </element>
+        <element xsi:type="zenta:BasicObject" name="Votes can be created" id="d5849b0f-c029-4ad6-b827-741105d070ff" ancestor="0020aeda-e1d9-452e-915f-8904978752e7"/>
+        <element xsi:type="zenta:BasicRelationship" id="ff1c46f0-c61e-4979-a88c-0dcf3eb760e4" ancestor="cdd381e4-8bfa-48e4-8033-580a265b471d" source="d5849b0f-c029-4ad6-b827-741105d070ff" target="52a7518e-0405-44a7-a064-a5bed0a5cee7"/>
       </folder>
       <folder name="02. Modify Vote" id="235e8e34-691d-4c58-aa96-8aa1e94bc1f4">
         <element xsi:type="zenta:BasicObject" name="modify vote" id="5c3beb4c-34cf-4557-8a5c-71a594f65ed0" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
@@ -779,6 +785,8 @@ https://bensmyth.com/files/Smyth10-definition-verifiability.LNCS.pdf</documentat
           <property key="fontColor"/>
           <property key="lineWidth" value="1"/>
           <property key="font"/>
+          <property key="minOccurs" value="1/1"/>
+          <property key="maxOccurs" value="-1/-1"/>
         </element>
         <element xsi:type="zenta:BasicRelationship" name="does/is done by" id="e85cd8d3-b087-4b67-b309-0b52fd48e4af" ancestor="basicrelation" source="460b77b0-9540-480a-86b1-00541ccb1fd5" target="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
           <property key="textPosition" value="1"/>
@@ -787,6 +795,8 @@ https://bensmyth.com/files/Smyth10-definition-verifiability.LNCS.pdf</documentat
           <property key="fontColor"/>
           <property key="lineWidth" value="1"/>
           <property key="font"/>
+          <property key="minOccurs" value="1/1"/>
+          <property key="maxOccurs" value="-1/-1"/>
         </element>
         <element xsi:type="zenta:BasicRelationship" name="drives/is driven by" id="978a5460-d67f-4285-8e07-0e1d42474c24" ancestor="basicrelation" source="bc97da5a-1b8c-41de-bdd5-0435ee6c0b3e" target="609d825a-d39d-4827-910e-6cfdcf1f367d">
           <property key="textPosition" value="1"/>
@@ -795,6 +805,8 @@ https://bensmyth.com/files/Smyth10-definition-verifiability.LNCS.pdf</documentat
           <property key="fontColor"/>
           <property key="lineWidth" value="1"/>
           <property key="font"/>
+          <property key="minOccurs" value="1/1"/>
+          <property key="maxOccurs" value="-1/-1"/>
         </element>
         <element xsi:type="zenta:BasicObject" name="Environment element" id="bc97da5a-1b8c-41de-bdd5-0435ee6c0b3e" ancestor="3b66ac12-29e3-4e37-b2cc-d1f77136e74e">
           <property key="fillColor"/>
@@ -824,6 +836,8 @@ https://bensmyth.com/files/Smyth10-definition-verifiability.LNCS.pdf</documentat
           <property key="fontColor"/>
           <property key="lineWidth" value="1"/>
           <property key="font"/>
+          <property key="minOccurs" value="1/1"/>
+          <property key="maxOccurs" value="-1/-1"/>
         </element>
         <element xsi:type="zenta:BasicRelationship" name="is met by/meets" id="ab59542e-fb10-40b2-a08e-67b3eecbb903" ancestor="basicrelation" source="609d825a-d39d-4827-910e-6cfdcf1f367d" target="0020aeda-e1d9-452e-915f-8904978752e7">
           <property key="textPosition" value="1"/>
@@ -832,6 +846,8 @@ https://bensmyth.com/files/Smyth10-definition-verifiability.LNCS.pdf</documentat
           <property key="fontColor"/>
           <property key="lineWidth" value="1"/>
           <property key="font"/>
+          <property key="minOccurs" value="-1/-1"/>
+          <property key="maxOccurs" value="-1/-1"/>
         </element>
         <element xsi:type="zenta:ZentaDiagramModel" name="Meta" id="81bd610c-d788-4ff5-901d-69d3cafe1072" connectionRouterType="1">
           <child xsi:type="zenta:DiagramObject" id="80602789-85b2-4c05-8f69-66f2fa57d1d1" zentaElement="3b66ac12-29e3-4e37-b2cc-d1f77136e74e">
@@ -944,6 +960,8 @@ https://bensmyth.com/files/Smyth10-definition-verifiability.LNCS.pdf</documentat
           <property key="fontColor"/>
           <property key="lineWidth" value="1"/>
           <property key="font"/>
+          <property key="minOccurs" value="1/1"/>
+          <property key="maxOccurs" value="-1/-1"/>
         </element>
       </folder>
       <folder name="Application level" id="9d307339-d00f-43a2-ba2c-9caa42ad1af9">
@@ -968,8 +986,14 @@ https://bensmyth.com/files/Smyth10-definition-verifiability.LNCS.pdf</documentat
           <property key="fontColor"/>
           <property key="font"/>
         </element>
-        <element xsi:type="zenta:BasicRelationship" name="provides" id="c4317a5a-892f-491a-931d-06eb8532d839" ancestor="basicrelation" source="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73" target="460b77b0-9540-480a-86b1-00541ccb1fd5"/>
-        <element xsi:type="zenta:BasicRelationship" name="contains" id="7fa602c6-058b-4b6c-bb0b-335aeb08e3e2" ancestor="basicrelation" source="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73" target="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73"/>
+        <element xsi:type="zenta:BasicRelationship" name="provides" id="c4317a5a-892f-491a-931d-06eb8532d839" ancestor="basicrelation" source="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73" target="460b77b0-9540-480a-86b1-00541ccb1fd5">
+          <property key="minOccurs" value="1/1"/>
+          <property key="maxOccurs" value="-1/1"/>
+        </element>
+        <element xsi:type="zenta:BasicRelationship" name="contains" id="7fa602c6-058b-4b6c-bb0b-335aeb08e3e2" ancestor="basicrelation" source="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73" target="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73">
+          <property key="minOccurs" value="-1/-1"/>
+          <property key="maxOccurs" value="-1/1"/>
+        </element>
       </folder>
     </folder>
     <element xsi:type="zenta:ZentaDiagramModel" name="All behaviours" id="b2d3b11d-b8e2-4db5-8c3f-d8ff61df9822">
@@ -1227,7 +1251,10 @@ https://bensmyth.com/files/Smyth10-definition-verifiability.LNCS.pdf</documentat
     <element xsi:type="zenta:BasicRelationship" id="d608a7df-10ea-4e19-8b49-3ba7b89479b4" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="5c0244e2-2097-4b3b-abed-9dbefdcd45ac" target="3b2e88d7-580d-45c6-b182-e17b97b18bdb"/>
     <element xsi:type="zenta:BasicRelationship" id="9c5b44cc-000f-4a8f-88e5-33aad2a76fa4" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="3b2e88d7-580d-45c6-b182-e17b97b18bdb" target="0675b859-df4c-4176-b2b5-dba307bdaa8f"/>
     <element xsi:type="zenta:BasicObject" name="Basic Object" id="basicobject"/>
-    <element xsi:type="zenta:BasicRelationship" name="Basic Relation" id="basicrelation" source="basicobject" target="basicobject"/>
+    <element xsi:type="zenta:BasicRelationship" name="Basic Relation" id="basicrelation" source="basicobject" target="basicobject">
+      <property key="minOccurs" value="-1/-1"/>
+      <property key="maxOccurs" value="-1/-1"/>
+    </element>
     <element xsi:type="zenta:BasicRelationship" id="51a708f0-1986-4cde-ae4c-a887a3ae1872" ancestor="978a5460-d67f-4285-8e07-0e1d42474c24" source="2b9da490-43b2-48d1-82b2-7e559fb217c9" target="e51e4b6b-ed88-450c-bb78-93c35e91b4c2"/>
     <element xsi:type="zenta:BasicRelationship" id="037008b0-8b8b-4d08-8a60-b637385aa439" ancestor="978a5460-d67f-4285-8e07-0e1d42474c24" source="dc23a645-38b7-4552-8035-31b1be8021cc" target="2911210d-6d2c-4335-bfe4-af59116c639f"/>
     <element xsi:type="zenta:BasicRelationship" id="b6aa7c10-c6ed-427a-b88e-292a074ac6f5" ancestor="978a5460-d67f-4285-8e07-0e1d42474c24" source="dc23a645-38b7-4552-8035-31b1be8021cc" target="cc89ff05-0653-4b1f-896a-d9344fbabf6e"/>
