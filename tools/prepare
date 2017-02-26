@@ -3,3 +3,9 @@ Xvnc4 -SecurityTypes none :0 &
 apt-get update
 apt-get -y install zenta-tools
 wget http://search.maven.org/remotecontent?filepath=com/github/markusbernhardt/xml-doclet/1.0.5/xml-doclet-1.0.5-jar-with-dependencies.jar -O /usr/local/lib/xml-doclet.jar
+#!!!do not do it on a production system!!!
+#run haveged instead
+rm /dev/random
+cp -a /dev/urandom /dev/random
+#end of workaround for low entropy level
+
