@@ -24,7 +24,7 @@ public class RandomUtilsTest {
 				if (source != dest) {
 					assertNotEquals(randoms.get(source), randoms.get(dest));
 				}
-			}			
+			}
 		}
 	}
 
