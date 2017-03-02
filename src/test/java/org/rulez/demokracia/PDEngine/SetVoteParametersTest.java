@@ -8,6 +8,7 @@ import org.rulez.demokracia.PDEngine.DataObjects.Vote;
 import org.rulez.demokracia.PDEngine.annotations.tested_behaviour;
 import org.rulez.demokracia.PDEngine.annotations.tested_feature;
 import org.rulez.demokracia.PDEngine.annotations.tested_operation;
+import org.rulez.demokracia.PDEngine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 

@@ -81,4 +81,8 @@ public class Vote {
 		return canView;
 	}
 
+	public void endorseChoice(String adminKey2, String choiceId, String userName) {
+		this.getChoice(choiceId).endorsers.add(userName);
+	}
+
 }

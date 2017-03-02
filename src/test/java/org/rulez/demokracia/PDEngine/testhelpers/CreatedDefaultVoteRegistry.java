@@ -1,15 +1,16 @@
-package org.rulez.demokracia.PDEngine;
+package org.rulez.demokracia.PDEngine.testhelpers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.rulez.demokracia.PDEngine.VoteRegistry;
 import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
 
 public class CreatedDefaultVoteRegistry {
 
-	VoteAdminInfo adminInfo;
-	String voteName = "VoteInitialValuesTest";
+	public VoteAdminInfo adminInfo;
+	public String voteName = "VoteInitialValuesTest";
 
 	@Before
 	public void setUp() {

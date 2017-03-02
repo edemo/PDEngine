@@ -7,23 +7,19 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.PDEngine.DataObjects.Vote;
 import org.rulez.demokracia.PDEngine.annotations.tested_behaviour;
 import org.rulez.demokracia.PDEngine.annotations.tested_feature;
 import org.rulez.demokracia.PDEngine.annotations.tested_operation;
+import org.rulez.demokracia.PDEngine.testhelpers.CreatedDefaultChoice;
 
 @tested_feature("Manage votes")
 @tested_operation("Add choice")
-public class AddChoiceAddsChoiceToTheVoteTest extends CreatedDefaultVoteRegistry{
-
-	private Vote vote;
-	private String choiceId;
+public class AddChoiceAddsChoiceToTheVoteTest extends CreatedDefaultChoice{
 
 	@Before
 	public void setUp() {
 		super.setUp();
-		vote = VoteRegistry.getByKey(adminInfo.adminKey);
-		choiceId = vote.addChoice("choice1", "user");
+		addTestChoice();
 	}
 
 	@tested_behaviour("registers the choice with the vote")

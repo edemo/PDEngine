@@ -11,6 +11,7 @@ import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
 import org.rulez.demokracia.PDEngine.annotations.tested_behaviour;
 import org.rulez.demokracia.PDEngine.annotations.tested_feature;
 import org.rulez.demokracia.PDEngine.annotations.tested_operation;
+import org.rulez.demokracia.PDEngine.testhelpers.CreatedDefaultVoteRegistry;
 
 @tested_feature("Manage votes")
 @tested_operation("create vote")
