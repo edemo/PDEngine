@@ -1,11 +1,9 @@
 package org.rulez.demokracia.PDEngine.testhelpers;
 
-import org.rulez.demokracia.PDEngine.VoteRegistry;
-import org.rulez.demokracia.PDEngine.DataObjects.Vote;
+import org.rulez.demokracia.PDEngine.DataObjects.Choice;
 
 public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 
-	protected Vote vote;
 	protected String choiceId;
 
 	public CreatedDefaultChoice() {
@@ -14,12 +12,19 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 
 	public void setUp() {
 		super.setUp();
-		this.addTestChoice();
+		addTestChoice();
 	}
 
 	protected void addTestChoice() {
-		vote = VoteRegistry.getByKey(adminInfo.adminKey);
-		choiceId = vote.addChoice("choice1", "user");
+		choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "user");
+	}
+
+	protected Choice getChoice(String theChoice) {
+		return voteManager.getChoice(adminInfo.voteId, theChoice);
+	}
+
+	protected String addMyChoice() {
+		return voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice2", null);
 	}
 
 }

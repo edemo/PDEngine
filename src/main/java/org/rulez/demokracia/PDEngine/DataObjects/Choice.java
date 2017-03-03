@@ -7,7 +7,7 @@ import org.rulez.demokracia.PDEngine.RandomUtils;
 
 public class Choice {
 	private String name;
-	private String user;
+	private String userName;
 	private String choiceId;
 	public List<String> endorsers;
 
@@ -15,7 +15,7 @@ public class Choice {
 		name = choiceName;
 		choiceId = RandomUtils.createRandomKey();
 		endorsers = new ArrayList<String>();
-		this.user = user;
+		userName = user;
 	}
 
 	public String getId() {
@@ -23,11 +23,15 @@ public class Choice {
 	}
 
 	public Object getUser() {
-		return user;
+		return userName;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public void endorse(String userName) {
+		endorsers.add(userName);
 	}
 
 }

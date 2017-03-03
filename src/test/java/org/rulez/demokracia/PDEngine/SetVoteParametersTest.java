@@ -16,7 +16,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 	@Before
 	public void setUp() {
 		super.setUp();
-		vote = VoteRegistry.getByKey(adminInfo.adminKey);
+		vote = voteManager.getVote(adminInfo.voteId);
 		int minEndorsements = 3;
 		boolean canAddin = true;
 		boolean canEndorse = true;

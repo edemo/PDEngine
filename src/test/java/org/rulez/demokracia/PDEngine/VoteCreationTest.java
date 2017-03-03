@@ -20,12 +20,12 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void create_creates_a_vote_with_the_given_name() {
-		assertEquals(VoteRegistry.getByKey(adminInfo.adminKey).name, voteName);
+		assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_neededAssurances() {
-		assertEquals(VoteRegistry.getByKey(adminInfo.adminKey).neededAssurances.size(), 0);
+		assertEquals(voteManager.getVote(adminInfo.voteId).neededAssurances.size(), 0);
 	}
 	
 	@Test
@@ -35,13 +35,13 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		neededAssurances.add("magyar");
-		VoteAdminInfo secondVote = VoteRegistry.create("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
-		assertEquals(VoteRegistry.getByKey(secondVote.adminKey).neededAssurances.get(0), "magyar");
+		VoteAdminInfo secondVote = voteManager.createVote("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
+		assertEquals(voteManager.getVote(secondVote.voteId).neededAssurances.get(0), "magyar");
 	}
 
 	@Test
 	public void create_creates_a_vote_with_countedAssurances() {
-		assertEquals(VoteRegistry.getByKey(adminInfo.adminKey).countedAssurances.size(), 0);
+		assertEquals(voteManager.getVote(adminInfo.voteId).countedAssurances.size(), 0);
 	}
 	
 	@Test
@@ -51,13 +51,13 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		boolean isPrivate = true;
 		int minEndorsements = 0;
 		countedAssurances.add("magyar");
-		VoteAdminInfo secondVote = VoteRegistry.create("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
-		assertEquals(VoteRegistry.getByKey(secondVote.adminKey).countedAssurances.get(0), "magyar");
+		VoteAdminInfo secondVote = voteManager.createVote("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
+		assertEquals(voteManager.getVote(secondVote.voteId).countedAssurances.get(0), "magyar");
 	}
 	
 	@Test
 	public void create_creates_a_vote_with_isPrivate() {
-		assertEquals(VoteRegistry.getByKey(adminInfo.adminKey).isPrivate, true);
+		assertEquals(voteManager.getVote(adminInfo.voteId).isPrivate, true);
 	}
 
 	@Test
@@ -66,14 +66,14 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = false;
 		int minEndorsements = 0;
-		VoteAdminInfo secondVote = VoteRegistry.create("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
-		assertEquals(VoteRegistry.getByKey(secondVote.adminKey).isPrivate, false);
+		VoteAdminInfo secondVote = voteManager.createVote("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
+		assertEquals(voteManager.getVote(secondVote.voteId).isPrivate, false);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_voteId() {
 		assertNotNull(adminInfo.voteId);
-		assertEquals(VoteRegistry.getByKey(adminInfo.adminKey).voteId, adminInfo.voteId);
+		assertEquals(voteManager.getVote(adminInfo.voteId).voteId, adminInfo.voteId);
 	}
 
 	@Test
@@ -83,16 +83,16 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		boolean isPrivate = false;
 		int minEndorsements = 0;
 		Instant before = Instant.now();
-		VoteAdminInfo secondVote = VoteRegistry.create("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
+		VoteAdminInfo secondVote = voteManager.createVote("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
 		Instant after = Instant.now();
-		long creationTime = VoteRegistry.getByKey(secondVote.adminKey).creationTime;
+		long creationTime = voteManager.getVote(secondVote.voteId).creationTime;
 		assertTrue(creationTime >= before.getEpochSecond());
 		assertTrue(creationTime <= after.getEpochSecond());
 	}
 
 	@Test
 	public void create_creates_a_vote_with_minEndorsements() {
-		assertEquals(VoteRegistry.getByKey(adminInfo.adminKey).minEndorsements, 0);
+		assertEquals(voteManager.getVote(adminInfo.voteId).minEndorsements, 0);
 	}
 
 	@Test
@@ -101,14 +101,14 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		List<String> countedAssurances= new ArrayList<String>();
 		boolean isPrivate = false;
 		int minEndorsements = 42;
-		VoteAdminInfo secondVote = VoteRegistry.create("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
-		assertEquals(VoteRegistry.getByKey(secondVote.adminKey).minEndorsements, 42);
+		VoteAdminInfo secondVote = voteManager.createVote("test2",neededAssurances, countedAssurances, isPrivate, minEndorsements );
+		assertEquals(voteManager.getVote(secondVote.voteId).minEndorsements, 42);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_adminKey() {
-		assertNotNull(adminInfo.adminKey);
-		assertEquals(VoteRegistry.getByKey(adminInfo.adminKey).adminKey, adminInfo.adminKey);
+		assertNotNull(adminInfo.voteId);
+		assertEquals(voteManager.getVote(adminInfo.voteId).adminKey, adminInfo.adminKey);
 	}
 
 }

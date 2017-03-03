@@ -22,11 +22,8 @@ public class EndorseOptionTest extends CreatedDefaultChoice{
 	@tested_behaviour("if adminKey is not user, the userName is registered as endorserName for the choice")
 	@Test
 	public void endorsement_is_registered() {
-		String userName="testuser";
-		String adminKey=this.adminInfo.adminKey;
-		String choiceId = this.choiceId;
-		vote.endorseChoice(adminKey, choiceId, userName);
-		assertTrue(vote.getChoice(choiceId).endorsers.contains(userName));
+		voteManager.endorseChoice(adminInfo.adminKey, adminInfo.voteId, choiceId, "testuser");
+		assertTrue(getChoice(choiceId).endorsers.contains("testuser"));
 	}
 
 }
