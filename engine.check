@@ -7,13 +7,14 @@
       	modelvaluepath="concat(//element[@id=current()/@element]/@name,' ',@name)"
         modelerrorid="$p1/object/error/@errorID"
       	inputfile="engine.rich"
+      	referencemodel="engine.rich"
       	inputbasepath="//nonexistent"
       	inputnamepath=""
       	inputvaluepath=""
         inputerrorid="$p1"
         errorURL="concat('http://adadocs.demokracia.rulez.org/PDEngine/edemo/master/index.html#',$p1)"
-        errortitlestring="zenta:modelErrorTitle($p1,$p2)"
-        errordescription="zenta:modelErrorDescription($p1,$p2)"
+        errortitlestring="zenta:modelErrorTitle($p1,$p4)"
+        errordescription="zenta:modelErrorDescription($p1,$p4)"
       	/>
 <check
 		title="Unimplemented behaviours"
