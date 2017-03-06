@@ -22,7 +22,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 
 	@Before
 	public void setUp() throws ReportedException {
-		voteManager = new VoteRegistry();
+		voteManager = IVoteManager.getVoteManager();
 		neededAssurances = new ArrayList<>();
 		countedAssurances = new ArrayList<>();
 		isPrivate = true;
