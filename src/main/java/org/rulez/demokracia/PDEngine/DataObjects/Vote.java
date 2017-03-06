@@ -27,15 +27,14 @@ public class Vote {
 
 	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements) {
 		name = voteName;
-		this.adminKey = RandomUtils.createRandomKey();
-		this.voteId = RandomUtils.createRandomKey();
+		adminKey = RandomUtils.createRandomKey();
+		voteId = RandomUtils.createRandomKey();
 		this.neededAssurances = new ArrayList<String>(neededAssurances);
 		this.countedAssurances = new ArrayList<String>(countedAssurances);
-		this.isPrivate = isClosed;
+		isPrivate = isClosed;
 		this.minEndorsements = minEndorsements;
-		this.creationTime = Instant.now().getEpochSecond();
-		this.choices = new HashMap<String,Choice>();
-
+		creationTime = Instant.now().getEpochSecond();
+		choices = new HashMap<String,Choice>();
 	}
 
 	public String addChoice(String choiceName, String user) {
@@ -79,6 +78,10 @@ public class Vote {
 
 	public Object getCanView() {
 		return canView;
+	}
+
+	public void endorseChoice(String adminKey2, String choiceId, String userName) {
+		getChoice(choiceId).endorse(userName);
 	}
 
 }
