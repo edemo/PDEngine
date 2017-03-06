@@ -9,6 +9,9 @@ import org.rulez.demokracia.PDEngine.exception.ReportedException;
 
 public interface IVoteManager {
 
+	static IVoteManager getVoteManager() {
+		return VoteManagerRegistry.getVoteManager();
+	}
 	VoteAdminInfo createVote(String voteName, List<String> neededAssurances, List<String> countedAssurances,
 			boolean isPrivate, int minEndorsements) throws ReportedException;
 
