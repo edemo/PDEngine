@@ -8,12 +8,13 @@ import org.junit.Test;
 import org.rulez.demokracia.PDEngine.annotations.tested_behaviour;
 import org.rulez.demokracia.PDEngine.annotations.tested_feature;
 import org.rulez.demokracia.PDEngine.annotations.tested_operation;
+import org.rulez.demokracia.PDEngine.exception.ReportedException;
 import org.rulez.demokracia.PDEngine.testhelpers.CreatedDefaultChoice;
 
 public class EndorseOptionTest extends CreatedDefaultChoice{
 
 	@Before
-	public void setUp() {
+	public void setUp() throws ReportedException {
 		super.setUp();
 	}
 

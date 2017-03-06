@@ -7,25 +7,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+
 import org.rulez.demokracia.PDEngine.RandomUtils;
 
 import org.rulez.demokracia.PDEngine.Persistence.BaseEntity;
 
+@Entity
 public class Vote extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	public String name;
+	@ElementCollection
 	public List<String> neededAssurances;
+	@ElementCollection
 	public List<String> countedAssurances;
 	public boolean isPrivate;
 	public String adminKey;
-	public String voteId;
 	public long creationTime;
 	public int minEndorsements;
 	public boolean canAddin;
 	public boolean canEndorse;
 	public boolean canVote;
 	public boolean canView;
+	@ElementCollection
 	private Map<String,Choice> choices;
 
 	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements)  {
@@ -33,7 +39,7 @@ public class Vote extends BaseEntity {
 
 		name = voteName;
 		adminKey = RandomUtils.createRandomKey();
-		voteId = RandomUtils.createRandomKey();
+		id = RandomUtils.createRandomKey();
 		this.neededAssurances = new ArrayList<String>(neededAssurances);
 		this.countedAssurances = new ArrayList<String>(countedAssurances);
 		isPrivate = isClosed;

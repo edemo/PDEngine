@@ -11,6 +11,7 @@ import org.rulez.demokracia.PDEngine.DataObjects.Choice;
 import org.rulez.demokracia.PDEngine.annotations.tested_behaviour;
 import org.rulez.demokracia.PDEngine.annotations.tested_feature;
 import org.rulez.demokracia.PDEngine.annotations.tested_operation;
+import org.rulez.demokracia.PDEngine.exception.ReportedException;
 import org.rulez.demokracia.PDEngine.testhelpers.CreatedDefaultChoice;
 
 @tested_feature("Manage votes")
@@ -20,7 +21,7 @@ public class AddChoiceAddsChoiceToTheVoteTest extends CreatedDefaultChoice{
 	private Choice choice;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws ReportedException {
 		super.setUp();
 		String theChoice = choiceId;
 		choice = getChoice(theChoice);

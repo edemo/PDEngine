@@ -8,13 +8,14 @@ import org.rulez.demokracia.PDEngine.DataObjects.Vote;
 import org.rulez.demokracia.PDEngine.annotations.tested_behaviour;
 import org.rulez.demokracia.PDEngine.annotations.tested_feature;
 import org.rulez.demokracia.PDEngine.annotations.tested_operation;
+import org.rulez.demokracia.PDEngine.exception.ReportedException;
 import org.rulez.demokracia.PDEngine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 
 	private Vote vote;
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws ReportedException {
 		super.setUp();
 		vote = voteManager.getVote(adminInfo.voteId);
 		int minEndorsements = 3;

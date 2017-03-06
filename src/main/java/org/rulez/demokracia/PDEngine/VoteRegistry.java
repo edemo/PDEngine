@@ -2,17 +2,28 @@ package org.rulez.demokracia.PDEngine;
 
 import org.rulez.demokracia.PDEngine.DataObjects.Vote;
 import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
+import org.rulez.demokracia.PDEngine.Persistence.HibernateUtil;
+import org.rulez.demokracia.PDEngine.exception.DuplicateAssuranceException;
+import org.rulez.demokracia.PDEngine.exception.NotValidCharsException;
+import org.rulez.demokracia.PDEngine.exception.ReportedException;
+import org.rulez.demokracia.PDEngine.exception.TooLongException;
+import org.rulez.demokracia.PDEngine.exception.TooShortException;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
-import java.io.IOException;
+import java.util.regex.Pattern;
 
+import org.hibernate.Session;
 import org.rulez.demokracia.PDEngine.DataObjects.Choice;
-import org.rulez.demokracia.PDEngine.DataObjects.Vote;
-import org.rulez.demokracia.PDEngine.DataObjects.VoteAdminInfo;
 
 public class VoteRegistry implements IVoteManager {
-	private static Map<String, Vote> votes = new HashMap<String, Vote>();
+	private Session session;
 
+	public VoteRegistry() {
+		session = HibernateUtil.getSessionFactory().openSession();
+	}
 	@Override
 	public VoteAdminInfo createVote(
 			String voteName,
@@ -28,14 +39,14 @@ public class VoteRegistry implements IVoteManager {
 		VoteAdminInfo admininfo = new VoteAdminInfo();
 		Vote vote = new Vote (voteName, neededAssurances, countedAssurances, isClosed, minEndorsements);
 		admininfo.adminKey=vote.adminKey;
-		admininfo.voteId= vote.voteId;
-		votes.put(admininfo.voteId, vote);
+		admininfo.voteId= vote.id;
+		session.save(vote);
 		return admininfo;
 	}
 
 	@Override
 	public Vote getVote(String voteId) {
-		return votes.get(voteId);
+		return session.get(Vote.class, voteId);
 	}
 
 	@Override
@@ -54,98 +65,49 @@ public class VoteRegistry implements IVoteManager {
 	}
 
     public static void checkVoteName(String voteName) throws ReportedException {
-
-
-		ErrorReason checkValue = checkString(voteName);
-
-		if (checkValue == ErrorReason.STR_SHORT) {
-            throw new ReportedException("Vote name is too short!");
-		} else if (checkValue == ErrorReason.STR_LONG) {
-            throw new ReportedException("Vote name is too long!");
-		} else if (checkValue ==ErrorReason.CHAR_NOT_VALID ) {
-            throw new ReportedException("Wrong characters in the vote name!");
-		}
-
+		checkString(voteName, "vote name");
     }
 
     public static void checkNeededAssurances (List<String> assurance) throws ReportedException {
-
-		ErrorReason checkValue = checkAssurances(assurance);
-
-		if (checkValue == ErrorReason.STR_SHORT) {
-            throw new ReportedException("neededAssurance is too short!");
-		} else if (checkValue == ErrorReason.STR_LONG) {
-            throw new ReportedException("neededAssurance is too long!");
-		} else if (checkValue == ErrorReason.CHAR_NOT_VALID) {
-            throw new ReportedException("Wrong characters in the neededAssurance!");
-        } else if (checkValue == ErrorReason.DUPLICATE_VALUE) {
-            throw new ReportedException("neededAssurance contains duplicated values!");
-        }
+		checkAssurances(assurance, "needed");
 	}
 
     public static void checkCountedAssurances (List<String> assurance) throws ReportedException {
-
-        ErrorReason checkValue = checkAssurances(assurance);
-
-        if (checkValue == ErrorReason.STR_SHORT) {
-            throw new ReportedException("countedAssurance is too short!");
-        } else if (checkValue == ErrorReason.STR_LONG) {
-            throw new ReportedException("countedAssurance is too long!");
-        } else if (checkValue == ErrorReason.CHAR_NOT_VALID) {
-            throw new ReportedException("Wrong characters in the countedAssurance!");
-        } else if (checkValue == ErrorReason.DUPLICATE_VALUE) {
-            throw new ReportedException("countedAssurance contains duplicated values!");
-        }
+        checkAssurances(assurance, "counted");
     }
 
-	private static ErrorReason checkAssurances(List<String> list) throws ReportedException{
-
-		//Set<T> duplicates = new LinkedHashSet<T>();
+	private static void checkAssurances(List<String> list, String type) throws ReportedException{
 
 		Set<String> uniques = new HashSet<>();
-		ErrorReason ret = ErrorReason.READY;
 
-        if (!m.matches()) {
-            //(\d|\w)+
-            ReportedException e = new ReportedException("Wrong characters in the vote name!");
 		for (String temp : list) {
 
-			ret = checkString(temp);
+			checkString(temp, type+" assurance name");
 
 			if (!uniques.add(temp)) {
-				ret = ErrorReason.DUPLICATE_VALUE;
-			}
-
-			if (ret != ErrorReason.READY ){
-                return ret;
+				throw new DuplicateAssuranceException(type);
 			}
         }
-
-        return ret;
 	}
 
-	private static ErrorReason checkString (String inputString){
-
-
+	private static void checkString (String inputString, String description) throws ReportedException{
 
 		Pattern p = Pattern.compile("(\\d|\\w)+", Pattern.UNICODE_CHARACTER_CLASS);
 
 		Matcher m = p.matcher(inputString);
 
 		if (inputString.length() < 3) {
-			return ErrorReason.STR_SHORT;
+			throw new TooShortException(description);
 		}
 
 		if (inputString.length() > 255) {
-			return ErrorReason.STR_LONG;
+			throw new TooLongException(description);
 		}
 
 		if (!m.matches()) {
-			//(\d|\w)+
-			return ErrorReason.CHAR_NOT_VALID;
+			throw new NotValidCharsException(description);
 		}
 
-		return ErrorReason.READY;
 	}
 
 }

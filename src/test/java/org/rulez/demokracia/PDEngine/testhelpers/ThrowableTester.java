@@ -1,4 +1,4 @@
-package org.rulez.demokracia.PDEngine;
+package org.rulez.demokracia.PDEngine.testhelpers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -25,6 +25,6 @@ public class ThrowableTester {
 	}
 
 	public void assertMessageIs(String message) {
-		assertEquals(thrown.getMessage(),message);
+		assertEquals(message, thrown.getMessage());
 	}
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.rulez.demokracia.PDEngine.DataObjects.Vote;
+import org.rulez.demokracia.PDEngine.testhelpers.ThrowableTester;
 
 public class VoteInvariantCheck extends ThrowableTester {
 
@@ -20,7 +21,7 @@ public class VoteInvariantCheck extends ThrowableTester {
 
 	protected void saveInvariables(Vote vote) {
 		savedVote = vote;
-		savedVoteId = vote.voteId;
+		savedVoteId = vote.id;
 		savedAdminKey=vote.adminKey;
 		savedNeededAssurances = new ArrayList<String>(vote.neededAssurances);
 		savedCountedAssurances = new ArrayList<String>(vote.countedAssurances);
@@ -34,7 +35,7 @@ public class VoteInvariantCheck extends ThrowableTester {
 	}
 
 	public void checkInvariables() {
-		assertEquals(savedVoteId, savedVote.voteId);
+		assertEquals(savedVoteId, savedVote.id);
 		assertEquals(savedAdminKey, savedVote.adminKey);
 		assertEquals(savedNeededAssurances,savedVote.neededAssurances);
 		assertEquals(savedCountedAssurances,savedVote.countedAssurances);

@@ -1,6 +1,7 @@
 package org.rulez.demokracia.PDEngine.testhelpers;
 
 import org.rulez.demokracia.PDEngine.DataObjects.Choice;
+import org.rulez.demokracia.PDEngine.exception.ReportedException;
 
 public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 
@@ -10,7 +11,7 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 		super();
 	}
 
-	public void setUp() {
+	public void setUp() throws ReportedException {
 		super.setUp();
 		addTestChoice();
 	}

@@ -1,22 +1,22 @@
 package org.rulez.demokracia.PDEngine.Persistence;
 
-import java.beans.*;
-import java.util.UUID;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-import javax.persistence.*;
-import org.hibernate.*;
-import org.hibernate.annotations.*;
-
-@DynamicUpdate(true)
-public abstract class BaseEntity implements Entity {
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class BaseEntity implements IEntity {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(generator = "hibernate-uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@Column(name = "Id", unique = true)	
-	private UUID _id;
+	public String id;
 	
 	@Column(name = "Deleted")
 	private Boolean _deleted;
@@ -30,8 +30,8 @@ public abstract class BaseEntity implements Entity {
     	propertyChangeSupport.addPropertyChangeListener(this);
     }
 	
-	public UUID getId() {
-		return _id;
+	public String getId() {
+		return id;
 	}
 
 	public Boolean getDeleted() {

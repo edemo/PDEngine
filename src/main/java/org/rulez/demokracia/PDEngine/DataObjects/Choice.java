@@ -3,12 +3,19 @@ package org.rulez.demokracia.PDEngine.DataObjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import org.rulez.demokracia.PDEngine.RandomUtils;
 
+@Entity
 public class Choice {
 	private String name;
 	private String userName;
+	@Id
 	private String choiceId;
+	@ElementCollection
 	public List<String> endorsers;
 
 	public Choice(String choiceName, String user) {
