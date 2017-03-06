@@ -9,8 +9,11 @@ import java.util.Map;
 
 import org.rulez.demokracia.PDEngine.RandomUtils;
 
-public class Vote {
+import org.rulez.demokracia.PDEngine.Persistence.BaseEntity;
 
+public class Vote extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
 	public String name;
 	public List<String> neededAssurances;
 	public List<String> countedAssurances;
