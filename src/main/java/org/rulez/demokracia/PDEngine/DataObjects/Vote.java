@@ -7,35 +7,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+
 import org.rulez.demokracia.PDEngine.RandomUtils;
 
-public class Vote {
+import org.rulez.demokracia.PDEngine.Persistence.BaseEntity;
 
+@Entity
+public class Vote extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
 	public String name;
+	@ElementCollection
 	public List<String> neededAssurances;
+	@ElementCollection
 	public List<String> countedAssurances;
 	public boolean isPrivate;
 	public String adminKey;
-	public String voteId;
 	public long creationTime;
 	public int minEndorsements;
 	public boolean canAddin;
 	public boolean canEndorse;
 	public boolean canVote;
 	public boolean canView;
+	@ElementCollection
 	private Map<String,Choice> choices;
 
-	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements) {
+	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements)  {
+
+
 		name = voteName;
-		this.adminKey = RandomUtils.createRandomKey();
-		this.voteId = RandomUtils.createRandomKey();
+		adminKey = RandomUtils.createRandomKey();
+		id = RandomUtils.createRandomKey();
 		this.neededAssurances = new ArrayList<String>(neededAssurances);
 		this.countedAssurances = new ArrayList<String>(countedAssurances);
-		this.isPrivate = isClosed;
+		isPrivate = isClosed;
 		this.minEndorsements = minEndorsements;
-		this.creationTime = Instant.now().getEpochSecond();
-		this.choices = new HashMap<String,Choice>();
-
+		creationTime = Instant.now().getEpochSecond();
+		choices = new HashMap<String,Choice>();
 	}
 
 	public String addChoice(String choiceName, String user) {
@@ -80,5 +90,11 @@ public class Vote {
 	public Object getCanView() {
 		return canView;
 	}
+
+	public void endorseChoice(String adminKey2, String choiceId, String userName) {
+		getChoice(choiceId).endorse(userName);
+	}
+
+
 
 }
