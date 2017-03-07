@@ -1,10 +1,16 @@
 all: install
 
-install: compile shippable
+install: compile sonar shippable
 	cp -rf engine/* target/* shippable
 
 shippable:
 	mkdir -p shippable
+
+sonar: sonarconfig javabuild
+	mvn sonar:sonar
+
+sonarconfig:
+	cp etc/m2/settings.xml ~/.m2
 
 compile: zentaworkaround javabuild engine.compiled codedocs
 
