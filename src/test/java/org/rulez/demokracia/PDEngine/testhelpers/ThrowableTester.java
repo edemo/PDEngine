@@ -24,7 +24,12 @@ public class ThrowableTester {
 		return this;
 	}
 
-	public void assertMessageIs(String message) {
+	public ThrowableTester assertMessageIs(String message) {
 		assertEquals(message, thrown.getMessage());
+		return this;
+	}
+
+	public Throwable getException() {
+		return thrown;
 	}
 }

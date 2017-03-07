@@ -17,15 +17,15 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 	}
 
 	protected void addTestChoice() {
-		choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "user");
+		choiceId = voteManager.addChoice(adminInfo.getAdminKey(), adminInfo.getVoteId(), "choice1", "user");
 	}
 
 	protected Choice getChoice(String theChoice) {
-		return voteManager.getChoice(adminInfo.voteId, theChoice);
+		return voteManager.getChoice(adminInfo.getVoteId(), theChoice);
 	}
 
 	protected String addMyChoice() {
-		return voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice2", null);
+		return voteManager.addChoice(adminInfo.getAdminKey(), adminInfo.getVoteId(), "choice2", null);
 	}
 
 }

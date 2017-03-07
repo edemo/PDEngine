@@ -4,6 +4,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 public class ReportedException extends Exception {
 
 	private static final long serialVersionUID = 3322550743512295289L;
@@ -33,5 +35,17 @@ public class ReportedException extends Exception {
     	}
     	return MessageFormat.format(super.getMessage(), additionalDetails.get(0));
     }
+
+	public String toJSONString() {
+		JSONObject jsonObject = toJSON();
+		return jsonObject.toString(1);
+	}
+
+	public JSONObject toJSON() {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("message", super.getMessage());
+		jsonObject.put("details", additionalDetails);
+		return jsonObject;
+	}
 
 }

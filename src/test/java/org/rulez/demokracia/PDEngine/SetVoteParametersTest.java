@@ -17,13 +17,13 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
-		vote = voteManager.getVote(adminInfo.voteId);
+		vote = voteManager.getVote(adminInfo.getVoteId());
 		int minEndorsements = 3;
 		boolean canAddin = true;
 		boolean canEndorse = true;
 		boolean canVote = true;
 		boolean canView = true;
-		vote.setParameters(adminInfo.adminKey,
+		vote.setParameters(adminInfo.getAdminKey(),
 				minEndorsements,
 				canAddin,
 				canEndorse,

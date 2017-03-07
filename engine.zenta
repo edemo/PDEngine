@@ -572,7 +572,7 @@ The result contains for each assurances:
         </element>
         <element xsi:type="zenta:BasicObject" name="Organisation and ballot manager" id="f0b62ad0-c63b-4887-93f2-1bf37a5cdc29" ancestor="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73"/>
         <element xsi:type="zenta:BasicObject" name="Vote Manager" id="8ebf64c7-c9ca-441c-9679-62419258ff01" ancestor="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73"/>
-        <element xsi:type="zenta:BasicObject" name="Voting booth" id="1537f6f0-4b4c-4d8c-ad95-4c245ebef529" ancestor="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73"/>
+        <element xsi:type="zenta:BasicObject" name="Tallying Engine" id="1537f6f0-4b4c-4d8c-ad95-4c245ebef529" ancestor="f2c45f57-a6ff-4d5f-9c18-72f3b6bc9e73"/>
       </folder>
       <element xsi:type="zenta:BasicObject" name="Manage votes" id="9386718b-3caf-4152-8386-0df9deeb35d3" ancestor="e1dcc278-0e1a-4399-99a4-04706212b230"/>
       <element xsi:type="zenta:BasicObject" name="Vote" id="7f02363b-d542-483a-8a14-9780b27bfe7d" ancestor="e1dcc278-0e1a-4399-99a4-04706212b230"/>

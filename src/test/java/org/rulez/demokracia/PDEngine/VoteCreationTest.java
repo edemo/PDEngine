@@ -33,48 +33,48 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void create_creates_a_vote_with_the_given_name() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
+		assertEquals(voteManager.getVote(adminInfo.getVoteId()).name, voteName);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_neededAssurances() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).neededAssurances.size(), neededAssurances.size());
+		assertEquals(voteManager.getVote(adminInfo.getVoteId()).neededAssurances.size(), neededAssurances.size());
 	}
 	
 	@Test
 	public void neededAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.voteId).neededAssurances.get(0), "magyar");
+		assertEquals(voteManager.getVote(secondVote.getVoteId()).neededAssurances.get(0), "magyar");
 	}
 
 	@Test
 	public void create_creates_a_vote_with_countedAssurances() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).countedAssurances.size(), 0);
+		assertEquals(voteManager.getVote(adminInfo.getVoteId()).countedAssurances.size(), 0);
 	}
 	
 	@Test
 	public void countedAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		countedAssurances.add("magyar");
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.voteId).countedAssurances.get(0), "magyar");
+		assertEquals(voteManager.getVote(secondVote.getVoteId()).countedAssurances.get(0), "magyar");
 	}
 	
 	@Test
 	public void create_creates_a_vote_with_isPrivate() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).isPrivate, true);
+		assertEquals(voteManager.getVote(adminInfo.getVoteId()).isPrivate, true);
 	}
 
 	@Test
 	public void isPrivate_is_the_same_what_is_given_in_create() throws ReportedException {
 		isPrivate = false;
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.voteId).isPrivate, false);
+		assertEquals(voteManager.getVote(secondVote.getVoteId()).isPrivate, false);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_voteId() {
-		assertNotNull(adminInfo.voteId);
-		assertEquals(voteManager.getVote(adminInfo.voteId).id, adminInfo.voteId);
+		assertNotNull(adminInfo.getVoteId());
+		assertEquals(voteManager.getVote(adminInfo.getVoteId()).id, adminInfo.getVoteId());
 	}
 
 	@Test
@@ -82,27 +82,27 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		Instant before = Instant.now();
 		VoteAdminInfo secondVote = createAVote();
 		Instant after = Instant.now();
-		long creationTime = voteManager.getVote(secondVote.voteId).creationTime;
+		long creationTime = voteManager.getVote(secondVote.getVoteId()).creationTime;
 		assertTrue(creationTime >= before.getEpochSecond());
 		assertTrue(creationTime <= after.getEpochSecond());
 	}
 
 	@Test
 	public void create_creates_a_vote_with_minEndorsements() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).minEndorsements, 0);
+		assertEquals(voteManager.getVote(adminInfo.getVoteId()).minEndorsements, 0);
 	}
 
 	@Test
 	public void minEndorsements_is_the_same_what_is_given_in_create() throws ReportedException {
 		minEndorsements = 42;
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.voteId).minEndorsements, 42);
+		assertEquals(voteManager.getVote(secondVote.getVoteId()).minEndorsements, 42);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_adminKey() {
-		assertNotNull(adminInfo.voteId);
-		assertEquals(voteManager.getVote(adminInfo.voteId).adminKey, adminInfo.adminKey);
+		assertNotNull(adminInfo.getVoteId());
+		assertEquals(voteManager.getVote(adminInfo.getVoteId()).adminKey, adminInfo.getAdminKey());
 	}
 
 	@Test
@@ -111,6 +111,14 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertThrows(
 			() -> createAVote()
 		).assertMessageIs("invalid characters in vote name");
+	}
+
+	@Test
+	public void vote_name_cannot_be_null() throws ReportedException {
+		voteName = null;
+		assertThrows(
+			() -> createAVote()
+		).assertMessageIs("vote name is null");
 	}
 
 	@Test
@@ -150,7 +158,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 		VoteAdminInfo secondVote = createAVote();
 
-		assertEquals(voteManager.getVote(secondVote.voteId).name, voteName);
+		assertEquals(voteManager.getVote(secondVote.getVoteId()).name, voteName);
 
 	}
 	@Test
@@ -197,23 +205,29 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
     }
 
     @Test
+    public void needed_assurances_should_not_contain_empty_string() {
+        neededAssurances.add("");
+		assertThrows(
+				() -> createAVote()
+			).assertMessageIs("string too short: needed assurance name");
+    }
+
+    @Test
+    public void needed_assurances_should_not_be_null() {
+        neededAssurances.add(null);
+		assertThrows(
+				() -> createAVote()
+			).assertMessageIs("needed assurance name is null");
+    }
+
+    @Test
     public void needed_assurances_can_contain_local_characters() throws ReportedException {
         neededAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
         
         createAVote();
-        assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
+        assertEquals(voteManager.getVote(adminInfo.getVoteId()).name, voteName);
 
     }
-
-	@Test
-	public void needed_assurances_cannot_be_duplicates() {
-		neededAssurances.add("thisIsSame");
-		neededAssurances.add("thisIsSame");
-
-		assertThrows(
-				() -> createAVote()
-			).assertMessageIs("duplicate needed assurances");
-	}
 
 	@Test
 	public void countedAssurances_is_checked_not_to_contain_strings_longer_than_255() throws ReportedException {
@@ -263,17 +277,15 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
         countedAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
         
         createAVote();
-        assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
+        assertEquals(voteManager.getVote(adminInfo.getVoteId()).name, voteName);
 
     }
 
-	@Test
-	public void counted_assurances_cannot_be_duplicates() {
-		countedAssurances.add("thisIsSame");
-		countedAssurances.add("thisIsSame");
-
-		assertThrows(
-				() -> createAVote()
-			).assertMessageIs("duplicate counted assurances");
-	}
+    @Test
+    public void counted_assurance_can_be_empty() throws ReportedException {
+        countedAssurances.add("");
+        assertEquals(countedAssurances.size(),1);
+		VoteAdminInfo secondVote = createAVote();
+		assertTrue(voteManager.getVote(secondVote.getVoteId()).countedAssurances.contains(null));
+    }
 }

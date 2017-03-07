@@ -24,7 +24,7 @@ public class VoteRegistryTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("create vote")
 	@tested_behaviour("Creates a vote")
 	public void create_creates_a_vote_with_the_given_name() {
-		Vote vote = voteManager.getVote(adminInfo.voteId);
+		Vote vote = voteManager.getVote(adminInfo.getVoteId());
 		assertEquals(vote.name, voteName);
 	}
 
@@ -33,8 +33,8 @@ public class VoteRegistryTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("create vote")
 	@tested_behaviour("Creates a vote")
 	public void a_vote_got_frome_the_registry_two_times_is_the_same() {
-		Vote entity1 = voteManager.getVote(adminInfo.voteId);
-		Vote entity2 = voteManager.getVote(adminInfo.voteId);
+		Vote entity1 = voteManager.getVote(adminInfo.getVoteId());
+		Vote entity2 = voteManager.getVote(adminInfo.getVoteId());
 		assertEquals(entity1, entity2);
 	}
 
