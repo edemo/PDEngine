@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.rulez.demokracia.pdengine.dataobjects.Vote;
 
