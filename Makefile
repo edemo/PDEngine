@@ -37,7 +37,7 @@ testenv:
 javabuild: target/PDEngine-0.0.1-SNAPSHOT.jar
 
 target/PDEngine-0.0.1-SNAPSHOT.jar:
-	mvn clean install
+	mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
 
 clean:
 	git clean -fdx

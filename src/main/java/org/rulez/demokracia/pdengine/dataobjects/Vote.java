@@ -30,7 +30,6 @@ public class Vote extends BaseEntity {
 	public boolean canEndorse;
 	public boolean canVote;
 	public boolean canView;
-	@ElementCollection
 	private HashMap<String,Choice> choices;
 
 	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements)  {
@@ -114,10 +113,9 @@ public class Vote extends BaseEntity {
 		return choices;
 	}
 
+	@ElementCollection
 	public void setChoices(Map<String,Choice> choices) {
 		this.choices = new HashMap<String, Choice>(choices);
 	}
-
-
 
 }
