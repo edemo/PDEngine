@@ -33,11 +33,14 @@ public class VoteRegistry implements IVoteManager {
 			int minEndorsements) throws ReportedException {
 
         Validate.checkVoteName(voteName);
-        neededAssurances=Validate.checkAssurances(neededAssurances, "needed");
-        countedAssurances=Validate.checkAssurances(countedAssurances, "counted");
 
 		VoteAdminInfo admininfo = new VoteAdminInfo();
-		Vote vote = new Vote (voteName, neededAssurances, countedAssurances, isClosed, minEndorsements);
+		Vote vote = new Vote (
+				voteName,
+				Validate.checkAssurances(neededAssurances, "needed"),
+				Validate.checkAssurances(countedAssurances, "counted"),
+				isClosed,
+				minEndorsements);
 		admininfo.setAdminKey(vote.adminKey);
 		admininfo.setVoteId(vote.id);
 		session.save(vote);

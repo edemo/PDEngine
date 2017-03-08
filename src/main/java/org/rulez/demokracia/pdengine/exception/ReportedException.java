@@ -30,7 +30,7 @@ public class ReportedException extends Exception {
     }
     
     public String getMessage() {
-    	if (additionalDetails.size() == 0) {
+    	if (additionalDetails.isEmpty()) {
     		return super.getMessage();
     	}
     	return MessageFormat.format(super.getMessage(), additionalDetails.get(0));
