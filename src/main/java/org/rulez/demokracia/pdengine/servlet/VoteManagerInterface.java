@@ -4,7 +4,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -44,18 +43,8 @@ public class VoteManagerInterface {
 			return Response.status(400).entity(result).build();
 		}
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("adminKey", adminInfo.getAdminKey());
-		jsonObject.put("voteId", adminInfo.getVoteId());
-		String result = jsonObject.toString(1);
-		return Response.status(200).entity(result).build();
-	}
-	
-	@GET
-    @Produces(MediaType.APPLICATION_JSON)
-	public Response hello() {
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("adminKey", "theKey");
-		jsonObject.put("voteId", "theId");
+		jsonObject.put("adminKey", adminInfo.adminKey);
+		jsonObject.put("voteId", adminInfo.voteId);
 		String result = jsonObject.toString(1);
 		return Response.status(200).entity(result).build();
 	}

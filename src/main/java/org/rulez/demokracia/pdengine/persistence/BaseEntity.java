@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import org.rulez.demokracia.pdengine.RandomUtils;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class BaseEntity implements Serializable{
@@ -17,10 +19,7 @@ public abstract class BaseEntity implements Serializable{
 	public String id;
 	
     public BaseEntity() {
+    	id = RandomUtils.createRandomKey();
     }
 	
-	public String getId() {
-		return id;
-	}
-
 }

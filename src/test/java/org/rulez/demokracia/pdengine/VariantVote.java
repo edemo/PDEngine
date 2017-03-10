@@ -2,8 +2,6 @@ package org.rulez.demokracia.pdengine;
 
 import java.util.ArrayList;
 
-import org.rulez.demokracia.pdengine.dataobjects.Vote;
-
 class VariantVote extends Vote {
 
 	private static final long serialVersionUID = 1L;

@@ -12,34 +12,17 @@ public class ReportedException extends Exception {
 
 	private List<String> additionalDetails = new ArrayList<String>();
 
-    public ReportedException (String message) {
-        super (message);
-    }
-
     public ReportedException (String message, String detail) {
         super (message);
         additionalDetails.add(detail);
     }
 
-    public ReportedException (Throwable cause) {
-        super (cause);
-    }
-
-    public ReportedException (String message, Throwable cause) {
-        super (message, cause);
-    }
-    
     public String getMessage() {
     	if (additionalDetails.isEmpty()) {
     		return super.getMessage();
     	}
     	return MessageFormat.format(super.getMessage(), additionalDetails.get(0));
     }
-
-	public String toJSONString() {
-		JSONObject jsonObject = toJSON();
-		return jsonObject.toString(1);
-	}
 
 	public JSONObject toJSON() {
 		JSONObject jsonObject = new JSONObject();

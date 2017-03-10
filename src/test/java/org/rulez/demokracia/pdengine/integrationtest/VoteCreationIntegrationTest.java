@@ -13,16 +13,18 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.IVoteManager;
-import org.rulez.demokracia.pdengine.dataobjects.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
+import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.integrationtest.JettyThread;
 import org.rulez.demokracia.pdengine.servlet.requests.CreateVoteRequest;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 
-public class VoteCreationIntegrationTest {
+public class VoteCreationIntegrationTest extends ThrowableTester {
 	private JettyThread thread;
 	private CreateVoteRequest req;
 
@@ -38,9 +40,22 @@ public class VoteCreationIntegrationTest {
 		Invocation.Builder invocationBuilder = createWebClient();
 		Response response = invocationBuilder.post(Entity.entity(req,MediaType.APPLICATION_JSON));
 		VoteAdminInfo adminInfo = response.readEntity(VoteAdminInfo.class);
-		Vote vote = IVoteManager.getVoteManager().getVote(adminInfo.getVoteId());
+		VoteEntity vote = IVoteManager.getVoteManager().getVote(adminInfo.voteId);
 		assertEquals(req.getVoteName(),vote.name);
-		assertEquals(adminInfo.getAdminKey(),vote.adminKey);
+		assertEquals(adminInfo.adminKey,vote.adminKey);
+	}
+
+	@Test
+	public void vote_creation_fails_and_reports_error_with_bad_input() {
+		req.setVoteName("`drop table little_bobby tables;`");
+		Invocation.Builder invocationBuilder = createWebClient();
+		Response response = invocationBuilder.post(Entity.entity(req,MediaType.APPLICATION_JSON));
+		assertEquals(400, response.getStatus());
+		String responseString = response.readEntity(String.class);
+		JSONObject responseJson = new JSONObject(responseString);
+		assertEquals("invalid characters in {0}", responseJson
+				.getJSONObject("error")
+				.getString("message"));
 	}
 
 	private Invocation.Builder createWebClient() {

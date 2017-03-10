@@ -5,8 +5,8 @@ import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.rulez.demokracia.pdengine.dataobjects.Choice;
-import org.rulez.demokracia.pdengine.dataobjects.Vote;
+import org.rulez.demokracia.pdengine.Choice;
+import org.rulez.demokracia.pdengine.Vote;
 
 public class HibernateUtil {
 

@@ -4,9 +4,8 @@ import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.rulez.demokracia.pdengine.dataobjects.Choice;
-import org.rulez.demokracia.pdengine.dataobjects.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
+import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.persistence.HibernateUtil;
 
@@ -35,14 +34,14 @@ public class VoteRegistry implements IVoteManager {
         Validate.checkVoteName(voteName);
 
 		VoteAdminInfo admininfo = new VoteAdminInfo();
-		Vote vote = new Vote (
+		VoteEntity vote = new Vote (
 				voteName,
 				Validate.checkAssurances(neededAssurances, "needed"),
 				Validate.checkAssurances(countedAssurances, "counted"),
 				isClosed,
 				minEndorsements);
-		admininfo.setAdminKey(vote.adminKey);
-		admininfo.setVoteId(vote.id);
+		admininfo.adminKey = vote.adminKey;
+		admininfo.voteId = vote.id;
 		session.save(vote);
 		return admininfo;
 	}

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.IVoteManager;
+import org.rulez.demokracia.pdengine.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
@@ -33,6 +34,10 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 
 	protected VoteAdminInfo createAVote() throws ReportedException {
 		return voteManager.createVote(voteName, neededAssurances, countedAssurances, isPrivate, minEndorsements );
+	}
+
+	protected Vote getTheVote() {
+		return voteManager.getVote(adminInfo.voteId);
 	}
 
 }

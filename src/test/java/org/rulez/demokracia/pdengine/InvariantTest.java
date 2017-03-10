@@ -40,18 +40,18 @@ public class InvariantTest extends VoteInvariantCheck {
 	public void neededAssurances_is_invariant() {
 		List<String> badAssurances = new ArrayList<String>();
 		badAssurances.add("bad");
-		vote.setNeededAssurances(badAssurances);
+		vote.neededAssurances = badAssurances;
 		assertThrows(() -> checkInvariables());
-		vote.setNeededAssurances(savedNeededAssurances);
+		vote.neededAssurances = savedNeededAssurances;
 	}
 
 	@Test
 	public void countedAssurances_is_invariant() {
 		List<String> badAssurances = new ArrayList<String>();
 		badAssurances.add("bad");
-		vote.setCountedAssurances(badAssurances);
+		vote.countedAssurances = badAssurances;
 		assertThrows(() -> checkInvariables());
-		vote.setCountedAssurances(savedCountedAssurances);
+		vote.countedAssurances = savedCountedAssurances;
 	}
 
 	@Test

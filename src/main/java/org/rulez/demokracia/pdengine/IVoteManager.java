@@ -2,8 +2,7 @@ package org.rulez.demokracia.pdengine;
 
 import java.util.Set;
 
-import org.rulez.demokracia.pdengine.dataobjects.Choice;
-import org.rulez.demokracia.pdengine.dataobjects.Vote;
+import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
@@ -19,7 +18,7 @@ public interface IVoteManager {
 
 	String addChoice(String adminKey, String voteId, String choiceName, String user);
 
-	Choice getChoice(String voteId, String choiceId);
+	ChoiceEntity getChoice(String voteId, String choiceId);
 
 	void endorseChoice(String adminKey, String voteId, String choiceId, String string);
 

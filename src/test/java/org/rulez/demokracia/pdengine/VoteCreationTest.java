@@ -33,48 +33,48 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void create_creates_a_vote_with_the_given_name() {
-		assertEquals(voteManager.getVote(adminInfo.getVoteId()).name, voteName);
+		assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_neededAssurances() {
-		assertEquals(voteManager.getVote(adminInfo.getVoteId()).getNeededAssurances().size(), neededAssurances.size());
+		assertEquals(voteManager.getVote(adminInfo.voteId).neededAssurances.size(), neededAssurances.size());
 	}
 	
 	@Test
 	public void neededAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.getVoteId()).getNeededAssurances().get(0), "magyar");
+		assertEquals(voteManager.getVote(secondVote.voteId).neededAssurances.get(0), "magyar");
 	}
 
 	@Test
 	public void create_creates_a_vote_with_countedAssurances() {
-		assertEquals(voteManager.getVote(adminInfo.getVoteId()).getCountedAssurances().size(), 0);
+		assertEquals(voteManager.getVote(adminInfo.voteId).countedAssurances.size(), 0);
 	}
 	
 	@Test
 	public void countedAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		countedAssurances.add("magyar");
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.getVoteId()).getCountedAssurances().get(0), "magyar");
+		assertEquals(voteManager.getVote(secondVote.voteId).countedAssurances.get(0), "magyar");
 	}
 	
 	@Test
 	public void create_creates_a_vote_with_isPrivate() {
-		assertEquals(voteManager.getVote(adminInfo.getVoteId()).isPrivate, true);
+		assertEquals(voteManager.getVote(adminInfo.voteId).isPrivate, true);
 	}
 
 	@Test
 	public void isPrivate_is_the_same_what_is_given_in_create() throws ReportedException {
 		isPrivate = false;
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.getVoteId()).isPrivate, false);
+		assertEquals(voteManager.getVote(secondVote.voteId).isPrivate, false);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_voteId() {
-		assertNotNull(adminInfo.getVoteId());
-		assertEquals(voteManager.getVote(adminInfo.getVoteId()).id, adminInfo.getVoteId());
+		assertNotNull(adminInfo.voteId);
+		assertEquals(voteManager.getVote(adminInfo.voteId).id, adminInfo.voteId);
 	}
 
 	@Test
@@ -82,27 +82,27 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		Instant before = Instant.now();
 		VoteAdminInfo secondVote = createAVote();
 		Instant after = Instant.now();
-		long creationTime = voteManager.getVote(secondVote.getVoteId()).creationTime;
+		long creationTime = voteManager.getVote(secondVote.voteId).creationTime;
 		assertTrue(creationTime >= before.getEpochSecond());
 		assertTrue(creationTime <= after.getEpochSecond());
 	}
 
 	@Test
 	public void create_creates_a_vote_with_minEndorsements() {
-		assertEquals(voteManager.getVote(adminInfo.getVoteId()).minEndorsements, 0);
+		assertEquals(voteManager.getVote(adminInfo.voteId).minEndorsements, 0);
 	}
 
 	@Test
 	public void minEndorsements_is_the_same_what_is_given_in_create() throws ReportedException {
 		minEndorsements = 42;
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.getVoteId()).minEndorsements, 42);
+		assertEquals(voteManager.getVote(secondVote.voteId).minEndorsements, 42);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_adminKey() {
-		assertNotNull(adminInfo.getVoteId());
-		assertEquals(voteManager.getVote(adminInfo.getVoteId()).adminKey, adminInfo.getAdminKey());
+		assertNotNull(adminInfo.voteId);
+		assertEquals(voteManager.getVote(adminInfo.voteId).adminKey, adminInfo.adminKey);
 	}
 
 	@Test
@@ -158,7 +158,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 		VoteAdminInfo secondVote = createAVote();
 
-		assertEquals(voteManager.getVote(secondVote.getVoteId()).name, voteName);
+		assertEquals(voteManager.getVote(secondVote.voteId).name, voteName);
 
 	}
 	@Test
@@ -225,7 +225,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
         neededAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
         
         createAVote();
-        assertEquals(voteManager.getVote(adminInfo.getVoteId()).name, voteName);
+        assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
 
     }
 
@@ -277,7 +277,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
         countedAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
         
         createAVote();
-        assertEquals(voteManager.getVote(adminInfo.getVoteId()).name, voteName);
+        assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
 
     }
 
@@ -286,6 +286,6 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
         countedAssurances.add("");
         assertEquals(countedAssurances.size(),1);
 		VoteAdminInfo secondVote = createAVote();
-		assertTrue(voteManager.getVote(secondVote.getVoteId()).getCountedAssurances().contains(null));
+		assertTrue(voteManager.getVote(secondVote.voteId).countedAssurances.contains(null));
     }
 }
