@@ -10,13 +10,14 @@ public class ReportedException extends Exception {
 
 	private static final long serialVersionUID = 3322550743512295289L;
 
-	private List<String> additionalDetails = new ArrayList<String>();
+	private final List<String> additionalDetails = new ArrayList<>();
 
     public ReportedException (String message, String detail) {
         super (message);
         additionalDetails.add(detail);
     }
 
+    @Override
     public String getMessage() {
     	if (additionalDetails.isEmpty()) {
     		return super.getMessage();

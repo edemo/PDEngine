@@ -1,6 +1,8 @@
 package org.rulez.demokracia.pdengine.persistence;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -9,6 +11,10 @@ import org.rulez.demokracia.pdengine.Choice;
 import org.rulez.demokracia.pdengine.Vote;
 
 public class HibernateUtil {
+    private static final Logger LOGGER = Logger.getLogger( HibernateUtil.class.getName() );
+
+	private HibernateUtil() {
+	}
 
     public static SessionFactory getSessionFactory() {
         SessionFactory sessionFactory;
@@ -30,10 +36,9 @@ public class HibernateUtil {
 				builder = builder.applySettings(properties);
 				sessionFactory = configuration.buildSessionFactory(builder.build());
           } catch (Exception ex) {
-              System.err.println("Initial SessionFactory creation failed." + ex);
+        	  LOGGER.log(Level.SEVERE, "Initial SessionFactory creation failed.", ex);
               throw new ExceptionInInitializerError(ex);
           }
           return sessionFactory;
       }
-
 }

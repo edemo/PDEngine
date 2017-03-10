@@ -1,7 +1,7 @@
 package org.rulez.demokracia.pdengine.dataobjects;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.ElementCollection;
 
@@ -25,7 +25,7 @@ public abstract class VoteEntity extends BaseEntity {
 	public boolean canVote;
 	public boolean canView;
 	@ElementCollection
-	public HashMap<String,Choice> choices;
+	public Map<String,Choice> choices;
 
 	public VoteEntity() {
 		super();

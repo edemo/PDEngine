@@ -9,6 +9,9 @@ public class RandomUtils {
     static SecureRandom entropySource;
     private static final Logger LOGGER = Logger.getLogger( RandomUtils.class.getName() );
 
+    private RandomUtils() {
+    }
+
 	public static String createRandomKey() {
 		initializeEntropySource();
 		return Long.toHexString(entropySource.nextLong());
