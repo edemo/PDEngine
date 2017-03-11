@@ -7,7 +7,7 @@ shippable:
 	mkdir -p shippable
 
 sonar: sonarconfig javabuild
-	mvn sonar:sonar
+	mvn sonar:sonar -Dsonar.organization=edemo
 
 sonarconfig:
 	cp etc/m2/settings.xml ~/.m2
