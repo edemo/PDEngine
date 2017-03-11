@@ -37,6 +37,7 @@ testenv:
 javabuild: target/PDEngine-0.0.1-SNAPSHOT.jar
 
 target/PDEngine-0.0.1-SNAPSHOT.jar:
+	mvn build-helper:parse-version versions:set versions:commit -DnewVersion=\$${parsedVersion.majorVersion}.\$${parsedVersion.minorVersion}.\$${parsedVersion.incrementalVersion}-$$(git rev-parse --abbrev-ref HEAD|sed 'sA/A_Ag').$$(git rev-parse --short HEAD)
 	mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
 
 clean:
