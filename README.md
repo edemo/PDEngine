@@ -24,6 +24,7 @@ https://docs.google.com/document/d/1OfiW5jRzdRuli-4wmBedvsatGIfEgHGzq5Cm5cAzKzk/
 
 # For developers
 
+Quality metrics gathered by sonar: https://sonarqube.com/dashboard?id=org.rulez.demokracia%3APDEngine
 
 - We are using git-flow. You issue pull requests to the develop branch.
 
