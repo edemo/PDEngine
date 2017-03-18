@@ -11,6 +11,7 @@ public interface IVoteManager {
 	static IVoteManager getVoteManager() {
 		return VoteManagerRegistry.getVoteManager();
 	}
+
 	VoteAdminInfo createVote(String voteName, Set<String> neededAssurances, Set<String> countedAssurances,
 			boolean isPrivate, int minEndorsements) throws ReportedException;
 
