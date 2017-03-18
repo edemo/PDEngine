@@ -83,3 +83,6 @@ When you code, please keep these in mind:
 - Keep tests as clean as production code. For example in the case above, it is much easier to rewrite one method setting up or asserting
   something for 42 tests than rewrite 42 tests individually.
 
+If you use Eclipse, you need the following installed:
+m2e-wtp - JAX-RS configurator for WTP
+m2e-wtp - Maven integration for WTP
