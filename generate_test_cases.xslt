@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE xml>
 <xsl:stylesheet version="2.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:zenta="http://magwas.rulez.org/zenta"
