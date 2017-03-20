@@ -17,7 +17,7 @@ public class Validate {
 	}
 
     public static void checkVoteName(String voteName) throws ReportedException {
-		checkString(voteName, "vote name");
+		checkStringWithSpaces(voteName, "vote name");
     }
 
 	static Set<String> checkAssurances(Set<String> neededAssurances, String type) throws ReportedException{
@@ -28,7 +28,7 @@ public class Validate {
 			if(type == "counted" && "".equals(assurance)) {
 				assurance = null;				
 			} else {
-				checkString(assurance, type+" assurance name");				
+				checkStringNoSpaces(assurance, type+" assurance name");				
 			}
 			uniques.add(assurance);
 
@@ -36,12 +36,22 @@ public class Validate {
 		return uniques;
 	}
 
-	private static void checkString (String inputString, String description) throws ReportedException{
+	private static void checkStringNoSpaces (String inputString, String description) throws ReportedException{
+		String noSpaceString = "(\\d|\\w)+";
+		checkStringForPattern(inputString, description, noSpaceString);
+	}
 
+	private static void checkStringWithSpaces(String inputString, String description) throws ReportedException {
+		String noSpaceString = "(\\d| |\\w)+";
+		checkStringForPattern(inputString, description, noSpaceString);
+	}
+
+	private static void checkStringForPattern(String inputString, String description, String noSpaceString)
+			throws IsNullException, TooShortException, TooLongException, NotValidCharsException {
 		if(null == inputString) {
 			throw new IsNullException(description);
 		}
-		Pattern p = Pattern.compile("(\\d|\\w)+", Pattern.UNICODE_CHARACTER_CLASS);
+		Pattern p = Pattern.compile(noSpaceString, Pattern.UNICODE_CHARACTER_CLASS);
 
 		Matcher m = p.matcher(inputString);
 
@@ -56,7 +66,6 @@ public class Validate {
 		if (!m.matches()) {
 			throw new NotValidCharsException(description);
 		}
-
 	}
 
 }
