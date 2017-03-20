@@ -87,6 +87,14 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertTrue(creationTime <= after.getEpochSecond());
 	}
 
+	private void fv(Instant before) throws ReportedException {
+		VoteAdminInfo secondVote = createAVote();
+		Instant after = Instant.now();
+		long creationTime = voteManager.getVote(secondVote.voteId).creationTime;
+		assertTrue(creationTime >= before.getEpochSecond());
+		assertTrue(creationTime <= after.getEpochSecond());
+	}
+
 	@Test
 	public void create_creates_a_vote_with_minEndorsements() {
 		assertEquals(voteManager.getVote(adminInfo.voteId).minEndorsements, 0);
@@ -106,11 +114,11 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void vote_name_cannot_contain_scpaces() throws ReportedException {
+	public void vote_name_can_contain_scpaces() throws ReportedException {
 		voteName = "This contains spaces";
-		assertThrows(
-			() -> createAVote()
-		).assertMessageIs("invalid characters in vote name");
+		VoteAdminInfo voteadm = createAVote();
+		assertEquals(voteManager.getVote(voteadm.voteId).name, voteName);
+		
 	}
 
 	@Test

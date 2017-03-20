@@ -45,7 +45,7 @@ Behaviour: <xsl:value-of select="@name"/>
 
   <xsl:template name="testcases">
     <xsl:variable name="root" select="/"/>
-    <xsl:for-each select="//element[@xsi:type='Feature']">
+    <xsl:for-each select="//element[@xsi:type='Business Function']">
         <xsl:variable name="feature" select="."/>
         <xsl:for-each select="zenta:neighboursOnPath(/,$feature,'contains,1')">
             <xsl:variable name="operation" select="."/>
