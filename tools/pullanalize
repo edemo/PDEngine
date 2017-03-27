@@ -1,6 +1,6 @@
 #!/bin/bash
-set -xe
+set -e
 if [ $PULL_REQUEST != false ]
 then
-    mvn clean install sonar:sonar -Dsonar.organization=edemo -Dsonar.github.pullRequest=$PULL_REQUEST -Dsonar.analysis.mode=preview
+    mvn sonar:sonar -Dsonar.organization=edemo -Dsonar.github.pullRequest=$PULL_REQUEST -Dsonar.analysis.mode=preview -Dsonar.github.oauth=$GITHUB_OAUTH
 fi
