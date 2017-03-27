@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
-#don't set -x here, exposes the github token!
+set -xe
 . tools/prepare
 make
