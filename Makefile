@@ -8,6 +8,7 @@ shippable:
 
 sonar: sonarconfig javabuild
 	mvn sonar:sonar -Dsonar.organization=edemo
+	./tools/pullanalize
 
 sonarconfig:
 	cp etc/m2/settings.xml ~/.m2
