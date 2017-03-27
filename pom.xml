@@ -5,7 +5,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1-feature_nospace.ce1bb44</version>
   <packaging>war</packaging>
 
   <name>PDEngine</name>
@@ -15,6 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <sonar.github.repository>edemo/PDEngine</sonar.github.repository>
   </properties>
 
   <build>
