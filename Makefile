@@ -1,10 +1,17 @@
 all: install
 
-install: compile shippable
+install: compile sonar shippable
 	cp -rf engine/* target/* shippable
 
 shippable:
 	mkdir -p shippable
+
+sonar: sonarconfig javabuild
+	mvn sonar:sonar -Dsonar.organization=edemo
+	./tools/pullanalize
+
+sonarconfig:
+	cp etc/m2/settings.xml ~/.m2
 
 compile: zentaworkaround javabuild engine.compiled codedocs
 
@@ -31,7 +38,8 @@ testenv:
 javabuild: target/PDEngine-0.0.1-SNAPSHOT.jar
 
 target/PDEngine-0.0.1-SNAPSHOT.jar:
-	mvn clean install
+	mvn build-helper:parse-version versions:set versions:commit -DnewVersion=\$${parsedVersion.majorVersion}.\$${parsedVersion.minorVersion}.\$${parsedVersion.incrementalVersion}-$$(tools/getbranch|sed 'sA/A_Ag').$$(git rev-parse --short HEAD)
+	mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
 
 clean:
 	git clean -fdx
