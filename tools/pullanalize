@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
+echo Dsonar.github.oauth=$GITHUB_OAUTH
 if [ $PULL_REQUEST != false ]
 then
-    echo Dsonar.github.oauth=$GITHUB_OAUTH
     mvn sonar:sonar -Dsonar.organization=edemo -Dsonar.github.pullRequest=$PULL_REQUEST -Dsonar.analysis.mode=preview -Dsonar.github.oauth=$GITHUB_OAUTH
 fi
