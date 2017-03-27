@@ -14,7 +14,6 @@
                 <!-- Optional URL to server. Default value is http://localhost:9000 -->
                 <sonar.host.url>https://sonarqube.com</sonar.host.url>
                 <sonar.login>ce65ee556595e9eea1e7d0ee3dccf506f811b809</sonar.login>
-                <sonar.github.oauth>b019293934f77fca83729f17273049acba5761aa</sonar.github.oauth>
             </properties>
         </profile>
      </profiles>

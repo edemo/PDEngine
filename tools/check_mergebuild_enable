@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+
+import urllib.request
+import os
+import sys
+import json
+
+pullrequest=os.environ['PULL_REQUEST']
+commit=os.environ['COMMIT']
+authorized_users= [
+    'magwas',
+    'gypeng',
+    'utopszkij',
+]
+if pullrequest == "false":
+    sys.exit(0)
+uri = "https://api.github.com/repos/edemo/PDEngine/issues/{0}/comments".format(pullrequest)
+print(uri)
+stuff = urllib.request.urlopen(uri).read()
+comments=json.loads(stuff.decode('utf-8'))
+for comment in comments:
+    commentuser = comment['user']['login']
+    if commentuser in authorized_users:
+        commentbody = comment['body']
+        print("comment from "+commentuser+": "+commentbody)
+        if "can_build" in commentbody:
+            sys.exit(0)
+
+print("the pull request cannot be built until an authorized user does not comment 'can_build'")
+print("authorized users:")
+print(authorized_users)
+sys.exit(-1)
+

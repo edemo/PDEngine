@@ -1,7 +1,5 @@
 export DISPLAY=:0
 Xvnc4 -SecurityTypes none :0 &
-set
-ssh-add -l
 . <(./tools/decrypt_secret_env $ORG_NAME)
 apt-get update
 apt-get -y install zenta-tools
