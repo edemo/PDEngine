@@ -2,6 +2,6 @@
 set -e
 if [ $PULL_REQUEST != false ]
 then
-    echp -Dsonar.github.oauth=$GITHUB_OAUTH
+    echo Dsonar.github.oauth=$GITHUB_OAUTH
     mvn sonar:sonar -Dsonar.organization=edemo -Dsonar.github.pullRequest=$PULL_REQUEST -Dsonar.analysis.mode=preview -Dsonar.github.oauth=$GITHUB_OAUTH
 fi
