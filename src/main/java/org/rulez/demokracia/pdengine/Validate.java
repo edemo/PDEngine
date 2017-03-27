@@ -14,7 +14,6 @@ import org.rulez.demokracia.pdengine.exception.TooShortException;
 public class Validate {
 
 	private Validate() {
-        int i=0;
 	}
 
     public static void checkVoteName(String voteName) throws ReportedException {
