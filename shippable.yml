@@ -2,6 +2,8 @@ build_image: edemo/pdengine:latest
 language: python
 python:
   - 2.7
+env:
+  - secure: D+QoeEPmhC0IvP77ISsql65O+F/LGzTGJ4mTO2KKI50iK1QtyNgy2y1Sy0+zpGmkN2xj/VR4lG1khSdplcLPpTNW5GigE0jUef4FPW2XwdTpZVfH+bJ5fBew/oVKPZtiti32kGvYYp6iPsmQgUViererAQ8rpoIMnQmoKvL8GJbYWN6T7NjQwdIGQJDLWBXEqRr2g553aO3h+TO7Zw1GTwFseZHkF924Rpn+ZDm9GSgQW8hjhGsxZL5HY/AwJBXv04Hp6SA+MacXxoJHuay5grnDZE5qXMSjy3aEhLPFH9EcqJR9IDxF71HqfjcbXzCjYnyE57mRVwazLRIIauwyUw== 
 build:
   ci:
     - tools/script
@@ -9,4 +11,3 @@ build:
     - tools/publish
   on_failure:
     - tools/publish
-- secure: D+QoeEPmhC0IvP77ISsql65O+F/LGzTGJ4mTO2KKI50iK1QtyNgy2y1Sy0+zpGmkN2xj/VR4lG1khSdplcLPpTNW5GigE0jUef4FPW2XwdTpZVfH+bJ5fBew/oVKPZtiti32kGvYYp6iPsmQgUViererAQ8rpoIMnQmoKvL8GJbYWN6T7NjQwdIGQJDLWBXEqRr2g553aO3h+TO7Zw1GTwFseZHkF924Rpn+ZDm9GSgQW8hjhGsxZL5HY/AwJBXv04Hp6SA+MacXxoJHuay5grnDZE5qXMSjy3aEhLPFH9EcqJR9IDxF71HqfjcbXzCjYnyE57mRVwazLRIIauwyUw== 
