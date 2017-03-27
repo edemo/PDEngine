@@ -2,7 +2,8 @@ export DISPLAY=:0
 Xvnc4 -SecurityTypes none :0 &
 set
 ssh-add -l
-. <(./tools/decrypt_secret_env $ORG_NAME)
+#. <(./tools/decrypt_secret_env $ORG_NAME)
+./tools/decrypt_secret_env $ORG_NAME
 apt-get update
 apt-get -y install zenta-tools
 wget http://search.maven.org/remotecontent?filepath=com/github/markusbernhardt/xml-doclet/1.0.5/xml-doclet-1.0.5-jar-with-dependencies.jar -O /usr/local/lib/xml-doclet.jar
