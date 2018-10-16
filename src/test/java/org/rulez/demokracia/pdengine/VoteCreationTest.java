@@ -33,48 +33,48 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void create_creates_a_vote_with_the_given_name() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
+		assertEquals(voteName,voteManager.getVote(adminInfo.voteId).name);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_neededAssurances() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).neededAssurances.size(), neededAssurances.size());
+		assertEquals(neededAssurances.size(), voteManager.getVote(adminInfo.voteId).neededAssurances.size());
 	}
 	
 	@Test
 	public void neededAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.voteId).neededAssurances.get(0), "magyar");
+		assertEquals("magyar", voteManager.getVote(secondVote.voteId).neededAssurances.get(0));
 	}
 
 	@Test
 	public void create_creates_a_vote_with_countedAssurances() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).countedAssurances.size(), 0);
+		assertEquals(0, voteManager.getVote(adminInfo.voteId).countedAssurances.size());
 	}
 	
 	@Test
 	public void countedAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		countedAssurances.add("magyar");
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.voteId).countedAssurances.get(0), "magyar");
+		assertEquals("magyar", voteManager.getVote(secondVote.voteId).countedAssurances.get(0));
 	}
 	
 	@Test
 	public void create_creates_a_vote_with_isPrivate() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).isPrivate, true);
+		assertEquals(true, voteManager.getVote(adminInfo.voteId).isPrivate);
 	}
 
 	@Test
 	public void isPrivate_is_the_same_what_is_given_in_create() throws ReportedException {
 		isPrivate = false;
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.voteId).isPrivate, false);
+		assertEquals(false, voteManager.getVote(secondVote.voteId).isPrivate);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_voteId() {
 		assertNotNull(adminInfo.voteId);
-		assertEquals(voteManager.getVote(adminInfo.voteId).id, adminInfo.voteId);
+		assertEquals(adminInfo.voteId, voteManager.getVote(adminInfo.voteId).id);
 	}
 
 	@Test
@@ -96,20 +96,20 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	public void minEndorsements_is_the_same_what_is_given_in_create() throws ReportedException {
 		minEndorsements = 42;
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(voteManager.getVote(secondVote.voteId).minEndorsements, 42);
+		assertEquals(42, voteManager.getVote(secondVote.voteId).minEndorsements);
 	}
 
 	@Test
 	public void create_creates_a_vote_with_adminKey() {
 		assertNotNull(adminInfo.voteId);
-		assertEquals(voteManager.getVote(adminInfo.voteId).adminKey, adminInfo.adminKey);
+		assertEquals(adminInfo.adminKey, voteManager.getVote(adminInfo.voteId).adminKey);
 	}
 
 	@Test
 	public void vote_name_can_contain_scpaces() throws ReportedException {
 		voteName = "This contains spaces";
 		VoteAdminInfo voteadm = createAVote();
-		assertEquals(voteManager.getVote(voteadm.voteId).name, voteName);
+		assertEquals(voteName, voteManager.getVote(voteadm.voteId).name);
 		
 	}
 
@@ -158,7 +158,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 		VoteAdminInfo secondVote = createAVote();
 
-		assertEquals(voteManager.getVote(secondVote.voteId).name, voteName);
+		assertEquals(voteName, voteManager.getVote(secondVote.voteId).name);
 
 	}
 	@Test
@@ -225,7 +225,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
         neededAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
         
         createAVote();
-        assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
+        assertEquals(voteName, voteManager.getVote(adminInfo.voteId).name);
 
     }
 
@@ -277,7 +277,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
         countedAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
         
         createAVote();
-        assertEquals(voteManager.getVote(adminInfo.voteId).name, voteName);
+        assertEquals(voteName, voteManager.getVote(adminInfo.voteId).name);
 
     }
 
