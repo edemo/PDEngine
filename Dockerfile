@@ -1,13 +1,9 @@
 FROM ubuntu:xenial
 
-RUN locale-gen en_US en_US.UTF-8 && \
-    dpkg-reconfigure locales
-
 RUN apt-get update
+RUN apt-get -y upgrade
 
-RUN apt-get -o Dpkg::Options::="--force-confold" --force-yes -fuy upgrade
-
-RUN apt-get -y install software-properties-common
+RUN apt-get -y install software-properties-common apt-transport-https
 RUN apt-add-repository -y ppa:openjdk-r/ppa
 RUN apt-key adv --keyserver keys.gnupg.net --recv B761AA278C7AB952
 RUN echo deb http://repos.demokracia.rulez.org/apt/debian/ master main >/etc/apt/sources.list.d/repos.demokracia.rulez.org.list
