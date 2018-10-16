@@ -27,17 +27,13 @@ https://docs.google.com/document/d/1OfiW5jRzdRuli-4wmBedvsatGIfEgHGzq5Cm5cAzKzk/
 !!! even the unit tests use hardware random generator (/dev/random). install the haveged package,
 otherwise tests will take ages!!!
 
-Quality metrics gathered by sonar: https://sonarqube.com/dashboard?id=org.rulez.demokracia%3APDEngine
+Quality metrics gathered by sonar: https://sonarqube.com/dashboard?id=org.rulez.demokracia:PDEngine
 
 - We are using git-flow. You issue pull requests to the develop branch.
 
 - We are doing TDD. You will have tests. Enough in quality and quantity.
 
 - We use kanban. The table is here: https://huboard.com/edemo/PDEngine/
-
-- We meet weekly IRL and/or in hangouts:
- https://hangouts.google.com/hangouts/_/4wsasnqbvfeuvb4bxuhxxppn3ub
- Thursdays 1700 CET, Budapest Alíz u.2 1st floor, Silver meeting room
 
 - You can pick any issues not yet assigned. Those we alredy understand are in "Ready".
 
