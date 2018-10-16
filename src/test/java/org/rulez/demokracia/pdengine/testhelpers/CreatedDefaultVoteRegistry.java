@@ -2,7 +2,6 @@ package org.rulez.demokracia.pdengine.testhelpers;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.Vote;
@@ -40,4 +39,8 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		return voteManager.getVote(adminInfo.voteId);
 	}
 
+	protected void setVoteEndorseable() {
+		Vote vote = getTheVote();
+		vote.canEndorse=true;
+	}
 }

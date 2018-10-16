@@ -3,8 +3,6 @@ package org.rulez.demokracia.pdengine.testhelpers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import javax.ws.rs.ProcessingException;
-
 public class ThrowableTester {
 
 	private Throwable thrown;
@@ -35,7 +33,7 @@ public class ThrowableTester {
 		return thrown;
 	}
 
-	public ThrowableTester assertException(Class<ProcessingException> klass) {
+	public ThrowableTester assertException(Class<? extends RuntimeException> klass) {
 		assertEquals(thrown.getClass(), klass);
 		return this;
 	}

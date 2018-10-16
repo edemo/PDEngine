@@ -62,8 +62,19 @@ public class VoteRegistry implements IVoteManager {
 	}
 
 	@Override
-	public void endorseChoice(String adminKey, String voteId, String choiceId, String userName) {
-		getChoice(voteId, choiceId).endorse(userName);
+	public void endorseChoice(String proxyUserName, String adminKey, String voteId, String choiceId, String givenUserName) {
+		if(adminKey.equals("user")) {
+			checkIfVoteIsEndorseable(voteId);
+			givenUserName = proxyUserName;
+		}
+		getChoice(voteId, choiceId).endorse(givenUserName);
+	}
+
+	private void checkIfVoteIsEndorseable(String voteId) {
+		Vote vote = getVote(voteId);
+		if(! vote.canEndorse) {
+			throw new IllegalArgumentException("user cannot endorse this vote");
+		}
 	}
 
 }

@@ -21,6 +21,6 @@ public interface IVoteManager {
 
 	ChoiceEntity getChoice(String voteId, String choiceId);
 
-	void endorseChoice(String adminKey, String voteId, String choiceId, String string);
+	void endorseChoice(String proxyUserName, String adminKey, String voteId, String choiceId, String userName);
 
 }
