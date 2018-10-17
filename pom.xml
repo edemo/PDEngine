@@ -5,7 +5,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-master.4d87524</version>
+  <version>0.0.1-master.4a96649</version>
   <packaging>war</packaging>
 
   <name>PDEngine</name>
