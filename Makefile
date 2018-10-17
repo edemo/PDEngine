@@ -33,7 +33,7 @@ javadoc:
 include /usr/share/zenta-tools/model.rules
 
 testenv:
-	docker run --rm -p 5900:5900 -e PULL_REQUEST=false -v $$(pwd):/pdengine -w /pdengine -it edemo/pdengine
+	docker run --rm -p 5900:5900 -e PULL_REQUEST=false -e ORG_NAME=local -v $$(pwd):/pdengine -w /pdengine -it edemo/pdengine
 
 javabuild: target/PDEngine-0.0.1-SNAPSHOT.jar
 
