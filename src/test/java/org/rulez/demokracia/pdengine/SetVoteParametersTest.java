@@ -35,7 +35,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("set vote parameters")
 	@tested_behaviour("sets the parameters of the vote")
 	public void set_vote_parameters_sets_the_minEndorsement_parameter_of_the_vote() {
-		assertEquals(vote.minEndorsements, 3);
+		assertEquals(3,vote.minEndorsements);
 	}
 
 	@Test
@@ -43,7 +43,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("set vote parameters")
 	@tested_behaviour("sets the parameters of the vote")
 	public void set_vote_parameters_sets_the_canAddIn_parameter_of_the_vote() {
-		assertEquals(vote.canAddin, true);
+		assertEquals(true,vote.canAddin);
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("set vote parameters")
 	@tested_behaviour("sets the parameters of the vote")
 	public void set_vote_parameters_sets_the_canEndorse_parameter_of_the_vote() {
-		assertEquals(vote.canEndorse, true);
+		assertEquals(true,vote.canEndorse);
 	}
 
 	@Test
@@ -59,7 +59,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("set vote parameters")
 	@tested_behaviour("sets the parameters of the vote")
 	public void set_vote_parameters_sets_the_canVote_parameter_of_the_vote() {
-		assertEquals(vote.canVote, true);
+		assertEquals(true,vote.canVote);
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("set vote parameters")
 	@tested_behaviour("sets the parameters of the vote")
 	public void set_vote_parameters_sets_the_canView_parameter_of_the_vote() {
-		assertEquals(vote.canView, true);
+		assertEquals(true,vote.canView);
 	}
 
 }
