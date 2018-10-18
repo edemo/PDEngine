@@ -53,8 +53,27 @@ public class EndorseOptionTest extends CreatedDefaultChoice {
 	@Test
 	public void vote_id_is_the_id_of_an_existing_vote() {
 		String theVoteId = RandomUtils.createRandomKey();
+		String adminKey = "user";
 		String message = String.format("illegal voteId: %s", theVoteId);
-		assertThrows(() -> voteManager.endorseChoice("proxyuser", "user", theVoteId, choiceId, "testuserke"))
+		assertValidationFailsWithMessage(theVoteId, adminKey, message);
+	}
+
+	private void assertValidationFailsWithMessage(String theVoteId, String adminKey, String message) {
+		assertThrows(() -> {
+			voteManager.endorseChoice("proxyuser", adminKey, theVoteId, choiceId, "testuserke");
+		})
 				.assertException(IllegalArgumentException.class).assertMessageIs(message);
 	}
+
+	@tested_feature("Vote")
+	@tested_operation("Endorse option")
+	@tested_behaviour("validates inputs")
+	@Test
+	public void invalid_adminkey_is_rejected() {
+		String theVoteId = adminInfo.voteId;
+		String adminKey = RandomUtils.createRandomKey();
+		String message = String.format("Illegal adminKey: %s", adminKey);
+		assertValidationFailsWithMessage(theVoteId, adminKey, message);
+	}
+
 }
