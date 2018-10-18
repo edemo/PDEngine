@@ -10,7 +10,7 @@ import org.rulez.demokracia.pdengine.annotations.tested_operation;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
-public class EndorseOptionTest extends CreatedDefaultChoice{
+public class EndorseOptionTest extends CreatedDefaultChoice {
 
 	@Before
 	public void setUp() throws ReportedException {
@@ -19,8 +19,7 @@ public class EndorseOptionTest extends CreatedDefaultChoice{
 
 	@tested_feature("Vote")
 	@tested_operation("Endorse option")
-	@tested_behaviour("if adminKey is not user, the userName is registered "
-			+ "as endorserName for the choice")
+	@tested_behaviour("if adminKey is not user, the userName is registered " + "as endorserName for the choice")
 	@Test
 	public void endorsement_is_registered() {
 		voteManager.endorseChoice("proxyuser", adminInfo.adminKey, adminInfo.voteId, choiceId, "testuser");
@@ -33,9 +32,7 @@ public class EndorseOptionTest extends CreatedDefaultChoice{
 			+ " and the proxy id of the user will be registered as endorserName for the choice")
 	@Test
 	public void if_adminKey_is_user_and_canEndorse_is_false_then_an_exception_is_thrown() {
-		assertThrows( () ->
-			voteManager.endorseChoice("proxyuser", "user", adminInfo.voteId, choiceId, "testuserke")
-			);
+		assertThrows(() -> voteManager.endorseChoice("proxyuser", "user", adminInfo.voteId, choiceId, "testuserke"));
 		assertException(IllegalArgumentException.class);
 	}
 
@@ -48,5 +45,16 @@ public class EndorseOptionTest extends CreatedDefaultChoice{
 		setVoteEndorseable();
 		voteManager.endorseChoice("proxyuser", "user", adminInfo.voteId, choiceId, "testuserke");
 		assertTrue(getChoice(choiceId).endorsers.contains("proxyuser"));
+	}
+
+	@tested_feature("Vote")
+	@tested_operation("Endorse option")
+	@tested_behaviour("validates inputs")
+	@Test
+	public void vote_id_is_the_id_of_an_existing_vote() {
+		String theVoteId = RandomUtils.createRandomKey();
+		String message = String.format("illegal voteId: %s", theVoteId);
+		assertThrows(() -> voteManager.endorseChoice("proxyuser", "user", theVoteId, choiceId, "testuserke"))
+				.assertException(IllegalArgumentException.class).assertMessageIs(message);
 	}
 }
