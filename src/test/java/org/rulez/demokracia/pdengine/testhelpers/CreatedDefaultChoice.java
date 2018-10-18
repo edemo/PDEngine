@@ -6,7 +6,6 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 
 	protected String choiceId;
-
 	public CreatedDefaultChoice() {
 		super();
 	}
@@ -26,6 +25,13 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 
 	protected String addMyChoice() {
 		return voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice2", null);
+	}
+
+	protected void assertValidationFailsWithMessage(String message) {
+		assertThrows(() -> {
+			voteManager.endorseChoice("proxyuser", adminInfo.adminKey, adminInfo.voteId, choiceId, "testuserke");
+		})
+				.assertException(IllegalArgumentException.class).assertMessageIs(message);
 	}
 
 }

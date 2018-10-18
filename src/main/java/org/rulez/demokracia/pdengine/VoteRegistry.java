@@ -59,8 +59,17 @@ public class VoteRegistry implements IVoteManager {
 		Vote vote = getVote(voteId);
 		validateVoteId(voteId, vote);
 		validateAdminKey(adminKey, vote);
+		Choice choice = getChoice(voteId, choiceId);
 		givenUserName = figureOutUserName(proxyUserName, adminKey, givenUserName, vote);
-		getChoice(voteId, choiceId).endorse(givenUserName);
+		validateChoiceId(choiceId, choice);
+		choice.endorse(givenUserName);
+	}
+
+	private void validateChoiceId(String choiceId, Choice choice) {
+		if(null == choice) {
+			String message = String.format("Illegal choiceId: %s", choiceId);
+			throw new IllegalArgumentException(message);
+		}
 	}
 
 	private String figureOutUserName(String proxyUserName, String adminKey, String givenUserName, Vote vote) {
