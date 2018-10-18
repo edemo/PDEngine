@@ -15,7 +15,7 @@
   <xsl:function name="zenta:getAnnotation">
   	<xsl:param name="context"/>
   	<xsl:param name="annotationName"/>
-  	<xsl:copy-of select="$context/annotation[@name=$annotationName]|$context/../annotation[@name=$annotationName]/argument/value/text()"/>
+  	<xsl:copy-of select="normalize-space($context/annotation[@name=$annotationName]|$context/../annotation[@name=$annotationName]/argument/value/text())"/>
   </xsl:function>
 
   <xsl:template match="@*|*|processing-instruction()|comment()|text()" mode="#all">
