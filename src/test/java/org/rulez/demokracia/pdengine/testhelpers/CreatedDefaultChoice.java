@@ -29,7 +29,8 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 
 	protected void assertValidationFailsWithMessage(String message) {
 		assertThrows(() -> {
-			voteManager.endorseChoice("proxyuser", adminInfo.adminKey, adminInfo.voteId, choiceId, "testuserke");
+			voteManager.endorseChoice(
+					"proxyuser", adminInfo.adminKey, adminInfo.voteId, choiceId, "testuserke");
 		})
 				.assertException(IllegalArgumentException.class).assertMessageIs(message);
 	}

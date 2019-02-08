@@ -12,23 +12,24 @@ public class VoteManager extends SessionFactoryManager {
 		super();
 	}
 
-	public VoteAdminInfo createVote(String voteName, Set<String> neededAssurances, Set<String> countedAssurances, boolean isClosed, int minEndorsements)
+	public VoteAdminInfo createVote(String voteName, Set<String> neededAssurances,
+			Set<String> countedAssurances, boolean isClosed, int minEndorsements)
 			throws ReportedException {
 
-			    Validate.checkVoteName(voteName);
+		    Validate.checkVoteName(voteName);
 
-				VoteAdminInfo admininfo = new VoteAdminInfo();
-				VoteEntity vote = new Vote (
-						voteName,
-						Validate.checkAssurances(neededAssurances, "needed"),
-						Validate.checkAssurances(countedAssurances, "counted"),
-						isClosed,
-						minEndorsements);
-				admininfo.adminKey = vote.adminKey;
-				admininfo.voteId = vote.id;
-				session.save(vote);
-				return admininfo;
-			}
+			VoteAdminInfo admininfo = new VoteAdminInfo();
+			VoteEntity vote = new Vote (
+					voteName,
+					Validate.checkAssurances(neededAssurances, "needed"),
+					Validate.checkAssurances(countedAssurances, "counted"),
+					isClosed,
+					minEndorsements);
+			admininfo.adminKey = vote.adminKey;
+			admininfo.voteId = vote.id;
+			session.save(vote);
+			return admininfo;
+		}
 
 	public Vote getVote(String voteId) {
 		Vote vote = session.get(Vote.class, voteId);
