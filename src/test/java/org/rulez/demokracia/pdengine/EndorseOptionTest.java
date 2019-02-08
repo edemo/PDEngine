@@ -19,10 +19,12 @@ public class EndorseOptionTest extends CreatedDefaultChoice {
 
 	@tested_feature("Vote")
 	@tested_operation("Endorse option")
-	@tested_behaviour("if adminKey is not user, the userName is registered " + "as endorserName for the choice")
+	@tested_behaviour("if adminKey is not user, the userName is registered "
+			+ "as endorserName for the choice")
 	@Test
 	public void endorsement_is_registered() {
-		voteManager.endorseChoice("proxyuser", adminInfo.adminKey, adminInfo.voteId, choiceId, "testuser");
+		voteManager.endorseChoice(
+				"proxyuser", adminInfo.adminKey, adminInfo.voteId, choiceId, "testuser");
 		assertTrue(getChoice(choiceId).endorsers.contains("testuser"));
 	}
 
@@ -32,7 +34,8 @@ public class EndorseOptionTest extends CreatedDefaultChoice {
 			+ " and the proxy id of the user will be registered as endorserName for the choice")
 	@Test
 	public void if_adminKey_is_user_and_canEndorse_is_false_then_an_exception_is_thrown() {
-		assertThrows(() -> voteManager.endorseChoice("proxyuser", "user", adminInfo.voteId, choiceId, "testuserke"));
+		assertThrows(() -> voteManager.endorseChoice(
+				"proxyuser", "user", adminInfo.voteId, choiceId, "testuserke"));
 		assertException(IllegalArgumentException.class);
 	}
 
