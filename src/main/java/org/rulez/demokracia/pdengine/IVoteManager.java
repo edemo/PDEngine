@@ -23,4 +23,6 @@ public interface IVoteManager {
 
 	void endorseChoice(String proxyUserName, String adminKey, String voteId, String choiceId, String userName);
 
+	String obtainBallot(String id, String adminKey);
+
 }
