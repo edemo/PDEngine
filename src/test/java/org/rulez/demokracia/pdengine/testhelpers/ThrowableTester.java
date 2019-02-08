@@ -34,7 +34,7 @@ public class ThrowableTester {
 	}
 
 	public ThrowableTester assertException(Class<? extends RuntimeException> klass) {
-		assertEquals(thrown.getClass(), klass);
+		assertEquals(klass, thrown.getClass());
 		return this;
 	}
 }
