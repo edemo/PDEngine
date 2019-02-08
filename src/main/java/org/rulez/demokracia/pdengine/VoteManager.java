@@ -31,8 +31,17 @@ public class VoteManager extends SessionFactoryManager {
 			}
 
 	public Vote getVote(String voteId) {
-		return session.get(Vote.class, voteId);
+		Vote vote = session.get(Vote.class, voteId);
+		validateVoteId(voteId, vote);
+		return vote;
 	}
+
+	private void validateVoteId(String voteId, Vote vote) {
+		if (null == vote) {
+			throw new IllegalArgumentException(String.format("illegal voteId: %s", voteId));
+		}
+	}
+
 
 	protected void checkIfVoteIsEndorseable(String voteId) {
 		Vote vote = getVote(voteId);

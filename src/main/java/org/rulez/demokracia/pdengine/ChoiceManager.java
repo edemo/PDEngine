@@ -19,7 +19,9 @@ public class ChoiceManager extends VoteManager {
 			checkIfVoteIsEndorseable(voteId);
 			givenUserName = proxyUserName;
 		}
-		getChoice(voteId, choiceId).endorse(givenUserName);
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		vote.getChoice(choiceId).endorse(givenUserName);
 	}
 
 }
