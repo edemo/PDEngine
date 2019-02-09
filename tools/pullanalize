@@ -1,7 +1,19 @@
 #!/bin/bash
-set -e
+set -xe
 echo PULL REQUEST $PULL_REQUEST
 if [ $PULL_REQUEST != false ]
 then
     mvn sonar:sonar -Dsonar.organization=edemo -Dsonar.github.pullRequest=$PULL_REQUEST -Dsonar.analysis.mode=preview -Dsonar.github.oauth=$GITHUB_OAUTH
+    mvn sonar:sonar -Dsonar.organization=edemo\
+        -Dsonar.analysis.mode=publish\
+        -Dsonar.pullrequest.provider=github\
+        -Dsonar.pullrequest.github.repository=${REPO_FULL_NAME} \
+        -Dsonar.pullrequest.branch=${HEAD_BRANCH}\
+        -Dsonar.pullrequest.key=${PULL_REQUEST}\
+        -Dsonar.pullrequest.base=${BASE_BRANCH}\
+        -Dsonar.github.oauth=${GITHUB_OAUTH}\
+        -Dsonar.github.repository=${REPO_FULL_NAME}\
+        -Dsonar.issuesReport.console.enable=true\
+        -Dsonar.github.login=magwas
+
 fi
