@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+set -e
 echo PULL REQUEST $PULL_REQUEST
 if [ $PULL_REQUEST != false ]
 then
