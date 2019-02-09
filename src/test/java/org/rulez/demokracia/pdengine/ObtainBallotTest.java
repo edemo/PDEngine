@@ -38,5 +38,32 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 		String ballot2 = voteManager.obtainBallot(vote.id,vote.adminKey);
 		assertNotEquals(ballot1,ballot2);
 	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("validates inputs")
+	@Test
+	public void voteId_is_checked_to_be_the_id_of_an_existig_vote() {
+		assertThrows(() -> {
+			voteManager.obtainBallot("invalidvoteId",vote.adminKey);
+		})
+				.assertException(IllegalArgumentException.class)
+				.assertMessageIs("illegal voteId: invalidvoteId");
+
+	}
+
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("validates inputs")
+	@Test
+	public void adminKey_is_checked() {
+		assertThrows(() -> {
+			voteManager.obtainBallot(vote.id,"illegalAdminKey");
+		})
+				.assertException(IllegalArgumentException.class)
+				.assertMessageIs("Illegal adminKey: illegalAdminKey");
+
+	}
+
 
 }

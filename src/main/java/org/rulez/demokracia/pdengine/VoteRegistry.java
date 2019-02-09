@@ -7,6 +7,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	
 	@Override
 	public String obtainBallot(String id, String adminKey) {
+		getVote(id).checkAdminKey(adminKey);
 		return RandomUtils.createRandomKey();
 	}
 
