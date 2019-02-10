@@ -105,6 +105,9 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertEquals(adminInfo.adminKey, voteManager.getVote(adminInfo.voteId).adminKey);
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void vote_name_can_contain_scpaces() throws ReportedException {
 		voteName = "This contains spaces";
@@ -113,7 +116,9 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		
 	}
 
-	@Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")	@Test
 	public void vote_name_cannot_be_null() throws ReportedException {
 		voteName = null;
 		assertThrows(
@@ -121,6 +126,9 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		).assertMessageIs("vote name is null");
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void vote_name_cannot_contain_tabs() {
 		voteName = "thiscontainstab\t";
@@ -129,6 +137,9 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("invalid characters in vote name");
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void votename_max_length_is_255_characters() throws ReportedException {
 		int length = 255;
@@ -142,6 +153,9 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("string too long: vote name");
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void minimum_vote_name_length_is_3() throws ReportedException {
 		voteName = "aaa";
@@ -152,6 +166,9 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("string too short: vote name");
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void votename_can_contain_local_characters() throws ReportedException {
 		voteName = "ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ";
@@ -161,6 +178,9 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertEquals(voteName, voteManager.getVote(secondVote.voteId).name);
 
 	}
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void neededAssurances_is_checked_not_to_contain_strings_longer_than_255() throws ReportedException {
         int length = 255;
@@ -176,7 +196,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("string too long: needed assurance name");
 	}
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void neededAssurances_is_checked_not_to_contain_strings_shorter_than_3() throws ReportedException {
         neededAssurances.add("aaa");
 
@@ -187,7 +210,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("string too short: needed assurance name");
     }
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void needed_assurances_should_not_contain_space() {
         neededAssurances.add("This contains space");
 
@@ -196,7 +222,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("invalid characters in needed assurance name");
     }
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void needed_assurances_should_not_contain_tab() {
         neededAssurances.add("thiscontainstab\t");
 		assertThrows(
@@ -204,7 +233,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("invalid characters in needed assurance name");
     }
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void needed_assurances_should_not_contain_empty_string() {
         neededAssurances.add("");
 		assertThrows(
@@ -212,7 +244,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("string too short: needed assurance name");
     }
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void needed_assurances_should_not_be_null() {
         neededAssurances.add(null);
 		assertThrows(
@@ -220,7 +255,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("needed assurance name is null");
     }
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void needed_assurances_can_contain_local_characters() throws ReportedException {
         neededAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
         
@@ -229,6 +267,9 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
     }
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void countedAssurances_is_checked_not_to_contain_strings_longer_than_255() throws ReportedException {
         int length = 255;
@@ -244,7 +285,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("string too long: counted assurance name");
 	}
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void countedAssurances_is_checked_not_to_contain_strings_shorter_than_3() throws ReportedException {
         countedAssurances.add("aaa");
 
@@ -255,7 +299,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("string too short: counted assurance name");
     }
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void counted_assurances_should_not_contain_space() {
         countedAssurances.add("This contains space");
 
@@ -264,7 +311,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("invalid characters in counted assurance name");
     }
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void counted_assurances_should_not_contain_tab() {
         countedAssurances.add("thiscontainstab\t");
 		assertThrows(
@@ -272,7 +322,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 			).assertMessageIs("invalid characters in counted assurance name");
     }
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void counted_assurances_can_contain_local_characters() throws ReportedException {
         countedAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
         
@@ -281,7 +334,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
     }
 
-    @Test
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("formally validates all inputs")
+	@Test
     public void counted_assurance_can_be_empty() throws ReportedException {
         countedAssurances.add("");
         assertEquals(countedAssurances.size(),1);
