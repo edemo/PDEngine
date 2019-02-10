@@ -1,5 +1,6 @@
 package org.rulez.demokracia.pdengine.testhelpers;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Before;
@@ -43,4 +44,13 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		Vote vote = getTheVote();
 		vote.canEndorse=true;
 	}
+	
+	protected String createLongString(int length) {
+		char[] charArray = new char[length];
+	    Arrays.fill(charArray, 'w');
+	    String str256 = new String(charArray);
+		return str256;
+	}
+
+
 }
