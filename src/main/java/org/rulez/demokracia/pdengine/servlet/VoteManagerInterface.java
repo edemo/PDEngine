@@ -3,12 +3,14 @@ package org.rulez.demokracia.pdengine.servlet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.ws.WebServiceContext;
 
 import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.IVoteManager;
@@ -21,6 +23,9 @@ import org.rulez.demokracia.pdengine.servlet.requests.CreateVoteRequest;
 public class VoteManagerInterface {
 
     private static final Logger LOGGER = Logger.getLogger( RandomUtils.class.getName() );
+    
+    @Resource
+    private WebServiceContext wsContext;
 
 	@POST
     @Produces({MediaType.APPLICATION_JSON})
@@ -28,7 +33,7 @@ public class VoteManagerInterface {
 	public Response createVote(CreateVoteRequest req) {
 		VoteAdminInfo adminInfo;
 		try {
-			adminInfo = IVoteManager.getVoteManager().createVote(
+			adminInfo = IVoteManager.getVoteManager(wsContext).createVote(
 					req.getVoteName(),
 					req.getNeededAssurances(),
 					req.getCountedAssurances(),

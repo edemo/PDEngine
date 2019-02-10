@@ -2,9 +2,11 @@ package org.rulez.demokracia.pdengine;
 
 import java.util.List;
 
+import javax.xml.ws.WebServiceContext;
+
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
-	public VoteRegistry() {
-		super();
+	public VoteRegistry(WebServiceContext wsContext) {
+		super(wsContext);
 	}
 	
 	@Override
@@ -21,5 +23,4 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(voteId);
 		vote.ballots.remove(ballot);
 	}
-
 }
