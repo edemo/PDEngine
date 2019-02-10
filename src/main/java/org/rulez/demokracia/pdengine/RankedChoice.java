@@ -1,5 +1,9 @@
 package org.rulez.demokracia.pdengine;
 
-public class RankedChoice {
+import java.io.Serializable;
+
+public class RankedChoice implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 }

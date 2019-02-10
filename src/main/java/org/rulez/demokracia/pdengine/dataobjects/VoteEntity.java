@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine.dataobjects;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.persistence.ElementCollection;
@@ -13,11 +13,11 @@ public abstract class VoteEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	public String name;
 	@ElementCollection
-	public List<String> neededAssurances;
+	public ArrayList<String> neededAssurances;
 	@ElementCollection
-	public List<String> countedAssurances;
+	public ArrayList<String> countedAssurances;
 	@ElementCollection
-	public List<String> ballots;
+	public ArrayList<String> ballots;
 	public boolean isPrivate;
 	public String adminKey;
 	public long creationTime;
