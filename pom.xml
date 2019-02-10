@@ -5,7 +5,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-master.4a96649</version>
+  <version>0.0.1-feature_issue_57.5859679</version>
   <packaging>war</packaging>
 
   <name>PDEngine</name>
@@ -20,6 +20,17 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>1.4.5</version>
+          <configuration>
+              <outputFormats>
+                  <outputFormat>XML</outputFormat>
+                  <outputFormat>HTML</outputFormat>
+              </outputFormats>
+          </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
