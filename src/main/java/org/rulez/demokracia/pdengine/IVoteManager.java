@@ -1,5 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
+import java.util.List;
 import java.util.Set;
 
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
@@ -24,5 +25,7 @@ public interface IVoteManager {
 	void endorseChoice(String proxyUserName, String adminKey, String voteId, String choiceId, String userName);
 
 	String obtainBallot(String id, String adminKey);
+
+	void castVote(String voteId, String ballot, List<RankedChoice> theVote);
 
 }

@@ -65,5 +65,16 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("creates a new ballot with an id for the vote")
+	@Test
+	public void obtainBallot_stores_the_ballot() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		Vote vote = getTheVote();
+		assertTrue(vote.ballots.contains(ballot));
+	}
+
+
 
 }

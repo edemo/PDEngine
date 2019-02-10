@@ -25,7 +25,7 @@ public class Validate {
 		Set<String> uniques = new HashSet<>();
 
 		for (String assurance : neededAssurances) {
-			if(type == "counted" && "".equals(assurance)) {
+			if(type.equals("counted") && "".equals(assurance)) {
 				assurance = null;				
 			} else {
 				checkStringNoSpaces(assurance, type+" assurance name");				
