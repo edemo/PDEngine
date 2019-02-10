@@ -2,14 +2,16 @@ package org.rulez.demokracia.pdengine;
 
 import java.util.Set;
 
+import javax.xml.ws.WebServiceContext;
+
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class VoteManager extends SessionFactoryManager {
 
-	public VoteManager() {
-		super();
+	public VoteManager(WebServiceContext wsContext) {
+		super(wsContext);
 	}
 
 	public VoteAdminInfo createVote(String voteName, Set<String> neededAssurances,

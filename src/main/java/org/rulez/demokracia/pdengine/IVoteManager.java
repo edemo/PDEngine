@@ -3,15 +3,19 @@ package org.rulez.demokracia.pdengine;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.ws.WebServiceContext;
+
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public interface IVoteManager {
 
-	static IVoteManager getVoteManager() {
-		return VoteManagerRegistry.getVoteManager();
+	static IVoteManager getVoteManager(WebServiceContext wsContext) {
+		return VoteManagerRegistry.getVoteManager(wsContext);
 	}
+
+	WebServiceContext getWsContext();
 
 	VoteAdminInfo createVote(String voteName, Set<String> neededAssurances, Set<String> countedAssurances,
 			boolean isPrivate, int minEndorsements) throws ReportedException;

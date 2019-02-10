@@ -1,23 +1,22 @@
 package org.rulez.demokracia.pdengine;
 
+import javax.xml.ws.WebServiceContext;
+
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.rulez.demokracia.pdengine.persistence.HibernateUtil;
 
 public class SessionFactoryManager {
 
 	protected Session session;
-	protected SessionFactory sessionFactory;
+	private WebServiceContext wsContext;
 
-	public SessionFactoryManager() {
+	public SessionFactoryManager(WebServiceContext wsContext) {
 		super();
-		sessionFactory = HibernateUtil.getSessionFactory();
-		session = sessionFactory.openSession();
+		this.wsContext = wsContext;
+		session = DBSessionManager.getDBSession();
 	}
 
-	public void close() {
-		session.close();
-		sessionFactory.close();
+	public WebServiceContext getWsContext() {
+		return wsContext;
 	}
 
 }

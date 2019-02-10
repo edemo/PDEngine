@@ -17,22 +17,23 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
+import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.integrationtest.JettyThread;
 import org.rulez.demokracia.pdengine.servlet.requests.CreateVoteRequest;
-import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
+import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
-public class VoteCreationIntegrationTest extends ThrowableTester {
+public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	private JettyThread thread;
 	private CreateVoteRequest req;
 
 	@Before
-    public void setUp(){
+    public void setUp() throws ReportedException{
 		thread = new JettyThread();
         thread.run();
 		initializeCreateVoteRequest();
+		super.setUp();
     }
 	
 	@Test
@@ -40,7 +41,7 @@ public class VoteCreationIntegrationTest extends ThrowableTester {
 		Invocation.Builder invocationBuilder = createWebClient();
 		Response response = invocationBuilder.post(Entity.entity(req,MediaType.APPLICATION_JSON));
 		VoteAdminInfo adminInfo = response.readEntity(VoteAdminInfo.class);
-		VoteEntity vote = IVoteManager.getVoteManager().getVote(adminInfo.voteId);
+		VoteEntity vote = voteManager.getVote(adminInfo.voteId);
 		assertEquals(req.getVoteName(),vote.name);
 		assertEquals(adminInfo.adminKey,vote.adminKey);
 	}

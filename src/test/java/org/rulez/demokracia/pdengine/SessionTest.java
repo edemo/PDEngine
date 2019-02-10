@@ -1,0 +1,47 @@
+package org.rulez.demokracia.pdengine;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.security.Principal;
+
+import javax.xml.ws.WebServiceContext;
+
+import org.hibernate.Session;
+import org.junit.Before;
+import org.junit.Test;
+import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
+
+public class SessionTest extends CreatedDefaultVoteRegistry {
+
+
+	@Before
+	public void setUp() throws ReportedException {
+		super.setUp();
+	}
+
+	@Test
+	public void the_user_name_and_its_roles_are_in_the_session_context() {
+		WebServiceContext sessionContext = voteManager.getWsContext();
+		Principal user = sessionContext.getUserPrincipal();
+		assertEquals("userke", user.getName());
+		assertTrue(sessionContext.isUserInRole("magyar"));
+	}
+	
+	@Test
+	public void you_get_the_same_hibernate_session_by_calling_getDBSession_on_DBSessionManager() {
+		Session session1 = DBSessionManager.getDBSession();
+		Session session2 = DBSessionManager.getDBSession();
+		assertEquals(session1,session2);
+	}
+	
+	@Test
+	public void two_voteManagers_for_the_same_session_context_are_the_same() {
+		WebServiceContext wsContext = mock(WebServiceContext.class);
+		IVoteManager voteManager1 = IVoteManager.getVoteManager(wsContext);
+		IVoteManager voteManager2 = IVoteManager.getVoteManager(wsContext);
+		assertEquals(voteManager1, voteManager2);
+	}
+
+}

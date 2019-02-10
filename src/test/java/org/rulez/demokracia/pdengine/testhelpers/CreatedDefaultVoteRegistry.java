@@ -1,7 +1,14 @@
 package org.rulez.demokracia.pdengine.testhelpers;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.xml.ws.WebServiceContext;
+
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.Vote;
@@ -21,7 +28,8 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 
 	@Before
 	public void setUp() throws ReportedException {
-		voteManager = IVoteManager.getVoteManager();
+		WebServiceContext wsContext = setupMockWsContext();
+		voteManager = IVoteManager.getVoteManager(wsContext);
 		neededAssurances = new HashSet<>();
 		countedAssurances = new HashSet<>();
 		isPrivate = true;
@@ -29,6 +37,16 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		neededAssurances.add("magyar");
         voteName = "testVote";
 		adminInfo = createAVote();
+	}
+
+	private WebServiceContext setupMockWsContext() {
+		WebServiceContext wsContext = mock(WebServiceContext.class);
+		Principal principal = mock(Principal.class);
+		when(wsContext.getUserPrincipal()).thenReturn(principal);
+		when(principal.getName()).thenReturn("userke");
+		when(wsContext.isUserInRole("magyar")).thenReturn(true);
+		when(wsContext.isUserInRole("appmagyar")).thenReturn(true);
+		return wsContext;
 	}
 
 	protected VoteAdminInfo createAVote() throws ReportedException {

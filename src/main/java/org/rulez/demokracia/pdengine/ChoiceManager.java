@@ -1,9 +1,11 @@
 package org.rulez.demokracia.pdengine;
 
+import javax.xml.ws.WebServiceContext;
+
 public class ChoiceManager extends VoteManager {
 
-	public ChoiceManager() {
-		super();
+	public ChoiceManager(WebServiceContext wsContext) {
+		super(wsContext);
 	}
 
 	public String addChoice(String adminKey, String voteId, String choiceName, String user) {
