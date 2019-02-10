@@ -24,6 +24,7 @@ public class Vote extends VoteEntity {
 		this.minEndorsements = minEndorsements;
 		creationTime = Instant.now().getEpochSecond();
 		choices = new HashMap<String,Choice>();
+		ballots = new ArrayList<String>();
 	}
 
 	public String addChoice(String choiceName, String user) {
