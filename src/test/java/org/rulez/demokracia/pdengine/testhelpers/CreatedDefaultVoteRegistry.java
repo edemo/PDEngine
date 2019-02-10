@@ -43,7 +43,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		WebServiceContext wsContext = mock(WebServiceContext.class);
 		Principal principal = mock(Principal.class);
 		when(wsContext.getUserPrincipal()).thenReturn(principal);
-		when(principal.getName()).thenReturn("userke");
+		when(principal.getName()).thenReturn("test_user_in_ws_context");
 		when(wsContext.isUserInRole("magyar")).thenReturn(true);
 		when(wsContext.isUserInRole("appmagyar")).thenReturn(true);
 		return wsContext;

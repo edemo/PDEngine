@@ -3,8 +3,6 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import java.security.Principal;
-
 import javax.xml.ws.WebServiceContext;
 
 import org.hibernate.Session;
@@ -22,13 +20,15 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 	}
 
 	@Test
-	public void the_user_name_and_its_roles_are_in_the_session_context() {
-		WebServiceContext sessionContext = voteManager.getWsContext();
-		Principal user = sessionContext.getUserPrincipal();
-		assertEquals("userke", user.getName());
-		assertTrue(sessionContext.isUserInRole("magyar"));
+	public void the_user_name_is_obtainable_from_the_voteManager() {
+		assertEquals("test_user_in_ws_context", voteManager.getWsUserName());
 	}
-	
+
+	@Test
+	public void user_assurances_are_checkable_from_the_voteManager() {
+		assertTrue(voteManager.hasAssurance("magyar"));
+	}
+
 	@Test
 	public void you_get_the_same_hibernate_session_by_calling_getDBSession_on_DBSessionManager() {
 		Session session1 = DBSessionManager.getDBSession();

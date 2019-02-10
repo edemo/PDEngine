@@ -16,10 +16,10 @@ public class ChoiceManager extends VoteManager {
 		return getVote(voteId).getChoice(choiceId);
 	}
 
-	public void endorseChoice(String proxyUserName, String adminKey, String voteId, String choiceId, String givenUserName) {
+	public void endorseChoice(String adminKey, String voteId, String choiceId, String givenUserName) {
 		if(adminKey.equals("user")) {
 			checkIfVoteIsEndorseable(voteId);
-			givenUserName = proxyUserName;
+			givenUserName = getWsUserName();
 		}
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);

@@ -26,10 +26,14 @@ public interface IVoteManager {
 
 	ChoiceEntity getChoice(String voteId, String choiceId);
 
-	void endorseChoice(String proxyUserName, String adminKey, String voteId, String choiceId, String userName);
+	void endorseChoice(String adminKey, String voteId, String choiceId, String statedUserName);
 
 	String obtainBallot(String id, String adminKey);
 
 	void castVote(String voteId, String ballot, List<RankedChoice> theVote);
+
+	String getWsUserName();
+
+	boolean hasAssurance(String role);
 
 }

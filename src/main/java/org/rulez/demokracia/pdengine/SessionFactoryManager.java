@@ -19,4 +19,12 @@ public class SessionFactoryManager {
 		return wsContext;
 	}
 
+	public String getWsUserName() {
+		return getWsContext().getUserPrincipal().getName();
+	}
+
+	public boolean hasAssurance(String role) {
+		return getWsContext().isUserInRole(role);
+	}
+
 }
