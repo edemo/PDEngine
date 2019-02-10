@@ -16,6 +16,8 @@ public abstract class VoteEntity extends BaseEntity {
 	public List<String> neededAssurances;
 	@ElementCollection
 	public List<String> countedAssurances;
+	@ElementCollection
+	public List<String> ballots;
 	public boolean isPrivate;
 	public String adminKey;
 	public long creationTime;
