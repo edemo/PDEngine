@@ -13,11 +13,11 @@ public abstract class VoteEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	public String name;
 	@ElementCollection
-	public ArrayList<String> neededAssurances;
+	public List<String> neededAssurances;
 	@ElementCollection
-	public ArrayList<String> countedAssurances;
+	public List<String> countedAssurances;
 	@ElementCollection
-	public ArrayList<String> ballots;
+	public List<String> ballots;
 	public boolean isPrivate;
 	public String adminKey;
 	public long creationTime;

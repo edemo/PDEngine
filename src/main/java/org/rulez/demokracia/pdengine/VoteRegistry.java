@@ -23,4 +23,10 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(voteId);
 		vote.ballots.remove(ballot);
 	}
+
+	@Override
+	public void castVote(String voteId, String ballot, List<RankedChoice> theVote) {
+		Vote vote = getVote(voteId);
+		vote.ballots.remove(ballot);
+	}
 }
