@@ -39,6 +39,9 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 		assertTrue(voteManager.hasAssurance("magyar"));
 	}
 
+	@tested_feature("Supporting functionality")
+	@tested_operation("Session management")
+	@tested_behaviour("Hibernate session is obtainable from the VoteManager")
 	@Test
 	public void you_get_the_same_hibernate_session_by_calling_getDBSession_on_DBSessionManager() {
 		Session session1 = DBSessionManager.getDBSession();
@@ -46,6 +49,9 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 		assertEquals(session1,session2);
 	}
 	
+	@tested_feature("Supporting functionality")
+	@tested_operation("Session management")
+	@tested_behaviour("VoteManager can be obtained through the IVoteManager interface with a WebServiceContext")
 	@Test
 	public void two_voteManagers_for_the_same_session_context_are_the_same() {
 		WebServiceContext wsContext = mock(WebServiceContext.class);
@@ -54,6 +60,9 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 		assertEquals(voteManager1, voteManager2);
 	}
 	
+	@tested_feature("Supporting functionality")
+	@tested_operation("Session management")
+	@tested_behaviour("Hibernate session is obtainable from the VoteManager")
 	@Test
 	public void database_session_is_closed_when_DBSessionManager_is_closed() {
 		Session session = DBSessionManager.getDBSession();
@@ -64,6 +73,9 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 				.assertException(IllegalStateException.class);
 	}
 
+	@tested_feature("Supporting functionality")
+	@tested_operation("Session management")
+	@tested_behaviour("Hibernate session is obtainable from the VoteManager")
 	@Test
 	public void database_factory_is_closed_when_DBSessionManager_is_closed() {
 		Session session = DBSessionManager.getDBSession();
@@ -75,6 +87,9 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 				.assertException(IllegalStateException.class);
 	}
 
+	@tested_feature("Supporting functionality")
+	@tested_operation("Session management")
+	@tested_behaviour("Hibernate session is obtainable from the VoteManager")
 	@Test
 	public void you_get_a_new_hibernate_session_by_closing_DBSessionManager() {
 		Session session1 = DBSessionManager.getDBSession();

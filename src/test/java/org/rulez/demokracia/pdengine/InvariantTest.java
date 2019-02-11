@@ -22,6 +22,9 @@ public class InvariantTest extends VoteInvariantCheck {
 		saveInvariables(vote);
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("vote invariants")
 	@Test
 	public void vote_id_is_invariant() {
 		vote.setId("bad");
@@ -29,6 +32,9 @@ public class InvariantTest extends VoteInvariantCheck {
 		vote.setId(savedVoteId);
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("vote invariants")
 	@Test
 	public void adminKey_is_invariant() {
 		vote.setAdminKey("bad");
@@ -36,6 +42,9 @@ public class InvariantTest extends VoteInvariantCheck {
 		vote.setAdminKey(savedAdminKey);
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("vote invariants")
 	@Test
 	public void neededAssurances_is_invariant() {
 		ArrayList<String> badAssurances = new ArrayList<String>();
@@ -45,6 +54,9 @@ public class InvariantTest extends VoteInvariantCheck {
 		vote.neededAssurances = savedNeededAssurances;
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("vote invariants")
 	@Test
 	public void countedAssurances_is_invariant() {
 		ArrayList<String> badAssurances = new ArrayList<String>();
@@ -54,6 +66,9 @@ public class InvariantTest extends VoteInvariantCheck {
 		vote.countedAssurances = savedCountedAssurances;
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("vote invariants")
 	@Test
 	public void isPrivate_is_invariant() {
 		vote.setisPrivate(!savedIsPrivate);
@@ -61,6 +76,9 @@ public class InvariantTest extends VoteInvariantCheck {
 		vote.setisPrivate(savedIsPrivate);
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("create vote")
+	@tested_behaviour("vote invariants")
 	@Test
 	public void creationTime_is_invariant() {
 		vote.setCreationTime(0);

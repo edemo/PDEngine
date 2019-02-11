@@ -598,8 +598,8 @@ rankedChoices have a list of properly formatted RankedChoice instances, where:
           <element xsi:type="zenta:BasicObject" name="random key is string" id="63a6a638-1897-4761-8914-bd158aa0b53b" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
           <element xsi:type="zenta:BasicRelationship" id="b963fc91-3f74-468d-9ca0-6b1107d231e9" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="083af6ee-5e6e-4949-a7d6-82cf3936b242" target="63a6a638-1897-4761-8914-bd158aa0b53b"/>
         </folder>
-        <folder name="2. username and assurance" id="0a63ddd8-b81e-4569-b814-f6f7ab12534c">
-          <element xsi:type="zenta:ZentaDiagramModel" name="username and assurance" id="041bb4a9-8e2c-427a-9ba0-b32db23276b8">
+        <folder name="2. Session management" id="0a63ddd8-b81e-4569-b814-f6f7ab12534c">
+          <element xsi:type="zenta:ZentaDiagramModel" name="Session management" id="041bb4a9-8e2c-427a-9ba0-b32db23276b8">
             <child xsi:type="zenta:DiagramObject" id="b76ab1ac-7c90-473b-b282-97e251b44651" zentaElement="de4b570a-17b0-4872-a614-22acfca5eea2">
               <bounds x="405" y="57" width="-1" height="-1"/>
               <sourceConnection xsi:type="zenta:Connection" id="fe622264-9d33-4f86-956d-1e7f994b19c4" source="b76ab1ac-7c90-473b-b282-97e251b44651" target="48aa1504-16d8-48d5-a14c-de776e3a0dc0" relationship="834aa894-c859-4993-8c23-c393feca1a8a"/>
@@ -628,7 +628,11 @@ rankedChoices have a list of properly formatted RankedChoice instances, where:
             <documentation>IVoteManager.getVoteManager(wsContext);</documentation>
           </element>
           <element xsi:type="zenta:BasicRelationship" id="9083ff25-639e-45ca-a5f6-4364e5612732" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="119f452d-1873-4b7a-8d33-4edaa3bbb020" target="af8ea3b3-8c3e-4e22-aa0d-c85515bd33fc"/>
-          <element xsi:type="zenta:BasicObject" name="Hibernate session is obtainable from the VoteManager" id="e8079ef0-fe98-4688-a8be-1566d4642d45" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
+          <element xsi:type="zenta:BasicObject" name="Hibernate session is obtainable from the VoteManager" id="e8079ef0-fe98-4688-a8be-1566d4642d45" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
+            <documentation>VoteManager calls DBSessionManager in constructor time.
+DBSessionManager is a singleton, and the only interface for closing database connection.
+DBSessionManager is not intended to be called from any other place than VoteManager.</documentation>
+          </element>
           <element xsi:type="zenta:BasicRelationship" id="c273be18-4df0-475c-b606-f0a437ad7c2e" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="119f452d-1873-4b7a-8d33-4edaa3bbb020" target="e8079ef0-fe98-4688-a8be-1566d4642d45"/>
         </folder>
       </folder>
