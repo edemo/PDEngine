@@ -11,12 +11,10 @@ public final class DBSessionManager {
 	private DBSessionManager() {	
 	}
 
-	public void close() {
+	public static void close() {
 		session.close();
 		sessionFactory.close();
 		session = null;
-		sessionFactory = null;
-
 	}
 
 	public static Session getDBSession() {
