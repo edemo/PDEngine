@@ -12,7 +12,6 @@ public final class DBSessionManager {
 	}
 
 	public static void close() {
-		session.close();
 		sessionFactory.close();
 		session = null;
 	}

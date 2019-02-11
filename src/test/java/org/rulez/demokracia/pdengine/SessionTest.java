@@ -5,7 +5,6 @@ import static org.mockito.Mockito.*;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
