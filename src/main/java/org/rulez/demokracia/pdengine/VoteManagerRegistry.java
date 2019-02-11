@@ -1,16 +1,21 @@
 package org.rulez.demokracia.pdengine;
 
-public class VoteManagerRegistry {
+import java.util.HashMap;
+import java.util.Map;
 
-	static IVoteManager manager;
+import javax.xml.ws.WebServiceContext;
+
+public class VoteManagerRegistry {
+	
+	private static Map<WebServiceContext,IVoteManager> registry = new HashMap<>();
 
 	private VoteManagerRegistry() {
 	}
 
-	public static IVoteManager getVoteManager() {
-		if (manager == null) {
-			manager = new VoteRegistry();
+	public static IVoteManager getVoteManager(WebServiceContext wsContext) {
+		if(!registry.containsKey(wsContext)) {
+			registry.put(wsContext, new VoteRegistry(wsContext));
 		}
-		return manager;
+		return registry.get(wsContext);
 	}
 }

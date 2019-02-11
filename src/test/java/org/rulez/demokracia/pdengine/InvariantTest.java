@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
 import org.rulez.demokracia.pdengine.annotations.tested_feature;
 import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.testhelpers.VoteInvariantCheck;
+import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
 
 @tested_feature("Manage votes")
 @tested_operation("create vote")
