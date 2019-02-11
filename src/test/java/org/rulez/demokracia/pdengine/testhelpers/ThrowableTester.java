@@ -3,6 +3,8 @@ package org.rulez.demokracia.pdengine.testhelpers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 public class ThrowableTester {
 
 	private Throwable thrown;
@@ -34,7 +36,8 @@ public class ThrowableTester {
 	}
 
 	public ThrowableTester assertException(Class<? extends RuntimeException> klass) {
-		assertEquals(thrown.getClass(), klass);
+		String message = String.format("expected %s but got %s", klass, ExceptionUtils.getStackTrace(thrown));
+		assertEquals(message, klass, thrown.getClass());
 		return this;
 	}
 }

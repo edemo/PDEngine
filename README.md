@@ -29,6 +29,8 @@ otherwise tests will take ages!!!
 
 Quality metrics gathered by sonar: https://sonarqube.com/dashboard?id=org.rulez.demokracia:PDEngine
 
+- Coding rules are mandatory. They are here: https://adadocs.demokracia.rulez.org/zenta-tools/magwas/master/zenta-tools/codingrules.html
+
 - We are using git-flow. You issue pull requests to the develop branch.
 
 - We are doing TDD. You will have tests. Enough in quality and quantity.

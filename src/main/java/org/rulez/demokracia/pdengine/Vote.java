@@ -24,6 +24,7 @@ public class Vote extends VoteEntity {
 		this.minEndorsements = minEndorsements;
 		creationTime = Instant.now().getEpochSecond();
 		choices = new HashMap<String,Choice>();
+		ballots = new ArrayList<String>();
 	}
 
 	public String addChoice(String choiceName, String user) {
@@ -33,6 +34,9 @@ public class Vote extends VoteEntity {
 	}
 
 	public Choice getChoice(String choiceId) {
+		if(!choices.containsKey(choiceId)) {
+			throw new IllegalArgumentException(String.format("Illegal choiceId: %s", choiceId));
+		}
 		return choices.get(choiceId);
 	}
 
@@ -47,6 +51,12 @@ public class Vote extends VoteEntity {
 		this.canEndorse = canEndorse;
 		this.canVote = canVote;
 		this.canView = canView;
+	}
+
+	public void checkAdminKey(String providedAdminKey) {
+		if(! (adminKey.equals(providedAdminKey)||providedAdminKey.equals("user")) ) {
+			throw new IllegalArgumentException(String.format("Illegal adminKey: %s", providedAdminKey));
+		}
 	}
 
 }
