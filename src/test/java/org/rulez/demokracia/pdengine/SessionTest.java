@@ -8,6 +8,9 @@ import javax.xml.ws.WebServiceContext;
 import org.hibernate.Session;
 import org.junit.Before;
 import org.junit.Test;
+import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
+import org.rulez.demokracia.pdengine.annotations.tested_feature;
+import org.rulez.demokracia.pdengine.annotations.tested_operation;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
@@ -19,11 +22,17 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 		super.setUp();
 	}
 
+	@tested_feature("Supporting functionality")
+	@tested_operation("Session management")
+	@tested_behaviour("username and assurances can be obtained from the VoteManager")
 	@Test
 	public void the_user_name_is_obtainable_from_the_voteManager() {
 		assertEquals("test_user_in_ws_context", voteManager.getWsUserName());
 	}
 
+	@tested_feature("Supporting functionality")
+	@tested_operation("Session management")
+	@tested_behaviour("username and assurances can be obtained from the VoteManager")
 	@Test
 	public void user_assurances_are_checkable_from_the_voteManager() {
 		assertTrue(voteManager.hasAssurance("magyar"));
