@@ -62,9 +62,9 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 		SessionFactory sessionFactory = session.getSessionFactory();
 		DBSessionManager.close();
 		assertThrows(() -> {
-			sessionFactory.getCurrentSession();
+			sessionFactory.createEntityManager();
 		})
-				.assertException(HibernateException.class);
+				.assertException(IllegalStateException.class);
 	}
 
 	@Test
