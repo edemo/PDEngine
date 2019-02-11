@@ -7,7 +7,7 @@ import javax.xml.ws.WebServiceContext;
 
 public class VoteManagerRegistry {
 	
-	private static Map<WebServiceContext,IVoteManager> registry = new HashMap<WebServiceContext,IVoteManager>();
+	private static Map<WebServiceContext,IVoteManager> registry = new HashMap<>();
 
 	private VoteManagerRegistry() {
 	}

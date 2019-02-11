@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import javax.xml.ws.WebServiceContext;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
@@ -51,6 +52,35 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 		IVoteManager voteManager1 = IVoteManager.getVoteManager(wsContext);
 		IVoteManager voteManager2 = IVoteManager.getVoteManager(wsContext);
 		assertEquals(voteManager1, voteManager2);
+	}
+	
+	@Test
+	public void database_session_is_closed_when_DBSessionManager_is_closed() {
+		Session session = DBSessionManager.getDBSession();
+		DBSessionManager.close();
+		assertThrows(() -> {
+			session.beginTransaction();
+		})
+				.assertException(IllegalStateException.class);
+	}
+
+	@Test
+	public void database_factory_is_closed_when_DBSessionManager_is_closed() {
+		Session session = DBSessionManager.getDBSession();
+		SessionFactory sessionFactory = session.getSessionFactory();
+		DBSessionManager.close();
+		assertThrows(() -> {
+			sessionFactory.createEntityManager();
+		})
+				.assertException(IllegalStateException.class);
+	}
+
+	@Test
+	public void you_get_a_new_hibernate_session_by_closing_DBSessionManager() {
+		Session session1 = DBSessionManager.getDBSession();
+		DBSessionManager.close();
+		Session session2 = DBSessionManager.getDBSession();
+		assertNotEquals(session1,session2);
 	}
 
 }
