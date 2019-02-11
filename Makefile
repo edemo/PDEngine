@@ -15,7 +15,7 @@ sonarconfig:
 
 compile: zentaworkaround javabuild engine.compiled codedocs
 
-codedocs: shippable/engine-testcases.xml shippable/engine-implementedBehaviours.xml shippable/engine-implementedBehaviours.html
+codedocs: shippable/engine-testcases.xml shippable/engine-implementedBehaviours.xml shippable/engine-implementedBehaviours.html shippable/bugpriorities.xml
 
 shippable/engine-testcases.xml: engine.richescape shippable
 	zenta-xslt-runner -xsl:generate_test_cases.xslt -s engine.richescape outputbase=shippable/engine-
@@ -54,4 +54,7 @@ zentaworkaround:
 	mkdir -p ~/.zenta/.metadata/.plugins/org.eclipse.e4.workbench/
 	cp workbench.xmi ~/.zenta/.metadata/.plugins/org.eclipse.e4.workbench/
 	touch zentaworkaround
+
+shippable/bugpriorities.xml: engine.consistencycheck inputs/engine.issues.xml engine.richescape shippable
+	zenta-xslt-runner -xsl:issue-priorities.xslt -s:engine.consistencycheck -o:shippable/bugpriorities.xml issuesfile=inputs/engine.issues.xml modelfile=engine.richescape missingissuefile=shippable/missing.xml
 

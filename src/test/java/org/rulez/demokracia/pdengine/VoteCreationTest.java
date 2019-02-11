@@ -23,42 +23,27 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		super.setUp();
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void create_creates_a_vote_with_the_given_name() {
 		assertEquals(voteName,voteManager.getVote(adminInfo.voteId).name);
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void create_creates_a_vote_with_neededAssurances() {
 		assertEquals(neededAssurances.size(), voteManager.getVote(adminInfo.voteId).neededAssurances.size());
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void neededAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		VoteAdminInfo secondVote = createAVote();
 		assertEquals("magyar", voteManager.getVote(secondVote.voteId).neededAssurances.get(0));
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void create_creates_a_vote_with_countedAssurances() {
 		assertEquals(0, voteManager.getVote(adminInfo.voteId).countedAssurances.size());
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void countedAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		countedAssurances.add("magyar");
@@ -66,17 +51,11 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertEquals("magyar", voteManager.getVote(secondVote.voteId).countedAssurances.get(0));
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void create_creates_a_vote_with_isPrivate() {
 		assertEquals(true, voteManager.getVote(adminInfo.voteId).isPrivate);
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void isPrivate_is_the_same_what_is_given_in_create() throws ReportedException {
 		isPrivate = false;
@@ -84,18 +63,12 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertEquals(false, voteManager.getVote(secondVote.voteId).isPrivate);
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void create_creates_a_vote_with_voteId() {
 		assertNotNull(adminInfo.voteId);
 		assertEquals(adminInfo.voteId, voteManager.getVote(adminInfo.voteId).id);
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void create_creates_a_vote_with_creationTime() throws ReportedException {
 		Instant before = Instant.now();
@@ -106,17 +79,11 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertTrue(creationTime <= after.getEpochSecond());
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void create_creates_a_vote_with_minEndorsements() {
 		assertEquals(voteManager.getVote(adminInfo.voteId).minEndorsements, 0);
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void minEndorsements_is_the_same_what_is_given_in_create() throws ReportedException {
 		minEndorsements = 42;
@@ -124,9 +91,6 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		assertEquals(42, voteManager.getVote(secondVote.voteId).minEndorsements);
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
 	@Test
 	public void create_creates_a_vote_with_adminKey() {
 		assertNotNull(adminInfo.voteId);
