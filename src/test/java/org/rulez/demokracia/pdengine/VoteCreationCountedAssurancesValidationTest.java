@@ -11,9 +11,9 @@ import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
-public class VotCreationCountedAssurancesValidationTest extends CreatedDefaultVoteRegistry {
+public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultVoteRegistry {
 
-	public VotCreationCountedAssurancesValidationTest() {
+	public VoteCreationCountedAssurancesValidationTest() {
 		super();
 	}
 
@@ -90,7 +90,7 @@ public class VotCreationCountedAssurancesValidationTest extends CreatedDefaultVo
 	@Test
 	public void counted_assurance_can_be_empty() throws ReportedException {
 	    countedAssurances.add("");
-	    assertEquals(countedAssurances.size(),1);
+	    assertEquals(1,countedAssurances.size());
 		VoteAdminInfo secondVote = createAVote();
 		assertTrue(voteManager.getVote(secondVote.voteId).countedAssurances.contains(null));
 	}
