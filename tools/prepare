@@ -3,22 +3,4 @@ Xvnc4 -SecurityTypes none :0 &
 set +x
 . <(./tools/decrypt_secret_env $ORG_NAME)
 set -x
-apt-get update
-apt-get -y install zenta-tools
-oldpwd=$(pwd)
-cd /tmp
-git clone https://github.com/devcon5io/mutation-analysis-plugin.git
-cd mutation-analysis-plugin
-git checkout standalone-analysis
-mvn install
-cd $oldpwd
-cp /tmp/mutation-analysis-plugin/target/mutation-analysis-plugin-1.3-SNAPSHOT.jar tools
-#mvn dependency:get -DremoteRepositories=http://repo1.maven.org/maven2/ -DgroupId=org.slf4j -DartifactId=slf4j-api -Dversion=1.7.6 -Dtransitive=false
-cp ~/.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar tools
-wget http://search.maven.org/remotecontent?filepath=com/github/markusbernhardt/xml-doclet/1.0.5/xml-doclet-1.0.5-jar-with-dependencies.jar -O /usr/local/lib/xml-doclet.jar
-#!!!do not do it on a production system!!!
-#run haveged instead
-rm /dev/random
-cp -a /dev/urandom /dev/random
-#end of workaround for low entropy level
 
