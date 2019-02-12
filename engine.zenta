@@ -44,7 +44,7 @@ canView: False; users can view the vote result
             <bounds x="481" y="24" width="-1" height="-1"/>
             <sourceConnection xsi:type="zenta:Connection" id="82094b25-2637-454a-8397-72698b9d70b8" source="956b4318-90e2-426e-8ed0-0a55b80df7de" target="4a9c69dd-cb4e-4b60-8d1d-0193a9683481" relationship="38423ba8-724e-4333-8faf-24dbf7e29c54"/>
           </child>
-          <child xsi:type="zenta:DiagramObject" id="38ce3d05-16da-45b8-8650-4eb171547c10" targetConnections="17e462d6-4972-4b18-a49f-e67535fff63d dd76980e-edcb-442e-b072-9fd272714905" zentaElement="52a7518e-0405-44a7-a064-a5bed0a5cee7">
+          <child xsi:type="zenta:DiagramObject" id="38ce3d05-16da-45b8-8650-4eb171547c10" targetConnections="17e462d6-4972-4b18-a49f-e67535fff63d dd76980e-edcb-442e-b072-9fd272714905 125d346b-246a-456e-a884-7cc282014070" zentaElement="52a7518e-0405-44a7-a064-a5bed0a5cee7">
             <bounds x="48" y="204" height="97"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="8135241f-d3b0-4116-b123-2f59489459d1" targetConnections="b60b30dd-3a75-4860-af65-509a7bcbd95e" zentaElement="8df17038-a79c-4a09-8a7d-5c4d736ca126">
@@ -55,6 +55,7 @@ canView: False; users can view the vote result
           </child>
           <child xsi:type="zenta:DiagramObject" id="e7e739cd-0ec0-4709-b5fc-c8ff196b273a" targetConnections="6f650e5f-e72d-4ce1-9e84-4c805bac7033" zentaElement="68f28afe-2a83-4d86-8013-7a3d49457775">
             <bounds x="432" y="204" width="217" height="97"/>
+            <sourceConnection xsi:type="zenta:Connection" id="125d346b-246a-456e-a884-7cc282014070" source="e7e739cd-0ec0-4709-b5fc-c8ff196b273a" target="38ce3d05-16da-45b8-8650-4eb171547c10" relationship="c85ced6b-3acf-4832-ba5c-01e86845c709"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="4e0f6ad6-e0ed-4a05-8b1b-16be253ba52d" targetConnections="b9cb34c4-1d71-4bb7-9146-7a93ed70568a" zentaElement="248342eb-7583-480e-a2ef-471863169423">
             <bounds x="888" y="204" height="97"/>
@@ -70,6 +71,7 @@ canView: False; users can view the vote result
         <element xsi:type="zenta:BasicObject" name="Votes can be created" id="d5849b0f-c029-4ad6-b827-741105d070ff" ancestor="0020aeda-e1d9-452e-915f-8904978752e7"/>
         <element xsi:type="zenta:BasicRelationship" id="ff1c46f0-c61e-4979-a88c-0dcf3eb760e4" ancestor="cdd381e4-8bfa-48e4-8033-580a265b471d" source="d5849b0f-c029-4ad6-b827-741105d070ff" target="52a7518e-0405-44a7-a064-a5bed0a5cee7"/>
         <element xsi:type="zenta:BasicRelationship" id="67b2bb86-508f-4335-8042-9a9c185eeb9b" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="53971969-fee5-4442-a283-98d7f5b2c94f" target="083af6ee-5e6e-4949-a7d6-82cf3936b242"/>
+        <element xsi:type="zenta:BasicRelationship" id="c85ced6b-3acf-4832-ba5c-01e86845c709" ancestor="2412aaef-131d-4a93-8df6-ba071224205b" source="68f28afe-2a83-4d86-8013-7a3d49457775" target="52a7518e-0405-44a7-a064-a5bed0a5cee7"/>
       </folder>
       <folder name="02. Modify Vote" id="235e8e34-691d-4c58-aa96-8aa1e94bc1f4">
         <element xsi:type="zenta:BasicObject" name="modify vote" id="5c3beb4c-34cf-4557-8a5c-71a594f65ed0" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
@@ -91,6 +93,7 @@ String votename: for length and characters contained</documentation>
             <sourceConnection xsi:type="zenta:Connection" id="fd004847-c93c-432a-80a9-69a34d491969" source="74e021d0-7d97-41d7-b29b-027e74eda233" target="383da6d9-f518-4fb1-98da-d8f1dae7ae23" relationship="6236ed32-291a-4ac3-a4b4-b6652c21efbd"/>
             <sourceConnection xsi:type="zenta:Connection" id="dbecc67f-82c5-43df-938d-7f2f6c6a197e" source="74e021d0-7d97-41d7-b29b-027e74eda233" target="fc257bac-5a92-4274-88f9-d619e472f551" relationship="5e8378f6-0879-4735-9f4b-9580e01dd144"/>
             <sourceConnection xsi:type="zenta:Connection" id="ee44c56c-07b0-4e8d-89f4-f0efcc7d5705" source="74e021d0-7d97-41d7-b29b-027e74eda233" target="982cbc2b-95a1-4317-8c94-c45c947b8ebb" relationship="00eea094-ec3b-44a4-a7ab-e7b08c6a6b5b"/>
+            <sourceConnection xsi:type="zenta:Connection" id="89867480-1510-47c7-8836-f51c90de9556" source="74e021d0-7d97-41d7-b29b-027e74eda233" target="15d346ee-3ace-4f1c-81d7-b8970f795178" relationship="e525479e-0bdf-42f5-a601-b144cae4d114"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="bfebe69a-dc44-4b3a-ba39-4f7feee2080f" zentaElement="9386718b-3caf-4152-8386-0df9deeb35d3">
             <bounds x="369" y="48" width="-1" height="-1"/>
@@ -111,10 +114,14 @@ String votename: for length and characters contained</documentation>
           <child xsi:type="zenta:DiagramObject" id="982cbc2b-95a1-4317-8c94-c45c947b8ebb" targetConnections="ee44c56c-07b0-4e8d-89f4-f0efcc7d5705" zentaElement="53971969-fee5-4442-a283-98d7f5b2c94f">
             <bounds x="110" y="164" width="-1" height="-1"/>
           </child>
+          <child xsi:type="zenta:DiagramObject" id="15d346ee-3ace-4f1c-81d7-b8970f795178" targetConnections="89867480-1510-47c7-8836-f51c90de9556" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
+            <bounds x="95" y="103" width="-1" height="-1"/>
+          </child>
         </element>
         <element xsi:type="zenta:BasicObject" name="The vote cannot be modified if there are ballots issued." id="95af43bb-05e1-4b36-bb78-b13c888c3db9" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
         <element xsi:type="zenta:BasicRelationship" id="5e8378f6-0879-4735-9f4b-9580e01dd144" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="5c3beb4c-34cf-4557-8a5c-71a594f65ed0" target="95af43bb-05e1-4b36-bb78-b13c888c3db9"/>
         <element xsi:type="zenta:BasicRelationship" id="00eea094-ec3b-44a4-a7ab-e7b08c6a6b5b" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="5c3beb4c-34cf-4557-8a5c-71a594f65ed0" target="53971969-fee5-4442-a283-98d7f5b2c94f"/>
+        <element xsi:type="zenta:BasicRelationship" id="e525479e-0bdf-42f5-a601-b144cae4d114" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="5c3beb4c-34cf-4557-8a5c-71a594f65ed0" target="119f452d-1873-4b7a-8d33-4edaa3bbb020"/>
       </folder>
       <folder name="03. Delete Vote" id="d495cd63-367c-4dbf-a84e-c592c21f0e23">
         <element xsi:type="zenta:BasicObject" name="deletes the vote with all parameters, choices, ballots and votes cast" id="4c75a22b-39e3-493b-b874-505eaf816282" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
@@ -133,6 +140,7 @@ String adminKey: same as vote's adminKey
             <sourceConnection xsi:type="zenta:Connection" id="531b470b-c31d-4850-89a5-b334c34e4509" source="ea3a0077-69ab-4075-b508-bc169193e155" target="566ebcfa-2fba-4fcb-af7c-f462455f30aa" relationship="e52c8503-5017-4ce7-9b2c-4fd31b5f597c"/>
             <sourceConnection xsi:type="zenta:Connection" id="cf52b0bc-41ce-4e1f-bbdf-0be77556ada0" source="ea3a0077-69ab-4075-b508-bc169193e155" target="069d37ab-cf38-4cf8-b2f0-e1374cf16b65" relationship="6044dd5f-b05d-4b36-a507-ed7010cd7fe1"/>
             <sourceConnection xsi:type="zenta:Connection" id="299beffe-fc97-428b-86d0-72cb8f45a9a1" source="ea3a0077-69ab-4075-b508-bc169193e155" target="c6994dd4-9919-4914-a65d-7ec796510491" relationship="c35caaff-f632-4265-a6ca-cc650e71d93b"/>
+            <sourceConnection xsi:type="zenta:Connection" id="551db762-e99c-43b8-90e2-3e5fe0cacc96" source="ea3a0077-69ab-4075-b508-bc169193e155" target="41b7f6a4-bc5b-4284-8c85-da322fec61ca" relationship="39e09703-1efe-4179-8b7b-ebc1ff41b0b8"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="45a0ea4f-39fd-470b-a3b0-5953d750f107" targetConnections="e9a29e66-3f7a-4387-bc5a-a3ab930baa18" zentaElement="976582f6-9a8c-441e-b6eb-638f8f1fa01b">
             <bounds x="186" y="343" height="90"/>
@@ -150,10 +158,14 @@ String adminKey: same as vote's adminKey
           <child xsi:type="zenta:DiagramObject" id="c6994dd4-9919-4914-a65d-7ec796510491" targetConnections="299beffe-fc97-428b-86d0-72cb8f45a9a1" zentaElement="53971969-fee5-4442-a283-98d7f5b2c94f">
             <bounds x="53" y="202" width="-1" height="-1"/>
           </child>
+          <child xsi:type="zenta:DiagramObject" id="41b7f6a4-bc5b-4284-8c85-da322fec61ca" targetConnections="551db762-e99c-43b8-90e2-3e5fe0cacc96" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
+            <bounds x="67" y="138" width="-1" height="-1"/>
+          </child>
         </element>
         <element xsi:type="zenta:BasicObject" name="A vote cannot be deleted if it have issued ballots." id="28a3d2e1-acbe-431d-8f23-017e490767b2" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
         <element xsi:type="zenta:BasicRelationship" id="6044dd5f-b05d-4b36-a507-ed7010cd7fe1" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="48822135-c613-40d5-8c46-e983a378c527" target="28a3d2e1-acbe-431d-8f23-017e490767b2"/>
         <element xsi:type="zenta:BasicRelationship" id="c35caaff-f632-4265-a6ca-cc650e71d93b" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="48822135-c613-40d5-8c46-e983a378c527" target="53971969-fee5-4442-a283-98d7f5b2c94f"/>
+        <element xsi:type="zenta:BasicRelationship" id="39e09703-1efe-4179-8b7b-ebc1ff41b0b8" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="48822135-c613-40d5-8c46-e983a378c527" target="119f452d-1873-4b7a-8d33-4edaa3bbb020"/>
       </folder>
       <folder name="04. Set Vote Parameters" id="f129a7c7-7fa5-431d-ac98-aab7d9390e0a">
         <element xsi:type="zenta:BasicObject" name="sets the parameters of the vote" id="f51eabe8-c035-439b-b09a-3c3130c18a3e" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
@@ -173,6 +185,7 @@ String newstage: one of &quot;created&quot;, </documentation>
             <sourceConnection xsi:type="zenta:Connection" id="6e3081b1-bf29-4a7e-9a11-4fbe2b2b72a1" source="e1556bee-2b87-4591-b7bf-90364e59a388" target="c1e792ce-ee34-483a-a132-6cd85ce97fe0" relationship="5a9a47c2-0ead-4ac9-9674-04084912a6fd"/>
             <sourceConnection xsi:type="zenta:Connection" id="094a1504-eedf-4748-b171-dba64d3d1f13" source="e1556bee-2b87-4591-b7bf-90364e59a388" target="89bceaab-85bc-4341-bd9d-63f0f36d3fea" relationship="6fdc3b9f-c7a4-46ec-8a01-26a604230c93"/>
             <sourceConnection xsi:type="zenta:Connection" id="1d64b05f-a077-414b-b347-1d0b2ba71119" source="e1556bee-2b87-4591-b7bf-90364e59a388" target="9e99eb5c-183a-47ce-9788-a4807fcc4d3f" relationship="492b2f31-cc6c-45fb-94d4-0ec7bfb24e11"/>
+            <sourceConnection xsi:type="zenta:Connection" id="e843658f-e016-4618-8c31-01765279ca46" source="e1556bee-2b87-4591-b7bf-90364e59a388" target="99ced0a9-67ce-4e3d-acf0-b02e5c452cd0" relationship="3fc8eb0c-3fab-4c39-a152-bb8ecd3634af"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="47719437-7a9c-4454-9a89-04f617169b06" targetConnections="2f41fb26-a865-4bbe-9df6-1699194366d2" zentaElement="b071a2d5-5e0b-463f-88cb-a7c3f7a90066">
             <bounds x="224" y="295" width="-1" height="-1"/>
@@ -190,8 +203,12 @@ String newstage: one of &quot;created&quot;, </documentation>
           <child xsi:type="zenta:DiagramObject" id="9e99eb5c-183a-47ce-9788-a4807fcc4d3f" targetConnections="1d64b05f-a077-414b-b347-1d0b2ba71119" zentaElement="53971969-fee5-4442-a283-98d7f5b2c94f">
             <bounds x="91" y="152" width="-1" height="-1"/>
           </child>
+          <child xsi:type="zenta:DiagramObject" id="99ced0a9-67ce-4e3d-acf0-b02e5c452cd0" targetConnections="e843658f-e016-4618-8c31-01765279ca46" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
+            <bounds x="92" y="94" width="-1" height="-1"/>
+          </child>
         </element>
         <element xsi:type="zenta:BasicRelationship" id="492b2f31-cc6c-45fb-94d4-0ec7bfb24e11" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="7c3a6172-f528-466e-9148-65417b26950b" target="53971969-fee5-4442-a283-98d7f5b2c94f"/>
+        <element xsi:type="zenta:BasicRelationship" id="3fc8eb0c-3fab-4c39-a152-bb8ecd3634af" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="7c3a6172-f528-466e-9148-65417b26950b" target="119f452d-1873-4b7a-8d33-4edaa3bbb020"/>
       </folder>
       <folder name="05. Show Vote" id="afaf16a3-a650-4a8d-adc8-cb971b288458">
         <element xsi:type="zenta:BasicObject" name="if adminKey is anon, the user should have any of the countedAssurances" id="d28a09b3-4875-4402-b5e3-cd362bb981a6" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
@@ -241,6 +258,7 @@ An example json:
             <sourceConnection xsi:type="zenta:Connection" id="478088d5-68ad-47b3-9a5a-60da2edcc3fc" source="a382ef9a-2a4b-4df2-969c-412e60e73e6b" target="fb746ba8-38b6-4e14-a77b-e3e120ed74d0" relationship="c5f41e29-1a89-41d5-9bc5-22532867de50"/>
             <sourceConnection xsi:type="zenta:Connection" id="dbd13a1c-c581-43e0-8a5e-4af96b7556a1" source="a382ef9a-2a4b-4df2-969c-412e60e73e6b" target="5ab54a40-b0ba-4294-9d78-d3854f3a1fc1" relationship="c60327a2-b187-4869-91b0-9e17204c6829"/>
             <sourceConnection xsi:type="zenta:Connection" id="80c3d89f-1865-47ba-bf8f-0c6fcfb2f6ec" source="a382ef9a-2a4b-4df2-969c-412e60e73e6b" target="f262ef3a-2992-4b8d-9759-0ac0c645b8bd" relationship="e26acbc7-b306-45cf-aab4-1fed15b7e11a"/>
+            <sourceConnection xsi:type="zenta:Connection" id="69cc8958-fd0f-48bf-8a12-d1157d532885" source="a382ef9a-2a4b-4df2-969c-412e60e73e6b" target="7e7fa07c-db1e-4193-9fa1-b257e1b3d9cd" relationship="f53ec748-c2b4-471f-96be-45379caab9e2"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="546a4e8f-24f7-466b-a08c-79925cc9d9f4" zentaElement="9386718b-3caf-4152-8386-0df9deeb35d3">
             <bounds x="372" y="36" width="-1" height="-1"/>
@@ -258,12 +276,16 @@ An example json:
           <child xsi:type="zenta:DiagramObject" id="f262ef3a-2992-4b8d-9759-0ac0c645b8bd" targetConnections="80c3d89f-1865-47ba-bf8f-0c6fcfb2f6ec" zentaElement="53971969-fee5-4442-a283-98d7f5b2c94f">
             <bounds x="138" y="164" width="-1" height="-1"/>
           </child>
+          <child xsi:type="zenta:DiagramObject" id="7e7fa07c-db1e-4193-9fa1-b257e1b3d9cd" targetConnections="69cc8958-fd0f-48bf-8a12-d1157d532885" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
+            <bounds x="128" y="87" width="-1" height="-1"/>
+          </child>
         </element>
         <element xsi:type="zenta:BasicObject" name="validates inputs" id="519b79c6-86ed-43c9-ad3f-b44181b77027" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
           <documentation>String voteId: id of existing vote
 String adminKey: same as vote's adminKey for private votes, &quot;anon&quot; for public ones</documentation>
         </element>
         <element xsi:type="zenta:BasicRelationship" id="e26acbc7-b306-45cf-aab4-1fed15b7e11a" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="5c0244e2-2097-4b3b-abed-9dbefdcd45ac" target="53971969-fee5-4442-a283-98d7f5b2c94f"/>
+        <element xsi:type="zenta:BasicRelationship" id="f53ec748-c2b4-471f-96be-45379caab9e2" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="5c0244e2-2097-4b3b-abed-9dbefdcd45ac" target="119f452d-1873-4b7a-8d33-4edaa3bbb020"/>
       </folder>
       <folder name="06. Add Choice" id="a16c2bfc-7e79-4398-adfa-84540a67c4cd">
         <element xsi:type="zenta:BasicObject" name="Add choice" id="d311158f-1d7b-4288-86d2-a258d7a63741" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
@@ -283,6 +305,7 @@ String adminKey: same as vote's adminKey for private votes, &quot;anon&quot; for
             <sourceConnection xsi:type="zenta:Connection" id="4e10bb92-5126-4abe-bea4-ae11cada7a6f" source="0f1aa036-dd14-43e8-a216-b363b69c846f" target="10830137-ced4-4385-a26a-48271e0a83de" relationship="a1a81644-2afe-417b-841a-d945d6ec5566"/>
             <sourceConnection xsi:type="zenta:Connection" id="7fe974b4-b25c-45a0-bf01-9a38964695c7" source="0f1aa036-dd14-43e8-a216-b363b69c846f" target="f01e570f-3fc4-455b-9278-c2822c9bd700" relationship="e48bd984-9043-4b3b-bca1-b4cf816d18a5"/>
             <sourceConnection xsi:type="zenta:Connection" id="103f142e-31bf-40b4-9565-847d24bcb931" source="0f1aa036-dd14-43e8-a216-b363b69c846f" target="8f8bdbe5-d7f1-470c-82af-2e3f48377169" relationship="14e03eed-8c1a-497c-ae21-ddd4f6fe34b5"/>
+            <sourceConnection xsi:type="zenta:Connection" id="8389e708-2dba-4911-8495-b159e9488551" source="0f1aa036-dd14-43e8-a216-b363b69c846f" target="4439e6a4-dc32-482f-87c6-f2c4100ffa29" relationship="b731b781-ad84-4ab8-aeba-709f25870ef7"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="a91a6eca-4442-4b23-8095-9bf817c8ca6f" targetConnections="e3084291-f37d-4482-a104-e906bbe56898" zentaElement="af499e94-b21e-4295-8f22-efe9e9e0be15">
             <bounds x="126" y="263" height="86"/>
@@ -306,6 +329,9 @@ String adminKey: same as vote's adminKey for private votes, &quot;anon&quot; for
           <child xsi:type="zenta:DiagramObject" id="8f8bdbe5-d7f1-470c-82af-2e3f48377169" targetConnections="103f142e-31bf-40b4-9565-847d24bcb931" zentaElement="53971969-fee5-4442-a283-98d7f5b2c94f">
             <bounds x="96" y="132" width="-1" height="-1"/>
           </child>
+          <child xsi:type="zenta:DiagramObject" id="4439e6a4-dc32-482f-87c6-f2c4100ffa29" targetConnections="8389e708-2dba-4911-8495-b159e9488551" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
+            <bounds x="95" y="66" width="-1" height="-1"/>
+          </child>
         </element>
         <element xsi:type="zenta:BasicObject" name="validates inputs" id="af499e94-b21e-4295-8f22-efe9e9e0be15" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
           <documentation>String voteId: id of existing vote
@@ -315,6 +341,7 @@ String choiceId: id of existing choice in the vote with voteid</documentation>
         <element xsi:type="zenta:BasicObject" name="No choice can be added if there are ballots issued for the vote." id="bf3415b6-d4b2-4693-9633-e9aa404cdd7f" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
         <element xsi:type="zenta:BasicRelationship" id="e48bd984-9043-4b3b-bca1-b4cf816d18a5" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="d311158f-1d7b-4288-86d2-a258d7a63741" target="bf3415b6-d4b2-4693-9633-e9aa404cdd7f"/>
         <element xsi:type="zenta:BasicRelationship" id="14e03eed-8c1a-497c-ae21-ddd4f6fe34b5" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="d311158f-1d7b-4288-86d2-a258d7a63741" target="53971969-fee5-4442-a283-98d7f5b2c94f"/>
+        <element xsi:type="zenta:BasicRelationship" id="b731b781-ad84-4ab8-aeba-709f25870ef7" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="d311158f-1d7b-4288-86d2-a258d7a63741" target="119f452d-1873-4b7a-8d33-4edaa3bbb020"/>
       </folder>
       <folder name="07. Modify Choice" id="d42a31fd-ff2f-49b2-b152-4c02e75374b9">
         <element xsi:type="zenta:BasicObject" name="if &quot;user&quot; is used as adminKey, then the user must be the one who added the choice and canAddIn be true" id="f03d1e89-5f2b-4afd-9e68-9c2831d09ca4" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
@@ -349,6 +376,10 @@ String choiceId: id of existing choice in the vote with voteid</documentation>
           </child>
           <child xsi:type="zenta:DiagramObject" id="99cdd328-bdd4-4165-a1bd-39b5ec044032" targetConnections="ee734a52-d491-4602-b673-4320b831d213" zentaElement="d311158f-1d7b-4288-86d2-a258d7a63741">
             <bounds x="84" y="155" width="-1" height="-1"/>
+            <sourceConnection xsi:type="zenta:Connection" id="8e35d4c5-5965-446b-a131-57c3b8389355" source="99cdd328-bdd4-4165-a1bd-39b5ec044032" target="4f6b01e8-aa68-4a81-9d9a-47dc92e27c0d" relationship="b731b781-ad84-4ab8-aeba-709f25870ef7"/>
+          </child>
+          <child xsi:type="zenta:DiagramObject" id="4f6b01e8-aa68-4a81-9d9a-47dc92e27c0d" targetConnections="8e35d4c5-5965-446b-a131-57c3b8389355" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
+            <bounds x="81" y="89" width="-1" height="-1"/>
           </child>
         </element>
         <element xsi:type="zenta:BasicObject" name="No choices can bemodified if the vote have issued ballots." id="c49a56ca-86b8-459c-9848-a42d73666dcd" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
@@ -383,6 +414,10 @@ String choiceId: id of existing choice in the vote with voteid</documentation>
           </child>
           <child xsi:type="zenta:DiagramObject" id="bd6d1f12-feec-4421-a749-8e20ea29057d" targetConnections="3389fcca-15e7-426a-b95b-cc08e7cc4504" zentaElement="d311158f-1d7b-4288-86d2-a258d7a63741">
             <bounds x="132" y="155" width="-1" height="-1"/>
+            <sourceConnection xsi:type="zenta:Connection" id="67df2147-953c-447c-af0d-7765b081dde3" source="bd6d1f12-feec-4421-a749-8e20ea29057d" target="2c03ac9b-a841-404e-89d5-9bc06a821755" relationship="b731b781-ad84-4ab8-aeba-709f25870ef7"/>
+          </child>
+          <child xsi:type="zenta:DiagramObject" id="2c03ac9b-a841-404e-89d5-9bc06a821755" targetConnections="67df2147-953c-447c-af0d-7765b081dde3" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
+            <bounds x="132" y="78" width="-1" height="-1"/>
           </child>
         </element>
         <element xsi:type="zenta:BasicRelationship" id="a26c968f-8fa8-4c51-a77d-b41a67cea750" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="3044c21c-7606-4098-8176-9dd5b93c20ad" target="d311158f-1d7b-4288-86d2-a258d7a63741"/>
@@ -401,6 +436,8 @@ String choiceId: id of existing choice in the vote with voteid</documentation>
             <sourceConnection xsi:type="zenta:Connection" id="b6108c49-81ea-4a3e-8299-a4be530aaf35" source="643e6d7f-3653-418b-8998-349fb7aac5bf" target="79ed8906-d3c8-4c36-82ac-3c5ddd271e1e" relationship="4cee5881-630c-4ae5-9090-77c9ffc72883"/>
             <sourceConnection xsi:type="zenta:Connection" id="9ffe3606-34d5-4439-a473-881f5462975e" source="643e6d7f-3653-418b-8998-349fb7aac5bf" target="ac6fbfc7-86ed-4c86-9c72-d6313d8eaea1" relationship="95b21d74-edb4-4b6c-b554-0ed7d1253766"/>
             <sourceConnection xsi:type="zenta:Connection" id="df2e86f6-cc92-4001-890a-0915702afe04" source="643e6d7f-3653-418b-8998-349fb7aac5bf" target="b8a7b059-2cd5-4416-93b6-c2f94e14ca66" relationship="ddb961ed-b398-47d1-ab88-c7c0e2855908"/>
+            <sourceConnection xsi:type="zenta:Connection" id="4fbdc34b-0392-48cd-8a57-ef776fe13ac8" source="643e6d7f-3653-418b-8998-349fb7aac5bf" target="2cf0b292-8052-47b6-8b75-0aea6bce49e1" relationship="4874379e-3c7f-4c27-bd2c-aadc099e941b"/>
+            <sourceConnection xsi:type="zenta:Connection" id="19057e3b-2d88-4d71-a526-d44439e96153" source="643e6d7f-3653-418b-8998-349fb7aac5bf" target="774941b9-5364-44dc-a6ec-e1eb054b2f05" relationship="2cedbf20-34da-4e32-8357-46e8036d1f40"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="d6ea97bd-71ea-4d60-806d-341cac6a45fa" targetConnections="46e56b8f-12f5-4bb3-891f-a808af752e7b" zentaElement="90d0599c-0c7a-4aa5-9154-7bbf5c5247be">
             <bounds x="164" y="267" width="269"/>
@@ -421,8 +458,16 @@ String choiceId: id of existing choice in the vote with voteid</documentation>
           <child xsi:type="zenta:DiagramObject" id="b8a7b059-2cd5-4416-93b6-c2f94e14ca66" targetConnections="df2e86f6-cc92-4001-890a-0915702afe04" zentaElement="53971969-fee5-4442-a283-98d7f5b2c94f">
             <bounds x="96" y="132" width="-1" height="-1"/>
           </child>
+          <child xsi:type="zenta:DiagramObject" id="2cf0b292-8052-47b6-8b75-0aea6bce49e1" targetConnections="4fbdc34b-0392-48cd-8a57-ef776fe13ac8" zentaElement="083af6ee-5e6e-4949-a7d6-82cf3936b242">
+            <bounds x="96" y="48" width="-1" height="-1"/>
+          </child>
+          <child xsi:type="zenta:DiagramObject" id="774941b9-5364-44dc-a6ec-e1eb054b2f05" targetConnections="19057e3b-2d88-4d71-a526-d44439e96153" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
+            <bounds x="233" y="51" width="-1" height="-1"/>
+          </child>
         </element>
         <element xsi:type="zenta:BasicRelationship" id="ddb961ed-b398-47d1-ab88-c7c0e2855908" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="8715adde-bba4-4000-bbd5-d40f1cccaf22" target="53971969-fee5-4442-a283-98d7f5b2c94f"/>
+        <element xsi:type="zenta:BasicRelationship" id="4874379e-3c7f-4c27-bd2c-aadc099e941b" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="8715adde-bba4-4000-bbd5-d40f1cccaf22" target="083af6ee-5e6e-4949-a7d6-82cf3936b242"/>
+        <element xsi:type="zenta:BasicRelationship" id="2cedbf20-34da-4e32-8357-46e8036d1f40" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="8715adde-bba4-4000-bbd5-d40f1cccaf22" target="119f452d-1873-4b7a-8d33-4edaa3bbb020"/>
       </folder>
       <folder name="10. Endorse Option" id="0cf5905e-9fcc-434e-b130-074dfe9356e2">
         <element xsi:type="zenta:BasicObject" name="Endorse option" id="5f737430-7fcb-417a-8b06-9026c5231a0f" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
@@ -552,6 +597,43 @@ rankedChoices have a list of properly formatted RankedChoice instances, where:
           <element xsi:type="zenta:BasicRelationship" id="eeee7368-5f6f-4b11-afe1-cab1df9fefac" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="083af6ee-5e6e-4949-a7d6-82cf3936b242" target="779417b2-b9bf-469e-a725-e71aaa9f739d"/>
           <element xsi:type="zenta:BasicObject" name="random key is string" id="63a6a638-1897-4761-8914-bd158aa0b53b" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
           <element xsi:type="zenta:BasicRelationship" id="b963fc91-3f74-468d-9ca0-6b1107d231e9" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="083af6ee-5e6e-4949-a7d6-82cf3936b242" target="63a6a638-1897-4761-8914-bd158aa0b53b"/>
+        </folder>
+        <folder name="2. Session management" id="0a63ddd8-b81e-4569-b814-f6f7ab12534c">
+          <element xsi:type="zenta:ZentaDiagramModel" name="Session management" id="041bb4a9-8e2c-427a-9ba0-b32db23276b8">
+            <child xsi:type="zenta:DiagramObject" id="b76ab1ac-7c90-473b-b282-97e251b44651" zentaElement="de4b570a-17b0-4872-a614-22acfca5eea2">
+              <bounds x="405" y="57" width="-1" height="-1"/>
+              <sourceConnection xsi:type="zenta:Connection" id="fe622264-9d33-4f86-956d-1e7f994b19c4" source="b76ab1ac-7c90-473b-b282-97e251b44651" target="48aa1504-16d8-48d5-a14c-de776e3a0dc0" relationship="834aa894-c859-4993-8c23-c393feca1a8a"/>
+            </child>
+            <child xsi:type="zenta:DiagramObject" id="48aa1504-16d8-48d5-a14c-de776e3a0dc0" targetConnections="fe622264-9d33-4f86-956d-1e7f994b19c4" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
+              <bounds x="408" y="168" width="-1" height="-1"/>
+              <sourceConnection xsi:type="zenta:Connection" id="6f2ca3df-2f3f-45d2-8e1f-0b9703ad9339" source="48aa1504-16d8-48d5-a14c-de776e3a0dc0" target="8a3c7e80-c3ea-432a-865a-25248a3b4f42" relationship="e7584c52-5593-4c0a-be3c-508e130ac4cf"/>
+              <sourceConnection xsi:type="zenta:Connection" id="62506ee2-7798-40c2-bcbb-cb7b9ea7c56b" source="48aa1504-16d8-48d5-a14c-de776e3a0dc0" target="4984d7aa-3344-45f6-8c67-8f35961995bf" relationship="9083ff25-639e-45ca-a5f6-4364e5612732"/>
+              <sourceConnection xsi:type="zenta:Connection" id="c52bed8f-ec5d-4726-8de7-203491c294c0" source="48aa1504-16d8-48d5-a14c-de776e3a0dc0" target="38e113e0-4bea-45a6-a6e5-4db04244375f" relationship="c273be18-4df0-475c-b606-f0a437ad7c2e"/>
+            </child>
+            <child xsi:type="zenta:DiagramObject" id="8a3c7e80-c3ea-432a-865a-25248a3b4f42" targetConnections="6f2ca3df-2f3f-45d2-8e1f-0b9703ad9339" zentaElement="28a7e764-de9d-46eb-900c-8c3fb4952c7f">
+              <bounds x="286" y="256" width="-1" height="-1"/>
+            </child>
+            <child xsi:type="zenta:DiagramObject" id="4984d7aa-3344-45f6-8c67-8f35961995bf" targetConnections="62506ee2-7798-40c2-bcbb-cb7b9ea7c56b" zentaElement="af8ea3b3-8c3e-4e22-aa0d-c85515bd33fc">
+              <bounds x="539" y="259" width="-1" height="-1"/>
+            </child>
+            <child xsi:type="zenta:DiagramObject" id="38e113e0-4bea-45a6-a6e5-4db04244375f" targetConnections="c52bed8f-ec5d-4726-8de7-203491c294c0" zentaElement="e8079ef0-fe98-4688-a8be-1566d4642d45">
+              <bounds x="728" y="249" width="-1" height="-1"/>
+            </child>
+          </element>
+          <element xsi:type="zenta:BasicObject" name="Session management" id="119f452d-1873-4b7a-8d33-4edaa3bbb020" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5"/>
+          <element xsi:type="zenta:BasicRelationship" id="834aa894-c859-4993-8c23-c393feca1a8a" ancestor="3140e6ea-3113-4e8e-a8fa-895ee9ff44ce" source="de4b570a-17b0-4872-a614-22acfca5eea2" target="119f452d-1873-4b7a-8d33-4edaa3bbb020"/>
+          <element xsi:type="zenta:BasicObject" name="username and assurances can be obtained from the VoteManager" id="28a7e764-de9d-46eb-900c-8c3fb4952c7f" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
+          <element xsi:type="zenta:BasicRelationship" id="e7584c52-5593-4c0a-be3c-508e130ac4cf" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="119f452d-1873-4b7a-8d33-4edaa3bbb020" target="28a7e764-de9d-46eb-900c-8c3fb4952c7f"/>
+          <element xsi:type="zenta:BasicObject" name="VoteManager can be obtained through the IVoteManager interface with a WebServiceContext" id="af8ea3b3-8c3e-4e22-aa0d-c85515bd33fc" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
+            <documentation>IVoteManager.getVoteManager(wsContext);</documentation>
+          </element>
+          <element xsi:type="zenta:BasicRelationship" id="9083ff25-639e-45ca-a5f6-4364e5612732" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="119f452d-1873-4b7a-8d33-4edaa3bbb020" target="af8ea3b3-8c3e-4e22-aa0d-c85515bd33fc"/>
+          <element xsi:type="zenta:BasicObject" name="Hibernate session is obtainable from the VoteManager" id="e8079ef0-fe98-4688-a8be-1566d4642d45" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
+            <documentation>VoteManager calls DBSessionManager in constructor time.
+DBSessionManager is a singleton, and the only interface for closing database connection.
+DBSessionManager is not intended to be called from any other place than VoteManager.</documentation>
+          </element>
+          <element xsi:type="zenta:BasicRelationship" id="c273be18-4df0-475c-b606-f0a437ad7c2e" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="119f452d-1873-4b7a-8d33-4edaa3bbb020" target="e8079ef0-fe98-4688-a8be-1566d4642d45"/>
         </folder>
       </folder>
       <folder name="12. Show Vote results" id="7435f7e0-dc9e-4aa3-afeb-52bbccecb788">
@@ -1099,6 +1181,7 @@ A way to fullfill this objective is to use a hardware-based entropy daemon, e.g.
             </child>
             <child xsi:type="zenta:DiagramObject" id="2b315834-3d75-4bec-8fba-751b3492b24c" targetConnections="d64f45b9-2867-4c3a-a0ad-ceac092a1988" fillColor="#4e9a06" elementShape="serviceShape" zentaElement="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
               <bounds x="24" y="192" width="-1" height="-1"/>
+              <sourceConnection xsi:type="zenta:Connection" id="a6797eee-5e53-4fea-890b-1f2a386eade9" source="2b315834-3d75-4bec-8fba-751b3492b24c" target="a5e4a8e1-37df-4c36-b9bf-0ee4f73f2e65" lineDecoration="DottedLineDecoration SmallEndArrowDecoration" relationship="2412aaef-131d-4a93-8df6-ba071224205b"/>
             </child>
             <child xsi:type="zenta:DiagramObject" id="df4cbeab-6a28-4907-b029-2667c9569213" fillColor="#729fcf" elementShape="ellipseShape" zentaElement="32051ff5-be96-4587-bac6-f4918e34ad87">
               <bounds x="216" y="24" width="-1" height="-1"/>
@@ -1106,6 +1189,9 @@ A way to fullfill this objective is to use a hardware-based entropy daemon, e.g.
             </child>
             <child xsi:type="zenta:DiagramObject" id="6f79935d-5bf6-4557-bfa5-adfda38f4d06" targetConnections="44e0cb71-2d0d-4d18-9d9d-37f30c6de6f1" zentaElement="460b77b0-9540-480a-86b1-00541ccb1fd5">
               <bounds x="348" y="107" width="-1" height="-1"/>
+            </child>
+            <child xsi:type="zenta:DiagramObject" id="a5e4a8e1-37df-4c36-b9bf-0ee4f73f2e65" targetConnections="a6797eee-5e53-4fea-890b-1f2a386eade9" zentaElement="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
+              <bounds x="24" y="276" width="-1" height="-1"/>
             </child>
             <property key="Template"/>
           </element>
@@ -1145,6 +1231,14 @@ The function is atomic: only a single transaction.</documentation>
           <element xsi:type="zenta:BasicRelationship" name="depends on/supports" id="323747ed-9722-43fb-a3a3-0ded6549d35f" ancestor="basicrelation" source="460b77b0-9540-480a-86b1-00541ccb1fd5" target="460b77b0-9540-480a-86b1-00541ccb1fd5">
             <property key="textPosition" value="1"/>
             <property key="lineDecoration" value="SmallEndArrowDecoration"/>
+            <property key="lineColor"/>
+            <property key="fontColor"/>
+            <property key="lineWidth" value="1"/>
+            <property key="font"/>
+          </element>
+          <element xsi:type="zenta:BasicRelationship" name="depends on/is a dependency of" id="2412aaef-131d-4a93-8df6-ba071224205b" ancestor="basicrelation" source="b16e0f12-f380-46e5-b82f-0b3f43d8200a" target="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
+            <property key="textPosition" value="1"/>
+            <property key="lineDecoration" value="DottedLineDecoration SmallEndArrowDecoration"/>
             <property key="lineColor"/>
             <property key="fontColor"/>
             <property key="lineWidth" value="1"/>

@@ -15,7 +15,7 @@ sonarconfig:
 
 compile: zentaworkaround javabuild engine.compiled codedocs
 
-codedocs: shippable/engine-testcases.xml shippable/engine-implementedBehaviours.xml shippable/engine-implementedBehaviours.html
+codedocs: shippable/engine-testcases.xml shippable/engine-implementedBehaviours.xml shippable/engine-implementedBehaviours.html shippable/bugpriorities.xml
 
 shippable/engine-testcases.xml: engine.richescape shippable
 	zenta-xslt-runner -xsl:generate_test_cases.xslt -s engine.richescape outputbase=shippable/engine-
@@ -30,7 +30,13 @@ javadoc:
 	CLASSPATH=/usr/local/lib/xml-doclet.jar:~/.m2/repository/junit/junit/4.11/junit-4.11.jar:target/classes\
      javadoc -encoding utf-8 -doclet com.github.markusbernhardt.xmldoclet.XmlDoclet -sourcepath src/test/java -d target/test org.rulez.demokracia.pdengine
 
+CONSISTENCY_INPUTS=shippable/engine-testcases.xml shippable/engine-implementedBehaviours.xml
+
 include /usr/share/zenta-tools/model.rules
+
+engine.consistencycheck: engine.rich engine.check $(CONSISTENCY_INPUTS)
+	zenta-xslt-runner -xsl:xslt/consistencycheck.xslt -s:$(basename $@).check -o:$@ >$(basename $@).consistency.stderr 2>&1
+	sed 's/\//:/' <$(basename $@).consistency.stderr |sort --field-separator=':' --key=2
 
 testenv:
 	docker run --rm -p 5900:5900 -e PULL_REQUEST=false -e ORG_NAME=local -v $$(pwd):/pdengine -w /pdengine -it edemo/pdengine
@@ -54,4 +60,7 @@ zentaworkaround:
 	mkdir -p ~/.zenta/.metadata/.plugins/org.eclipse.e4.workbench/
 	cp workbench.xmi ~/.zenta/.metadata/.plugins/org.eclipse.e4.workbench/
 	touch zentaworkaround
+
+shippable/bugpriorities.xml: engine.consistencycheck inputs/engine.issues.xml engine.richescape shippable
+	zenta-xslt-runner -xsl:issue-priorities.xslt -s:engine.consistencycheck -o:shippable/bugpriorities.xml issuesfile=inputs/engine.issues.xml modelfile=engine.richescape missingissuefile=shippable/missing.xml
 
