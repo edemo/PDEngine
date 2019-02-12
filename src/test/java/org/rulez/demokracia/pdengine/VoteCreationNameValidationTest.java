@@ -20,7 +20,7 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("create vote")
 	@tested_behaviour("formally validates all inputs")
 	@Test
-	public void vote_name_can_contain_scpaces() throws ReportedException {
+	public void vote_name_can_contain_spaces() throws ReportedException {
 		voteName = "This contains spaces";
 		VoteAdminInfo voteadm = createAVote();
 		assertEquals(voteName, voteManager.getVote(voteadm.voteId).name);
