@@ -36,4 +36,6 @@ public interface IVoteManager {
 
 	boolean hasAssurance(String role);
 
+	void modifyVote(String voteId, String adminKey, String votename) throws ReportedException;
+
 }
