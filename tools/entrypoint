@@ -1,0 +1,8 @@
+#!/bin/bash
+set -xe
+
+groupadd -g ${DEVGID} developer
+useradd -u ${DEVUID} -g ${DEVGID} -G sudo -d /home/developer developer
+chown ${DEVUID}:${DEVGID} /root/.m2
+export HOME=/home/developer
+exec sudo -u developer "$@"

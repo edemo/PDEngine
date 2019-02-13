@@ -1,0 +1,4 @@
+#!/bin/bash
+DEVHOME=${DEVHOME:-~/pdengine-developer-home/}
+export DEVHOME
+docker run --rm -p 5900:5900 -e PULL_REQUEST=false DEVUID=${UID} DEVHOME=${DEVHOME} -e ORG_NAME=local -v $(pwd):/pdengine -w /pdengine -it edemo/pdengine
