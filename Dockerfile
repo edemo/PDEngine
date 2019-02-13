@@ -32,5 +32,7 @@ RUN rm -rf PDEngine mutation-analysis-plugin
 RUN sed 's/.ALL:ALL./(ALL) NOPASSWD:/' -i /etc/sudoers
 RUN wget https://adadocs.demokracia.rulez.org/resources/eclipse.tar.gz -O /tmp/eclipse.tar.gz
 RUN cd /opt;tar xzf /tmp/eclipse.tar.gz
+RUN wget https://adadocs.demokracia.rulez.org/resources/pdengine-developer-home.tar.gz -O /tmp/pdengine-developer-home.tar.gz
+RUN cd /opt;tar xzf /tmp/pdengine-developer-home.tar.gz
 ENTRYPOINT ["/pdengine/tools/entrypoint"]
 CMD ["/bin/bash"]

@@ -1,8 +1,18 @@
 #!/bin/bash
 set -xe
 
+rm /dev/random
+cp -a /dev/urandom /dev/random;
 groupadd -g ${DEVGID} developer
 useradd -u ${DEVUID} -g ${DEVGID} -G sudo -d /home/developer developer
-chown ${DEVUID}:${DEVGID} /root/.m2
+chown ${DEVUID}:${DEVGID} /home/developer
+if [ ! -d /home/developer/.p2 ]
+then
+    cp -r /opt/pdengine-developer-home/.??* /opt/pdengine-developer-home/* /home/developer
+    rm -rf /home/developer/.m2
+    cp -r /root/.m2 /home/developer 
+    chown -R developer.developer /home/developer
+fi
+
 export HOME=/home/developer
 exec sudo -u developer "$@"

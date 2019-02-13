@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE xslt>
 <xsl:stylesheet version="2.0"
 	xmlns:zenta="http://magwas.rulez.org/zenta"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
