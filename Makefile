@@ -46,7 +46,7 @@ javabuild: target/PDEngine-0.0.1-SNAPSHOT.jar
 target/PDEngine-0.0.1-SNAPSHOT.jar:
 	mvn build-helper:parse-version versions:set versions:commit -DnewVersion=\$${parsedVersion.majorVersion}.\$${parsedVersion.minorVersion}.\$${parsedVersion.incrementalVersion}-$$(tools/getbranch|sed 'sA/A_Ag').$$(git rev-parse --short HEAD)
 	mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install org.pitest:pitest-maven:mutationCoverage
-	java -jar tools/mutation-analysis-plugin-1.3-SNAPSHOT.jar
+	java -jar /usr/local/lib/mutation-analysis-plugin-1.3-SNAPSHOT.jar
 
 clean:
 	git clean -fdx
