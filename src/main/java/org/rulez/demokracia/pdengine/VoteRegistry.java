@@ -2,9 +2,13 @@ package org.rulez.demokracia.pdengine;
 
 import java.util.List;
 
+import javax.xml.ws.WebServiceContext;
+
+import org.rulez.demokracia.pdengine.exception.ReportedException;
+
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
-	public VoteRegistry() {
-		super();
+	public VoteRegistry(WebServiceContext wsContext) {
+		super(wsContext);
 	}
 	
 	@Override
@@ -22,4 +26,11 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.ballots.remove(ballot);
 	}
 
+	@Override
+	public void modifyVote(String voteId, String adminKey, String votename) throws ReportedException {
+	    Validate.checkVoteName(votename);
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		vote.name = votename;
+	}
 }
