@@ -27,7 +27,7 @@
 	</xsl:template>	
 	<xsl:template match="issue" mode="justname">
 		<xsl:copy>
-			<xsl:copy-of select="@name"/>
+			<xsl:copy-of select="@name|@issueTitle"/>
 		</xsl:copy>
 	</xsl:template>
 	<xsl:template match="@*|*|processing-instruction()|comment()" mode="justname">
@@ -68,6 +68,7 @@
 				<xsl:copy-of select="@*"/>
 				<xsl:if test="$issue/@url">
 					<xsl:attribute name="githubIssue" select="$issue/@url"/>
+					<xsl:attribute name="issueTitle" select="$issue/summary"/>
 				</xsl:if>
 				<xsl:copy-of select="$issue/@*"/>
 				<xsl:copy-of select="$model//element[
