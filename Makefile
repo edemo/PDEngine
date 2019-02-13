@@ -39,7 +39,7 @@ engine.consistencycheck: engine.rich engine.check $(CONSISTENCY_INPUTS)
 	sed 's/\//:/' <$(basename $@).consistency.stderr |sort --field-separator=':' --key=2
 
 testenv:
-	docker run --rm -p 5900:5900 -e PULL_REQUEST=false -e ORG_NAME=local -v $$(pwd):/pdengine -w /pdengine -it edemo/pdengine
+	./tools/testenv
 
 javabuild: target/PDEngine-0.0.1-SNAPSHOT.jar
 
