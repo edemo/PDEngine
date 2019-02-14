@@ -1,4 +1,10 @@
 #!/bin/bash
+set -xe
 DEVHOME=${DEVHOME:-~/pdengine-developer-home/}
-export DEVHOME
-docker run --rm -p 5900:5900 -e PULL_REQUEST=false DEVUID=${UID} DEVHOME=${DEVHOME} -e ORG_NAME=local -v $(pwd):/pdengine -w /pdengine -it edemo/pdengine
+DEV_UID=$(id -u)
+DEV_GID=$(id -g)
+PDENGINE_IMAGE=${PDENGINE_IMAGE:-edemo/pdengine}
+docker run --rm -p 5900:5900 -e PULL_REQUEST=false -e DEVUID=${DEV_UID} -e DEVGID=${DEV_GID} -e ORG_NAME=local \
+    -v $(pwd):/pdengine -v ${DEVHOME}:/home/developer -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -w /pdengine -it ${PDENGINE_IMAGE}
+
