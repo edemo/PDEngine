@@ -26,11 +26,12 @@ RUN cp ~/.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar /usr/local
 RUN wget http://search.maven.org/remotecontent?filepath=com/github/markusbernhardt/xml-doclet/1.0.5/xml-doclet-1.0.5-jar-with-dependencies.jar -O /usr/local/lib/xml-doclet.jar
 
 RUN git clone https://github.com/edemo/PDEngine.git
-RUN cp /usr/local/lib/*.jar PDEngine/tools
 RUN rm /dev/random; cp -a /dev/urandom /dev/random; ls -l /dev/random /dev/urandom;Xvnc4 -SecurityTypes none :0 & export DISPLAY=:0;cd PDEngine; make
 RUN rm -rf PDEngine mutation-analysis-plugin
 RUN sed 's/.ALL:ALL./(ALL) NOPASSWD:/' -i /etc/sudoers
 RUN wget https://adadocs.demokracia.rulez.org/resources/eclipse.tar.gz -O /tmp/eclipse.tar.gz
 RUN cd /opt;tar xzf /tmp/eclipse.tar.gz
+RUN wget https://adadocs.demokracia.rulez.org/resources/pdengine-developer-home.tar.gz -O /tmp/pdengine-developer-home.tar.gz
+RUN cd /opt;tar xzf /tmp/pdengine-developer-home.tar.gz
 ENTRYPOINT ["/pdengine/tools/entrypoint"]
 CMD ["/bin/bash"]
