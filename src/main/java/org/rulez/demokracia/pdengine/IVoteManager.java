@@ -38,4 +38,6 @@ public interface IVoteManager {
 
 	void modifyVote(String voteId, String adminKey, String votename) throws ReportedException;
 
+	void deleteVote(String voteId, String adminKey) throws ReportedException;
+
 }
