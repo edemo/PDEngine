@@ -43,7 +43,7 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("delete vote")
 	@tested_behaviour("validate inputs")
 	@Test
-	public void proper_voteId_and_adminKey_is_delete_vote() throws ReportedException {
+	public void proper_voteId_and_adminKey_does_delete_vote() throws ReportedException {
 		String voteId = adminInfo.voteId;
 		voteManager.deleteVote(voteId, adminInfo.adminKey);
 		assertThrows(
