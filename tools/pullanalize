@@ -1,8 +1,14 @@
 #!/bin/bash
 set -e
+function normalize_branch_name_for_sonar() {
+    echo "${1}" |sed 's/[^A-Za-z0-9/.-]/_/g'
+}
+
 echo PULL REQUEST $PULL_REQUEST
 if [ $PULL_REQUEST != false ]
 then
+    $BASE_BRANCH=$(normalize_branch_name_for_sonar "${BASE_BRANCH}"
+    $HEAD_BRANCH=$(normalize_branch_name_for_sonar "${HEAD_BRANCH}"
     mvn sonar:sonar -Dsonar.organization=edemo -Dsonar.github.pullRequest=$PULL_REQUEST -Dsonar.github.oauth=$GITHUB_OAUTH -Dsonar.externalIssuesReportPaths=issuesReport.json
     mvn sonar:sonar -Dsonar.organization=edemo\
         -Dsonar.pullrequest.provider=github\
