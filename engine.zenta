@@ -141,6 +141,9 @@ String adminKey: same as vote's adminKey
             <sourceConnection xsi:type="zenta:Connection" id="cf52b0bc-41ce-4e1f-bbdf-0be77556ada0" source="ea3a0077-69ab-4075-b508-bc169193e155" target="069d37ab-cf38-4cf8-b2f0-e1374cf16b65" relationship="6044dd5f-b05d-4b36-a507-ed7010cd7fe1"/>
             <sourceConnection xsi:type="zenta:Connection" id="299beffe-fc97-428b-86d0-72cb8f45a9a1" source="ea3a0077-69ab-4075-b508-bc169193e155" target="c6994dd4-9919-4914-a65d-7ec796510491" relationship="c35caaff-f632-4265-a6ca-cc650e71d93b"/>
             <sourceConnection xsi:type="zenta:Connection" id="551db762-e99c-43b8-90e2-3e5fe0cacc96" source="ea3a0077-69ab-4075-b508-bc169193e155" target="41b7f6a4-bc5b-4284-8c85-da322fec61ca" relationship="39e09703-1efe-4179-8b7b-ebc1ff41b0b8"/>
+            <sourceConnection xsi:type="zenta:Connection" id="1c35fbcb-e6b7-4ed7-bc6b-3a03a70ff845" source="ea3a0077-69ab-4075-b508-bc169193e155" target="207af2b2-1579-4447-bfe1-531f5bc2184d" relationship="325978c8-7d3f-4859-8922-c6aadf90eff3"/>
+            <sourceConnection xsi:type="zenta:Connection" id="2f950bc2-5333-4392-b1ea-4a99612f5f59" source="ea3a0077-69ab-4075-b508-bc169193e155" target="43a3015d-d01e-4680-967f-7ac7b529cb21" relationship="168c6102-d055-40ca-a1e5-ea4534aef70d"/>
+            <sourceConnection xsi:type="zenta:Connection" id="25e45ff3-12bf-4ac9-8507-a83e178d8e53" source="ea3a0077-69ab-4075-b508-bc169193e155" target="706b4389-8ee4-4db4-8911-8aec1b480695" relationship="92226c34-b04d-4e04-ab21-cc301a19fea2"/>
           </child>
           <child xsi:type="zenta:DiagramObject" id="45a0ea4f-39fd-470b-a3b0-5953d750f107" targetConnections="e9a29e66-3f7a-4387-bc5a-a3ab930baa18" zentaElement="976582f6-9a8c-441e-b6eb-638f8f1fa01b">
             <bounds x="186" y="343" height="90"/>
@@ -161,11 +164,24 @@ String adminKey: same as vote's adminKey
           <child xsi:type="zenta:DiagramObject" id="41b7f6a4-bc5b-4284-8c85-da322fec61ca" targetConnections="551db762-e99c-43b8-90e2-3e5fe0cacc96" zentaElement="119f452d-1873-4b7a-8d33-4edaa3bbb020">
             <bounds x="67" y="138" width="-1" height="-1"/>
           </child>
+          <child xsi:type="zenta:DiagramObject" id="207af2b2-1579-4447-bfe1-531f5bc2184d" targetConnections="1c35fbcb-e6b7-4ed7-bc6b-3a03a70ff845" zentaElement="7c3a6172-f528-466e-9148-65417b26950b">
+            <bounds x="516" y="155" width="-1" height="-1"/>
+          </child>
+          <child xsi:type="zenta:DiagramObject" id="43a3015d-d01e-4680-967f-7ac7b529cb21" targetConnections="2f950bc2-5333-4392-b1ea-4a99612f5f59" zentaElement="d311158f-1d7b-4288-86d2-a258d7a63741">
+            <bounds x="516" y="216" width="-1" height="-1"/>
+          </child>
+          <child xsi:type="zenta:DiagramObject" id="706b4389-8ee4-4db4-8911-8aec1b480695" targetConnections="25e45ff3-12bf-4ac9-8507-a83e178d8e53" zentaElement="6c21fece-0382-4d6a-bf96-b47aee86228b">
+            <bounds x="672" y="180" width="-1" height="-1"/>
+          </child>
         </element>
         <element xsi:type="zenta:BasicObject" name="A vote cannot be deleted if it have issued ballots." id="28a3d2e1-acbe-431d-8f23-017e490767b2" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
         <element xsi:type="zenta:BasicRelationship" id="6044dd5f-b05d-4b36-a507-ed7010cd7fe1" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="48822135-c613-40d5-8c46-e983a378c527" target="28a3d2e1-acbe-431d-8f23-017e490767b2"/>
         <element xsi:type="zenta:BasicRelationship" id="c35caaff-f632-4265-a6ca-cc650e71d93b" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="48822135-c613-40d5-8c46-e983a378c527" target="53971969-fee5-4442-a283-98d7f5b2c94f"/>
         <element xsi:type="zenta:BasicRelationship" id="39e09703-1efe-4179-8b7b-ebc1ff41b0b8" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="48822135-c613-40d5-8c46-e983a378c527" target="119f452d-1873-4b7a-8d33-4edaa3bbb020"/>
+        <element xsi:type="zenta:BasicRelationship" id="325978c8-7d3f-4859-8922-c6aadf90eff3" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="48822135-c613-40d5-8c46-e983a378c527" target="7c3a6172-f528-466e-9148-65417b26950b"/>
+        <element xsi:type="zenta:BasicRelationship" id="168c6102-d055-40ca-a1e5-ea4534aef70d" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="48822135-c613-40d5-8c46-e983a378c527" target="d311158f-1d7b-4288-86d2-a258d7a63741"/>
+        <element xsi:type="zenta:BasicRelationship" id="676656a9-84b1-41b6-b644-2cef9615b4cb" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="48822135-c613-40d5-8c46-e983a378c527" target="8715adde-bba4-4000-bbd5-d40f1cccaf22"/>
+        <element xsi:type="zenta:BasicRelationship" id="92226c34-b04d-4e04-ab21-cc301a19fea2" ancestor="323747ed-9722-43fb-a3a3-0ded6549d35f" source="48822135-c613-40d5-8c46-e983a378c527" target="6c21fece-0382-4d6a-bf96-b47aee86228b"/>
       </folder>
       <folder name="04. Set Vote Parameters" id="f129a7c7-7fa5-431d-ac98-aab7d9390e0a">
         <element xsi:type="zenta:BasicObject" name="sets the parameters of the vote" id="f51eabe8-c035-439b-b09a-3c3130c18a3e" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
@@ -176,7 +192,14 @@ String adminKey: same as vote's adminKey
         <element xsi:type="zenta:BasicObject" name="validates inputs" id="b071a2d5-5e0b-463f-88cb-a7c3f7a90066" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
           <documentation>String voteId: id of existing vote
 String adminKey: same as vote's adminKey
-String newstage: one of &quot;created&quot;, </documentation>
+Int minEndorsements: 0&lt;= x =&lt; 2 147 483 647
+bool canAddin: true or false
+bool canEndorse: true or false
+bool canVote: true or false
+bool canView: true or false
+
+PUT /voteparameters/&lt;voteId> (String adminKey, Int minEndorsements, bool canAddin, bool canEndorse, bool canVote, bool canView) -> &quot;OK&quot;
+</documentation>
         </element>
         <element xsi:type="zenta:ZentaDiagramModel" name="Set Vote Parameters" id="66342dc0-e0f5-40ae-9a43-7acc4be155f1">
           <child xsi:type="zenta:DiagramObject" id="e1556bee-2b87-4591-b7bf-90364e59a388" targetConnections="cba4d88b-3b8f-4201-a510-e92328326f27" zentaElement="7c3a6172-f528-466e-9148-65417b26950b">
