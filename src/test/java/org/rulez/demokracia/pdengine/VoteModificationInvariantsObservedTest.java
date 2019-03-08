@@ -49,10 +49,11 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 	@tested_operation("modify vote")
 	@tested_behaviour("validates inputs")
 	@Test
-	public void vote_invariants_are_observerd_in_modify_vote_48() throws ReportedException {
+	public void vote_invariants_are_observerd_in_modify_vote() throws ReportedException {
 		Vote vote = getTheVote();
 		saveInvariables(vote);
 		voteManager.modifyVote(savedVoteId, savedAdminKey, "modifiedVoteName");
+		vote = voteManager.getVote(adminInfo.voteId);
 		checkInvariables();
 	}
 }
