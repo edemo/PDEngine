@@ -3,9 +3,8 @@ set -e
 echo PULL REQUEST $PULL_REQUEST
 if [ $PULL_REQUEST != false ]
 then
-    mvn sonar:sonar -Dsonar.organization=edemo -Dsonar.github.pullRequest=$PULL_REQUEST -Dsonar.analysis.mode=preview -Dsonar.github.oauth=$GITHUB_OAUTH -Dsonar.externalIssuesReportPaths=issuesReport.json
+    mvn sonar:sonar -Dsonar.organization=edemo -Dsonar.github.pullRequest=$PULL_REQUEST -Dsonar.github.oauth=$GITHUB_OAUTH -Dsonar.externalIssuesReportPaths=issuesReport.json
     mvn sonar:sonar -Dsonar.organization=edemo\
-        -Dsonar.analysis.mode=publish\
         -Dsonar.pullrequest.provider=github\
         -Dsonar.pullrequest.github.repository=${REPO_FULL_NAME} \
         -Dsonar.pullrequest.branch=${HEAD_BRANCH}\
