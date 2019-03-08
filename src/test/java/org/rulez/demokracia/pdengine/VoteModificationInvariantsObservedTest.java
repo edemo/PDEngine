@@ -44,6 +44,15 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 		assertEquals(savedIsPrivate, savedVote.isPrivate);
 		assertEquals(savedCreationTime, savedVote.creationTime);
 	}
+	
+	public void checkInvariables2(Vote vote) {
+		assertEquals(savedVoteId, vote.id);
+		assertEquals(savedAdminKey, vote.adminKey);
+		assertEquals(savedNeededAssurances,vote.neededAssurances);
+		assertEquals(savedCountedAssurances,vote.countedAssurances);
+		assertEquals(savedIsPrivate, vote.isPrivate);
+		assertEquals(savedCreationTime, vote.creationTime);
+	}
 
 	@tested_feature("Manage votes")
 	@tested_operation("modify vote")
@@ -54,6 +63,6 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 		saveInvariables(vote);
 		voteManager.modifyVote(savedVoteId, savedAdminKey, "modifiedVoteName");
 		vote = voteManager.getVote(adminInfo.voteId);
-		checkInvariables();
+		checkInvariables2(vote);
 	}
 }
