@@ -36,7 +36,16 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 		savedCreationTime = vote.creationTime;
 	}
 	
-	public void checkInvariables(Vote vote) {
+	public void checkInvariables() {
+		assertEquals(savedVoteId, savedVote.id);
+		assertEquals(savedAdminKey, savedVote.adminKey);
+		assertEquals(savedNeededAssurances,savedVote.neededAssurances);
+		assertEquals(savedCountedAssurances,savedVote.countedAssurances);
+		assertEquals(savedIsPrivate, savedVote.isPrivate);
+		assertEquals(savedCreationTime, savedVote.creationTime);
+	}
+	
+	public void checkInvariables2(Vote vote) {
 		assertEquals(savedVoteId, vote.id);
 		assertEquals(savedAdminKey, vote.adminKey);
 		assertEquals(savedNeededAssurances,vote.neededAssurances);
@@ -52,8 +61,9 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 	public void vote_invariants_are_observerd_in_modify_vote() throws ReportedException {
 		Vote vote = getTheVote();
 		saveInvariables(vote);
+		checkInvariables();
 		voteManager.modifyVote(savedVoteId, savedAdminKey, "modifiedVoteName");
 		vote = voteManager.getVote(adminInfo.voteId);
-		checkInvariables(vote);
+		checkInvariables2(vote);
 	}
 }
