@@ -23,7 +23,10 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	@Override
 	public void castVote(String voteId, String ballot, List<RankedChoice> theVote) {
 		Vote vote = getVote(voteId);
-		vote.ballots.remove(ballot);
+		if(vote.canVote)
+		  vote.ballots.remove(ballot);
+		else
+			throw new IllegalArgumentException("This issue cannot be voted on on yet");
 	}
 
 	@Override
