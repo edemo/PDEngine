@@ -47,7 +47,20 @@
     	<xsl:choose>
     		<xsl:when test="$testcase/@featureid">
     	issue markup:
+<para>
+Behaviour: <xsl:value-of select="$testcase/@feature"/>/<xsl:value-of select="$testcase/@operation"/>;<xsl:value-of select="$testcase/@testcase"/>
+</para><para>
+ @tested_feature("<xsl:value-of select="$testcase/@feature"/>")
+</para><para>
+ @tested_operation("<xsl:value-of select="$testcase/@operation"/>")
+</para><para>
+ @tested_behaviour("<xsl:value-of select="$testcase/@testcase"/>")
+</para><para>
+
+<xsl:value-of select="$testcase"/>
+</para><para>
     	[Deviation in model](http://adadocs.demokracia.rulez.org/PDEngine/edemo/master/index.html#<xsl:value-of select="zenta:engineErrorId($entry)"/>)
+</para>
     		</xsl:when>
     		<xsl:otherwise>
     	issue markup:
