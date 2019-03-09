@@ -48,6 +48,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.choices.remove(votesChoice.id);
 		
 		return "OK";
+	}
 	
 	public void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException {
 		Vote vote = getVote(voteId);
