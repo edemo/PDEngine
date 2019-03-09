@@ -25,13 +25,26 @@ public class VoteTest extends CreatedDefaultChoice {
 	@tested_operation("Cast vote")
 	@tested_behaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
 	@Test
-	public void cast_vote_deletes_our_ballot() {
+	public void cast_vote_deletes_ballot_if_canVote_is_true() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
-		voteManager.castVote(adminInfo.voteId,ballot,theCastVote);
-		assertFalse(vote.ballots.contains(ballot));
-		
+		vote.canVote = true;
+		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		assertFalse(vote.ballots.contains(ballot));		
 	}
 
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
+	@tested_behaviour("works only if canVote is true")
+	@Test
+	public void cast_vote_does_not_delete_ballot_if_canVote_is_false() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = false;
+		
+		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
+				).assertMessageIs("This issue cannot be voted on yet");
+	}
 }
