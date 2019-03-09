@@ -23,6 +23,8 @@ public interface IVoteManager {
 	Vote getVote(String voteId);
 
 	String addChoice(String adminKey, String voteId, String choiceName, String user);
+	
+	void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException;
 
 	ChoiceEntity getChoice(String voteId, String choiceId);
 
