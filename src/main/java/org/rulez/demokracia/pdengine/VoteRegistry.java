@@ -26,7 +26,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		if(vote.canVote)
 		  vote.ballots.remove(ballot);
 		else
-			throw new IllegalArgumentException("This issue cannot be voted on on yet");
+			throw new IllegalArgumentException("This issue cannot be voted on yet");
 	}
 
 	@Override

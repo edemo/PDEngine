@@ -30,7 +30,7 @@ public class VoteTest extends CreatedDefaultChoice {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
-		voteManager.castVote(adminInfo.voteId,ballot,theCastVote);
+		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		assertFalse(vote.ballots.contains(ballot));		
 	}
 
@@ -44,9 +44,7 @@ public class VoteTest extends CreatedDefaultChoice {
 		Vote vote = getTheVote();
 		vote.canVote = false;
 		
-		assertThrows(() -> voteManager.castVote(adminInfo.voteId,ballot,theCastVote)
-				).assertMessageIs("This issue cannot be voted on on yet");
-		
-		assertTrue(vote.ballots.contains(ballot));
+		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
+				).assertMessageIs("This issue cannot be voted on yet");
 	}
 }
