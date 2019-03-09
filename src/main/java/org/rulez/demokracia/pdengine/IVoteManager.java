@@ -26,6 +26,8 @@ public interface IVoteManager {
 	
 	String deleteChoice(String voteId, String choiceId, String adminKey) throws ReportedException;
 
+	void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException;
+
 	ChoiceEntity getChoice(String voteId, String choiceId);
 
 	void endorseChoice(String adminKey, String voteId, String choiceId, String statedUserName);
