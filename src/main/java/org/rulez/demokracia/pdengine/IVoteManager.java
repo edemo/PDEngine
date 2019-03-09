@@ -42,4 +42,7 @@ public interface IVoteManager {
 
 	void deleteVote(String voteId, String adminKey) throws ReportedException;
 
+	void setVoteParameters(String voteId, String adminKey, int minEndorsements, boolean canAddin, boolean canEndorse,
+			boolean canVote, boolean canView) throws ReportedException;
+
 }

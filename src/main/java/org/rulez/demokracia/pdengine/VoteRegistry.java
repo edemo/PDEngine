@@ -48,4 +48,16 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		if(!vote.hasIssuedBallots())
 			votesChoice.name = choice;
 	}
+
+	@Override
+	public void setVoteParameters(String voteId, String adminKey, int minEndorsements, boolean canAddin,
+			boolean canEndorse, boolean canVote, boolean canView) throws ReportedException {
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		
+		if(minEndorsements < 0)
+			throw new IllegalArgumentException("The minimum endorsements can not be under zero!");
+		
+		vote.setParameters(adminKey, minEndorsements, canAddin, canEndorse, canVote, canView);
+	}
 }
