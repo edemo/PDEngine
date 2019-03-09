@@ -47,7 +47,7 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 
 	@tested_feature("Manage votes")
 	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@tested_behaviour("vote invariants")
 	@Test
 	public void vote_invariants_are_observerd_in_modify_vote() throws ReportedException {
 		Vote vote = getTheVote();
