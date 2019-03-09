@@ -1,0 +1,43 @@
+#!/usr/bin/python
+
+import sys
+import json
+import urllib
+import re
+
+user=sys.argv[1]
+repo=sys.argv[2]
+token=sys.argv[3]
+
+def getLinksFromBody(body):
+    return re.findall(r"\[(?P<txt>[^[]*)\]\((?P<uri>[^)]*)",body)
+
+def printIssue(issue):
+    print ' <issue id="{0}" status="{1}" url="{2}">'.format(
+        issue['id'],
+        issue['state'].encode('utf-8'),
+        issue['html_url'])
+    print '  <summary>{0}</summary>'.format(
+        issue['title'].encode('utf-8'))
+    body=issue['body']
+    links = getLinksFromBody(body)
+    for link in links:
+        print '  <link url="{0}" title="{1}"/>'.format(
+            link[1].encode('utf-8'),
+            link[0].encode('utf-8'))
+    print "</issue>"
+
+pageNumber = 1
+print "<issues>"
+while True:
+  issuesUri="https://api.github.com/repos/{0}/{1}/issues?state=all&page={2}&access_token={3}".format(user,repo,pageNumber,token)
+  page = urllib.urlopen(issuesUri)
+  content = page.read()
+  issues = json.loads(content)
+  if len(issues) == 0:
+	break
+  for issue in issues:
+	printIssue(issue)
+  pageNumber += 1
+
+print "</issues>"
