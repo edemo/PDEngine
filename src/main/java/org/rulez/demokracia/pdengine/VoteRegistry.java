@@ -39,4 +39,13 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.checkAdminKey(adminKey);
 		session.remove(vote);
 	}
+	
+	public void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException {
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		Choice votesChoice = vote.getChoice(choiceId);
+		
+		if(!vote.hasIssuedBallots())
+			votesChoice.name = choice;
+	}
 }
