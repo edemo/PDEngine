@@ -68,9 +68,6 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 		
-		if(minEndorsements < 0)
-			throw new IllegalArgumentException("The minimum endorsements can not be under zero!");
-		
 		vote.setParameters(adminKey, minEndorsements, canAddin, canEndorse, canVote, canView);
 	}
 }

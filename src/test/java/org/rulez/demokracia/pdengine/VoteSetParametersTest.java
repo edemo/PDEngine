@@ -88,23 +88,6 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	
 	@tested_feature("Manage votes")
 	@tested_operation("set vote parameters")
-	@tested_behaviour("validates inputs")
-	@Test
-	public void invalid_minEndorsements_is_rejected() {
-		int invalidMinEndorsements = -1;
-		assertThrows(
-				() -> voteManager.setVoteParameters(adminInfo.voteId,
-						adminInfo.adminKey,
-						invalidMinEndorsements,
-						canAddin,
-						canEndorse,
-						canVote,
-						canView)
-			).assertMessageIs("The minimum endorsements can not be under zero!");
-	}
-	
-	@tested_feature("Manage votes")
-	@tested_operation("set vote parameters")
 	@tested_behaviour("vote invariants")
 	@Test
 	public void setVoteParameters_sets_the_minEndorsement_parameter_of_the_vote() {
