@@ -38,7 +38,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 		originIsPrivate = vote.isPrivate;
 		originCreationTime = vote.creationTime;
 		
-		minEndorsements = 3;
+		minEndorsements = 0;
 		canAddin = true;
 		canEndorse = true;
 		canVote = true;
