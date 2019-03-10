@@ -88,7 +88,24 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	
 	@tested_feature("Manage votes")
 	@tested_operation("set vote parameters")
-	@tested_behaviour("vote invariants")
+	@tested_behaviour("validates inputs")
+	@Test
+	public void invalid_minEndorsements_is_rejected() {
+		int invalidMinEndorsements = -2;
+		assertThrows(
+				() -> voteManager.setVoteParameters(adminInfo.voteId,
+						adminInfo.adminKey,
+						invalidMinEndorsements,
+						canAddin,
+						canEndorse,
+						canVote,
+						canView)
+			).assertMessageIs(String.format("Illegal minEndorsements: %s", invalidMinEndorsements));
+	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("set vote parameters")
+	@tested_behaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_minEndorsement_parameter_of_the_vote() {
 		assertEquals(minEndorsements, vote.minEndorsements);
@@ -96,7 +113,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 
 	@tested_feature("Manage votes")
 	@tested_operation("set vote parameters")
-	@tested_behaviour("vote invariants")
+	@tested_behaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canAddIn_parameter_of_the_vote() {
 		assertEquals(true, vote.canAddin);
@@ -104,7 +121,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 
 	@tested_feature("Manage votes")
 	@tested_operation("set vote parameters")
-	@tested_behaviour("vote invariants")
+	@tested_behaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canEndorse_parameter_of_the_vote() {
 		assertEquals(true, vote.canEndorse);
@@ -112,7 +129,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 
 	@tested_feature("Manage votes")
 	@tested_operation("set vote parameters")
-	@tested_behaviour("vote invariants")
+	@tested_behaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canVote_parameter_of_the_vote() {
 		assertEquals(true, vote.canVote);
@@ -120,7 +137,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 
 	@tested_feature("Manage votes")
 	@tested_operation("set vote parameters")
-	@tested_behaviour("vote invariants")
+	@tested_behaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canView_parameter_of_the_vote() {
 		assertEquals(true, vote.canView);
