@@ -11,6 +11,8 @@ public class ChoiceManager extends VoteManager {
 	public String addChoice(String adminKey, String voteId, String choiceName, String user) {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("No choice can be added because there are ballots issued for the vote.");
 		//if(vote.choices.containsKey(choiceName))
 			return getVote(voteId).addChoice(choiceName, user);
 		//return "Exception";

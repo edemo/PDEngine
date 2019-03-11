@@ -48,4 +48,17 @@ public class ChoiceAddValidationTest extends CreatedDefaultVoteRegistry {
 			//		).assertMessageIs(String.format("Illegal choiceId: %s", invalidChoiceId));
 //	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("Add choice")
+	@tested_behaviour("No choice can be added if there are ballots issued for the vote.")
+	@Test
+	public void a() throws ReportedException {
+		String voteId = adminInfo.voteId;
+		Vote vote = voteManager.getVote(voteId);
+		vote.ballots.add("TestBallots");
+		
+		assertThrows(
+			() -> voteManager.addChoice(adminInfo.adminKey, voteId, "choice1", "user")
+		).assertMessageIs("No choice can be added because there are ballots issued for the vote.");
+	}
 }
