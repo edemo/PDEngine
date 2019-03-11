@@ -50,4 +50,18 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 			() -> voteManager.getVote(voteId)
 		).assertMessageIs(String.format("illegal voteId: %s", voteId));
 	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("delete vote")
+	@tested_behaviour("A vote cannot be deleted if it have issued ballots.")
+	@Test
+	public void proper_voteId_and_adminKey_with_issued_ballots_does_not_delete_vote() throws ReportedException {
+		String voteId = adminInfo.voteId;
+		Vote vote = voteManager.getVote(voteId);
+		vote.ballots.add("TestBallots");
+		
+		assertThrows(
+			() -> voteManager.deleteVote(voteId, adminInfo.adminKey)
+		).assertMessageIs("This vote cannot be deleted it has issued ballots.");
+	}
 }
