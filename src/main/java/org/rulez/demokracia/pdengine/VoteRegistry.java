@@ -62,8 +62,10 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.checkAdminKey(adminKey);
 		Choice votesChoice = vote.getChoice(choiceId);
 		
-		if(!vote.hasIssuedBallots())
-			votesChoice.name = choice;
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("The vote have issued ballots so it can not be modified");
+			
+		votesChoice.name = choice;
 	}
 
 	@Override
