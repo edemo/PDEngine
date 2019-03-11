@@ -39,6 +39,10 @@ public class Vote extends VoteEntity {
 		}
 		return choices.get(choiceId);
 	}
+	
+	public boolean hasIssuedBallots() {
+		return !ballots.isEmpty();
+	}
 
 	public void setParameters(String adminKey,
 			int minEndorsements,

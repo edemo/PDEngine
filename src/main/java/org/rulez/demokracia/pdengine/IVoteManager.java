@@ -23,6 +23,10 @@ public interface IVoteManager {
 	Vote getVote(String voteId);
 
 	String addChoice(String adminKey, String voteId, String choiceName, String user);
+	
+	String deleteChoice(String voteId, String choiceId, String adminKey) throws ReportedException;
+
+	void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException;
 
 	ChoiceEntity getChoice(String voteId, String choiceId);
 
@@ -39,5 +43,8 @@ public interface IVoteManager {
 	void modifyVote(String voteId, String adminKey, String votename) throws ReportedException;
 
 	void deleteVote(String voteId, String adminKey) throws ReportedException;
+
+	void setVoteParameters(String voteId, String adminKey, int minEndorsements, boolean canAddin, boolean canEndorse,
+			boolean canVote, boolean canView) throws ReportedException;
 
 }

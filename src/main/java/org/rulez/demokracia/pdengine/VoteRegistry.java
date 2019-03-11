@@ -23,7 +23,10 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	@Override
 	public void castVote(String voteId, String ballot, List<RankedChoice> theVote) {
 		Vote vote = getVote(voteId);
-		vote.ballots.remove(ballot);
+		if(vote.canVote)
+		  vote.ballots.remove(ballot);
+		else
+			throw new IllegalArgumentException("This issue cannot be voted on yet");
 	}
 
 	@Override
@@ -38,5 +41,38 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 		session.remove(vote);
+	}
+
+	@Override
+	public String deleteChoice(String voteId, String choiceId, String adminKey) throws ReportedException {
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		Choice votesChoice = vote.getChoice(choiceId);
+		vote.choices.remove(votesChoice.id);
+		
+		return "OK";
+	}
+	
+	public void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException {
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		Choice votesChoice = vote.getChoice(choiceId);
+		
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("The vote have issued ballots so it can not be modified");
+			
+		votesChoice.name = choice;
+	}
+
+	@Override
+	public void setVoteParameters(String voteId, String adminKey, int minEndorsements, boolean canAddin,
+			boolean canEndorse, boolean canVote, boolean canView) throws ReportedException {
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		
+		if(minEndorsements >= 0)
+			vote.setParameters(adminKey, minEndorsements, canAddin, canEndorse, canVote, canView);	
+		else
+			throw new IllegalArgumentException(String.format("Illegal minEndorsements: %s", minEndorsements));
 	}
 }
