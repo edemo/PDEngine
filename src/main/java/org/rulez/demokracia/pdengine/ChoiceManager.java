@@ -9,7 +9,11 @@ public class ChoiceManager extends VoteManager {
 	}
 
 	public String addChoice(String adminKey, String voteId, String choiceName, String user) {
-		return getVote(voteId).addChoice(choiceName, user);
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		//if(vote.choices.containsKey(choiceName))
+			return getVote(voteId).addChoice(choiceName, user);
+		//return "Exception";
 	}
 
 	public Choice getChoice(String voteId, String choiceId) {
