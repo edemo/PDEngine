@@ -42,6 +42,13 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.checkAdminKey(adminKey);
 		session.remove(vote);
 	}
+	
+	public String showVote(String voteId, String adminKey) throws ReportedException {
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		
+		return "OK";
+	}
 
 	@Override
 	public String deleteChoice(String voteId, String choiceId, String adminKey) throws ReportedException {
