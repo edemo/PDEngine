@@ -56,7 +56,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_name() throws ReportedException {
+	public void check_name() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		
 		assertEquals(result.get("name"), vote.name);
@@ -66,7 +66,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_canAddIn() throws ReportedException {
+	public void check_canAddIn() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		
 		assertEquals(result.get("canAddIn"), vote.canAddin);
@@ -76,7 +76,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_creationTime() throws ReportedException {
+	public void check_creationTime() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		
 		assertEquals(result.get("creationTime"), vote.creationTime);
@@ -86,7 +86,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_choices() throws ReportedException {
+	public void check_choices() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		JSONObject jsonObject = new JSONObject(vote.choices);
 
@@ -97,7 +97,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_canEndorse() throws ReportedException {
+	public void check_canEndorse() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		
 		assertEquals(result.get("canEndorse"), vote.canEndorse);
@@ -107,7 +107,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_countedAssurances() throws ReportedException {
+	public void check_countedAssurances() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		JSONArray jsonArray = new JSONArray(vote.countedAssurances);
 		
@@ -118,7 +118,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_neededAssurances() throws ReportedException {
+	public void check_neededAssurances() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		JSONArray jsonArray = new JSONArray(vote.neededAssurances);
 		
@@ -130,7 +130,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_minEndorsements() throws ReportedException {
+	public void check_minEndorsements() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		
 		assertEquals(result.get("minEndorsements"), vote.minEndorsements);
@@ -140,7 +140,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_id() throws ReportedException {
+	public void check_id() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		
 		assertEquals(result.get("id"), vote.id);
@@ -150,7 +150,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_canView() throws ReportedException {
+	public void check_canView() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		
 		assertEquals(result.get("canView"), vote.canView);
@@ -160,7 +160,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("show vote")
 	@tested_behaviour("returns the vote in json")
 	@Test
-	public void proper_voteId_and_adminKey_check_canVote() throws ReportedException {
+	public void check_canVote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		
 		assertEquals(result.get("canVote"), vote.canVote);
