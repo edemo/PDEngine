@@ -4,9 +4,12 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.Entity;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 
@@ -69,7 +72,7 @@ public class Vote extends VoteEntity {
 		obj.put("name", this.name);
 		obj.put("canAddIn", this.canAddin);
 		obj.put("creationTime", this.creationTime);
-		obj.put("choices", this.choices);
+		obj.put("choices", createChoicesJson(this.choices));
 		obj.put("canEndorse", this.canEndorse);
 		obj.put("countedAssurances", this.countedAssurances);
 		obj.put("neededAssurances", this.neededAssurances);
@@ -78,6 +81,25 @@ public class Vote extends VoteEntity {
 		obj.put("canView", this.canView);
 		obj.put("canVote", this.canVote);
 		return obj;
+	}
+
+	public JSONArray createChoicesJson(Map<String, Choice> choices) {
+		JSONArray array = new JSONArray();
+		
+		for (Entry<String, Choice> entry : choices.entrySet()) {
+		    String key = entry.getKey();
+		    Choice value = entry.getValue();
+		    
+		    JSONObject obj = new JSONObject();
+		    obj.put("initiator", value.userName);
+			obj.put("endorsers", value.endorsers);
+			obj.put("name", value.name);
+			obj.put("id", key);
+		    
+		    array.put(obj);
+		}
+		
+		return array;
 	}
 
 }

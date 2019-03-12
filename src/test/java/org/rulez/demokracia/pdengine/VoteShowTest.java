@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,6 +27,8 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void setUp() throws ReportedException {
 		super.setUp();
 		vote = voteManager.getVote(adminInfo.voteId);
+		vote.addChoice("choiceName", "user");
+		voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choiceName", "user");
 		voteId = adminInfo.voteId;
 		adminKey = adminInfo.adminKey;
 	}
@@ -66,9 +69,9 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void the_choices_attribute_contains_the_choices_of_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
-		JSONObject jsonObject = new JSONObject(vote.choices);
-
-		assertEquals(result.get("choices").toString(), jsonObject.toString());
+		JSONArray jsonArray = vote.createChoicesJson(vote.choices);
+		
+		assertEquals(result.getJSONArray("choices").toString(), jsonArray.toString());
 	}
 	
 	@tested_feature("Manage votes")
