@@ -80,10 +80,9 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		Vote vote = voteManager.getVote(voteId);
 		vote.ballots.add("Test Ballot");
 		
-		voteManager.modifyChoice(voteId, choiceId, adminKey, choice);
-		
-		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
-		assertNotEquals(choiceEntity.name, choice);
+		assertThrows(
+				() -> voteManager.modifyChoice(voteId, choiceId, adminKey, choice)
+			).assertMessageIs("The vote have issued ballots so it can not be modified");
 	}
 	
 }
