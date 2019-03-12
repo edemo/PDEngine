@@ -312,7 +312,7 @@ String adminKey: same as vote's adminKey for private votes, &quot;anon&quot; for
       </folder>
       <folder name="06. Add Choice" id="a16c2bfc-7e79-4398-adfa-84540a67c4cd">
         <element xsi:type="zenta:BasicObject" name="Add choice" id="d311158f-1d7b-4288-86d2-a258d7a63741" ancestor="460b77b0-9540-480a-86b1-00541ccb1fd5">
-          <documentation>POST /choice/&lt;voteId>/&lt;choiceId>/&lt;adminKey> (String choice) -> String choiceId</documentation>
+          <documentation>POST /choice/&lt;voteId>/&lt;adminKey> (String choice) -> String choiceId</documentation>
         </element>
         <element xsi:type="zenta:BasicObject" name="registers the choice with the vote" id="bca855a3-fb1d-4d5e-9c69-1339dcd5cd70" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
         <element xsi:type="zenta:BasicObject" name="registers the user with the choice" id="a016f4b4-a7eb-4103-8967-0e52f562bb11" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
@@ -359,7 +359,7 @@ String adminKey: same as vote's adminKey for private votes, &quot;anon&quot; for
         <element xsi:type="zenta:BasicObject" name="validates inputs" id="af499e94-b21e-4295-8f22-efe9e9e0be15" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a">
           <documentation>String voteId: id of existing vote
 String adminKey: same as vote's adminKey, or &quot;user&quot;
-String choiceId: id of existing choice in the vote with voteid</documentation>
+String choice: the name of the choice</documentation>
         </element>
         <element xsi:type="zenta:BasicObject" name="No choice can be added if there are ballots issued for the vote." id="bf3415b6-d4b2-4693-9633-e9aa404cdd7f" ancestor="b16e0f12-f380-46e5-b82f-0b3f43d8200a"/>
         <element xsi:type="zenta:BasicRelationship" id="e48bd984-9043-4b3b-bca1-b4cf816d18a5" ancestor="e85cd8d3-b087-4b67-b309-0b52fd48e4af" source="d311158f-1d7b-4288-86d2-a258d7a63741" target="bf3415b6-d4b2-4693-9633-e9aa404cdd7f"/>
