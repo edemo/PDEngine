@@ -53,7 +53,7 @@ public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 	@tested_operation("modify vote")
 	@tested_behaviour("The vote cannot be modified if there are ballots issued.")
 	@Test
-	public void proper_voteId_adminKey_and_voteName_with_ballot_does_not_modify_vote() throws ReportedException {
+	public void proper_voteId_adminKey_and_voteName_with_ballot_get_an_exception() throws ReportedException {
 		String voteId = adminInfo.voteId;
 		Vote vote = voteManager.getVote(voteId);
 		vote.ballots.add("TestBallots");
