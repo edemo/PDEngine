@@ -41,7 +41,20 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 	
 	@tested_feature("Manage votes")
 	@tested_operation("delete vote")
-	@tested_behaviour("validate inputs")
+	@tested_behaviour("deletes the vote with all parameters, choices, ballots and votes cast")
+	@Test
+	public void proper_voteId_and_adminKey_with_ballot_does_not_delete_vote() throws ReportedException {
+		String voteId = adminInfo.voteId;
+		Vote vote = voteManager.getVote(voteId);
+		vote.ballots.add("TestBallot");
+		assertThrows(
+			() -> voteManager.deleteVote(voteId, adminInfo.adminKey)
+		).assertMessageIs("This vote cannot be deleted because it has ballots");
+	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("delete vote")
+	@tested_behaviour("deletes the vote with all parameters, choices, ballots and votes cast")
 	@Test
 	public void proper_voteId_and_adminKey_does_delete_vote() throws ReportedException {
 		String voteId = adminInfo.voteId;
