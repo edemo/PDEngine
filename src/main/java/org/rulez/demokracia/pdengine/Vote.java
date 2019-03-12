@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.persistence.Entity;
 
+import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 
 @Entity
@@ -61,6 +62,22 @@ public class Vote extends VoteEntity {
 		if(! (adminKey.equals(providedAdminKey)||providedAdminKey.equals("user")) ) {
 			throw new IllegalArgumentException(String.format("Illegal adminKey: %s", providedAdminKey));
 		}
+	}
+	
+	public JSONObject toJson(String voteId) {
+		JSONObject obj = new JSONObject();
+		obj.put("name", this.name);
+		obj.put("canAddIn", this.canAddin);
+		obj.put("creationTime", this.creationTime);
+		obj.put("choices", this.choices);
+		obj.put("canEndorse", this.canEndorse);
+		obj.put("countedAssurances", this.countedAssurances);
+		obj.put("neededAssurances", this.neededAssurances);
+		obj.put("minEndorsements", this.minEndorsements);
+		obj.put("id", voteId);
+		obj.put("canView", this.canView);
+		obj.put("canVote", this.canVote);
+		return obj;
 	}
 
 }

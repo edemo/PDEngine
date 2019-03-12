@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 
+import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
@@ -43,11 +44,11 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		session.remove(vote);
 	}
 	
-	public String showVote(String voteId, String adminKey) throws ReportedException {
+	public JSONObject showVote(String voteId, String adminKey) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 		
-		return "OK";
+		return vote.toJson(voteId);
 	}
 
 	@Override
