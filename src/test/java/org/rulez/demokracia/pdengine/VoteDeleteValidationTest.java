@@ -49,7 +49,7 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 		vote.ballots.add("TestBallot");
 		assertThrows(
 			() -> voteManager.deleteVote(voteId, adminInfo.adminKey)
-		).assertMessageIs("This vote cannot be deleted because it has ballots");
+		).assertMessageIs("This vote cannot be deleted it has issued ballots.");
 	}
 	
 	@tested_feature("Manage votes")
