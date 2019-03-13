@@ -71,7 +71,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	@tested_behaviour("validates inputs")
 	@Test
 	public void cast_vote_checks_ballot() {
-		String wrongBallot = "wrong_Ballot";
+		String wrongBallot = RandomUtils.createRandomKey();
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
@@ -91,7 +91,7 @@ public class VoteTest extends CreatedDefaultChoice {
 		Vote vote = getTheVote();
 		vote.canVote = true;	
 
-		String wrong_choiceId = "not_existing_choice";
+		String wrong_choiceId = RandomUtils.createRandomKey();
 		RankedChoice rankedChoice = new RankedChoice(wrong_choiceId, 42);
 		theCastVote.add(rankedChoice);
 		
