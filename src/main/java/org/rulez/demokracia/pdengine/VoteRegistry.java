@@ -40,6 +40,10 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	public void deleteVote(String voteId, String adminKey) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
+		
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("This vote cannot be deleted it has issued ballots.");
+		
 		session.remove(vote);
 	}
 
