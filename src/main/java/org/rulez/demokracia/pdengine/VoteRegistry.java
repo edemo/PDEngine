@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 
+import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
@@ -45,6 +46,13 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 			throw new IllegalArgumentException("This vote cannot be deleted it has issued ballots.");
 		
 		session.remove(vote);
+	}
+	
+	public JSONObject showVote(String voteId, String adminKey) throws ReportedException {
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		
+		return vote.toJson(voteId);
 	}
 
 	@Override
