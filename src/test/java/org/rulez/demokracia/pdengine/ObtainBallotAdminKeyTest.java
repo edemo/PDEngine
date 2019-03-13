@@ -43,6 +43,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		vote.neededAssurances.add("1");
 		vote.neededAssurances.add("2");
 		
-		voteManager.obtainBallot(adminInfo.voteId, "anon");
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, "anon");
+		assertTrue(ballot instanceof String);
 	}
 }
