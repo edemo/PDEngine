@@ -45,43 +45,78 @@ public class VoteTest extends CreatedDefaultChoice {
 		vote.canVote = false;
 		
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
-				).assertMessageIs("This issue cannot be voted on yet");
+				).assertException(IllegalArgumentException.class)
+				 .assertMessageIs("This issue cannot be voted on yet");
 	}
 	
 	@tested_feature("Vote")
 	@tested_operation("Cast vote")
 	@tested_behaviour("validates inputs")
 	@Test
-	public void cast_vote_validates_input() {
+	public void cast_vote_checks_vote_id() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
 		String wrongVoteId = "wrong_ID";
-		String wrongBallot = "wrong_Ballot";
 		
-		// wrong vodeId
 		assertThrows(() -> voteManager.castVote(wrongVoteId, ballot, theCastVote)
-				).assertMessageIs(String.format("illegal voteId: %s", wrongVoteId));
+				).assertException(IllegalArgumentException.class)
+				 .assertMessageIs(String.format("illegal voteId: %s", wrongVoteId));
+	}
+	
 
-		// wrong ballot
-		assertThrows(() -> voteManager.castVote(adminInfo.voteId, wrongBallot, theCastVote)
-				).assertMessageIs(String.format("Illegal ballot: %s", wrongBallot));
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
+	@tested_behaviour("validates inputs")
+	@Test
+	public void cast_vote_checks_ballot() {
+		String wrongBallot = "wrong_Ballot";
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = true;
 		
-		// wrong choiceID
+		assertThrows(() -> voteManager.castVote(adminInfo.voteId, wrongBallot, theCastVote)
+				).assertException(IllegalArgumentException.class)
+				 .assertMessageIs(String.format("Illegal ballot: %s", wrongBallot));
+	}
+	
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
+	@tested_behaviour("validates inputs")
+	@Test
+	public void cast_vote_checks_the_cast_if_choiceids_are_valid() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = true;	
+
 		String wrong_choiceId = "not_existing_choice";
 		RankedChoice rankedChoice = new RankedChoice(wrong_choiceId, 42);
 		theCastVote.add(rankedChoice);
-		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
-				).assertMessageIs(String.format("Invalid choiceId: %s", wrong_choiceId));
-		theCastVote.remove(rankedChoice);
 		
-		// wrong rank < 0
+		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
+				).assertException(IllegalArgumentException.class)
+				 .assertMessageIs(String.format("Invalid choiceId: %s", wrong_choiceId));
+	}
+	
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
+	@tested_behaviour("validates inputs")
+	@Test
+	public void cast_vote_checks_the_cast_if_ranks_are_nonnegative() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = true;
+		
 		String choiceId = vote.addChoice("valid_choice","userke");
 		int wrong_rank = -42;
-		rankedChoice = new RankedChoice(choiceId, wrong_rank);
+		RankedChoice rankedChoice = new RankedChoice(choiceId, wrong_rank);
 		theCastVote.add(rankedChoice);
+		
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
-				).assertMessageIs(String.format("Invalid rank: %d", wrong_rank));
+				).assertException(IllegalArgumentException.class)
+				 .assertMessageIs(String.format("Invalid rank: %d", wrong_rank));
 	}
 }
