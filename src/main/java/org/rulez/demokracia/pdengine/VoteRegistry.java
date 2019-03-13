@@ -43,7 +43,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.checkAdminKey(adminKey);
 		
 		if(vote.hasIssuedBallots())
-			throw new IllegalArgumentException("This vote cannot be deleted because it has ballots");
+			throw new IllegalArgumentException("This vote cannot be deleted it has issued ballots.");
 		
 		session.remove(vote);
 	}
