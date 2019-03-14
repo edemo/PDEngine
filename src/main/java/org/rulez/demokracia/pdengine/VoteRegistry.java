@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 
+import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
@@ -44,13 +45,28 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	    Validate.checkVoteName(votename);
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
+		
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("The vote cannot be modified there are ballots issued.");
+		
 		vote.name = votename;
 	}
 	
 	public void deleteVote(String voteId, String adminKey) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
+		
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("This vote cannot be deleted it has issued ballots.");
+		
 		session.remove(vote);
+	}
+	
+	public JSONObject showVote(String voteId, String adminKey) throws ReportedException {
+		Vote vote = getVote(voteId);
+		vote.checkAdminKey(adminKey);
+		
+		return vote.toJson(voteId);
 	}
 
 	@Override
@@ -68,8 +84,10 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.checkAdminKey(adminKey);
 		Choice votesChoice = vote.getChoice(choiceId);
 		
-		if(!vote.hasIssuedBallots())
-			votesChoice.name = choice;
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("The vote have issued ballots so it can not be modified");
+			
+		votesChoice.name = choice;
 	}
 
 	@Override
