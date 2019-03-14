@@ -71,8 +71,17 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 		Choice votesChoice = vote.getChoice(choiceId);
-		vote.choices.remove(votesChoice.id);
 		
+		if(adminKey.equals("user"))
+			if(votesChoice.userName.equals(getWsUserName()))
+				if(vote.canAddin)  
+					vote.choices.remove(votesChoice.id);
+				else
+					throw new IllegalArgumentException("The adminKey is \"user\" but canAddin is false.");	  
+			else
+				throw new IllegalArgumentException("The adminKey is \"user\" but the user is not same with that user who added the choice.");
+		else
+			vote.choices.remove(votesChoice.id);
 		return "OK";
 	}
 	
