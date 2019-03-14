@@ -49,17 +49,30 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.checkAdminKey(adminKey);
 		Choice votesChoice = vote.getChoice(choiceId);
 		vote.choices.remove(votesChoice.id);
-		
+
 		return "OK";
 	}
-	
+
 	public void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 		Choice votesChoice = vote.getChoice(choiceId);
+
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("Choice modification disallowed: ballots already issued");
+
+		if("user".equals(adminKey)) {
+			if(! vote.canAddin) 
+				throw new IllegalArgumentException("Choice modification disallowed: adminKey is user, but canAddin is false");
 		
-		if(!vote.hasIssuedBallots())
-			votesChoice.name = choice;
+			if(! votesChoice.userName.equals(getWsUserName())) 
+				throw new IllegalArgumentException(String.format("Choice modification disallowed: adminKey is user, " +
+																"and the choice was added by a different user: %s, me: %s",
+																		votesChoice.userName,
+																		getWsUserName()));
+		}
+
+		votesChoice.name = choice;
 	}
 
 	@Override
