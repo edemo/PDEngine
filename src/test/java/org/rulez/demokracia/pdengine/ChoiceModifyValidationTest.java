@@ -114,4 +114,20 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 
 	}
 	
+	@tested_feature("Manage votes")
+	@tested_operation("modify choice")
+	@tested_behaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
+	@Test
+	public void userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() throws ReportedException {
+		Vote vote = voteManager.getVote(voteId);
+		vote.canAddin=true;
+		String me = voteManager.getWsUserName();
+		choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice2", me);
+		
+		voteManager.modifyChoice(voteId, choiceId, "user", choice);
+		
+		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
+		assertEquals(choiceEntity.name, choice);
+	}
+	
 }
