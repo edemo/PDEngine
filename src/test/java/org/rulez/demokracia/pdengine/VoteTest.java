@@ -20,7 +20,6 @@ public class VoteTest extends CreatedDefaultChoice {
 		super.setUp();
 	}
 
-
 	@tested_feature("Vote")
 	@tested_operation("Cast vote")
 	@tested_behaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
@@ -43,12 +42,12 @@ public class VoteTest extends CreatedDefaultChoice {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = false;
-		
+
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
 				).assertException(IllegalArgumentException.class)
 				 .assertMessageIs("This issue cannot be voted on yet");
 	}
-	
+
 	@tested_feature("Vote")
 	@tested_operation("Cast vote")
 	@tested_behaviour("validates inputs")
@@ -59,12 +58,11 @@ public class VoteTest extends CreatedDefaultChoice {
 		Vote vote = getTheVote();
 		vote.canVote = true;
 		String wrongVoteId = "wrong_ID";
-		
+
 		assertThrows(() -> voteManager.castVote(wrongVoteId, ballot, theCastVote)
 				).assertException(IllegalArgumentException.class)
 				 .assertMessageIs(String.format("illegal voteId: %s", wrongVoteId));
 	}
-	
 
 	@tested_feature("Vote")
 	@tested_operation("Cast vote")
@@ -75,12 +73,12 @@ public class VoteTest extends CreatedDefaultChoice {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
-		
+
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, wrongBallot, theCastVote)
 				).assertException(IllegalArgumentException.class)
 				 .assertMessageIs(String.format("Illegal ballot: %s", wrongBallot));
 	}
-	
+
 	@tested_feature("Vote")
 	@tested_operation("Cast vote")
 	@tested_behaviour("validates inputs")
@@ -92,14 +90,15 @@ public class VoteTest extends CreatedDefaultChoice {
 		vote.canVote = true;	
 
 		String wrong_choiceId = RandomUtils.createRandomKey();
-		RankedChoice rankedChoice = new RankedChoice(wrong_choiceId, 42);
+		int good_rank = 0;
+		RankedChoice rankedChoice = new RankedChoice(wrong_choiceId, good_rank);
 		theCastVote.add(rankedChoice);
-		
+
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
 				).assertException(IllegalArgumentException.class)
 				 .assertMessageIs(String.format("Invalid choiceId: %s", wrong_choiceId));
 	}
-	
+
 	@tested_feature("Vote")
 	@tested_operation("Cast vote")
 	@tested_behaviour("validates inputs")
@@ -109,12 +108,12 @@ public class VoteTest extends CreatedDefaultChoice {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
-		
+
 		String choiceId = vote.addChoice("valid_choice","userke");
-		int wrong_rank = -42;
+		int wrong_rank = -1;
 		RankedChoice rankedChoice = new RankedChoice(choiceId, wrong_rank);
 		theCastVote.add(rankedChoice);
-		
+
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
 				).assertException(IllegalArgumentException.class)
 				 .assertMessageIs(String.format("Invalid rank: %d", wrong_rank));
