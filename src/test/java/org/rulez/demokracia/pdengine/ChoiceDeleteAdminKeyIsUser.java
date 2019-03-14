@@ -50,8 +50,8 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 		String voteId = adminInfo.voteId;
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin = true;
-		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "test_user_in_ws_context");
-		voteManager.deleteChoice(voteId, choiceId, adminInfo.adminKey);
+		String choiceId = voteManager.addChoice("user", adminInfo.voteId, "choice1", "test_user_in_ws_context");
+		voteManager.deleteChoice(voteId, choiceId, "user");
 		
 		assertThrows(
 			() -> voteManager.getChoice(voteId, choiceId)
