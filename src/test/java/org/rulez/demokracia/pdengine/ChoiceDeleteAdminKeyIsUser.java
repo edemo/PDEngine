@@ -19,7 +19,7 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 	@tested_operation("delete choice")
 	@tested_behaviour("if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void adminKey_is_user_and_the_user_is_the_same_with_that_user_who_added_the_choice_and_canAddin_is_false() throws ReportedException {
+	public void if_canAddin_is_false_then_other_users_cannot_add_choices() throws ReportedException {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.canAddin = false;
 		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "test_user_in_ws_context");
@@ -32,7 +32,7 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 	@tested_operation("delete choice")
 	@tested_behaviour("if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void adminKey_is_user_and_the_user_is_not_the_same_with_that_user_who_added_the_choice_and_canAddin_is_true() throws ReportedException {
+	public void if_adminKey_is_user_and_the_user_is_not_the_one_who_added_the_choice_then_the_choice_cannot_be_deleted() throws ReportedException {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.canAddin = true;
 		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "user");
@@ -46,7 +46,7 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 	@tested_operation("delete choice")
 	@tested_behaviour("if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void adminKey_is_user_and_the_user_is_the_same_with_that_user_who_added_the_choice_and_canAddin_is_true() throws ReportedException {
+	public void if_adminKey_is_user_and_canAddin_is_true_then_the_user_who_added_the_choice_is_able_to_delete_it() throws ReportedException {
 		String voteId = adminInfo.voteId;
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin = true;
