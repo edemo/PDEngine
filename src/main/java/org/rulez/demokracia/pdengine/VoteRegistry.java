@@ -17,8 +17,8 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(id);
 		
 		if(adminKey.equals("anon")) {
-			if(!vote.countedAssurances.equals(vote.neededAssurances))
-				throw new IllegalArgumentException("The counted and needed assurances are different.");
+			if(!userHasAllAssurance(vote.neededAssurances))
+				throw new IllegalArgumentException("The user does not have all of the needed assurances.");
 		}else {
 			vote.checkAdminKey(adminKey);
 		}
@@ -26,6 +26,15 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		String ballot = RandomUtils.createRandomKey();
 		vote.ballots.add(ballot);
 		return ballot;
+	}
+	
+	public boolean userHasAllAssurance(List<String> neededAssuranceList) {
+		for (String neededAssurance : neededAssuranceList) {
+			if (!hasAssurance(neededAssurance)) {
+				return false;
+			}
+		}
+	return true;
 	}
 
 	@Override

@@ -22,26 +22,35 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
 	@Test
-	public void adminKey_is_anon_with_different_needed_and_counted_assurances() {
+	public void adminKey_is_anon_with_not_the_needed_assurances() {
+		Vote vote = voteManager.getVote(adminInfo.voteId);
+		vote.neededAssurances.clear();
+		vote.neededAssurances.add("dontCare");
 		assertThrows(
 				() -> voteManager.obtainBallot(adminInfo.voteId, "anon")
-			).assertMessageIs("The counted and needed assurances are different.");
+			).assertMessageIs("The user does not have all of the needed assurances.");
 	}
 	
 	@tested_feature("Manage votes")
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
 	@Test
-	public void adminKey_is_anon_with_same_needed_and_counted_assurances() {
+	public void adminKey_is_anon_with_the_proper_assurances() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
-		vote.countedAssurances.clear();
 		vote.neededAssurances.clear();
+		vote.neededAssurances.add("magyar");
 		
-		vote.countedAssurances.add("1");
-		vote.countedAssurances.add("2");
-		
-		vote.neededAssurances.add("1");
-		vote.neededAssurances.add("2");
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, "anon");
+		assertTrue(ballot instanceof String);
+	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
+	@Test
+	public void adminKey_is_anon_with_empty_needed_assurences() {
+		Vote vote = voteManager.getVote(adminInfo.voteId);
+		vote.neededAssurances.clear();
 		
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, "anon");
 		assertTrue(ballot instanceof String);
