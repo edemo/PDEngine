@@ -45,7 +45,7 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("vote invariants")
 	@Test
-	public void check_voteId() {
+	public void voteId_is_Invariant() {
 		assertEquals(originalVoteId, adminInfo.voteId);
 	}
 	
@@ -53,7 +53,7 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("vote invariants")
 	@Test
-	public void check_adminKey() {
+	public void adminKey_is_Invariant() {
 		assertEquals(originalAdminKey, vote.adminKey);
 	}
 	
@@ -61,7 +61,7 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("vote invariants")
 	@Test
-	public void check_neededAssurances() {
+	public void neededAssurances_is_Invariant() {
 		assertEquals(originalNeededAssurances, vote.neededAssurances);
 	}
 	
@@ -69,7 +69,7 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("vote invariants")
 	@Test
-	public void check_countedAssurances() {
+	public void countedAssurances_is_Invariant() {
 		assertEquals(originalCountedAssurances, vote.countedAssurances);
 	}
 	
@@ -77,7 +77,7 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("vote invariants")
 	@Test
-	public void check_isPrivate() {
+	public void isPrivate_is_Invariant() {
 		assertEquals(originalIsPrivate, vote.isPrivate);
 	}
 	
@@ -85,7 +85,7 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("vote invariants")
 	@Test
-	public void check_creationTime() {
+	public void creationTime_is_Invariant() {
 		assertEquals(originalCreationTime, vote.creationTime);
 	}
 }
