@@ -60,7 +60,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	@Override
-	public void deleteChoice(String voteId, String choiceId, String adminKey) throws ReportedException {
+	public String deleteChoice(String voteId, String choiceId, String adminKey) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 		Choice votesChoice = vote.getChoice(choiceId);
@@ -75,6 +75,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 				throw new IllegalArgumentException("The adminKey is \"user\" but the user is not same with that user who added the choice.");
 		else
 			vote.choices.remove(votesChoice.id);
+		return "OK";
 	}
 	
 	public void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException {

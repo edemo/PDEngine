@@ -58,7 +58,8 @@ public class ChoiceDeleteValidationTest extends CreatedDefaultVoteRegistry {
 	public void proper_voteId_choiceId_and_adminKey_does_delete_choice() throws ReportedException {
 		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "user");
 		String voteId = adminInfo.voteId;
-		voteManager.deleteChoice(adminInfo.voteId, choiceId, adminInfo.adminKey);
+		String result = voteManager.deleteChoice(adminInfo.voteId, choiceId, adminInfo.adminKey);
+		assertEquals("OK", result);
 		
 		assertThrows(
 			() -> voteManager.getChoice(voteId, choiceId)
