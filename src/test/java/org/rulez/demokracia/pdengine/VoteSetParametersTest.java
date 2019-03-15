@@ -23,7 +23,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	
 	String originVoteId, originAdminKey;
 	List<String> originNeededAssurances, originCountedAssurances;
-	Boolean originIsPrivate;
+	Boolean originIsPrivate, originCanUpdate;
 	long originCreationTime;
 	
 	@Before
@@ -37,6 +37,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 		originCountedAssurances = new ArrayList<String>(vote.countedAssurances);
 		originIsPrivate = vote.isPrivate;
 		originCreationTime = vote.creationTime;
+		originCanUpdate = vote.canUpdate;
 		
 		minEndorsements = 0;
 		canAddin = true;
@@ -192,5 +193,13 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void setVoteParameters_does_not_overwrite_creationTime_value() {
 		assertEquals(originCreationTime, vote.creationTime);
+	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("set vote parameters")
+	@tested_behaviour("updatable is a vote invariant")
+	@Test
+	public void setVoteParameters_does_not_overwrite_canUpdate_value() {
+		assertEquals(originCanUpdate, vote.canUpdate);
 	}
 }

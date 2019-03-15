@@ -23,7 +23,7 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 	public String savedAdminKey;
 	public ArrayList<String> savedNeededAssurances;
 	public ArrayList<String> savedCountedAssurances;
-	public boolean savedIsPrivate;
+	public boolean savedIsPrivate, savedCanUpdate;
 	public long savedCreationTime;
 
 	protected void saveInvariables(VoteEntity vote) {
@@ -34,6 +34,7 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 		savedCountedAssurances = new ArrayList<String>(vote.countedAssurances);
 		savedIsPrivate = vote.isPrivate;
 		savedCreationTime = vote.creationTime;
+		savedCanUpdate = vote.canUpdate;
 	}
 	
 	public void checkInvariables(Vote vote) {
@@ -43,11 +44,12 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 		assertEquals(savedCountedAssurances,vote.countedAssurances);
 		assertEquals(savedIsPrivate, vote.isPrivate);
 		assertEquals(savedCreationTime, vote.creationTime);
+		assertEquals(savedCanUpdate, vote.canUpdate);
 	}
 
 	@tested_feature("Manage votes")
 	@tested_operation("modify vote")
-	@tested_behaviour("vote invariants")
+	@tested_behaviour("updatable is a vote invariant")
 	@Test
 	public void vote_invariants_are_observerd_in_modify_vote() throws ReportedException {
 		Vote vote = getTheVote();

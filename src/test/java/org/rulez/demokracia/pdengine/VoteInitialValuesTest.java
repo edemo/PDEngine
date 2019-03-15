@@ -33,4 +33,9 @@ public class VoteInitialValuesTest extends CreatedDefaultVoteRegistry {
 	public void canView_is_false_in_the_created_vote() {
 		assertEquals(getTheVote().canView, false);
 	}
+	
+	@Test
+	public void canUpdate_is_false_in_the_created_vote() {
+		assertEquals(getTheVote().canUpdate, false);
+	}
 }
