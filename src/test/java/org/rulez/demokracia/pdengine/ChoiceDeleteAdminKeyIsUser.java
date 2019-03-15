@@ -57,4 +57,20 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 			() -> voteManager.getChoice(voteId, choiceId)
 		).assertMessageIs(String.format("Illegal choiceId: %s", choiceId));
 	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("delete choice")
+	@tested_behaviour("if the vote has ballots issued, the choice cannot be deleted")
+	@Test
+	public void if_the_vote_has_issued_ballots_then_the_choice_cannot_be_deleted() throws ReportedException {
+		String voteId = adminInfo.voteId;
+		String adminKey = adminInfo.adminKey;
+		Vote vote = voteManager.getVote(voteId);
+		String choiceId = voteManager.addChoice(adminKey, adminInfo.voteId, "choice1", "user");
+		vote.ballots.add("TestBallot");
+
+		assertThrows(
+			() -> voteManager.deleteChoice(voteId, choiceId, adminKey)
+		).assertMessageIs("This choice cannot be deleted the vote has issued ballots.");
+	}
 }
