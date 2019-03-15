@@ -40,10 +40,20 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	@Override
 	public void castVote(String voteId, String ballot, List<RankedChoice> theVote) {
 		Vote vote = getVote(voteId);
-		if(vote.canVote)
-		  vote.ballots.remove(ballot);
-		else
-			throw new IllegalArgumentException("This issue cannot be voted on yet");
+		if(! vote.canVote) 
+		  throw new IllegalArgumentException("This issue cannot be voted on yet");
+		
+		if (! vote.ballots.contains(ballot)) 
+		  throw new IllegalArgumentException(String.format("Illegal ballot: %s", ballot));
+		
+		for(RankedChoice choice : theVote){
+			if (! vote.choices.containsKey(choice.choiceId)) 
+				throw new IllegalArgumentException(String.format("Invalid choiceId: %s", choice.choiceId));
+			if (choice.rank < 0) 
+				throw new IllegalArgumentException(String.format("Invalid rank: %d", choice.rank));
+		}
+		
+		vote.ballots.remove(ballot);
 	}
 
 	@Override
