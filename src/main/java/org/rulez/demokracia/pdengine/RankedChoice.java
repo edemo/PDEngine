@@ -1,9 +1,16 @@
 package org.rulez.demokracia.pdengine;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
+import org.rulez.demokracia.pdengine.dataobjects.RankedChoiceEntity;
 
-public class RankedChoice implements Serializable {
+@Entity
+public class RankedChoice extends RankedChoiceEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	public RankedChoice(String choiceId, int rank) {
+		super();
+		this.choiceId = choiceId;
+		this.rank = rank;
+	}
 }
