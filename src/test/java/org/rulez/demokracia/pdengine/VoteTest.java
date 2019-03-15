@@ -90,7 +90,7 @@ public class VoteTest extends CreatedDefaultChoice {
 		vote.canVote = true;	
 
 		String wrong_choiceId = RandomUtils.createRandomKey();
-		int good_rank = 0;
+		int good_rank = 42;
 		RankedChoice rankedChoice = new RankedChoice(wrong_choiceId, good_rank);
 		theCastVote.add(rankedChoice);
 
@@ -117,5 +117,23 @@ public class VoteTest extends CreatedDefaultChoice {
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
 				).assertException(IllegalArgumentException.class)
 				 .assertMessageIs(String.format("Invalid rank: %d", wrong_rank));
+	}
+	
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
+	@tested_behaviour("validates inputs")
+	@Test
+	public void cast_vote_deletes_ballot_if_it_gets_a_proper_not_empty_cast() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = true;
+
+		String choiceId = vote.addChoice("valid_choice","userke");
+		int first_good_rank = 0;
+		RankedChoice rankedChoice = new RankedChoice(choiceId, first_good_rank);
+		theCastVote.add(rankedChoice);
+		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		assertFalse(vote.ballots.contains(ballot));	
 	}
 }
