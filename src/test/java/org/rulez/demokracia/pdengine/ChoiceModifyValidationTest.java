@@ -61,8 +61,8 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	}
 
 	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@tested_operation("modify choice")
+	@tested_behaviour("modifies the string of the choice")
 	@Test
 	public void proper_voteId_choiceId_and_adminKey_does_modify_choice() throws ReportedException {
 		voteManager.modifyChoice(voteId, choiceId, adminKey, choice);
