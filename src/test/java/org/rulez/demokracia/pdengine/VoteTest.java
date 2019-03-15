@@ -121,7 +121,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	
 	@tested_feature("Vote")
 	@tested_operation("Cast vote")
-	@tested_behaviour("validates inputs")
+	@tested_behaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
 	@Test
 	public void cast_vote_deletes_ballot_if_it_gets_a_proper_not_empty_cast() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
