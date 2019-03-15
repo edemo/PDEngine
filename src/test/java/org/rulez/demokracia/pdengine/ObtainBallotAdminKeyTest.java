@@ -22,7 +22,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
 	@Test
-	public void adminKey_is_anon_with_not_the_needed_assurances() {
+	public void if_the_user_does_not_have_all_the_needed_assurances_then_she_cannot_vote() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add("dontCare");
@@ -35,7 +35,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
 	@Test
-	public void adminKey_is_anon_with_the_proper_assurances() {
+	public void if_the_user_does_have_all_the_assurances_then_a_ballot_is_served() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add("magyar");
@@ -48,7 +48,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
 	@Test
-	public void adminKey_is_anon_with_empty_needed_assurences() {
+	public void if_neededAssurances_is_empty_then_a_ballot_is_served_to_anyone() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		
