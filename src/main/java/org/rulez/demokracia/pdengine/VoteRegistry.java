@@ -18,7 +18,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 		
 		if(adminKey.equals("admin"))
-			vote.recordedBallots = vote.recordedBallots++;
+			vote.increaseRecordedBallots("admin");
+		else if (adminKey.equals("anon"))
+			vote.increaseRecordedBallots(getWsUserName());
 		else
 			vote.checkAdminKey(adminKey);
 		

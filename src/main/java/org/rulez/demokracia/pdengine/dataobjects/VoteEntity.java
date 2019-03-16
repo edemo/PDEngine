@@ -21,7 +21,6 @@ public abstract class VoteEntity extends BaseEntity {
 	public boolean isPrivate;
 	public String adminKey;
 	public long creationTime;
-	public int recordedBallots;
 	public int minEndorsements;
 	public boolean canAddin;
 	public boolean canEndorse;
@@ -29,6 +28,7 @@ public abstract class VoteEntity extends BaseEntity {
 	public boolean canView;
 	@ElementCollection
 	public Map<String,Choice> choices;
+	public Map<String, Integer> recordedBallots;
 
 	public VoteEntity() {
 		super();

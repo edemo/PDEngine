@@ -82,9 +82,20 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 	public void obtainBallot_increases_recordedBallots_when_adminKey_is_admin() {
 		String voteId = adminInfo.voteId;
 		Vote vote = voteManager.getVote(voteId);
-		int originalObtainedBallots = vote.recordedBallots;
+		int originalObtainedBallots = vote.getRecordedBallots("admin");
 		String ballot = voteManager.obtainBallot(voteId, "admin");
-		assertEquals(originalObtainedBallots++, vote.recordedBallots);
+		assertEquals(originalObtainedBallots + 1, vote.getRecordedBallots("admin").intValue());
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("the number of ballots obtained with adminKey are recorded for \"admin\"")
+	@Test
+	public void obtainBallot_increases_recordedBallots_when_adminKey_is_anon() {
+		String voteId = adminInfo.voteId;
+		Vote vote = voteManager.getVote(voteId);
+		int originalObtainedBallots = vote.getRecordedBallots("test_user_in_ws_context");
+		String ballot = voteManager.obtainBallot(voteId, "anon");
+		assertEquals(originalObtainedBallots + 1, vote.getRecordedBallots("test_user_in_ws_context").intValue());
+	}
 }
