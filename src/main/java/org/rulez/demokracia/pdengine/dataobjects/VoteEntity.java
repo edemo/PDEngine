@@ -28,6 +28,8 @@ public abstract class VoteEntity extends BaseEntity {
 	public boolean canView;
 	@ElementCollection
 	public Map<String,Choice> choices;
+	@ElementCollection
+	public List<CastVote> votesCast;
 
 	public VoteEntity() {
 		super();

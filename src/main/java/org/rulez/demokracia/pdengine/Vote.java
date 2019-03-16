@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 
 @Entity
@@ -29,6 +31,7 @@ public class Vote extends VoteEntity {
 		creationTime = Instant.now().getEpochSecond();
 		choices = new HashMap<String,Choice>();
 		ballots = new ArrayList<String>();
+		votesCast = new ArrayList<CastVote>();
 	}
 
 	public String addChoice(String choiceName, String user) {
@@ -100,6 +103,26 @@ public class Vote extends VoteEntity {
 		}
 		
 		return array;
+	}
+	
+	public boolean isUpdateVotesCast(String proxyId, List<RankedChoice> theVote, String secretId) {
+		for(CastVote tmpCastVote : this.votesCast)
+		{
+			if(tmpCastVote.proxyId.equals(proxyId)) {
+				tmpCastVote.castVoteSecret = secretId;
+				tmpCastVote.preferences = new ArrayList<RankedChoice>(theVote);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addCastVote(String proxyId, List<RankedChoice> theVote, String secretId) {
+		if(!isUpdateVotesCast(proxyId, theVote, secretId))
+		{
+			CastVote castVote = new CastVote(proxyId, theVote, secretId);
+			votesCast.add(castVote);
+		}
 	}
 
 }
