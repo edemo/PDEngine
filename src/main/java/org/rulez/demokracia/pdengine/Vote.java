@@ -102,20 +102,6 @@ public class Vote extends VoteEntity {
 		return array;
 	}
 
-	private boolean isUpdateVotesCast(String proxyId, List<RankedChoice> theVote, String secretId) {
-		for (CastVote tmpCastVote : votesCast) {
-			System.out.println("1: " + tmpCastVote.proxyId + "  proxyId: " + proxyId);
-			if (tmpCastVote.proxyId.equals(proxyId)) {
-				System.out.println("True");
-				tmpCastVote.secretId = secretId;
-				tmpCastVote.preferences = new ArrayList<RankedChoice>(theVote);
-				return true;
-			}
-		}
-		System.out.println("False");
-		return false;
-	}
-
 	public void addCastVote(String proxyId, List<RankedChoice> theVote, String secretId) {
 		boolean isModified = false;
 		for (int i = 0; i < votesCast.size() && !isModified; i++) {
