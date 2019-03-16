@@ -16,26 +16,26 @@ public class VoteInitialValuesTest extends CreatedDefaultVoteRegistry {
 
 	@Test
 	public void canAddin_is_false_in_the_created_vote() {
-		assertEquals(getTheVote().canAddin, false);
+		assertEquals(false, getTheVote().canAddin);
 	}
 
 	@Test
 	public void canEndorse_is_false_in_the_created_vote() {
-		assertEquals(getTheVote().canEndorse, false);
+		assertEquals(false, getTheVote().canEndorse);
 	}
 
 	@Test
 	public void canVote_is_false_in_the_created_vote() {
-		assertEquals(getTheVote().canVote, false);
+		assertEquals(false, getTheVote().canVote);
 	}
 
 	@Test
 	public void canView_is_false_in_the_created_vote() {
-		assertEquals(getTheVote().canView, false);
+		assertEquals(false, getTheVote().canView);
 	}
 	
 	@Test
 	public void canUpdate_is_false_in_the_created_vote() {
-		assertEquals(getTheVote().canUpdate, false);
+		assertEquals(false, getTheVote().canUpdate);
 	}
 }
