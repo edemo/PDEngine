@@ -76,8 +76,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.canVote = true;
 		
 		vote.votesCast.clear();
-		CastVote Default = new CastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
-		vote.votesCast.add(Default);
+		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
@@ -96,8 +95,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.canVote = true;
 		
 		vote.votesCast.clear();
-		CastVote Default = new CastVote("OtherUser", theCastVote, "OtherSecret");
-		vote.votesCast.add(Default);
+		vote.addCastVote("OtherUser", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");

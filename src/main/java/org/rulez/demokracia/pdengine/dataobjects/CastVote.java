@@ -24,7 +24,7 @@ public class CastVote extends BaseEntity{
 	public CastVote(String proxyId, List<RankedChoice> preferences) {
 		super();
 		this.proxyId = proxyId;
-		this.preferences = new ArrayList<RankedChoice>(preferences);
+		this.preferences = new ArrayList<>(preferences);
 	}
 	
 	public CastVote(String proxyId, List<RankedChoice> preferences, String secretId) {
