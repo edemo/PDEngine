@@ -20,7 +20,8 @@ public class Vote extends VoteEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements)  {
+	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances,
+			boolean isClosed, int minEndorsements) {
 		super();
 		name = voteName;
 		adminKey = RandomUtils.createRandomKey();
@@ -29,7 +30,7 @@ public class Vote extends VoteEntity {
 		isPrivate = isClosed;
 		this.minEndorsements = minEndorsements;
 		creationTime = Instant.now().getEpochSecond();
-		choices = new HashMap<String,Choice>();
+		choices = new HashMap<String, Choice>();
 		ballots = new ArrayList<String>();
 		votesCast = new ArrayList<CastVote>();
 	}
@@ -41,22 +42,18 @@ public class Vote extends VoteEntity {
 	}
 
 	public Choice getChoice(String choiceId) {
-		if(!choices.containsKey(choiceId)) {
+		if (!choices.containsKey(choiceId)) {
 			throw new IllegalArgumentException(String.format("Illegal choiceId: %s", choiceId));
 		}
 		return choices.get(choiceId);
 	}
-	
+
 	public boolean hasIssuedBallots() {
 		return !ballots.isEmpty();
 	}
 
-	public void setParameters(String adminKey,
-			int minEndorsements,
-			boolean canAddin,
-			boolean canEndorse,
-			boolean canVote,
-			boolean canView) {
+	public void setParameters(String adminKey, int minEndorsements, boolean canAddin, boolean canEndorse,
+			boolean canVote, boolean canView) {
 		this.minEndorsements = minEndorsements;
 		this.canAddin = canAddin;
 		this.canEndorse = canEndorse;
@@ -65,11 +62,11 @@ public class Vote extends VoteEntity {
 	}
 
 	public void checkAdminKey(String providedAdminKey) {
-		if(! (adminKey.equals(providedAdminKey)||providedAdminKey.equals("user")) ) {
+		if (!(adminKey.equals(providedAdminKey) || providedAdminKey.equals("user"))) {
 			throw new IllegalArgumentException(String.format("Illegal adminKey: %s", providedAdminKey));
 		}
 	}
-	
+
 	public JSONObject toJson(String voteId) {
 		JSONObject obj = new JSONObject();
 		obj.put("name", this.name);
@@ -88,41 +85,50 @@ public class Vote extends VoteEntity {
 
 	public JSONArray createChoicesJson(Map<String, Choice> choices) {
 		JSONArray array = new JSONArray();
-		
+
 		for (Entry<String, Choice> entry : choices.entrySet()) {
-		    String key = entry.getKey();
-		    Choice value = entry.getValue();
-		    
-		    JSONObject obj = new JSONObject();
-		    obj.put("initiator", value.userName);
+			String key = entry.getKey();
+			Choice value = entry.getValue();
+
+			JSONObject obj = new JSONObject();
+			obj.put("initiator", value.userName);
 			obj.put("endorsers", value.endorsers);
 			obj.put("name", value.name);
 			obj.put("id", key);
-		    
-		    array.put(obj);
+
+			array.put(obj);
 		}
-		
+
 		return array;
 	}
-	
-	public boolean isUpdateVotesCast(String proxyId, List<RankedChoice> theVote, String secretId) {
-		for(CastVote tmpCastVote : votesCast)
-		{
-			if(tmpCastVote.proxyId.equals(proxyId)) {
+
+	private boolean isUpdateVotesCast(String proxyId, List<RankedChoice> theVote, String secretId) {
+		for (CastVote tmpCastVote : votesCast) {
+			System.out.println("1: " + tmpCastVote.proxyId + "  proxyId: " + proxyId);
+			if (tmpCastVote.proxyId.equals(proxyId)) {
+				System.out.println("True");
 				tmpCastVote.secretId = secretId;
 				tmpCastVote.preferences = new ArrayList<RankedChoice>(theVote);
 				return true;
 			}
 		}
+		System.out.println("False");
 		return false;
 	}
-	
+
 	public void addCastVote(String proxyId, List<RankedChoice> theVote, String secretId) {
-		if(!isUpdateVotesCast(proxyId, theVote, secretId))
-		{
+		boolean isModified = false;
+		for (int i = 0; i < votesCast.size() && !isModified; i++) {
+			if (votesCast.get(i).proxyId.equals(proxyId)) {
+				votesCast.get(i).secretId = secretId;
+				votesCast.get(i).preferences = new ArrayList<RankedChoice>(theVote);
+				isModified = true;
+			}
+		}
+
+		if (!isModified) {
 			CastVote castVote = new CastVote(proxyId, theVote, secretId);
 			votesCast.add(castVote);
 		}
 	}
-
 }
