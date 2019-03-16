@@ -52,8 +52,8 @@ public class Vote extends VoteEntity {
 		return !ballots.isEmpty();
 	}
 
-	public void setParameters(String adminKey, int minEndorsements, boolean canAddin, boolean canEndorse,
-			boolean canVote, boolean canView) {
+	public void setParameters(int minEndorsements, boolean canAddin, boolean canEndorse, boolean canVote,
+			boolean canView) {
 		this.minEndorsements = minEndorsements;
 		this.canAddin = canAddin;
 		this.canEndorse = canEndorse;
@@ -117,4 +117,5 @@ public class Vote extends VoteEntity {
 			votesCast.add(castVote);
 		}
 	}
+
 }
