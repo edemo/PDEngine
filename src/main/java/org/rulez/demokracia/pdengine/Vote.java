@@ -106,7 +106,7 @@ public class Vote extends VoteEntity {
 	}
 	
 	public boolean isUpdateVotesCast(String proxyId, List<RankedChoice> theVote, String secretId) {
-		for(CastVote tmpCastVote : this.votesCast)
+		for(CastVote tmpCastVote : votesCast)
 		{
 			if(tmpCastVote.proxyId.equals(proxyId)) {
 				tmpCastVote.secretId = secretId;
