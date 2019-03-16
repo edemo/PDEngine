@@ -55,7 +55,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 				throw new IllegalArgumentException(String.format("Invalid rank: %d", choice.rank));
 		}
 
-		vote.addCastVote(getWsUserName(), theVote, "SecretId");
+		vote.addCastVote(getWsUserName(), theVote, RandomUtils.createRandomKey());
 		vote.ballots.remove(ballot);
 	}
 

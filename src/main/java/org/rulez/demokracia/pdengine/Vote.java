@@ -109,7 +109,7 @@ public class Vote extends VoteEntity {
 		for(CastVote tmpCastVote : this.votesCast)
 		{
 			if(tmpCastVote.proxyId.equals(proxyId)) {
-				tmpCastVote.castVoteSecret = secretId;
+				tmpCastVote.secretId = secretId;
 				tmpCastVote.preferences = new ArrayList<RankedChoice>(theVote);
 				return true;
 			}

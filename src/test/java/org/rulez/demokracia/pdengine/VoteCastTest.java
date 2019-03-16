@@ -53,6 +53,20 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	
 	@tested_feature("Vote")
 	@tested_operation("Cast vote")
+	@tested_behaviour("Cast vote have a secret random identifier")
+	@Test
+	public void secretId_check_when_cast_vote_records_the_vote_and_users_proxy() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = true;
+		vote.votesCast.clear();
+		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		assertTrue(vote.votesCast.get(0).secretId instanceof String);
+	}
+	
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
 	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast() {

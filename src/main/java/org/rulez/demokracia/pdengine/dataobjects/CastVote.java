@@ -15,7 +15,7 @@ public class CastVote extends BaseEntity{
 	@ElementCollection
 	public List<RankedChoice> preferences;
 	public String proxyId;
-	public String castVoteSecret;
+	public String secretId;
 	
 	public CastVote() {
 		super();
@@ -27,9 +27,9 @@ public class CastVote extends BaseEntity{
 		this.preferences = new ArrayList<RankedChoice>(preferences);
 	}
 	
-	public CastVote(String proxyId, List<RankedChoice> preferences, String castVoteSecret) {
+	public CastVote(String proxyId, List<RankedChoice> preferences, String secretId) {
 		this(proxyId, preferences);
-		this.castVoteSecret = castVoteSecret;
+		this.secretId = secretId;
 	}
 
 }
