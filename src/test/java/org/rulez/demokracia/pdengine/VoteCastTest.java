@@ -76,6 +76,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.canVote = true;
 		
 		vote.votesCast.clear();
+		vote.addCastVote("dummy", theCastVote, "OtherSecret");
 		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);

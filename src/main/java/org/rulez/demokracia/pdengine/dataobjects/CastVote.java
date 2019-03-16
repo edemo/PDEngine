@@ -17,10 +17,6 @@ public class CastVote extends BaseEntity{
 	public String proxyId;
 	public String secretId;
 	
-	public CastVote() {
-		super();
-	}
-	
 	public CastVote(String proxyId, List<RankedChoice> preferences) {
 		super();
 		this.proxyId = proxyId;
