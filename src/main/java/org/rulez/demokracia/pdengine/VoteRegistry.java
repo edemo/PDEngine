@@ -1,12 +1,10 @@
 package org.rulez.demokracia.pdengine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 
 import org.json.JSONObject;
-import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
