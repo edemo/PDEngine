@@ -16,8 +16,8 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	public String obtainBallot(String id, String adminKey) {
 		Vote vote = getVote(id);
 		
-		if(adminKey.equals("admin"))
-			vote.increaseRecordedBallots("admin");
+		if(adminKey.equals(vote.adminKey))
+			vote.increaseRecordedBallots(vote.adminKey);
 		else if (adminKey.equals("anon"))
 			if(!userHasAllAssurance(vote.neededAssurances))
 				throw new IllegalArgumentException("The user does not have all of the needed assurances.");
