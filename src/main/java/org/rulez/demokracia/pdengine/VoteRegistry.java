@@ -75,6 +75,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.checkAdminKey(adminKey);
 		Choice votesChoice = vote.getChoice(choiceId);
 		
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("This choice cannot be deleted the vote has issued ballots.");
+		
 		if(adminKey.equals("user"))
 			if(votesChoice.userName.equals(getWsUserName()))
 				if(vote.canAddin)  
