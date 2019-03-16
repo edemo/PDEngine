@@ -21,6 +21,7 @@ public abstract class VoteEntity extends BaseEntity {
 	public boolean isPrivate;
 	public String adminKey;
 	public long creationTime;
+	public int recordedBallots;
 	public int minEndorsements;
 	public boolean canAddin;
 	public boolean canEndorse;
