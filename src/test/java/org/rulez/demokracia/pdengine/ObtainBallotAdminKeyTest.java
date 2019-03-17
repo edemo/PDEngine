@@ -59,7 +59,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 	
 	@tested_feature("Manage votes")
 	@tested_operation("Obtain ballot")
-	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
+	@tested_behaviour("if adminkey is anon, only one ballot can be issued")
 	@Test
 	public void even_if_the_user_does_have_all_the_assurances_he_cannot_issue_more_than_one_ballot() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
