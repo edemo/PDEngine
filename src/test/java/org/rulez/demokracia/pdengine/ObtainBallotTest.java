@@ -86,7 +86,7 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 		Vote vote = voteManager.getVote(voteId);
 		int originalObtainedBallots = vote.getRecordedBallots(adminKey);
 		String ballot = voteManager.obtainBallot(voteId, adminKey);
-		assertEquals(originalObtainedBallots + 1, vote.getRecordedBallots(adminKey).intValue());
+		assertEquals(originalObtainedBallots + 1, vote.getRecordedBallots("admin").intValue());
 	}
 
 	@tested_feature("Manage votes")
@@ -97,7 +97,7 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 		String voteId = adminInfo.voteId;
 		Vote vote = voteManager.getVote(voteId);
 		int originalObtainedBallots = vote.getRecordedBallots("test_user_in_ws_context");
-		String ballot = voteManager.obtainBallot(voteId, "anon");
+		String ballot = voteManager.obtainBallot(voteId, "user");
 		assertEquals(originalObtainedBallots + 1, vote.getRecordedBallots("test_user_in_ws_context").intValue());
 	}
 }
