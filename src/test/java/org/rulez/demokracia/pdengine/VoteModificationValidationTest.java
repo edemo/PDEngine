@@ -48,5 +48,20 @@ public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 					invalidvoteId, adminInfo.adminKey, voteName)
 		).assertMessageIs(String.format("illegal voteId: %s",invalidvoteId));
 	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("modify vote")
+	@tested_behaviour("The vote cannot be modified if there are ballots issued.")
+	@Test
+	public void modifyVote_with_ballot_get_an_exception() throws ReportedException {
+		String voteId = adminInfo.voteId;
+		Vote vote = voteManager.getVote(voteId);
+		vote.ballots.add("TestBallots");
+		
+		assertThrows(
+			() -> voteManager.modifyVote(
+					voteId, adminInfo.adminKey, voteName)
+		).assertMessageIs("The vote cannot be modified there are ballots issued.");
+	}
 
 }

@@ -23,7 +23,7 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 	public String savedAdminKey;
 	public ArrayList<String> savedNeededAssurances;
 	public ArrayList<String> savedCountedAssurances;
-	public boolean savedIsPrivate;
+	public boolean savedIsPrivate, savedCanUpdate;
 	public long savedCreationTime;
 
 	protected void saveInvariables(VoteEntity vote) {
@@ -34,6 +34,7 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 		savedCountedAssurances = new ArrayList<String>(vote.countedAssurances);
 		savedIsPrivate = vote.isPrivate;
 		savedCreationTime = vote.creationTime;
+		savedCanUpdate = vote.canUpdate;
 	}
 	
 	public void checkInvariables(Vote vote) {
@@ -43,6 +44,7 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 		assertEquals(savedCountedAssurances,vote.countedAssurances);
 		assertEquals(savedIsPrivate, vote.isPrivate);
 		assertEquals(savedCreationTime, vote.creationTime);
+		assertEquals(savedCanUpdate, vote.canUpdate);
 	}
 
 	@tested_feature("Manage votes")

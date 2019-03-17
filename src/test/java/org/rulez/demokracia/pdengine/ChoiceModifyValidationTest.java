@@ -61,8 +61,8 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	}
 
 	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@tested_operation("modify choice")
+	@tested_behaviour("modifies the string of the choice")
 	@Test
 	public void proper_voteId_choiceId_and_adminKey_does_modify_choice() throws ReportedException {
 		voteManager.modifyChoice(voteId, choiceId, adminKey, choice);
@@ -80,10 +80,54 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		Vote vote = voteManager.getVote(voteId);
 		vote.ballots.add("Test Ballot");
 		
-		voteManager.modifyChoice(voteId, choiceId, adminKey, choice);
+		assertThrows( () -> voteManager.modifyChoice(voteId, choiceId, adminKey, choice)
+				).assertMessageIs("Choice modification disallowed: ballots already issued");
 		
 		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
 		assertNotEquals(choiceEntity.name, choice);
+	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("modify choice")
+	@tested_behaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
+	@Test
+	public void userAdmin_cannot_modify_choice_if_canAddin_is_false() throws ReportedException {
+		Vote vote = voteManager.getVote(voteId);
+		vote.canAddin=false;
+		
+		assertThrows( () -> voteManager.modifyChoice(voteId, choiceId, "user", choice)
+				).assertMessageIs("Choice modification disallowed: adminKey is user, but canAddin is false");
+
+	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("modify choice")
+	@tested_behaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
+	@Test
+	public void userAdmin_cannot_modify_choice_if_it_is_not_added_by_other_user() throws ReportedException {
+		Vote vote = voteManager.getVote(voteId);
+		vote.canAddin=true;
+		
+		assertThrows( () -> voteManager.modifyChoice(voteId, choiceId, "user", choice)
+				).assertMessageIs("Choice modification disallowed: adminKey is user, " +
+							       "and the choice was added by a different user: user, me: test_user_in_ws_context");
+
+	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("modify choice")
+	@tested_behaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
+	@Test
+	public void userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() throws ReportedException {
+		Vote vote = voteManager.getVote(voteId);
+		vote.canAddin=true;
+		String me = voteManager.getWsUserName();
+		choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice2", me);
+		
+		voteManager.modifyChoice(voteId, choiceId, "user", choice);
+		
+		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
+		assertEquals(choiceEntity.name, choice);
 	}
 	
 }

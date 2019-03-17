@@ -4,9 +4,13 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.Entity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 
 @Entity
@@ -25,7 +29,18 @@ public class Vote extends VoteEntity {
 		creationTime = Instant.now().getEpochSecond();
 		choices = new HashMap<String,Choice>();
 		ballots = new ArrayList<String>();
+		recordedBallots = new HashMap<String, Integer>();
 	}
+	
+	public Integer getRecordedBallots(String key) {
+		 return recordedBallots.containsKey(key) ? recordedBallots.get(key) : 0;
+	}
+	
+	public void increaseRecordedBallots(String key) {
+		recordedBallots.put(key, getRecordedBallots(key) + 1);
+	}
+	
+	
 
 	public String addChoice(String choiceName, String user) {
 		Choice choice = new Choice(choiceName, user);
@@ -61,6 +76,41 @@ public class Vote extends VoteEntity {
 		if(! (adminKey.equals(providedAdminKey)||providedAdminKey.equals("user")) ) {
 			throw new IllegalArgumentException(String.format("Illegal adminKey: %s", providedAdminKey));
 		}
+	}
+	
+	public JSONObject toJson(String voteId) {
+		JSONObject obj = new JSONObject();
+		obj.put("name", this.name);
+		obj.put("canAddIn", this.canAddin);
+		obj.put("creationTime", this.creationTime);
+		obj.put("choices", createChoicesJson(this.choices));
+		obj.put("canEndorse", this.canEndorse);
+		obj.put("countedAssurances", this.countedAssurances);
+		obj.put("neededAssurances", this.neededAssurances);
+		obj.put("minEndorsements", this.minEndorsements);
+		obj.put("id", voteId);
+		obj.put("canView", this.canView);
+		obj.put("canVote", this.canVote);
+		return obj;
+	}
+
+	public JSONArray createChoicesJson(Map<String, Choice> choices) {
+		JSONArray array = new JSONArray();
+		
+		for (Entry<String, Choice> entry : choices.entrySet()) {
+		    String key = entry.getKey();
+		    Choice value = entry.getValue();
+		    
+		    JSONObject obj = new JSONObject();
+		    obj.put("initiator", value.userName);
+			obj.put("endorsers", value.endorsers);
+			obj.put("name", value.name);
+			obj.put("id", key);
+		    
+		    array.put(obj);
+		}
+		
+		return array;
 	}
 
 }
