@@ -91,7 +91,7 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 
 	@tested_feature("Manage votes")
 	@tested_operation("Obtain ballot")
-	@tested_behaviour("the number of ballots obtained with adminKey are recorded for \"admin\"")
+	@tested_behaviour("the number of ballots obtained with anon adminkey are recorded with the proxy id of the user")
 	@Test
 	public void obtainBallot_increases_recordedBallots_when_adminKey_is_anon() {
 		String voteId = adminInfo.voteId;
