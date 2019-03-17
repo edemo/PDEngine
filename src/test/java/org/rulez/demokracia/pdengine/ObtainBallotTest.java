@@ -75,6 +75,29 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 		assertTrue(vote.ballots.contains(ballot));
 	}
 
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("the number of ballots obtained with adminKey are recorded for \"admin\"")
+	@Test
+	public void obtainBallot_increases_recordedBallots_when_adminKey_is_admin() {
+		String voteId = adminInfo.voteId;
+		String adminKey = adminInfo.adminKey;
+		
+		Vote vote = voteManager.getVote(voteId);
+		int originalObtainedBallots = vote.getRecordedBallots(adminKey);
+		String ballot = voteManager.obtainBallot(voteId, adminKey);
+		assertEquals(originalObtainedBallots + 1, vote.getRecordedBallots("admin").intValue());
+	}
 
-
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("the number of ballots obtained with anon adminkey are recorded with the proxy id of the user")
+	@Test
+	public void obtainBallot_increases_recordedBallots_when_adminKey_is_anon() {
+		String voteId = adminInfo.voteId;
+		Vote vote = voteManager.getVote(voteId);
+		int originalObtainedBallots = vote.getRecordedBallots("test_user_in_ws_context");
+		String ballot = voteManager.obtainBallot(voteId, "user");
+		assertEquals(originalObtainedBallots + 1, vote.getRecordedBallots("test_user_in_ws_context").intValue());
+	}
 }
