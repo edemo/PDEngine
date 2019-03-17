@@ -22,7 +22,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 		boolean canEndorse = true;
 		boolean canVote = true;
 		boolean canView = true;
-		vote.setParameters(adminInfo.adminKey,
+		vote.setParameters(
 				minEndorsements,
 				canAddin,
 				canEndorse,

@@ -31,6 +31,7 @@ public abstract class VoteEntity extends BaseEntity {
 	public Map<String,Choice> choices;
 	@ElementCollection
 	public Map<String, Integer> recordedBallots;
+	public List<CastVote> votesCast;
 
 	public VoteEntity() {
 		super();
