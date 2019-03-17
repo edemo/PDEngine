@@ -69,7 +69,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_operation("Cast vote")
 	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
 	@Test
-	public void cast_vote_records_the_vote_with_same_user_votesCast() {
+	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_top_of_the_list() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
@@ -95,7 +95,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_operation("Cast vote")
 	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
 	@Test
-	public void a() {
+	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_bottom_of_the_list() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
@@ -121,7 +121,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_operation("Cast vote")
 	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
 	@Test
-	public void b() {
+	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_middle_of_the_list() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();

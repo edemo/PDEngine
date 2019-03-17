@@ -35,16 +35,14 @@ public class Vote extends VoteEntity {
 		votesCast = new ArrayList<CastVote>();
 		recordedBallots = new HashMap<String, Integer>();
 	}
-	
+
 	public Integer getRecordedBallots(String key) {
-		 return recordedBallots.containsKey(key) ? recordedBallots.get(key) : 0;
+		return recordedBallots.containsKey(key) ? recordedBallots.get(key) : 0;
 	}
-	
+
 	public void increaseRecordedBallots(String key) {
 		recordedBallots.put(key, getRecordedBallots(key) + 1);
 	}
-	
-	
 
 	public String addChoice(String choiceName, String user) {
 		Choice choice = new Choice(choiceName, user);
@@ -114,19 +112,21 @@ public class Vote extends VoteEntity {
 	}
 
 	public void addCastVote(String proxyId, List<RankedChoice> theVote, String secretId) {
-		boolean isModified = false;
-		for (int i = 0; i < votesCast.size() && !isModified; i++) {
-			if (votesCast.get(i).proxyId.equals(proxyId)) {
-				votesCast.get(i).secretId = secretId;
-				votesCast.get(i).preferences = new ArrayList<RankedChoice>(theVote);
-				isModified = true;
-			}
-		}
-
-		if (!isModified) {
+		if (!updateVotesCast(proxyId, theVote, secretId)) {
 			CastVote castVote = new CastVote(proxyId, theVote, secretId);
 			votesCast.add(castVote);
 		}
+	}
+
+	private boolean updateVotesCast(String proxyId, List<RankedChoice> theVote, String secretId) {
+		for (int i = 0; i < votesCast.size(); i++) {
+			if (votesCast.get(i).proxyId.equals(proxyId)) {
+				votesCast.get(i).secretId = secretId;
+				votesCast.get(i).preferences = new ArrayList<RankedChoice>(theVote);
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
