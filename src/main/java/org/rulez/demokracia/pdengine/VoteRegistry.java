@@ -15,10 +15,26 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	@Override
 	public String obtainBallot(String id, String adminKey) {
 		Vote vote = getVote(id);
-		vote.checkAdminKey(adminKey);
+		
+		if(adminKey.equals("anon")) {
+			if(!userHasAllAssurance(vote.neededAssurances))
+				throw new IllegalArgumentException("The user does not have all of the needed assurances.");
+		}else {
+			vote.checkAdminKey(adminKey);
+		}
+		
 		String ballot = RandomUtils.createRandomKey();
 		vote.ballots.add(ballot);
 		return ballot;
+	}
+	
+	public boolean userHasAllAssurance(List<String> neededAssuranceList) {
+		for (String neededAssurance : neededAssuranceList) {
+			if (!hasAssurance(neededAssurance)) {
+				return false;
+			}
+		}
+	return true;
 	}
 
 	@Override
@@ -74,6 +90,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 		Choice votesChoice = vote.getChoice(choiceId);
+		
+		if(vote.hasIssuedBallots())
+			throw new IllegalArgumentException("This choice cannot be deleted the vote has issued ballots.");
 		
 		if(adminKey.equals("user"))
 			if(votesChoice.userName.equals(getWsUserName()))

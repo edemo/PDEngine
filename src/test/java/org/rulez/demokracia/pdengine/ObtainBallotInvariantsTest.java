@@ -22,7 +22,7 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	private String originalVoteId, originalAdminKey;
 	private List<String> originalNeededAssurances;
 	private List<String> originalCountedAssurances;
-	private boolean originalIsPrivate;
+	private boolean originalIsPrivate, originalCanUpdate;
 	private long originalCreationTime;
 
 
@@ -37,6 +37,8 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 		originalCountedAssurances = new ArrayList<String>(vote.countedAssurances);
 		originalIsPrivate = vote.isPrivate;
 		originalCreationTime = vote.creationTime;
+		originalCanUpdate = vote.canUpdate;
+		
 		
 		voteManager.obtainBallot(originalVoteId, originalAdminKey);
 	}
@@ -87,5 +89,13 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	@Test
 	public void creationTime_is_Invariant() {
 		assertEquals(originalCreationTime, vote.creationTime);
+	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("updatable is a vote invariant")
+	@Test
+	public void canUpdate_is_Invariant() {
+		assertEquals(originalCanUpdate, vote.canUpdate);
 	}
 }
