@@ -78,6 +78,64 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.votesCast.clear();
 		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
 		vote.addCastVote("dummy1", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy2", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy3", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy4", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy5", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy6", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
+		
+		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
+		
+		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
+	}
+	
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
+	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
+	@Test
+	public void a() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = true;
+		
+		vote.votesCast.clear();
+		vote.addCastVote("dummy1", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy2", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy3", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy4", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy5", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy6", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
+		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
+		
+		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
+		
+		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
+	}
+	
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
+	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
+	@Test
+	public void b() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = true;
+		
+		vote.votesCast.clear();
+		vote.addCastVote("dummy1", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy2", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy3", theCastVote, "OtherSecret");
+		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy4", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy5", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy6", theCastVote, "OtherSecret");
+		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
@@ -96,7 +154,10 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.canVote = true;
 		
 		vote.votesCast.clear();
-		vote.addCastVote("OtherUser", theCastVote, "OtherSecret");
+		vote.addCastVote("OtherUser1", theCastVote, "OtherSecret");
+		vote.addCastVote("OtherUser2", theCastVote, "OtherSecret");
+		vote.addCastVote("OtherUser3", theCastVote, "OtherSecret");
+		vote.addCastVote("OtherUser4", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
