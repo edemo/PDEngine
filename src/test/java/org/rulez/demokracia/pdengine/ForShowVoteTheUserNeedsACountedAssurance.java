@@ -1,17 +1,10 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
-
-import org.json.JSONObject;
-import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
 import org.rulez.demokracia.pdengine.annotations.tested_feature;
 import org.rulez.demokracia.pdengine.annotations.tested_operation;
-import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
