@@ -19,6 +19,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		if(adminKey.equals("anon")) {
 			if(!userHasAllAssurance(vote.neededAssurances))
 				throw new IllegalArgumentException("The user does not have all of the needed assurances.");
+			
+			if(! vote.ballots.isEmpty()) 
+				throw new IllegalArgumentException("Anon admin already issued a ballot.");
 		}else {
 			vote.checkAdminKey(adminKey);
 		}

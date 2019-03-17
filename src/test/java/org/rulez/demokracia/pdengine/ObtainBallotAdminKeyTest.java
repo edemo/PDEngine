@@ -55,4 +55,22 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, "anon");
 		assertTrue(ballot instanceof String);
 	}
+	
+	
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
+	@Test
+	public void even_if_the_user_does_have_all_the_assurances_he_cannot_issue_more_than_one_ballot() {
+		Vote vote = voteManager.getVote(adminInfo.voteId);
+		vote.neededAssurances.clear();
+		vote.neededAssurances.add("magyar");
+		
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, "anon");
+		assertNotEquals("", ballot );
+		assertThrows(
+				() -> voteManager.obtainBallot(adminInfo.voteId, "anon")
+			).assertMessageIs("Anon admin already issued a ballot.");	
+	}
+	
 }
