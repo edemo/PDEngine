@@ -119,15 +119,11 @@ public class Vote extends VoteEntity {
 	}
 
 	private boolean updateVotesCast(String proxyId, List<RankedChoice> theVote, String secretId) {
-		int i = 0;
-		while(i < votesCast.size()) {
-			if (!votesCast.get(i).proxyId.equals(proxyId))
-				i++;
-			else
-			{
-				votesCast.get(i).secretId = secretId;
-				votesCast.get(i).preferences = new ArrayList<RankedChoice>(theVote);
-				return true;
+		for(CastVote voteCast : votesCast) {
+			if(voteCast.proxyId.equals(proxyId)) {
+				voteCast.secretId = secretId;
+				voteCast.preferences = new ArrayList<RankedChoice>(theVote);
+			return true;
 			}
 		}
 		return false;
