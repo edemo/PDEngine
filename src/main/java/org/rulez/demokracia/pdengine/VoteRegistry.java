@@ -7,6 +7,8 @@ import javax.xml.ws.WebServiceContext;
 import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
+import com.fasterxml.jackson.databind.Module.SetupContext;
+
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	public VoteRegistry(WebServiceContext wsContext) {
 		super(wsContext);
@@ -21,6 +23,8 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 			vote.increaseRecordedBallots("admin");
 
 		else if (adminKey.equals("user")) {
+			if (getWsContext().getUserPrincipal() == null)
+				throw new IllegalArgumentException("Anon admin is not authenticated, cannot issue any ballot.");
 			if (!userHasAllAssurance(vote.neededAssurances))
 				throw new IllegalArgumentException("The user does not have all of the needed assurances.");
 			if (! vote.ballots.isEmpty())
