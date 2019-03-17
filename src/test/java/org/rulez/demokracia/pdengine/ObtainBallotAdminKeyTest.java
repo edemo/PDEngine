@@ -27,7 +27,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add("dontCare");
 		assertThrows(
-				() -> voteManager.obtainBallot(adminInfo.voteId, "anon")
+				() -> voteManager.obtainBallot(adminInfo.voteId, "user")
 			).assertMessageIs("The user does not have all of the needed assurances.");
 	}
 	
@@ -40,7 +40,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add("magyar");
 		
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, "anon");
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, "user");
 		assertTrue(ballot instanceof String);
 	}
 	
@@ -52,7 +52,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, "anon");
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, "user");
 		assertTrue(ballot instanceof String);
 	}
 }

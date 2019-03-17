@@ -33,7 +33,18 @@ public class Vote extends VoteEntity {
 		choices = new HashMap<String, Choice>();
 		ballots = new ArrayList<String>();
 		votesCast = new ArrayList<CastVote>();
+		recordedBallots = new HashMap<String, Integer>();
 	}
+	
+	public Integer getRecordedBallots(String key) {
+		 return recordedBallots.containsKey(key) ? recordedBallots.get(key) : 0;
+	}
+	
+	public void increaseRecordedBallots(String key) {
+		recordedBallots.put(key, getRecordedBallots(key) + 1);
+	}
+	
+	
 
 	public String addChoice(String choiceName, String user) {
 		Choice choice = new Choice(choiceName, user);
