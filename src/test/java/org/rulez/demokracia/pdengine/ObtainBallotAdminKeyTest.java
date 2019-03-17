@@ -66,10 +66,10 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add("magyar");
 		
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, "anon");
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, "user");
 		assertNotEquals("", ballot );
 		assertThrows(
-				() -> voteManager.obtainBallot(adminInfo.voteId, "anon")
+				() -> voteManager.obtainBallot(adminInfo.voteId, "user")
 			).assertMessageIs("Anon admin already issued a ballot.");	
 	}
 	

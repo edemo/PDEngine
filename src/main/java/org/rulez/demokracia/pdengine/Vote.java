@@ -73,7 +73,7 @@ public class Vote extends VoteEntity {
 	}
 
 	public void checkAdminKey(String providedAdminKey) {
-		if(! (adminKey.equals(providedAdminKey)||providedAdminKey.equals("user")||providedAdminKey.equals("anon")) ) {
+		if(! (adminKey.equals(providedAdminKey)||providedAdminKey.equals("user")) ) {
 			throw new IllegalArgumentException(String.format("Illegal adminKey: %s", providedAdminKey));
 		}
 	}

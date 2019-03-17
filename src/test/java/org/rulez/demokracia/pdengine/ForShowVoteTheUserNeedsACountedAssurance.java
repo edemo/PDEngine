@@ -28,9 +28,9 @@ public class ForShowVoteTheUserNeedsACountedAssurance extends CreatedDefaultVote
 	public void create_creates_a_vote_with_countedAssurances() throws ReportedException {
 		
 		Vote vote = getTheVote();
-		vote.adminKey = "anon";
+		vote.adminKey = "user";
 		vote.countedAssurances.add("magyar");
-		if(!(vote.adminKey.equals("anon") 
+		if(!(vote.adminKey.equals("user") 
 				&& vote.neededAssurances.containsAll(countedAssurances))) {
 			fail("anon admin key without countedAssurances");
 		}	
