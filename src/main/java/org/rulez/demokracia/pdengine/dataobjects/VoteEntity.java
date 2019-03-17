@@ -29,6 +29,8 @@ public abstract class VoteEntity extends BaseEntity {
 	public boolean canUpdate;
 	@ElementCollection
 	public Map<String,Choice> choices;
+	@ElementCollection
+	public Map<String, Integer> recordedBallots;
 
 	public VoteEntity() {
 		super();

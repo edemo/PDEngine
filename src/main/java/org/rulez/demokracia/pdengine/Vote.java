@@ -29,7 +29,18 @@ public class Vote extends VoteEntity {
 		creationTime = Instant.now().getEpochSecond();
 		choices = new HashMap<String,Choice>();
 		ballots = new ArrayList<String>();
+		recordedBallots = new HashMap<String, Integer>();
 	}
+	
+	public Integer getRecordedBallots(String key) {
+		 return recordedBallots.containsKey(key) ? recordedBallots.get(key) : 0;
+	}
+	
+	public void increaseRecordedBallots(String key) {
+		recordedBallots.put(key, getRecordedBallots(key) + 1);
+	}
+	
+	
 
 	public String addChoice(String choiceName, String user) {
 		Choice choice = new Choice(choiceName, user);
@@ -62,7 +73,7 @@ public class Vote extends VoteEntity {
 	}
 
 	public void checkAdminKey(String providedAdminKey) {
-		if(! (adminKey.equals(providedAdminKey)||providedAdminKey.equals("user")) ) {
+		if(! (adminKey.equals(providedAdminKey)||providedAdminKey.equals("user")||providedAdminKey.equals("anon")) ) {
 			throw new IllegalArgumentException(String.format("Illegal adminKey: %s", providedAdminKey));
 		}
 	}
