@@ -30,8 +30,9 @@ public class ForShowVoteTheUserNeedsACountedAssurance extends CreatedDefaultVote
 		Vote vote = getTheVote();
 		vote.adminKey = "anon";
 		vote.countedAssurances.add("magyar");
-		if(!(vote.adminKey.equals("anon") 
-				&& vote.neededAssurances.containsAll(countedAssurances))) {
+		if(!(vote.adminKey.equals("anon")
+				&& vote.countedAssurances.size() > 0 
+				&& vote.neededAssurances.containsAll(vote.countedAssurances))) {
 			fail("anon admin key without countedAssurances");
 		}	
 	}
