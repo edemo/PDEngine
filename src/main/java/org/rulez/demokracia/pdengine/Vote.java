@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -112,21 +113,15 @@ public class Vote extends VoteEntity {
 	}
 
 	public void addCastVote(String proxyId, List<RankedChoice> theVote, String secretId) {
-		if (!updateVotesCast(proxyId, theVote, secretId)) {
-			CastVote castVote = new CastVote(proxyId, theVote, secretId);
-			votesCast.add(castVote);
-		}
-	}
+		Iterator<CastVote> listIterator = votesCast.iterator();
+		while (listIterator.hasNext()) {
+			CastVote element = listIterator.next();
 
-	private boolean updateVotesCast(String proxyId, List<RankedChoice> theVote, String secretId) {
-		for(CastVote voteCast : votesCast) {
-			if(voteCast.proxyId.equals(proxyId)) {
-				voteCast.secretId = secretId;
-				voteCast.preferences = new ArrayList<RankedChoice>(theVote);
-			return true;
-			}
+			if (element.proxyId.equals(proxyId))
+				listIterator.remove();
 		}
-		return false;
-	}
 
+		CastVote castVote = new CastVote(proxyId, theVote, secretId);
+		votesCast.add(castVote);
+	}
 }

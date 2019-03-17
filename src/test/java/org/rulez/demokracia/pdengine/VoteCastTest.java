@@ -88,7 +88,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
 		
-		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
+		assertTrue(voteCast.secretId.equals(vote.votesCast.get(7).secretId));
 	}
 	
 	@tested_feature("Vote")
@@ -114,7 +114,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
 		
-		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
+		assertTrue(voteCast.secretId.equals(vote.votesCast.get(7).secretId));
 	}
 	
 	@tested_feature("Vote")
@@ -140,14 +140,14 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
 		
-		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
+		assertTrue(voteCast.secretId.equals(vote.votesCast.get(7).secretId));
 	}
 	
 	@tested_feature("Vote")
 	@tested_operation("Cast vote")
 	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
 	@Test 
-	public void cast_vote_records_the_vote_with_different_user_votesCast() {
+	public void cast_vote_records_the_vote_with_same_user_votesCast_when_the_list_does_not_contain_same_user() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
@@ -162,6 +162,6 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
 		
-		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
+		assertTrue(voteCast.secretId.equals(vote.votesCast.get(5).secretId));
 	}
 }
