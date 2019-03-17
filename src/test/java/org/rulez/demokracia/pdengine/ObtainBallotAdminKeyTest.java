@@ -73,13 +73,12 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 			).assertMessageIs("Anon admin already issued a ballot.");	
 	}
 
-	//setupUnauthenticatedMockWsContext
 	@tested_feature("Manage votes")
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if the adminKey is anon and the user is not logged in then no ballots are issued")
 	@Test
 	public void not_logged_in_user_cannot_issue_any_ballot() {
-		
+
 		setupUnauthenticatedMockWsContext();
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
