@@ -86,9 +86,8 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
 		
-		assertTrue(voteCast.secretId.equals(vote.votesCast.get(7).secretId));
+		assertFalse(vote.votesCast.get(7).secretId.equals("OtherSecret"));
 	}
 	
 	@tested_feature("Vote")
@@ -112,9 +111,8 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
-		
-		assertTrue(voteCast.secretId.equals(vote.votesCast.get(7).secretId));
+
+		assertFalse(vote.votesCast.get(7).secretId.equals("OtherSecret"));
 	}
 	
 	@tested_feature("Vote")
@@ -138,9 +136,8 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
-		
-		assertTrue(voteCast.secretId.equals(vote.votesCast.get(7).secretId));
+
+		assertFalse(vote.votesCast.get(7).secretId.equals("OtherSecret"));
 	}
 	
 	@tested_feature("Vote")
@@ -160,8 +157,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.addCastVote("OtherUser4", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
 		
-		assertTrue(voteCast.secretId.equals(vote.votesCast.get(5).secretId));
+		assertFalse(vote.votesCast.get(4).secretId.equals("OtherSecret"));
 	}
 }
