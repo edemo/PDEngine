@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
 import org.rulez.demokracia.pdengine.annotations.tested_feature;
@@ -23,10 +23,10 @@ public class ForShowVoteTheUserNeedsACountedAssurance extends CreatedDefaultVote
 		Vote vote = getTheVote();
 		vote.adminKey = "anon";
 		vote.countedAssurances.add("magyar");
-		if(!(vote.adminKey.equals("anon")
+
+		assertTrue("anon admin key without countedAssurances",
+				vote.adminKey.equals("anon")
 				&& vote.countedAssurances.size() > 0 
-				&& vote.neededAssurances.containsAll(vote.countedAssurances))) {
-			fail("anon admin key without countedAssurances");
-		}	
+				&& vote.neededAssurances.containsAll(vote.countedAssurances));
 	}
 }
