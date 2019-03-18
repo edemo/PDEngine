@@ -28,4 +28,7 @@ public class CastVote extends BaseEntity{
 		this.secretId = secretId;
 	}
 
+	public List<RankedChoice> getPreferences(){
+		return this.preferences;
+	}
 }
