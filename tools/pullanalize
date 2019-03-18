@@ -20,6 +20,8 @@ then
         -Dsonar.github.repository=${REPO_FULL_NAME}\
         -Dsonar.issuesReport.console.enable=true\
         -Dsonar.github.login=magwas\
-        -Dsonar.externalIssuesReportPaths=issuesReport.json
+        -Dsonar.externalIssuesReportPaths=issuesReport.json\
+	-Dsonar.cpd.${language}.minimumTokens=2\
+	-Dsonar.cpd.${language}.minimumLines=2
 
 fi

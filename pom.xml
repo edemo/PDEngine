@@ -5,7 +5,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-feature_docker_populate_cache_133.1d62a5a</version>
+  <version>0.0.1-feature_code-duplications.094cfd4</version>
   <packaging>war</packaging>
 
   <name>PDEngine</name>
