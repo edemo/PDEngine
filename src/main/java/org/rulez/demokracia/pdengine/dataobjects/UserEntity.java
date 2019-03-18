@@ -1,11 +1,9 @@
 package org.rulez.demokracia.pdengine.dataobjects;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.ElementCollection;
 
-import org.rulez.demokracia.pdengine.Choice;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
 public abstract class UserEntity extends BaseEntity {
