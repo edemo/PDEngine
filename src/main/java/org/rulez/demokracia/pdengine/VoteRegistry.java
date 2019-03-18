@@ -63,6 +63,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 				throw new IllegalArgumentException(String.format("Invalid rank: %d", choice.rank));
 		}
 
+		if (vote.canUpdate && getWsContext().getUserPrincipal() == null)
+			throw new IllegalArgumentException("canUpdate is true but the user is not authenticated");
+
 		vote.ballots.remove(ballot);
 	}
 
