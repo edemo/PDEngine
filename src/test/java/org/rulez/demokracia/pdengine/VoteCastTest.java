@@ -103,4 +103,24 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		
 		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
 	}
+
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
+	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
+	@Test 
+	public void this_is_the_same_test_as_above() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = true;
+		
+		vote.votesCast.clear();
+		vote.addCastVote("OtherUser", theCastVote, "OtherSecret");
+		
+		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
+		
+		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
+	}
+
 }
