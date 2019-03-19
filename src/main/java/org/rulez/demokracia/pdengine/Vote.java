@@ -117,7 +117,7 @@ public class Vote extends VoteEntity {
 		while (listIterator.hasNext()) {
 			CastVote element = listIterator.next();
 
-			if (element.proxyId.equals(proxyId))
+			if (element.proxyId != null && element.proxyId.equals(proxyId))
 				listIterator.remove();
 		}
 

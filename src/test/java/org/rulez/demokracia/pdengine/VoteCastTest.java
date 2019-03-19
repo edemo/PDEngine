@@ -31,6 +31,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		Vote vote = getTheVote();
 		vote.canVote = true;
 		vote.votesCast.clear();
+		vote.canUpdate = true;
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
 		assertEquals(voteCast.proxyId, vote.votesCast.get(0).proxyId);
@@ -74,6 +75,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
+		vote.canUpdate = true;
 		
 		vote.votesCast.clear();
 		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
@@ -99,6 +101,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
+		vote.canUpdate = true;
 		
 		vote.votesCast.clear();
 		vote.addCastVote("dummy1", theCastVote, "OtherSecret");
@@ -124,6 +127,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
+		vote.canUpdate = true;
 		
 		vote.votesCast.clear();
 		vote.addCastVote("dummy1", theCastVote, "OtherSecret");

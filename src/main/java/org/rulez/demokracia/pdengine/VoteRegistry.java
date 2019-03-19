@@ -55,7 +55,11 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 				throw new IllegalArgumentException(String.format("Invalid rank: %d", choice.rank));
 		}
 
-		vote.addCastVote(getWsUserName(), theVote, RandomUtils.createRandomKey());
+		if (!vote.canUpdate)
+			vote.addCastVote(null, theVote, RandomUtils.createRandomKey());
+		else
+			vote.addCastVote(getWsUserName(), theVote, RandomUtils.createRandomKey());
+		
 		vote.ballots.remove(ballot);
 	}
 
@@ -139,9 +143,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 			boolean canEndorse, boolean canVote, boolean canView) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
-		
-		if(minEndorsements >= 0)
-			vote.setParameters(minEndorsements, canAddin, canEndorse, canVote, canView);	
+
+		if (minEndorsements >= 0)
+			vote.setParameters(minEndorsements, canAddin, canEndorse, canVote, canView);
 		else
 			throw new IllegalArgumentException(String.format("Illegal minEndorsements: %s", minEndorsements));
 	}
