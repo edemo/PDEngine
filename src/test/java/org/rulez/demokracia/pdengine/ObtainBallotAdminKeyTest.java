@@ -67,7 +67,6 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, "user");
 		assertNotEquals("", ballot );
-		System.out.println("Princi:" + (voteManager.getWsContext().getUserPrincipal()== null));
 		assertThrows(
 				() -> voteManager.obtainBallot(adminInfo.voteId, "user")
 			).assertMessageIs("Anon admin already issued a ballot.");	
@@ -83,7 +82,6 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add("magyar");
-
 		assertThrows(
 				() -> voteManager.obtainBallot(adminInfo.voteId, "user")
 			).assertMessageIs("Anon admin is not authenticated, cannot issue any ballot.");	
