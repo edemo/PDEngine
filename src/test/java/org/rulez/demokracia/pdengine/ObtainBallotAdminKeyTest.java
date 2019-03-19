@@ -55,8 +55,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, "user");
 		assertTrue(ballot instanceof String);
 	}
-	
-	
+
 	@tested_feature("Manage votes")
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if adminkey is anon, only one ballot can be issued")
@@ -65,12 +64,30 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add("magyar");
-		
+
+		assertEquals(vote.getRecordedBallots("test_user_in_ws_context").intValue(), 0);
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, "user");
 		assertNotEquals("", ballot );
+		assertEquals(vote.getRecordedBallots("test_user_in_ws_context").intValue(), 1);
 		assertThrows(
 				() -> voteManager.obtainBallot(adminInfo.voteId, "user")
-			).assertMessageIs("Anon admin already issued a ballot.");	
+			).assertMessageIs("This user already have a ballot.");	
 	}
-	
+
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("Admin can obtain more ballots")
+	@Test
+	public void admin_can_obtain_more_ballots() {
+		Vote vote = voteManager.getVote(adminInfo.voteId);
+		vote.neededAssurances.clear();
+		vote.neededAssurances.add("magyar");
+		
+		String ballot_admin1 = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		assertNotEquals("", ballot_admin1 );
+		String ballot_admin2 = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		assertNotEquals("", ballot_admin2 );
+		String ballot_user = voteManager.obtainBallot(adminInfo.voteId, "user");
+		assertNotEquals("", ballot_user );
+	}
 }
