@@ -83,8 +83,17 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	public JSONObject showVote(String voteId, String adminKey) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
+		if (adminKey != vote.adminKey)
+			checkAssurances(vote);
 
 		return vote.toJson(voteId);
+	}
+
+	private void checkAssurances(Vote vote) throws ReportedException {
+
+		for(String assurance : vote.countedAssurances) 
+			if (!this.hasAssurance(assurance))
+				throw new ReportedException("missing assurances", assurance);
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
 import org.rulez.demokracia.pdengine.annotations.tested_feature;
@@ -18,15 +17,30 @@ public class ForShowVoteTheUserNeedsACountedAssurance extends CreatedDefaultVote
 	@tested_feature("Manage votes")
 	@tested_operation("show vote")
 	@tested_behaviour("if adminKey is anon, the user should have any of the countedAssurances")
-	public void create_creates_a_vote_with_countedAssurances() throws ReportedException {
-		
+	public void a_user_with_not_all_assourances_cannot_show_the_vote() throws ReportedException {
+	
 		Vote vote = getTheVote();
-		vote.adminKey = "anon";
-		vote.countedAssurances.add("magyar");
+		vote.countedAssurances.add("german");
 
-		assertTrue("anon admin key without countedAssurances",
-				vote.adminKey.equals("anon")
-				&& vote.countedAssurances.size() > 0 
-				&& vote.neededAssurances.containsAll(vote.countedAssurances));
+		assertAssurancesMissing(vote);
+	}
+	
+	@Test
+	@tested_feature("Manage votes")
+	@tested_operation("show vote")
+	@tested_behaviour("if adminKey is anon, the user should have any of the countedAssurances")
+	public void a_user_with_not_all_assourances_cannot_show_the_vote_even_with_more_assurances() throws ReportedException {
+	
+		Vote vote = getTheVote();
+		vote.countedAssurances.add("magyar");
+		vote.countedAssurances.add("german");
+
+		assertAssurancesMissing(vote);
+	}
+
+	private void assertAssurancesMissing(Vote vote) {
+		assertThrows(
+				() -> voteManager.showVote(vote.id, "user")
+			).assertMessageIs("missing assurances");
 	}
 }
