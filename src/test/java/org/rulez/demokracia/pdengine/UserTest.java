@@ -33,8 +33,20 @@ public class UserTest extends CreatedDefaultChoice {
 	@tested_operation("User")
 	@tested_behaviour("the user has a list of assurances")
 	@Test
-	public void check_assurances() {
+	public void check_empty_assurances() {
 		User user = new User("Test");
 		assertTrue(user.assurances instanceof List);		
+	}
+	
+	@tested_feature("Supporting functionality")
+	@tested_operation("User")
+	@tested_behaviour("the user has a list of assurances")
+	@Test
+	public void check_assurances() {
+		User user = new User("Test");
+		String assurance = "TestAssurance";
+		user.assurances.add(assurance);
+		
+		assertTrue(user.assurances.get(0).equals(assurance));		
 	}
 }

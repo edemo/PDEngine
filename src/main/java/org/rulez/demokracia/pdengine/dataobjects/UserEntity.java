@@ -12,9 +12,4 @@ public abstract class UserEntity extends BaseEntity {
 	public String proxyId;
 	@ElementCollection
 	public List<String> assurances;
-
-	public UserEntity() {
-		super();
-	}
-
 }
