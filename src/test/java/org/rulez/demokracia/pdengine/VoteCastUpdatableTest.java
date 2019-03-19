@@ -54,7 +54,7 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
-		assertTrue(vote.votesCast.get(0).proxyId.equals("notRecorededProxyId"));
+		assertTrue(vote.votesCast.get(0).proxyId == null);
 	}
 	
 	@tested_feature("Vote")
@@ -70,16 +70,16 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 		vote.canUpdate = false;
 		vote.votesCast.clear();
 		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
-		vote.addCastVote("notRecorededProxyId", theCastVote, "OtherSecret");
-		vote.addCastVote("notRecorededProxyId", theCastVote, "OtherSecret");
-		vote.addCastVote("notRecorededProxyId", theCastVote, "OtherSecret");
-		vote.addCastVote("notRecorededProxyId", theCastVote, "OtherSecret");
-		vote.addCastVote("notRecorededProxyId", theCastVote, "OtherSecret");
+		vote.addCastVote(null, theCastVote, "OtherSecret");
+		vote.addCastVote(null, theCastVote, "OtherSecret");
+		vote.addCastVote(null, theCastVote, "OtherSecret");
+		vote.addCastVote(null, theCastVote, "OtherSecret");
+		vote.addCastVote(null, theCastVote, "OtherSecret");
 		vote.addCastVote("dummy6", theCastVote, "OtherSecret");
 		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
-		assertTrue(vote.votesCast.get(8).proxyId.equals("notRecorededProxyId"));
+		assertTrue(vote.votesCast.get(8).proxyId == null);
 	}
 }

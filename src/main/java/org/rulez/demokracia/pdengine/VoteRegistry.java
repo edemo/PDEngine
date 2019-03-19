@@ -56,7 +56,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		}
 
 		if (!vote.canUpdate)
-			vote.addCastVote("notRecorededProxyId", theVote, RandomUtils.createRandomKey());
+			vote.addCastVote(null, theVote, RandomUtils.createRandomKey());
 		else
 			vote.addCastVote(getWsUserName(), theVote, RandomUtils.createRandomKey());
 		
