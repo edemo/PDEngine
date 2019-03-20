@@ -49,6 +49,12 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		when(wsContext.isUserInRole("appmagyar")).thenReturn(true);
 		return wsContext;
 	}
+	
+	public void setupUnauthenticatedMockWsContext() {
+		WebServiceContext wsContext = mock(WebServiceContext.class);
+		when(wsContext.getUserPrincipal()).thenReturn(null);
+		voteManager = IVoteManager.getVoteManager(wsContext);
+	}
 
 	protected VoteAdminInfo createAVote() throws ReportedException {
 		return voteManager.createVote(voteName, neededAssurances, countedAssurances, isPrivate, minEndorsements );
