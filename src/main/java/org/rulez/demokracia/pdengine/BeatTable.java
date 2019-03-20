@@ -19,45 +19,39 @@ public class BeatTable {
 		table = new HashMap<>();
 	}
 
-	public int beatInformation(Choice choiceF, Choice choiceS, Direction direction) {
-		// Check: enum's possible values
+	public int beatInformation(Choice choice1, Choice choice2, Direction direction) {
 		int result = 0;
 
 		if(direction.equals(Direction.DIRECTION_FORWARD))
-			result = getBeatValue(choiceF, choiceS);
+			result = getBeatValue(choice1, choice2);
 		else
-			result = getBeatValue(choiceS, choiceF);
+			result = getBeatValue(choice2, choice1);
 
 		return result;
 	}
 
-	public Pair getPair(Choice choiceF, Choice choiceS) {
-		int first = getBeatValue(choiceF, choiceS);
-		int second = getBeatValue(choiceS, choiceF);
+	public Pair getPair(Choice choice1, Choice choice2) {
+		int first = getBeatValue(choice1, choice2);
+		int second = getBeatValue(choice2, choice1);
 
 		return new Pair(first, second);
 	}
 
-	public void setPair(Choice choiceF, Choice choiceS, Pair pair) {
+	public void setPair(Choice choice1, Choice choice2, Pair pair) {
 		if (pair == null)
 			throw new IllegalArgumentException("Illegal pair");
 
-		HashMap<Choice, Integer> key1 = getOrSetBeatKey(choiceF);
-		HashMap<Choice, Integer> key2 = getOrSetBeatKey(choiceS);
+		HashMap<Choice, Integer> key1 = getOrSetBeatKey(choice1);
+		HashMap<Choice, Integer> key2 = getOrSetBeatKey(choice2);
 
-		key1.put(choiceS, pair.key1);
-		key2.put(choiceF, pair.key2);
+		key1.put(choice2, pair.key1);
+		key2.put(choice1, pair.key2);
 	}
 
 	private HashMap<Choice, Integer> getOrSetBeatKey(Choice choice) {
 		if (choice == null)
-			throw new IllegalArgumentException("Illegal choice");
-		HashMap<Choice, Integer> result = table.get(choice);
-
-		if (result == null) {
-			HashMap<Choice, Integer> key = new HashMap<>();
-			table.put(choice, key);
-		}
+			throw new IllegalArgumentException("Illegal choice");		
+		table.computeIfAbsent(choice, k -> table.put(choice, new HashMap<>()));
 
 		return getBeatKey(choice);
 	}
