@@ -19,11 +19,17 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 		if (adminKey.equals(vote.adminKey))
 			vote.increaseRecordedBallots("admin");
-		else if (adminKey.equals("user"))
+
+		else if (adminKey.equals("user")) {
+			if (getWsContext().getUserPrincipal() == null)
+				throw new IllegalArgumentException("Anon admin is not authenticated, cannot issue any ballot.");
 			if (!userHasAllAssurance(vote.neededAssurances))
 				throw new IllegalArgumentException("The user does not have all of the needed assurances.");
-			else
-				vote.increaseRecordedBallots(getWsUserName());
+			if (vote.getRecordedBallots(getWsUserName()).intValue() > 0)
+				throw new IllegalArgumentException("This user already have a ballot.");
+
+			vote.increaseRecordedBallots(getWsUserName());
+			}
 
 		String ballot = RandomUtils.createRandomKey();
 		vote.ballots.add(ballot);
