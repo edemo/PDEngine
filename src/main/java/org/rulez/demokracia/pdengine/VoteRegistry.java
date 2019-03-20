@@ -83,7 +83,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	public JSONObject showVote(String voteId, String adminKey) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
-		if (adminKey != vote.adminKey)
+		if (!adminKey.equals(vote.adminKey))
 			checkAssurances(vote);
 
 		return vote.toJson(voteId);
