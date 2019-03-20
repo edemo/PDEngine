@@ -16,67 +16,64 @@ public class BeatTable {
 	}
 
 	public BeatTable() {
-		table = new HashMap<Choice, HashMap<Choice, Integer>>();
+		table = new HashMap<>();
 	}
 
-	public int beatInformation(Choice choice1, Choice choice2, Direction direction) {
+	public int beatInformation(Choice choiceF, Choice choiceS, Direction direction) {
 		// Check: enum's possible values
 		int result = 0;
 
-		switch (direction) {
-		case DIRECTION_FORWARD:
-			result = getBeatValue(choice1, choice2);
-			break;
-		default:
-			result = getBeatValue(choice2, choice1);
-		}
+		if(direction.equals(Direction.DIRECTION_FORWARD))
+			result = getBeatValue(choiceF, choiceS);
+		else
+			result = getBeatValue(choiceS, choiceF);
 
 		return result;
 	}
 
-	public Pair getPair(Choice choice1, Choice choice2) {
-		int first = getBeatValue(choice1, choice2);
-		int second = getBeatValue(choice2, choice1);
+	public Pair getPair(Choice choiceF, Choice choiceS) {
+		int first = getBeatValue(choiceF, choiceS);
+		int second = getBeatValue(choiceS, choiceF);
 
 		return new Pair(first, second);
 	}
 
-	public void setPair(Choice choice1, Choice choice2, Pair pair) {
+	public void setPair(Choice choiceF, Choice choiceS, Pair pair) {
 		if (pair == null)
 			throw new IllegalArgumentException("Illegal pair");
 
-		HashMap<Choice, Integer> key1 = getOrSetBeatKey(choice1);
-		HashMap<Choice, Integer> key2 = getOrSetBeatKey(choice2);
+		HashMap<Choice, Integer> key1 = getOrSetBeatKey(choiceF);
+		HashMap<Choice, Integer> key2 = getOrSetBeatKey(choiceS);
 
-		key1.put(choice2, pair.key1);
-		key2.put(choice1, pair.key2);
+		key1.put(choiceS, pair.key1);
+		key2.put(choiceF, pair.key2);
 	}
 
-	private HashMap<Choice, Integer> getOrSetBeatKey(Choice choice1) {
-		if (choice1 == null)
+	private HashMap<Choice, Integer> getOrSetBeatKey(Choice choice) {
+		if (choice == null)
 			throw new IllegalArgumentException("Illegal choice");
-		HashMap<Choice, Integer> result = table.get(choice1);
+		HashMap<Choice, Integer> result = table.get(choice);
 
 		if (result == null) {
-			HashMap<Choice, Integer> key = new HashMap<Choice, Integer>();
-			table.put(choice1, key);
+			HashMap<Choice, Integer> key = new HashMap<>();
+			table.put(choice, key);
 		}
 
-		return getBeatKey(choice1);
+		return getBeatKey(choice);
 	}
 
-	private HashMap<Choice, Integer> getBeatKey(Choice choice1) {
-		if (table.get(choice1) != null)
-			return table.get(choice1);
+	private HashMap<Choice, Integer> getBeatKey(Choice choice) {
+		if (table.get(choice) != null)
+			return table.get(choice);
 		throw new IllegalArgumentException("Not existing 2nd level key");
 	}
 
-	private int getBeatValue(Choice choice1, Choice choice2) {
-		if (choice1 == null || choice2 == null)
+	private int getBeatValue(Choice choiceF, Choice choiceS) {
+		if (choiceF == null || choiceS == null)
 			throw new IllegalArgumentException("Not existing 1st level key");
-		HashMap<Choice, Integer> key = getBeatKey(choice1);
-		if (key.get(choice2) != null)
-			return key.get(choice2);
+		HashMap<Choice, Integer> key = getBeatKey(choiceF);
+		if (key.get(choiceS) != null)
+			return key.get(choiceS);
 		throw new IllegalArgumentException("Not existing 1st level value");
 	}
 
