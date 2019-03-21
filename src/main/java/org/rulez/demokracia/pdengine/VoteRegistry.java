@@ -51,6 +51,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		if (!vote.canVote)
 			throw new IllegalArgumentException("This issue cannot be voted on yet");
 
+		if (vote.canUpdate && getWsContext().getUserPrincipal() == null)
+			throw new IllegalArgumentException("canUpdate is true but the user is not authenticated");
+
 		if (!vote.ballots.contains(ballot))
 			throw new IllegalArgumentException(String.format("Illegal ballot: %s", ballot));
 
@@ -60,7 +63,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 			if (choice.rank < 0)
 				throw new IllegalArgumentException(String.format("Invalid rank: %d", choice.rank));
 		}
-
+		
 		vote.ballots.remove(ballot);
 	}
 
