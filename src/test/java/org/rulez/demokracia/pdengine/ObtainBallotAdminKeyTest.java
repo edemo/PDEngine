@@ -101,9 +101,8 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add("magyar");
-
 		assertThrows(
 				() -> voteManager.obtainBallot(adminInfo.voteId, "user")
-			).assertMessageIs("Anon admin is not authenticated, cannot issue any ballot.");	
+			).assertMessageIs("The user is not authenticated, cannot issue a ballot without the admin key.");	
 	}
 }
