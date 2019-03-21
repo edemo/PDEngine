@@ -136,4 +136,29 @@ public class VoteTest extends CreatedDefaultChoice {
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		assertFalse(vote.ballots.contains(ballot));	
 	}
+	
+	
+	@tested_feature("Vote")
+	@tested_operation("Cast vote")
+	@tested_behaviour("if updatable is true, only authenticated users can vote")
+	@Test
+	public void cannot_cast_a_user_if_canUpdate_is_true_but_not_logged_in() {
+		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		Vote vote = getTheVote();
+		vote.canVote = true;
+		vote.canUpdate = true;
+		setupUnauthenticatedMockWsContext();
+		
+		String choiceId = vote.addChoice("valid_choice","userke");
+		int first_good_rank = 0;
+		RankedChoice rankedChoice = new RankedChoice(choiceId, first_good_rank);
+		theCastVote.add(rankedChoice);
+		
+		assertThrows(() ->  voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
+				).assertException(IllegalArgumentException.class)
+		 		 .assertMessageIs("canUpdate is true but the user is not authenticated");
+		
+	}
+	
 }
