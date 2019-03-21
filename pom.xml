@@ -21,6 +21,20 @@
   <build>
     <plugins>
       <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-compiler-plugin</artifactId>
+      	<version>3.8.0</version>
+      	<configuration>
+        	<source>${maven.compiler.source}</source>
+        	<target>${maven.compiler.target}</target>
+        	<showWarnings>true</showWarnings>
+        	<failOnWarning>true</failOnWarning>
+        	<compilerArgs>
+          		<arg>-Xlint:all</arg>
+        	</compilerArgs>
+      	</configuration>
+      </plugin>
+      <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
         <version>1.4.5</version>
