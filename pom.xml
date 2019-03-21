@@ -15,8 +15,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
-    <maven.compiler.failOnWarning>true</maven.compiler.failOnWarning>
     <sonar.github.repository>edemo/PDEngine</sonar.github.repository>
   </properties>
 
