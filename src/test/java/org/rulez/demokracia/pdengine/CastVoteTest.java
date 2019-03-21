@@ -27,7 +27,7 @@ public class CastVoteTest extends CreatedDefaultChoice {
 	@Test
 	public void check_getPreferences_with_empty_preferences() {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
-		CastVote castVote = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
+		CastVote castVote = new CastVote("test_user_in_ws_context", theCastVote);
 		List<RankedChoice> preferences = castVote.getPreferences();
 		assertEquals(new ArrayList<>(), preferences);
 	}
@@ -39,7 +39,7 @@ public class CastVoteTest extends CreatedDefaultChoice {
 	public void check_getPreferences_with_filled_preferences() {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		theCastVote.add(new RankedChoice("1", 1));
-		CastVote castVote = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
+		CastVote castVote = new CastVote("test_user_in_ws_context", theCastVote);
 		List<RankedChoice> preferences = castVote.getPreferences();
 		
 		System.out.println("Preferences: " + preferences);

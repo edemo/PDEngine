@@ -69,14 +69,14 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 		vote.canVote = true;
 		vote.canUpdate = false;
 		vote.votesCast.clear();
-		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
-		vote.addCastVote(null, theCastVote, "OtherSecret");
-		vote.addCastVote(null, theCastVote, "OtherSecret");
-		vote.addCastVote(null, theCastVote, "OtherSecret");
-		vote.addCastVote(null, theCastVote, "OtherSecret");
-		vote.addCastVote(null, theCastVote, "OtherSecret");
-		vote.addCastVote("dummy6", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
+		vote.votesCast.add(new CastVote("test_user_in_ws_context", theCastVote));
+		vote.votesCast.add(new CastVote(null, theCastVote));
+		vote.votesCast.add(new CastVote(null, theCastVote));
+		vote.votesCast.add(new CastVote(null, theCastVote));
+		vote.votesCast.add(new CastVote(null, theCastVote));
+		vote.votesCast.add(new CastVote(null, theCastVote));
+		vote.votesCast.add(new CastVote("dummy6", theCastVote));
+		vote.votesCast.add(new CastVote("dummy7", theCastVote));
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		

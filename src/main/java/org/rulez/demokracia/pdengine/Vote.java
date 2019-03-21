@@ -112,7 +112,7 @@ public class Vote extends VoteEntity {
 		return array;
 	}
 
-	public void addCastVote(String proxyId, List<RankedChoice> theVote, String secretId) {
+	protected void addCastVote(String proxyId, List<RankedChoice> theVote) {
 		Iterator<CastVote> listIterator = votesCast.iterator();
 		while (listIterator.hasNext()) {
 			CastVote element = listIterator.next();
@@ -121,7 +121,7 @@ public class Vote extends VoteEntity {
 				listIterator.remove();
 		}
 
-		CastVote castVote = new CastVote(proxyId, theVote, secretId);
+		CastVote castVote = new CastVote(proxyId, theVote);
 		votesCast.add(castVote);
 	}
 }

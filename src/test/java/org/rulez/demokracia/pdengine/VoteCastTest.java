@@ -33,7 +33,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.votesCast.clear();
 		vote.canUpdate = true;
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
+		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote);
 		assertEquals(voteCast.proxyId, vote.votesCast.get(0).proxyId);
 	}
 	
@@ -48,7 +48,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.canVote = true;
 		vote.votesCast.clear();
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote, "Secret");
+		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote);
 		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
 	}
 	
@@ -78,18 +78,18 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.canUpdate = true;
 		
 		vote.votesCast.clear();
-		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy1", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy2", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy3", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy4", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy5", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy6", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
+		vote.votesCast.add(new CastVote("test_user_in_ws_context", theCastVote));
+		vote.votesCast.add(new CastVote("dummy1", theCastVote));
+		vote.votesCast.add(new CastVote("dummy2", theCastVote));
+		vote.votesCast.add(new CastVote("dummy3", theCastVote));
+		vote.votesCast.add(new CastVote("dummy4", theCastVote));
+		vote.votesCast.add(new CastVote("dummy5", theCastVote));
+		vote.votesCast.add(new CastVote("dummy6", theCastVote));
+		vote.votesCast.add(new CastVote("dummy7", theCastVote));
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
-		assertFalse(vote.votesCast.get(7).secretId.equals("OtherSecret"));
+		assertTrue(vote.votesCast.get(7).proxyId.equals("test_user_in_ws_context"));
 	}
 	
 	@tested_feature("Vote")
@@ -99,23 +99,24 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_bottom_of_the_list() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		List<RankedChoice> theCastVote1 = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
 		vote.canUpdate = true;
 		
 		vote.votesCast.clear();
-		vote.addCastVote("dummy1", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy2", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy3", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy4", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy5", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy6", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
-		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
+		vote.votesCast.add(new CastVote("dummy1", theCastVote));
+		vote.votesCast.add(new CastVote("dummy2", theCastVote));
+		vote.votesCast.add(new CastVote("dummy3", theCastVote));
+		vote.votesCast.add(new CastVote("dummy4", theCastVote));
+		vote.votesCast.add(new CastVote("dummy5", theCastVote));
+		vote.votesCast.add(new CastVote("dummy6", theCastVote));
+		vote.votesCast.add(new CastVote("dummy7", theCastVote));
+		vote.votesCast.add(new CastVote("test_user_in_ws_context", theCastVote1));
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 
-		assertFalse(vote.votesCast.get(7).secretId.equals("OtherSecret"));
+		assertTrue(vote.votesCast.get(7).preferences.equals(theCastVote1));
 	}
 	
 	@tested_feature("Vote")
@@ -130,18 +131,18 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.canUpdate = true;
 		
 		vote.votesCast.clear();
-		vote.addCastVote("dummy1", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy2", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy3", theCastVote, "OtherSecret");
-		vote.addCastVote("test_user_in_ws_context", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy4", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy5", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy6", theCastVote, "OtherSecret");
-		vote.addCastVote("dummy7", theCastVote, "OtherSecret");
+		vote.votesCast.add(new CastVote("dummy1", theCastVote));
+		vote.votesCast.add(new CastVote("dummy2", theCastVote));
+		vote.votesCast.add(new CastVote("dummy3", theCastVote));
+		vote.votesCast.add(new CastVote("test_user_in_ws_context", theCastVote));
+		vote.votesCast.add(new CastVote("dummy4", theCastVote));
+		vote.votesCast.add(new CastVote("dummy5", theCastVote));
+		vote.votesCast.add(new CastVote("dummy6", theCastVote));
+		vote.votesCast.add(new CastVote("dummy7", theCastVote));
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 
-		assertFalse(vote.votesCast.get(7).secretId.equals("OtherSecret"));
+		assertTrue(vote.votesCast.get(7).proxyId.equals("test_user_in_ws_context"));
 	}
 	
 	@tested_feature("Vote")
@@ -153,15 +154,18 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
 		vote.canVote = true;
+		vote.canUpdate = true;
 		
 		vote.votesCast.clear();
-		vote.addCastVote("OtherUser1", theCastVote, "OtherSecret");
-		vote.addCastVote("OtherUser2", theCastVote, "OtherSecret");
-		vote.addCastVote("OtherUser3", theCastVote, "OtherSecret");
-		vote.addCastVote("OtherUser4", theCastVote, "OtherSecret");
+		vote.votesCast.add(new CastVote("OtherUser1", theCastVote));
+		vote.votesCast.add(new CastVote("OtherUser2", theCastVote));
+		vote.votesCast.add(new CastVote("OtherUser3", theCastVote));
+		vote.votesCast.add(new CastVote("OtherUser4", theCastVote));
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
-		assertFalse(vote.votesCast.get(4).secretId.equals("OtherSecret"));
+		System.out.println("ASD: " + vote.votesCast.get(4).proxyId);
+		
+		assertTrue(vote.votesCast.get(4).proxyId.equals("test_user_in_ws_context"));
 	}
 }

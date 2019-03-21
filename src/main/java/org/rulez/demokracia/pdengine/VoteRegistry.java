@@ -65,9 +65,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		}
     
 		if (!vote.canUpdate)
-			vote.addCastVote(null, theVote, RandomUtils.createRandomKey());
+			vote.addCastVote(null, theVote);
 		else
-			vote.addCastVote(getWsUserName(), theVote, RandomUtils.createRandomKey());
+			vote.addCastVote(getWsUserName(), theVote);
 		
 		vote.ballots.remove(ballot);
 	}
