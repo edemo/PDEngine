@@ -2,9 +2,7 @@ package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +10,7 @@ import org.rulez.demokracia.pdengine.BeatTable.Direction;
 import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
 import org.rulez.demokracia.pdengine.annotations.tested_feature;
 import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.exception.IsNullException;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
@@ -26,23 +25,22 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	@tested_operation("BeatTable")
 	@tested_behaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
-	public void beatTable_with_not_defined_inputs() {
+	public void beatInformation_needs_a_defined_direction() {
 		BeatTable beatTable = new BeatTable();
 
-		assertThrows(() -> beatTable.beatInformation(null, null, null))
-				.assertException(NullPointerException.class);
+		assertThrows(() -> beatTable.beatInformation(null, null, null)
+				).assertMessageIs("Direction is null");
 	}
 	
 	@tested_feature("Supporting functionality")
 	@tested_operation("BeatTable")
 	@tested_behaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
-	public void beatTable_forward_with_not_defined_choices() {
+	public void The_1st_key_should_be_a_Choice() {
 		BeatTable beatTable = new BeatTable();
 		
 		assertThrows(() -> beatTable.beatInformation(null, null, Direction.DIRECTION_FORWARD)
-				).assertException(IllegalArgumentException.class)
-				 .assertMessageIs("Not existing 1st level key");
+				).assertMessageIs("Choice is null");
 	}
 	
 	@tested_feature("Supporting functionality")
@@ -58,21 +56,20 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 		beatTable.table.put(choice1, new HashMap<Choice, Integer>());
 		
 		assertThrows(() -> beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_FORWARD)
-				).assertException(IllegalArgumentException.class)
-				 .assertMessageIs("Not existing 1st level key");
+				).assertMessageIs("Choice is null");
 	}
 	
 	@tested_feature("Supporting functionality")
 	@tested_operation("BeatTable")
 	@tested_behaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
-	public void beatTable_forward() {
+	public void beatTable_forward() throws IsNullException {
 		Choice choice1 = new Choice("name1", "userName1");
 		Choice choice2 = new Choice("name2", "userName2");
 		int expectedValue = 1;
 		
 		HashMap<Choice, Integer> value = new HashMap<Choice, Integer>();
-		value.put(choice2, 1);
+		value.put(choice2, expectedValue);
 		
 		BeatTable beatTable = new BeatTable();
 		beatTable.table.put(choice1, value);
@@ -80,18 +77,6 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 		int actualValue = beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_FORWARD);
 		
 		assertEquals(expectedValue, actualValue);
-	}
-	
-	@tested_feature("Supporting functionality")
-	@tested_operation("BeatTable")
-	@tested_behaviour("the beat information related to a and b can be obtained for forward and backward")
-	@Test
-	public void beatTable_backward_with_not_defined_choices() {
-		BeatTable beatTable = new BeatTable();
-		
-		assertThrows(() -> beatTable.beatInformation(null, null, Direction.DIRECTION_BACKWARD)
-				).assertException(IllegalArgumentException.class)
-				 .assertMessageIs("Not existing 1st level key");
 	}
 	
 	@tested_feature("Supporting functionality")
@@ -107,15 +92,14 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 		beatTable.table.put(choice2, new HashMap<Choice, Integer>());
 		
 		assertThrows(() -> beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_BACKWARD)
-				).assertException(IllegalArgumentException.class)
-				 .assertMessageIs("Not existing 1st level key");
+				).assertMessageIs("Choice is null");
 	}
 	
 	@tested_feature("Supporting functionality")
 	@tested_operation("BeatTable")
 	@tested_behaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
-	public void beatTable_backward() {
+	public void beatTable_backward() throws IsNullException {
 		Choice choice2 = new Choice("name1", "userName1");
 		Choice choice1 = new Choice("name2", "userName2");
 		int expectedValue = 1;

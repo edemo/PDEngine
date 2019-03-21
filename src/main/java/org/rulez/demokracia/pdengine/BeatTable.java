@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.persistence.ElementCollection;
 
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import org.rulez.demokracia.pdengine.exception.IsNullException;
+import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class BeatTable {
 	@ElementCollection
@@ -19,7 +21,10 @@ public class BeatTable {
 		table = new HashMap<>();
 	}
 
-	public int beatInformation(Choice choice1, Choice choice2, Direction direction) {
+	public int beatInformation(Choice choice1, Choice choice2, Direction direction) throws IsNullException {
+		if(direction == null)
+			throw new IsNullException("Direction");
+		
 		int result = 0;
 
 		if(direction.equals(Direction.DIRECTION_FORWARD))
@@ -30,16 +35,16 @@ public class BeatTable {
 		return result;
 	}
 
-	public Pair getPair(Choice choice1, Choice choice2) {
+	public Pair getPair(Choice choice1, Choice choice2) throws IsNullException {
 		int first = getBeatValue(choice1, choice2);
 		int second = getBeatValue(choice2, choice1);
 
 		return new Pair(first, second);
 	}
 
-	public void setPair(Choice choice1, Choice choice2, Pair pair) {
+	public void setPair(Choice choice1, Choice choice2, Pair pair) throws IsNullException {
 		if (pair == null)
-			throw new IllegalArgumentException("Illegal pair");
+			throw new IsNullException("Pair");
 
 		HashMap<Choice, Integer> key1 = getOrSetBeatKey(choice1);
 		HashMap<Choice, Integer> key2 = getOrSetBeatKey(choice2);
@@ -62,9 +67,9 @@ public class BeatTable {
 		throw new IllegalArgumentException("Not existing 2nd level key");
 	}
 
-	private int getBeatValue(Choice choiceF, Choice choiceS) {
+	private int getBeatValue(Choice choiceF, Choice choiceS) throws IsNullException {
 		if (choiceF == null || choiceS == null)
-			throw new IllegalArgumentException("Not existing 1st level key");
+			throw new IsNullException("Choice");
 		HashMap<Choice, Integer> key = getBeatKey(choiceF);
 		if (key.get(choiceS) != null)
 			return key.get(choiceS);

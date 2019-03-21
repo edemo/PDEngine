@@ -13,6 +13,7 @@ import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
 import org.rulez.demokracia.pdengine.annotations.tested_feature;
 import org.rulez.demokracia.pdengine.annotations.tested_operation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import org.rulez.demokracia.pdengine.exception.IsNullException;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
@@ -31,8 +32,7 @@ public class BeatTableGetPairTest extends CreatedDefaultChoice {
 		BeatTable beatTable = new BeatTable();
 
 		assertThrows(() -> beatTable.getPair(null, null)
-				).assertException(IllegalArgumentException.class)
-				 .assertMessageIs("Not existing 1st level key");
+				).assertMessageIs("Choice is null");
 	}
 	
 	@tested_feature("Supporting functionality")
@@ -45,8 +45,7 @@ public class BeatTableGetPairTest extends CreatedDefaultChoice {
 		Choice choice2 = new Choice("name2", "userName2");
 		
 		assertThrows(() -> beatTable.getPair(choice1, choice2)
-				).assertException(IllegalArgumentException.class)
-				 .assertMessageIs("Not existing 2nd level key");
+				).assertMessageIs("Not existing 2nd level key");
 	}
 	
 	@tested_feature("Supporting functionality")
@@ -61,8 +60,7 @@ public class BeatTableGetPairTest extends CreatedDefaultChoice {
 		beatTable.table.put(choice1, new HashMap<Choice, Integer>());
 		
 		assertThrows(() -> beatTable.getPair(choice1, choice2)
-				).assertException(IllegalArgumentException.class)
-				 .assertMessageIs("Not existing 1st level value");
+				).assertMessageIs("Not existing 1st level value");
 	}
 	
 	
@@ -70,7 +68,7 @@ public class BeatTableGetPairTest extends CreatedDefaultChoice {
 	@tested_operation("BeatTable")
 	@tested_behaviour("the pair related to a and b can be obtained")
 	@Test
-	public void getPair_simple_pass() {
+	public void getPair_simple_pass() throws IsNullException {
 		BeatTable beatTable = new BeatTable();
 		Choice choice1 = new Choice("name1", "userName1");
 		Choice choice2 = new Choice("name2", "userName2");
@@ -94,7 +92,7 @@ public class BeatTableGetPairTest extends CreatedDefaultChoice {
 	@tested_operation("BeatTable")
 	@tested_behaviour("the pair related to a and b can be obtained")
 	@Test
-	public void getPair_complex_pass() {
+	public void getPair_complex_pass() throws IsNullException {
 		BeatTable beatTable = new BeatTable();
 		Choice choice1 = new Choice("name1", "userName1");
 		Choice choice2 = new Choice("name2", "userName2");

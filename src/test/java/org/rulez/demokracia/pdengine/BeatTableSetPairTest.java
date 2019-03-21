@@ -13,6 +13,7 @@ import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
 import org.rulez.demokracia.pdengine.annotations.tested_feature;
 import org.rulez.demokracia.pdengine.annotations.tested_operation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import org.rulez.demokracia.pdengine.exception.IsNullException;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
@@ -31,8 +32,7 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 		BeatTable beatTable = new BeatTable();
 
 		assertThrows(() -> beatTable.setPair(null, null, null)
-				).assertException(IllegalArgumentException.class)
-				 .assertMessageIs("Illegal pair");
+				).assertMessageIs("Pair is null");
 	}
 	
 	@tested_feature("Supporting functionality")
@@ -44,15 +44,14 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 		Pair pair = new Pair(1, 2);
 		
 		assertThrows(() -> beatTable.setPair(null, null, pair)
-				).assertException(IllegalArgumentException.class)
-				 .assertMessageIs("Illegal choice");
+				).assertMessageIs("Illegal choice");
 	}
 	
 	@tested_feature("Supporting functionality")
 	@tested_operation("BeatTable")
 	@tested_behaviour("the pair related to a and b can be set")
 	@Test
-	public void setPair_with_not_proper_matrix_so_it_inserts_the_new_values() {
+	public void setPair_with_not_proper_matrix_so_it_inserts_the_new_values() throws IsNullException {
 		BeatTable beatTable = new BeatTable();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
@@ -71,7 +70,7 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 	@tested_operation("BeatTable")
 	@tested_behaviour("the pair related to a and b can be set")
 	@Test
-	public void setPair_with_proper_matrix_so_it_inserts_and_modify_the_values() {
+	public void setPair_with_proper_matrix_so_it_inserts_and_modify_the_values() throws IsNullException {
 		BeatTable beatTable = new BeatTable();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
@@ -96,7 +95,7 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 	@tested_operation("BeatTable")
 	@tested_behaviour("the pair related to a and b can be set")
 	@Test
-	public void setPair_with_proper_matrix_so_it_modify_the_existing_values() {
+	public void setPair_with_proper_matrix_so_it_modify_the_existing_values() throws IsNullException {
 		BeatTable beatTable = new BeatTable();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
