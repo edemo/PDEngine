@@ -90,7 +90,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		String ballot_user = voteManager.obtainBallot(adminInfo.voteId, "user");
 		assertNotEquals("", ballot_user );
 	}
-
+	
 	@tested_feature("Manage votes")
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if the adminKey is anon and the user is not logged in then no ballots are issued")
@@ -101,9 +101,8 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add("magyar");
-
 		assertThrows(
 				() -> voteManager.obtainBallot(adminInfo.voteId, "user")
-			).assertMessageIs("Anon admin is not authenticated, cannot issue any ballot.");	
+			).assertMessageIs("Simple user is not authenticated, cannot issue any ballot.");	
 	}
 }
