@@ -61,7 +61,7 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 	@tested_operation("Cast vote")
 	@tested_behaviour("If updatable is false then the cast vote is not associated with the voter")
 	@Test
-	public void castVote_does_not_record_the_proxy_id_when_updatable_is_false_but_it_records_the_other_parameters() {
+	public void castVote_does_not_record_the_proxy_id_when_updatable_is_false_and_it_does_not_delete_the_other_not_recorded_proxyIds_votescast() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		

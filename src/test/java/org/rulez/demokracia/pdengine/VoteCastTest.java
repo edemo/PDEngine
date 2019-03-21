@@ -25,7 +25,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_operation("Cast vote")
 	@tested_behaviour("records cast vote with the vote and user's proxy id")
 	@Test
-	public void proxyId_check_when_cast_vote_records_the_vote_and_users_proxy() {
+	public void cast_vote_records_the_proxy_id() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
@@ -41,7 +41,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_operation("Cast vote")
 	@tested_behaviour("records cast vote with the vote and user's proxy id")
 	@Test
-	public void voteCast_check_when_cast_vote_records_the_vote_and_users_proxy() {
+	public void voteCast_records_the_preferences() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
@@ -56,7 +56,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_operation("Cast vote")
 	@tested_behaviour("Cast vote have a secret random identifier")
 	@Test
-	public void secretId_check_when_cast_vote_records_the_vote_and_users_proxy() {
+	public void voteCast_records_a_secret_id_with_the_vote_cast() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		Vote vote = getTheVote();
