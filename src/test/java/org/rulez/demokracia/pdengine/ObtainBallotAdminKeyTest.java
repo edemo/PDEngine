@@ -30,7 +30,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 				() -> voteManager.obtainBallot(adminInfo.voteId, "user")
 			).assertMessageIs("The user does not have all of the needed assurances.");
 	}
-	
+
 	@tested_feature("Manage votes")
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
@@ -43,7 +43,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, "user");
 		assertTrue(ballot instanceof String);
 	}
-	
+
 	@tested_feature("Manage votes")
 	@tested_operation("Obtain ballot")
 	@tested_behaviour("if adminKey is anon, the user should have all the neededAssurances")
@@ -89,5 +89,21 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 		assertNotEquals("", ballot_admin2 );
 		String ballot_user = voteManager.obtainBallot(adminInfo.voteId, "user");
 		assertNotEquals("", ballot_user );
+	}
+	
+	@tested_feature("Manage votes")
+	@tested_operation("Obtain ballot")
+	@tested_behaviour("if the adminKey is anon and the user is not logged in then no ballots are issued")
+	@Test
+	public void not_logged_in_user_cannot_issue_any_ballot() {
+
+		setupUnauthenticatedMockWsContext();
+		Vote vote = voteManager.getVote(adminInfo.voteId);
+		vote.neededAssurances.clear();
+		vote.neededAssurances.add("magyar");
+
+		assertThrows(
+				() -> voteManager.obtainBallot(adminInfo.voteId, "user")
+			).assertMessageIs("Simple user is not authenticated, cannot issue any ballot.");	
 	}
 }

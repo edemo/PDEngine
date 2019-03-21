@@ -21,6 +21,8 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 			vote.increaseRecordedBallots("admin");
 
 		else if (adminKey.equals("user")) {
+			if (getWsContext().getUserPrincipal() == null)
+				throw new IllegalArgumentException("Simple user is not authenticated, cannot issue any ballot.");
 			if (!userHasAllAssurance(vote.neededAssurances))
 				throw new IllegalArgumentException("The user does not have all of the needed assurances.");
 			if (vote.getRecordedBallots(getWsUserName()).intValue() > 0)
