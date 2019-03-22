@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -11,6 +13,7 @@ import javax.persistence.Entity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 
 @Entity
@@ -18,7 +21,8 @@ public class Vote extends VoteEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances, boolean isClosed, int minEndorsements)  {
+	public Vote(String voteName, Collection<String> neededAssurances, Collection<String> countedAssurances,
+			boolean isClosed, int minEndorsements) {
 		super();
 		name = voteName;
 		adminKey = RandomUtils.createRandomKey();
@@ -27,20 +31,19 @@ public class Vote extends VoteEntity {
 		isPrivate = isClosed;
 		this.minEndorsements = minEndorsements;
 		creationTime = Instant.now().getEpochSecond();
-		choices = new HashMap<String,Choice>();
+		choices = new HashMap<String, Choice>();
 		ballots = new ArrayList<String>();
+		votesCast = new ArrayList<CastVote>();
 		recordedBallots = new HashMap<String, Integer>();
 	}
-	
+
 	public Integer getRecordedBallots(String key) {
-		 return recordedBallots.containsKey(key) ? recordedBallots.get(key) : 0;
+		return recordedBallots.containsKey(key) ? recordedBallots.get(key) : 0;
 	}
-	
+
 	public void increaseRecordedBallots(String key) {
 		recordedBallots.put(key, getRecordedBallots(key) + 1);
 	}
-	
-	
 
 	public String addChoice(String choiceName, String user) {
 		Choice choice = new Choice(choiceName, user);
@@ -49,21 +52,17 @@ public class Vote extends VoteEntity {
 	}
 
 	public Choice getChoice(String choiceId) {
-		if(!choices.containsKey(choiceId)) {
+		if (!choices.containsKey(choiceId)) {
 			throw new IllegalArgumentException(String.format("Illegal choiceId: %s", choiceId));
 		}
 		return choices.get(choiceId);
 	}
-	
+
 	public boolean hasIssuedBallots() {
 		return !ballots.isEmpty();
 	}
 
-	public void setParameters(String adminKey,
-			int minEndorsements,
-			boolean canAddin,
-			boolean canEndorse,
-			boolean canVote,
+	public void setParameters(int minEndorsements, boolean canAddin, boolean canEndorse, boolean canVote,
 			boolean canView) {
 		this.minEndorsements = minEndorsements;
 		this.canAddin = canAddin;
@@ -73,11 +72,11 @@ public class Vote extends VoteEntity {
 	}
 
 	public void checkAdminKey(String providedAdminKey) {
-		if(! (adminKey.equals(providedAdminKey)||providedAdminKey.equals("user")) ) {
+		if (!(adminKey.equals(providedAdminKey) || providedAdminKey.equals("user"))) {
 			throw new IllegalArgumentException(String.format("Illegal adminKey: %s", providedAdminKey));
 		}
 	}
-	
+
 	public JSONObject toJson(String voteId) {
 		JSONObject obj = new JSONObject();
 		obj.put("name", this.name);
@@ -96,21 +95,33 @@ public class Vote extends VoteEntity {
 
 	public JSONArray createChoicesJson(Map<String, Choice> choices) {
 		JSONArray array = new JSONArray();
-		
+
 		for (Entry<String, Choice> entry : choices.entrySet()) {
-		    String key = entry.getKey();
-		    Choice value = entry.getValue();
-		    
-		    JSONObject obj = new JSONObject();
-		    obj.put("initiator", value.userName);
+			String key = entry.getKey();
+			Choice value = entry.getValue();
+
+			JSONObject obj = new JSONObject();
+			obj.put("initiator", value.userName);
 			obj.put("endorsers", value.endorsers);
 			obj.put("name", value.name);
 			obj.put("id", key);
-		    
-		    array.put(obj);
+
+			array.put(obj);
 		}
-		
+
 		return array;
 	}
 
+	protected void addCastVote(String proxyId, List<RankedChoice> theVote) {
+		Iterator<CastVote> listIterator = votesCast.iterator();
+		while (listIterator.hasNext()) {
+			CastVote element = listIterator.next();
+
+			if (element.proxyId != null && element.proxyId.equals(proxyId))
+				listIterator.remove();
+		}
+
+		CastVote castVote = new CastVote(proxyId, theVote);
+		votesCast.add(castVote);
+	}
 }
