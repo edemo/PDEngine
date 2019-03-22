@@ -23,6 +23,13 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
+		
+		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		theCastVote = new ArrayList<RankedChoice>();
+		
+		vote = getTheVote();
+		vote.canVote = true;
+		vote.votesCast.clear();
 	}
 
 	@tested_feature("Vote")
@@ -30,7 +37,7 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 	@tested_behaviour("if updatable is true then the cast vote records the proxy id of the user")
 	@Test
 	public void castVote_records_the_proxy_id_when_updatable_is_true() {
-		init(true);
+		vote.canUpdate = true;
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
 		assertTrue(vote.votesCast.get(0).proxyId.equals("test_user_in_ws_context"));
@@ -41,7 +48,7 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 	@tested_behaviour("If updatable is false then the cast vote is not associated with the voter")
 	@Test
 	public void castVote_does_not_record_the_proxy_id_when_updatable_is_false() {
-		init(false);
+		vote.canUpdate = false;
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		assertTrue(vote.votesCast.get(0).proxyId == null);
@@ -52,7 +59,7 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 	@tested_behaviour("If updatable is false then the cast vote is not associated with the voter")
 	@Test
 	public void castVote_does_not_record_the_proxy_id_when_updatable_is_false_and_it_does_not_delete_the_other_not_recorded_proxyIds_votescast() {
-		init(false);
+		vote.canUpdate = false;
 		vote.votesCast.add(new CastVote("test_user_in_ws_context", theCastVote));
 		vote.votesCast.add(new CastVote(null, theCastVote));
 		vote.votesCast.add(new CastVote(null, theCastVote));
@@ -67,13 +74,4 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 		assertTrue(vote.votesCast.get(8).proxyId == null);
 	}
 	
-	private void init(boolean canUpdate) {
-		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
-		theCastVote = new ArrayList<RankedChoice>();
-		
-		vote = getTheVote();
-		vote.canVote = true;
-		vote.canUpdate = canUpdate;
-		vote.votesCast.clear();
-	}
 }
