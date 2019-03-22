@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine.testhelpers;
+package org.rulez.demokracia.testhelpers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -21,7 +21,7 @@ public class ThrowableTester {
 			thrown = exception;
 		}
 		if (thrown == null) {
-			fail("no exception thrown");			
+			fail("no exception thrown");
 		}
 		return this;
 	}

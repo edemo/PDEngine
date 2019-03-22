@@ -5,8 +5,6 @@ import static org.mockito.Mockito.*;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
