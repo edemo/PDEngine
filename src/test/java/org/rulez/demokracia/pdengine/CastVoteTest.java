@@ -25,7 +25,7 @@ public class CastVoteTest extends CreatedDefaultChoice {
 	@tested_operation("CastVote")
 	@tested_behaviour("The preferences described by a cast vote can be obtained")
 	@Test
-	public void check_getPreferences_with_empty_preferences() {
+	public void the_preferences_can_be_obtained_when_they_are_empty() {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		CastVote castVote = new CastVote("test_user_in_ws_context", theCastVote);
 		List<RankedChoice> preferences = castVote.getPreferences();
@@ -36,13 +36,11 @@ public class CastVoteTest extends CreatedDefaultChoice {
 	@tested_operation("CastVote")
 	@tested_behaviour("The preferences described by a cast vote can be obtained")
 	@Test
-	public void check_getPreferences_with_filled_preferences() {
+	public void the_preferences_can_be_obtained_when_they_contain_choices() {
 		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
 		theCastVote.add(new RankedChoice("1", 1));
 		CastVote castVote = new CastVote("test_user_in_ws_context", theCastVote);
 		List<RankedChoice> preferences = castVote.getPreferences();
-		
-		System.out.println("Preferences: " + preferences);
 		assertEquals(theCastVote, preferences);
 	}
 }

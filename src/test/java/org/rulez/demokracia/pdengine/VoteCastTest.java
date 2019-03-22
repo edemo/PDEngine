@@ -16,6 +16,9 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 public class VoteCastTest extends CreatedDefaultChoice {
 
+	String ballot;
+	List<RankedChoice> theCastVote;
+	Vote vote;
 	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
@@ -26,11 +29,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_behaviour("records cast vote with the vote and user's proxy id")
 	@Test
 	public void cast_vote_records_the_proxy_id() {
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
-		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
-		Vote vote = getTheVote();
-		vote.canVote = true;
-		vote.votesCast.clear();
+		init();
 		vote.canUpdate = true;
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote);
@@ -42,11 +41,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_behaviour("records cast vote with the vote and user's proxy id")
 	@Test
 	public void voteCast_records_the_preferences() {
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
-		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
-		Vote vote = getTheVote();
-		vote.canVote = true;
-		vote.votesCast.clear();
+		init();
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote("test_user_in_ws_context", theCastVote);
 		assertTrue(voteCast.preferences.containsAll(vote.votesCast.get(0).preferences));
@@ -57,11 +52,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_behaviour("Cast vote have a secret random identifier")
 	@Test
 	public void voteCast_records_a_secret_id_with_the_vote_cast() {
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
-		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
-		Vote vote = getTheVote();
-		vote.canVote = true;
-		vote.votesCast.clear();
+		init();
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		assertTrue(vote.votesCast.get(0).secretId instanceof String);
 	}
@@ -71,21 +62,17 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_top_of_the_list() {
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
-		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
-		Vote vote = getTheVote();
-		vote.canVote = true;
+		init();
 		vote.canUpdate = true;
 		
-		vote.votesCast.clear();
-		vote.votesCast.add(new CastVote("test_user_in_ws_context", theCastVote));
-		vote.votesCast.add(new CastVote("dummy1", theCastVote));
-		vote.votesCast.add(new CastVote("dummy2", theCastVote));
-		vote.votesCast.add(new CastVote("dummy3", theCastVote));
-		vote.votesCast.add(new CastVote("dummy4", theCastVote));
-		vote.votesCast.add(new CastVote("dummy5", theCastVote));
-		vote.votesCast.add(new CastVote("dummy6", theCastVote));
-		vote.votesCast.add(new CastVote("dummy7", theCastVote));
+		addCastVote("test_user_in_ws_context", theCastVote);
+		addCastVote("dummy1", theCastVote);
+		addCastVote("dummy2", theCastVote);
+		addCastVote("dummy3", theCastVote);
+		addCastVote("dummy4", theCastVote);
+		addCastVote("dummy5", theCastVote);
+		addCastVote("dummy6", theCastVote);
+		addCastVote("dummy7", theCastVote);
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
@@ -97,22 +84,18 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_bottom_of_the_list() {
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
-		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
+		init();
 		List<RankedChoice> theCastVote1 = new ArrayList<RankedChoice>();
-		Vote vote = getTheVote();
-		vote.canVote = true;
 		vote.canUpdate = true;
 		
-		vote.votesCast.clear();
-		vote.votesCast.add(new CastVote("dummy1", theCastVote));
-		vote.votesCast.add(new CastVote("dummy2", theCastVote));
-		vote.votesCast.add(new CastVote("dummy3", theCastVote));
-		vote.votesCast.add(new CastVote("dummy4", theCastVote));
-		vote.votesCast.add(new CastVote("dummy5", theCastVote));
-		vote.votesCast.add(new CastVote("dummy6", theCastVote));
-		vote.votesCast.add(new CastVote("dummy7", theCastVote));
-		vote.votesCast.add(new CastVote("test_user_in_ws_context", theCastVote1));
+		addCastVote("dummy1", theCastVote);
+		addCastVote("dummy2", theCastVote);
+		addCastVote("dummy3", theCastVote);
+		addCastVote("dummy4", theCastVote);
+		addCastVote("dummy5", theCastVote);
+		addCastVote("dummy6", theCastVote);
+		addCastVote("dummy7", theCastVote);
+		addCastVote("test_user_in_ws_context", theCastVote1);
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 
@@ -124,21 +107,17 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_middle_of_the_list() {
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
-		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
-		Vote vote = getTheVote();
-		vote.canVote = true;
+		init();
 		vote.canUpdate = true;
 		
-		vote.votesCast.clear();
-		vote.votesCast.add(new CastVote("dummy1", theCastVote));
-		vote.votesCast.add(new CastVote("dummy2", theCastVote));
-		vote.votesCast.add(new CastVote("dummy3", theCastVote));
-		vote.votesCast.add(new CastVote("test_user_in_ws_context", theCastVote));
-		vote.votesCast.add(new CastVote("dummy4", theCastVote));
-		vote.votesCast.add(new CastVote("dummy5", theCastVote));
-		vote.votesCast.add(new CastVote("dummy6", theCastVote));
-		vote.votesCast.add(new CastVote("dummy7", theCastVote));
+		addCastVote("dummy1", theCastVote);
+		addCastVote("dummy2", theCastVote);
+		addCastVote("dummy3", theCastVote);
+		addCastVote("test_user_in_ws_context", theCastVote);
+		addCastVote("dummy4", theCastVote);
+		addCastVote("dummy5", theCastVote);
+		addCastVote("dummy6", theCastVote);
+		addCastVote("dummy7", theCastVote);
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 
@@ -150,17 +129,13 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@tested_behaviour("if there was a cast vote from the same user, the old one is deleted")
 	@Test 
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_the_list_does_not_contain_same_user() {
-		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
-		List<RankedChoice> theCastVote = new ArrayList<RankedChoice>();
-		Vote vote = getTheVote();
-		vote.canVote = true;
+		init();
 		vote.canUpdate = true;
 		
-		vote.votesCast.clear();
-		vote.votesCast.add(new CastVote("OtherUser1", theCastVote));
-		vote.votesCast.add(new CastVote("OtherUser2", theCastVote));
-		vote.votesCast.add(new CastVote("OtherUser3", theCastVote));
-		vote.votesCast.add(new CastVote("OtherUser4", theCastVote));
+		addCastVote("OtherUser1", theCastVote);
+		addCastVote("OtherUser2", theCastVote);
+		addCastVote("OtherUser3", theCastVote);
+		addCastVote("OtherUser4", theCastVote);
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
@@ -168,4 +143,17 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		
 		assertTrue(vote.votesCast.get(4).proxyId.equals("test_user_in_ws_context"));
 	}
+	
+	private void init() {
+		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		theCastVote = new ArrayList<RankedChoice>();
+		vote = getTheVote();
+		vote.canVote = true;
+		vote.votesCast.clear();
+	}
+	
+	private void addCastVote(String proxyId, List<RankedChoice> theCastVote) {
+		vote.votesCast.add(new CastVote(proxyId, theCastVote));
+	}
+	
 }
