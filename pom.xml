@@ -5,7 +5,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-feature_code_duplications.0211bca</version>
+  <version>0.0.1-feature_code_duplications.9f29490</version>
   <packaging>war</packaging>
 
   <name>PDEngine</name>
@@ -20,11 +20,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.7.1</version>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -97,6 +92,19 @@
 
   <reporting>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.11.0</version>
+            <configuration>
+             <minimumTokens>15</minimumTokens>
+             <ignoreAnnotations>true</ignoreAnnotations>
+             <includeTests>true</includeTests>
+             <rulesets>
+              <ruleset>pmd_rules.xml</ruleset>
+             </rulesets>
+            </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -236,20 +244,5 @@
     	<version>2.23.0</version>
     </dependency>
   </dependencies>
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.11.0</version>
-            <configuration>
-             <minimumTokens>5</minimumTokens>
-             <rulesets>
-              <ruleset>pmd_rules.xml</ruleset>
-             </rulesets>
-            </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
 </project>
 
