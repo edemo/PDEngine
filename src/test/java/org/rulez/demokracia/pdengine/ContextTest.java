@@ -22,12 +22,12 @@ public class ContextTest extends CreatedDefaultVoteRegistry {
 	public void setUp() throws ReportedException {
 		super.setUp();
 	}
-	
+
 	@tested_feature("Supporting functionality")
 	@tested_operation("get context parameter")
 	@tested_behaviour("context parameters can be obtained from the VoteManager")
 	@Test
-	public void testContextParameterCanBeObtainedFromVoteManager() {
+	public void obtain_context_parameter_from_the_VoteManager() {
 		WebServiceContext wsContext = mock(WebServiceContext.class);
 		VoteManager voteManager = new VoteManager(wsContext);
 		WebServiceContext wsContextFromVoteManager = voteManager.getWsContext();
