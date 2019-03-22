@@ -3,8 +3,6 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;

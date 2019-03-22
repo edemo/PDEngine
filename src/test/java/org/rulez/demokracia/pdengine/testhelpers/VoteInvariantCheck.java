@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import org.junit.After;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
+import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class VoteInvariantCheck extends ThrowableTester {
 

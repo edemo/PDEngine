@@ -15,6 +15,7 @@ import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class CreatedDefaultVoteRegistry extends ThrowableTester{
 

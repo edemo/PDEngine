@@ -2,13 +2,6 @@ package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;

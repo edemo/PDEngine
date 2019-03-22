@@ -4,10 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.persistence.ElementCollection;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
