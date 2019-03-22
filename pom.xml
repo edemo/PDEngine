@@ -79,31 +79,71 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.4</version>
-        <executions>
-          <execution>
-            <id>xml-doclet</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>javadoc</goal>
-            </goals>
-            <configuration>
-              <doclet>com.github.markusbernhardt.xmldoclet.XmlDoclet</doclet>
-              <additionalparam>-d ${project.build.directory} -filename
-                ${project.artifactId}-${project.version}-javadoc.xml</additionalparam>
-              <useStandardDocletOptions>false</useStandardDocletOptions>
-              <docletArtifact>
-                <groupId>com.github.markusbernhardt</groupId>
-                <artifactId>xml-doclet</artifactId>
-                <version>1.0.5</version>
-              </docletArtifact>
-            </configuration>
-          </execution>
-        </executions>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.7.1</version>
       </plugin>
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <configuration>
+        </configuration>
+        <reportSets>
+	      <reportSet>
+	        <id>production-javadoc</id>
+	        <configuration>
+	          <doclet>com.github.markusbernhardt.xmldoclet.XmlDoclet</doclet>
+	          <additionalparam>-d ${project.build.directory}/production -filename
+	            javadoc.xml</additionalparam>
+	          <useStandardDocletOptions>false</useStandardDocletOptions>
+	          <docletArtifact>
+	            <groupId>com.github.markusbernhardt</groupId>
+	            <artifactId>xml-doclet</artifactId>
+	            <version>1.0.5</version>
+	          </docletArtifact>
+	        </configuration>
+	        <reports>
+              <report>javadoc</report>
+	        </reports>
+	      </reportSet>
+	      <reportSet>
+	        <id>test-javadoc</id>
+	        <configuration>
+	          <doclet>com.github.markusbernhardt.xmldoclet.XmlDoclet</doclet>
+	          <additionalparam>
+	            -d ${project.build.directory}/test
+	            -filename javadoc.xml
+	          </additionalparam>
+	          <useStandardDocletOptions>false</useStandardDocletOptions>
+	          <docletArtifact>
+	            <groupId>com.github.markusbernhardt</groupId>
+	            <artifactId>xml-doclet</artifactId>
+	            <version>1.0.5</version>
+	          </docletArtifact>
+	        </configuration>
+	        <reports>
+	          <report>test-javadoc</report>
+	        </reports>
+	      </reportSet>
+	    </reportSets>
+	  </plugin>
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.0.0</version>
+        <reportSets>
+          <reportSet>
+            <reports></reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
