@@ -1,5 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
@@ -50,7 +52,18 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 			() -> voteManager.getChoice(voteId, choiceId)
 		).assertMessageIs("Illegal choiceId");
 	}
-	
+
+	@TestedBehaviour("if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
+	@Test
+	public void deleteChoice_return_an_OK_if_the_choice_is_deleted() {
+		String voteId = adminInfo.voteId;
+		Vote vote = voteManager.getVote(voteId);
+		vote.canAddin = true;
+		String choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, USER), CHOICE1, TEST_USER_NAME);
+		String r = voteManager.deleteChoice(new VoteAdminInfo(voteId, USER), choiceId);
+		assertEquals("OK",r);
+	}
+
 	@TestedBehaviour("if the vote has ballots issued, the choice cannot be deleted")
 	@Test
 	public void if_the_vote_has_issued_ballots_then_the_choice_cannot_be_deleted() {

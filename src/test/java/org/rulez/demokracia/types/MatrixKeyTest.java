@@ -24,13 +24,13 @@ public class MatrixKeyTest extends MatrixTestSetup {
 	@Test
 	public void rowKey_should_be_in_keyCollection_for_getElement() {
 		updateMatrixWithNewKey(columnKey);
-		assertSetElementFailsWith(columnKey,rowKey, "Invalid row key");
+		assertGetElementFailsWith(columnKey,rowKey, "Invalid row key");
 	}
 
 	@Test
 	public void columnKey_should_be_in_keyCollection_for_getElement() {
 		updateMatrixWithNewKey(rowKey);
-		assertSetElementFailsWith(columnKey,rowKey, "Invalid column key");
+		assertGetElementFailsWith(columnKey,rowKey, "Invalid column key");
 	}
 
 	@Test
@@ -64,6 +64,14 @@ public class MatrixKeyTest extends MatrixTestSetup {
 		assertThrows(
 				() -> {
 					theMatrix.setElement(columnKey, rowKey, value);
+				})
+			.assertException(IllegalArgumentException.class).assertMessageIs(message);
+	}
+
+	private void assertGetElementFailsWith(final String columnKey, final String rowKey, final String message) {
+		assertThrows(
+				() -> {
+					theMatrix.getElement(columnKey, rowKey);
 				})
 			.assertException(IllegalArgumentException.class).assertMessageIs(message);
 	}

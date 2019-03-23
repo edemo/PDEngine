@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -58,6 +59,13 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JSONArray jsonArray = vote.createChoicesJson(vote.choices);
 		
 		assertEquals(result.getJSONArray("choices").toString(), jsonArray.toString());
+	}
+	@Test
+	public void the_initiator_of_the_choice_is_in_the_json() {
+		JSONArray jsonArray = vote.createChoicesJson(vote.choices);
+		JSONObject firstChoice = (JSONObject) jsonArray.get(0);
+		String initiatorInJson = (String) firstChoice.get("initiator");
+		assertEquals("user", initiatorInJson);
 	}
 	
 	@Test
