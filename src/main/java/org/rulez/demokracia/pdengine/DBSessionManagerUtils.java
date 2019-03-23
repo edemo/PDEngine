@@ -4,11 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.rulez.demokracia.pdengine.persistence.HibernateUtil;
 
-public final class DBSessionManager {
-	private static Session session = null;
-	private static SessionFactory sessionFactory = null;
+public final class DBSessionManagerUtils {
+	private static Session session;
+	private static SessionFactory sessionFactory;
 
-	private DBSessionManager() {	
+	private DBSessionManagerUtils() {	
 	}
 
 	public static void close() {

@@ -17,13 +17,11 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
-import org.rulez.demokracia.pdengine.integrationtest.JettyThread;
 import org.rulez.demokracia.pdengine.servlet.requests.CreateVoteRequest;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
@@ -32,35 +30,49 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	private CreateVoteRequest req;
 
 	@Before
-    public void setUp() throws ReportedException{
+    public void setUp(){
 		thread = new JettyThread();
         thread.run();
 		initializeCreateVoteRequest();
 		super.setUp();
     }
 	
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
+	@TestedFeature("Manage votes")
+	@TestedOperation("create vote")
+	@TestedBehaviour("Creates a vote")
 	@Test
 	public void vote_can_be_created_through_rest_interface() {
 		Invocation.Builder invocationBuilder = createWebClient();
 		Response response = invocationBuilder.post(Entity.entity(req,MediaType.APPLICATION_JSON));
 		VoteAdminInfo adminInfo = response.readEntity(VoteAdminInfo.class);
 		VoteEntity vote = voteManager.getVote(adminInfo.voteId);
-		assertEquals(req.getVoteName(),vote.name);
+		assertVoteNameAndKeyIsCorrect(adminInfo, vote);
+	}
+
+	private void assertVoteNameAndKeyIsCorrect(final VoteAdminInfo adminInfo, final VoteEntity vote) {
+		assertEquals(req.voteName,vote.name);
 		assertEquals(adminInfo.adminKey,vote.adminKey);
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("Creates a vote")
+	@TestedFeature("Manage votes")
+	@TestedOperation("create vote")
+	@TestedBehaviour("Creates a vote")
 	@Test
-	public void vote_creation_fails_and_reports_error_with_bad_input() {
-		req.setVoteName("`drop table little_bobby tables;`");
+	public void vote_creation_fails_with_404_on_bad_input() {
+		req.voteName= "`drop table little_bobby tables;`";
 		Invocation.Builder invocationBuilder = createWebClient();
 		Response response = invocationBuilder.post(Entity.entity(req,MediaType.APPLICATION_JSON));
 		assertEquals(400, response.getStatus());
+	}
+
+	@TestedFeature("Manage votes")
+	@TestedOperation("create vote")
+	@TestedBehaviour("Creates a vote")
+	@Test
+	public void vote_creation_fails_and_reports_error_message_on_bad_input() {
+		req.voteName= "`drop table little_bobby tables;`";
+		Invocation.Builder invocationBuilder = createWebClient();
+		Response response = invocationBuilder.post(Entity.entity(req,MediaType.APPLICATION_JSON));
 		String responseString = response.readEntity(String.class);
 		JSONObject responseJson = new JSONObject(responseString);
 		assertEquals("invalid characters in {0}", responseJson
@@ -71,23 +83,21 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	private Invocation.Builder createWebClient() {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target("http://127.0.0.1:8080/vote");
-		Invocation.Builder invocationBuilder =
-				webTarget.request(MediaType.APPLICATION_JSON);
-		return invocationBuilder;
+		return webTarget.request(MediaType.APPLICATION_JSON);
 	}
 
 	private CreateVoteRequest initializeCreateVoteRequest() {
 		req = new CreateVoteRequest();
-		req.setVoteName("voteName");
-		Set<String> countedAssurances = new HashSet<String>();
+		req.voteName = "voteName";
+		Set<String> countedAssurances = new HashSet<>();
 		countedAssurances.add("");
-		countedAssurances.add("magyar");
-		req.setCountedAssurances(countedAssurances);
-		req.setMinEndorsements(3);
-		Set<String> neededAssurances = new HashSet<String>();
-		neededAssurances.add("magyar");
-		req.setNeededAssurances(neededAssurances);
-		req.setPrivate(false);
+		countedAssurances.add(ASSURANCE_NAME);
+		req.countedAssurances = countedAssurances;
+		req.minEndorsements=3;
+		Set<String> neededAssurances = new HashSet<>();
+		neededAssurances.add(ASSURANCE_NAME);
+		req.neededAssurances=neededAssurances;
+		req.isPrivate=false;
 		return req;
 	}
 

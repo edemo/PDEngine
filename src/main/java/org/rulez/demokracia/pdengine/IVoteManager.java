@@ -8,46 +8,45 @@ import javax.xml.ws.WebServiceContext;
 import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 
 public interface IVoteManager {
 
-	static IVoteManager getVoteManager(WebServiceContext wsContext) {
-		return VoteManagerRegistry.getVoteManager(wsContext);
+	static IVoteManager getVoteManager(final WebServiceContext wsContext) {
+		return VoteManagerUtils.getVoteManager(wsContext);
 	}
 
 	WebServiceContext getWsContext();
 
-	VoteAdminInfo createVote(String voteName, Set<String> neededAssurances, Set<String> countedAssurances,
-			boolean isPrivate, int minEndorsements) throws ReportedException;
+	VoteAdminInfo createVote(final String voteName, final Set<String> neededAssurances, final Set<String> countedAssurances,
+			final boolean isPrivate, final int minEndorsements);
 
-	Vote getVote(String voteId);
+	Vote getVote(final String voteId);
 
-	String addChoice(String adminKey, String voteId, String choiceName, String user);
+	String addChoice(final VoteAdminInfo voteAdminInfo, final String choiceName, final String user);
 	
-	String deleteChoice(String voteId, String choiceId, String adminKey) throws ReportedException;
+	String deleteChoice(final VoteAdminInfo voteAdminInfo, final String choiceId);
 
-	void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException;
+	void modifyChoice(final VoteAdminInfo adminInfo, final String choiceId, final String choiceName);
 
-	ChoiceEntity getChoice(String voteId, String choiceId);
+	ChoiceEntity getChoice(final String voteId, final String choiceId);
 
-	void endorseChoice(String adminKey, String voteId, String choiceId, String statedUserName);
+	void endorseChoice(final VoteAdminInfo voteAdminInfo, final String choiceId, final String statedUserName);
 
-	String obtainBallot(String id, String adminKey);
+	String obtainBallot(final String identifier, final String adminKey);
 
-	void castVote(String voteId, String ballot, List<RankedChoice> theVote);
+	void castVote(final String voteId, final String ballot, final List<RankedChoice> theVote);
 
 	String getWsUserName();
 
-	boolean hasAssurance(String role);
+	boolean hasAssurance(final String role);
 
-	void modifyVote(String voteId, String adminKey, String votename) throws ReportedException;
+	void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName);
 
-	void deleteVote(String voteId, String adminKey) throws ReportedException;
+	void deleteVote(final VoteAdminInfo adminInfo);
 	
-	JSONObject showVote(String voteId, String adminKey) throws ReportedException;
+	JSONObject showVote(final VoteAdminInfo adminInfo);
 
-	void setVoteParameters(String voteId, String adminKey, int minEndorsements, boolean canAddin, boolean canEndorse,
-			boolean canVote, boolean canView) throws ReportedException;
+	void setVoteParameters(final VoteAdminInfo adminInfo, final VoteParameters voteParameters);
 
 }

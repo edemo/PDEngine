@@ -11,14 +11,14 @@ public class Choice extends ChoiceEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	public Choice(String choiceName, String user) {
+	public Choice(final String choiceName, final String user) {
 		super();
 		name = choiceName;
-		endorsers = new ArrayList<String>();
+		endorsers = new ArrayList<>();
 		userName = user;
 	}
 
-	public void endorse(String userName) {
+	public void endorse(final String userName) {
 		endorsers.add(userName);
 	}
 

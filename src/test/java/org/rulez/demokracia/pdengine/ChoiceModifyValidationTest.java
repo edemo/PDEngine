@@ -1,130 +1,118 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
+@TestedFeature("Manage votes")
+@TestedOperation("modify vote")
 public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	
-	public String voteId, choiceId, adminKey, choice;
-	
-	public void setUp() throws ReportedException {
+	private static final String USER = "user";
+	public String voteId;
+	public String choiceId;
+	public String adminKey;
+	public String choice;
+
+	@Before
+	public void setUp() {
 		super.setUp();
 		
 		voteId = adminInfo.voteId;
-		choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "user");
+		choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice1", USER);
 		adminKey = adminInfo.adminKey;
 		choice = "New choice name";
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@TestedBehaviour("validates inputs")
 	@Test
-	public void invalid_voteId_is_rejected() throws ReportedException {
+	public void invalid_voteId_is_rejected() {
 		String invalidVoteId = "invalidVoteId";
 		
 		assertThrows(
-				() -> voteManager.modifyChoice(invalidVoteId, choiceId, adminKey, choice)
-			).assertMessageIs(String.format("illegal voteId: %s",invalidVoteId));
+				() -> voteManager.modifyChoice(new VoteAdminInfo(invalidVoteId, adminKey), choiceId, choice)
+			).assertMessageIs("illegal voteId");
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@TestedBehaviour("validates inputs")
 	@Test
-	public void invalid_choiceId_is_rejected() throws ReportedException {
+	public void invalid_choiceId_is_rejected() {
 		String invalidChoiceId = "invalidChoiceId";
 		
 		assertThrows(
-				() -> voteManager.modifyChoice(voteId, invalidChoiceId, adminKey, choice)
-			).assertMessageIs(String.format("Illegal choiceId: %s",invalidChoiceId));
+				() -> voteManager.modifyChoice(new VoteAdminInfo(voteId, adminKey), invalidChoiceId, choice)
+			).assertMessageIs("Illegal choiceId");
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@TestedBehaviour("validates inputs")
 	@Test
-	public void invalid_adminKey_is_rejected() throws ReportedException {
+	public void invalid_adminKey_is_rejected() {
 		String invalidAdminKey = "invalidAdminKey";
 		
 		assertThrows(
-				() -> voteManager.modifyChoice(voteId, choiceId, invalidAdminKey, choice)
-			).assertMessageIs(String.format("Illegal adminKey: %s",invalidAdminKey));
+				() -> voteManager.modifyChoice(new VoteAdminInfo(voteId, invalidAdminKey), choiceId, choice)
+			).assertMessageIs("Illegal adminKey");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("modify choice")
-	@tested_behaviour("modifies the string of the choice")
+	@TestedBehaviour("modifies the string of the choice")
 	@Test
-	public void proper_voteId_choiceId_and_adminKey_does_modify_choice() throws ReportedException {
-		voteManager.modifyChoice(voteId, choiceId, adminKey, choice);
+	public void proper_voteId_choiceId_and_adminKey_does_modify_choice() {
+		voteManager.modifyChoice(new VoteAdminInfo(voteId, adminKey), choiceId, choice);
 		
 		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
 		assertEquals(choiceEntity.name, choice);
 	}
 	
 	
-	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@TestedBehaviour("validates inputs")
 	@Test
-	public void proper_voteId_choiceId_and_adminKey_with_ballot_does_not_modify_choice() throws ReportedException {
+	public void when_ballots_are_already_issued_choices_cannot_be_modified() {
 		Vote vote = voteManager.getVote(voteId);
 		vote.ballots.add("Test Ballot");
 		
-		assertThrows( () -> voteManager.modifyChoice(voteId, choiceId, adminKey, choice)
-				).assertMessageIs("Choice modification disallowed: ballots already issued");
-		
-		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
-		assertNotEquals(choiceEntity.name, choice);
+		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, adminKey), choiceId, "something else")
+				).assertMessageIs("Vote modification disallowed: ballots already issued");
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("modify choice")
-	@tested_behaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
+	@TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void userAdmin_cannot_modify_choice_if_canAddin_is_false() throws ReportedException {
+	public void userAdmin_cannot_modify_choice_if_canAddin_is_false() {
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin=false;
 		
-		assertThrows( () -> voteManager.modifyChoice(voteId, choiceId, "user", choice)
+		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice)
 				).assertMessageIs("Choice modification disallowed: adminKey is user, but canAddin is false");
 
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("modify choice")
-	@tested_behaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
+	@TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void userAdmin_cannot_modify_choice_if_it_is_not_added_by_other_user() throws ReportedException {
+	public void userAdmin_cannot_modify_choice_if_it_is_not_added_by_other_user() {
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin=true;
 		
-		assertThrows( () -> voteManager.modifyChoice(voteId, choiceId, "user", choice)
+		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice)
 				).assertMessageIs("Choice modification disallowed: adminKey is user, " +
-							       "and the choice was added by a different user: user, me: test_user_in_ws_context");
+							       "and the choice was added by a different user");
 
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("modify choice")
-	@tested_behaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
+	@TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() throws ReportedException {
+	public void userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() {
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin=true;
-		String me = voteManager.getWsUserName();
-		choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice2", me);
+		String myName = voteManager.getWsUserName();
+		choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice2", myName);
 		
-		voteManager.modifyChoice(voteId, choiceId, "user", choice);
+		voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice);
 		
 		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
 		assertEquals(choiceEntity.name, choice);

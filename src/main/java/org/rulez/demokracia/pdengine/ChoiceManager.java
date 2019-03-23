@@ -2,33 +2,42 @@ package org.rulez.demokracia.pdengine;
 
 import javax.xml.ws.WebServiceContext;
 
+import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
+import org.rulez.demokracia.pdengine.exception.ReportedException;
+
 public class ChoiceManager extends VoteManager {
 
-	public ChoiceManager(WebServiceContext wsContext) {
+	public ChoiceManager(final WebServiceContext wsContext) {
 		super(wsContext);
 	}
 
-	public String addChoice(String adminKey, String voteId, String choiceName, String user) {
-		Vote vote = getVote(voteId);
-		vote.checkAdminKey(adminKey);
-		if(vote.hasIssuedBallots())
-			throw new IllegalArgumentException("No choice can be added because there are ballots issued for the vote.");
+	public String addChoice(final VoteAdminInfo voteAdminInfo, final String choiceName, final String user) {
+		Vote vote = getVoteIfModifiable(voteAdminInfo.voteId, voteAdminInfo.adminKey);
 
-		return getVote(voteId).addChoice(choiceName, user);
+		return vote.addChoice(choiceName, user);
 	}
 
-	public Choice getChoice(String voteId, String choiceId) {
+	public Choice getChoice(final String voteId, final String choiceId) {
 		return getVote(voteId).getChoice(choiceId);
 	}
 
-	public void endorseChoice(String adminKey, String voteId, String choiceId, String givenUserName) {
-		if(adminKey.equals("user")) {
-			checkIfVoteIsEndorseable(voteId);
-			givenUserName = getWsUserName();
+	public void endorseChoice(final VoteAdminInfo voteAdminInfo, final String choiceId, final String givenUserName) {
+		String userName = givenUserName;
+		if("user".equals(voteAdminInfo.adminKey)) {
+			checkIfVoteIsEndorseable(voteAdminInfo.voteId);
+			userName = getWsUserName();
 		}
+		Vote vote = getVote(voteAdminInfo.voteId);
+		vote.checkAdminKey(voteAdminInfo.adminKey);
+		vote.getChoice(choiceId).endorse(userName);
+	}
+
+	protected Vote getVoteIfModifiable(final String voteId, final String adminKey) {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
-		vote.getChoice(choiceId).endorse(givenUserName);
+		if (vote.hasIssuedBallots())
+			throw new ReportedException("Vote modification disallowed: ballots already issued");
+		return vote;
 	}
 
 }
