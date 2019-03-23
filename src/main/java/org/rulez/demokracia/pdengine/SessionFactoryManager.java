@@ -9,10 +9,10 @@ public class SessionFactoryManager {
 	protected Session session;
 	private WebServiceContext wsContext;
 
-	public SessionFactoryManager(WebServiceContext wsContext) {
+	public SessionFactoryManager(final WebServiceContext wsContext) {
 		super();
 		this.wsContext = wsContext;
-		session = DBSessionManager.getDBSession();
+		session = DBSessionManagerUtils.getDBSession();
 	}
 
 	public WebServiceContext getWsContext() {
@@ -23,7 +23,7 @@ public class SessionFactoryManager {
 		return getWsContext().getUserPrincipal().getName();
 	}
 
-	public boolean hasAssurance(String role) {
+	public boolean hasAssurance(final String role) {
 		return getWsContext().isUserInRole(role);
 	}
 

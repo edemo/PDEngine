@@ -13,7 +13,7 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 public interface IVoteManager {
 
 	static IVoteManager getVoteManager(WebServiceContext wsContext) {
-		return VoteManagerRegistry.getVoteManager(wsContext);
+		return VoteManagerUtils.getVoteManager(wsContext);
 	}
 
 	WebServiceContext getWsContext();
@@ -23,17 +23,17 @@ public interface IVoteManager {
 
 	Vote getVote(String voteId);
 
-	String addChoice(String adminKey, String voteId, String choiceName, String user);
+	String addChoice(String adminKey, String voteId, String choiceName, String user) throws ReportedException;
 	
 	String deleteChoice(String voteId, String choiceId, String adminKey) throws ReportedException;
 
 	void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException;
 
-	ChoiceEntity getChoice(String voteId, String choiceId);
+	ChoiceEntity getChoice(String voteId, String choiceId) throws ReportedException;
 
-	void endorseChoice(String adminKey, String voteId, String choiceId, String statedUserName);
+	void endorseChoice(String adminKey, String voteId, String choiceId, String statedUserName) throws ReportedException;
 
-	String obtainBallot(String id, String adminKey);
+	String obtainBallot(String identifier, String adminKey) throws ReportedException;
 
 	void castVote(String voteId, String ballot, List<RankedChoice> theVote);
 

@@ -17,14 +17,14 @@ public class MatrixGetterSetterTest extends MatrixTestSetup {
 	}
 
 	@Test
-	public void setElement_sets_the_element_and_getElement_gets_it() throws Exception {
+	public void setElement_sets_the_element_and_getElement_gets_it() {
 		theMatrix.setElement(columnKey,rowKey,value);
 		Integer gotValue = theMatrix.getElement(columnKey,rowKey);
 		assertEquals(value,gotValue);
 	}
 
 	@Test
-	public void setElement_sets_the_element_and_getElement_gets_it_for_different_rows() throws Exception {
+	public void setElement_sets_the_element_and_getElement_gets_it_for_different_rows() {
 		String newKey = addNewKey();
 		theMatrix.setElement(columnKey,rowKey,value);
 		theMatrix.setElement(columnKey,newKey,1);
@@ -32,7 +32,7 @@ public class MatrixGetterSetterTest extends MatrixTestSetup {
 	}
 
 	@Test
-	public void setElement_sets_the_element_and_getElement_gets_it_for_different_columns() throws Exception {
+	public void setElement_sets_the_element_and_getElement_gets_it_for_different_columns() {
 		String newKey = addNewKey();
 		theMatrix.setElement(columnKey,rowKey,value);
 		theMatrix.setElement(newKey,rowKey,1);

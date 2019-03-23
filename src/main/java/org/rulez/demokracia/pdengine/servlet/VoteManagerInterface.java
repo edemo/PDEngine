@@ -30,19 +30,19 @@ public class VoteManagerInterface {
 	@POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-	public Response createVote(CreateVoteRequest req) {
+	public Response createVote(final CreateVoteRequest request) {
 		VoteAdminInfo adminInfo;
 		try {
 			adminInfo = IVoteManager.getVoteManager(wsContext).createVote(
-					req.getVoteName(),
-					req.getNeededAssurances(),
-					req.getCountedAssurances(),
-					req.isPrivate(),
-					req.getMinEndorsements());
+					request.voteName,
+					request.neededAssurances,
+					request.countedAssurances,
+					request.isPrivate,
+					request.minEndorsements);
 		} catch (ReportedException e) {
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("error", e.toJSON());
-			jsonObject.put("input", new JSONObject(req));
+			jsonObject.put("input", new JSONObject(request));
 			String result = jsonObject.toString(1);
 			LOGGER.log(Level.FINE, result);
 			return Response.status(400).entity(result).build();

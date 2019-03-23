@@ -6,7 +6,7 @@ import javax.persistence.ElementCollection;
 
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
-public abstract class UserEntity extends BaseEntity {
+public class UserEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	public String proxyId;

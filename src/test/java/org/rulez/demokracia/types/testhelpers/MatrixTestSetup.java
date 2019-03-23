@@ -16,20 +16,16 @@ public class MatrixTestSetup extends ThrowableTester {
 	protected String columnKey;
 	protected Integer value;
 
-	public MatrixTestSetup() {
-		super();
-	}
-
 	@Before
 	public void setUp() {
-		keyCollection = new ArrayList<String>();
+		keyCollection = new ArrayList<>();
 		rowKey = "initialRowKey";
 		columnKey = "initialColumnKey";
 		value = 42;
 	}
 
 	protected void updateMatrix() {
-		theMatrix = new MapMatrix<String,Integer>(keyCollection);
+		theMatrix = new MapMatrix<>(keyCollection);
 	}
 
 }

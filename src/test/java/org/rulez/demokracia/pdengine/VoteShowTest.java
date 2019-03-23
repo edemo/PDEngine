@@ -4,19 +4,24 @@ import static org.junit.Assert.assertEquals;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
+@TestedFeature("Manage votes")
+@TestedOperation("show vote")
+@TestedBehaviour("returns the vote in json")
 public class VoteShowTest extends CreatedDefaultVoteRegistry {
 
-	Vote vote;
-	String voteId;
-	String adminKey;
-	
+	private Vote vote;
+	private String voteId;
+	private String adminKey;
+
+	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
 		vote = voteManager.getVote(adminInfo.voteId);
@@ -26,9 +31,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		adminKey = adminInfo.adminKey;
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_name_attribute_contains_the_name_of_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -36,9 +38,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.get("name"), vote.name);
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_canAddIn_attribute_contains_whether_the_voters_can_add_choices_to_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -46,9 +45,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.get("canAddIn"), vote.canAddin);
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_creationTime_attribute_contains_the_creation_time_of_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -56,9 +52,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.get("creationTime"), vote.creationTime);
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_choices_attribute_contains_the_choices_of_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -67,9 +60,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.getJSONArray("choices").toString(), jsonArray.toString());
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_canEndorse_attribute_contains_whether_the_voters_endorse_choices_of_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -77,9 +67,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.get("canEndorse"), vote.canEndorse);
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_countedAssurances_attribute_contains_the_counted_assurances_of_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -88,9 +75,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.get("countedAssurances").toString(), jsonArray.toString());
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_neededAssurances_attribute_contains_the_needed_assurances_of_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -100,9 +84,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.get("neededAssurances").toString(), jsonArray.toString());
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_minEndorsements_attribute_contains_the_mininimum_endorsements_of_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -110,9 +91,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.get("minEndorsements"), vote.minEndorsements);
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_id_attribute_contains_the_id_of_the_vote() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -120,9 +98,6 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.get("id"), vote.id);
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_canView_attribute_contains_whether_the_voters_can_view_the_results() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
@@ -130,14 +105,10 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		assertEquals(result.get("canView"), vote.canView);
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("show vote")
-	@tested_behaviour("returns the vote in json")
 	@Test
 	public void the_canVote_attribute_contains_whether_the_votes_can_be_cast() throws ReportedException {
 		JSONObject result = voteManager.showVote(voteId, adminKey);
 		
 		assertEquals(result.get("canVote"), vote.canVote);
-	}
-	
+	}	
 }

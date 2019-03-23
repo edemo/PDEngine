@@ -7,9 +7,9 @@ import javax.xml.ws.WebServiceContext;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
@@ -21,9 +21,9 @@ public class ContextTest extends CreatedDefaultVoteRegistry {
 		super.setUp();
 	}
 
-	@tested_feature("Supporting functionality")
-	@tested_operation("get context parameter")
-	@tested_behaviour("context parameters can be obtained from the VoteManager")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("get context parameter")
+	@TestedBehaviour("context parameters can be obtained from the VoteManager")
 	@Test
 	public void obtain_context_parameter_from_the_VoteManager() {
 		WebServiceContext wsContext = mock(WebServiceContext.class);

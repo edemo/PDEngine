@@ -6,16 +6,16 @@ import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
-@tested_feature("Manage votes")
-@tested_operation("create vote")
-@tested_behaviour("Creates a vote")
+@TestedFeature("Manage votes")
+@TestedOperation("create vote")
+@TestedBehaviour("Creates a vote")
 public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Before
@@ -36,7 +36,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	@Test
 	public void neededAssurances_contains_the_assurances_of_the_input() throws ReportedException {
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals("magyar", voteManager.getVote(secondVote.voteId).neededAssurances.get(0));
+		assertEquals(ASSURANCE_NAME, voteManager.getVote(secondVote.voteId).neededAssurances.get(0));
 	}
 
 	@Test
@@ -46,9 +46,9 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	
 	@Test
 	public void countedAssurances_contains_the_assurances_of_the_input() throws ReportedException {
-		countedAssurances.add("magyar");
+		countedAssurances.add(ASSURANCE_NAME);
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals("magyar", voteManager.getVote(secondVote.voteId).countedAssurances.get(0));
+		assertEquals(ASSURANCE_NAME, voteManager.getVote(secondVote.voteId).countedAssurances.get(0));
 	}
 	
 	@Test
@@ -65,7 +65,6 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void create_creates_a_vote_with_voteId() {
-		assertNotNull(adminInfo.voteId);
 		assertEquals(adminInfo.voteId, voteManager.getVote(adminInfo.voteId).id);
 	}
 
@@ -75,6 +74,10 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 		VoteAdminInfo secondVote = createAVote();
 		Instant after = Instant.now();
 		long creationTime = voteManager.getVote(secondVote.voteId).creationTime;
+		assertBetweenInstants(creationTime, before, after);
+	}
+
+	private void assertBetweenInstants(final long creationTime, final Instant before, final Instant after) {
 		assertTrue(creationTime >= before.getEpochSecond());
 		assertTrue(creationTime <= after.getEpochSecond());
 	}
@@ -93,7 +96,6 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void create_creates_a_vote_with_adminKey() {
-		assertNotNull(adminInfo.voteId);
 		assertEquals(adminInfo.adminKey, voteManager.getVote(adminInfo.voteId).adminKey);
 	}
 }

@@ -3,22 +3,18 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
+@TestedFeature("Manage votes")
+@TestedOperation("create vote")
+@TestedBehaviour("formally validates all inputs")
 public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 
-	public VoteCreationNameValidationTest() {
-		super();
-	}
-
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void vote_name_can_contain_spaces() throws ReportedException {
 		voteName = "This contains spaces";
@@ -27,9 +23,6 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 		
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void vote_name_cannot_be_null() throws ReportedException {
 		voteName = null;
@@ -38,9 +31,6 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 		).assertMessageIs("vote name is null");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void vote_name_cannot_contain_tabs() {
 		voteName = "thiscontainstab\t";
@@ -49,9 +39,6 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 			).assertMessageIs("invalid characters in vote name");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void votename_max_length_is_255_characters() throws ReportedException {
 		int length = 255;
@@ -65,9 +52,6 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 			).assertMessageIs("string too long: vote name");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void minimum_vote_name_length_is_3() throws ReportedException {
 		voteName = "aaa";
@@ -78,9 +62,6 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 			).assertMessageIs("string too short: vote name");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void votename_can_contain_local_characters() throws ReportedException {
 		voteName = "ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ";
@@ -90,5 +71,4 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 		assertEquals(voteName, voteManager.getVote(secondVote.voteId).name);
 	
 	}
-
 }

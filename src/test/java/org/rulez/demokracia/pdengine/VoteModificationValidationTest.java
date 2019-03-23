@@ -1,21 +1,17 @@
 package org.rulez.demokracia.pdengine;
 
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
+@TestedFeature("Manage votes")
+@TestedOperation("modify vote")
 public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 
-	public VoteModificationValidationTest() {
-		super();
-	}
-
-	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@TestedBehaviour("validates inputs")
 	@Test
 	public void the_name_is_verified_against_the_same_rules_as_in_vote_creation() throws ReportedException {
 		String modifiedVoteName = null;
@@ -25,33 +21,27 @@ public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 		).assertMessageIs("vote name is null");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@TestedBehaviour("validates inputs")
 	@Test
 	public void invalid_adminKey_is_rejected() throws ReportedException {
 		String invalidAdminKey = RandomUtils.createRandomKey();
 		assertThrows(
 			() -> voteManager.modifyVote(
 					adminInfo.voteId, invalidAdminKey, voteName)
-		).assertMessageIs(String.format("Illegal adminKey: %s",invalidAdminKey));
+		).assertMessageIs("Illegal adminKey");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("validates inputs")
+	@TestedBehaviour("validates inputs")
 	@Test
 	public void invalid_voteId_is_rejected() throws ReportedException {
 		String invalidvoteId = RandomUtils.createRandomKey();
 		assertThrows(
 			() -> voteManager.modifyVote(
 					invalidvoteId, adminInfo.adminKey, voteName)
-		).assertMessageIs(String.format("illegal voteId: %s",invalidvoteId));
+		).assertMessageIs("illegal voteId");
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("The vote cannot be modified if there are ballots issued.")
+	@TestedBehaviour("The vote cannot be modified if there are ballots issued.")
 	@Test
 	public void modifyVote_with_ballot_get_an_exception() throws ReportedException {
 		String voteId = adminInfo.voteId;
@@ -63,5 +53,4 @@ public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 					voteId, adminInfo.adminKey, voteName)
 		).assertMessageIs("The vote cannot be modified there are ballots issued.");
 	}
-
 }

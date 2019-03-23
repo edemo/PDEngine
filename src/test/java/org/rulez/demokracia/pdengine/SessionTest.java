@@ -9,9 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
@@ -23,35 +23,35 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 		super.setUp();
 	}
 
-	@tested_feature("Supporting functionality")
-	@tested_operation("Session management")
-	@tested_behaviour("username and assurances can be obtained from the VoteManager")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("Session management")
+	@TestedBehaviour("username and assurances can be obtained from the VoteManager")
 	@Test
 	public void the_user_name_is_obtainable_from_the_voteManager() {
-		assertEquals("test_user_in_ws_context", voteManager.getWsUserName());
+		assertEquals(TEST_USER_NAME, voteManager.getWsUserName());
 	}
 
-	@tested_feature("Supporting functionality")
-	@tested_operation("Session management")
-	@tested_behaviour("username and assurances can be obtained from the VoteManager")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("Session management")
+	@TestedBehaviour("username and assurances can be obtained from the VoteManager")
 	@Test
 	public void user_assurances_are_checkable_from_the_voteManager() {
-		assertTrue(voteManager.hasAssurance("magyar"));
+		assertTrue(voteManager.hasAssurance(ASSURANCE_NAME));
 	}
 
-	@tested_feature("Supporting functionality")
-	@tested_operation("Session management")
-	@tested_behaviour("Hibernate session is obtainable from the VoteManager")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("Session management")
+	@TestedBehaviour("Hibernate session is obtainable from the VoteManager")
 	@Test
 	public void you_get_the_same_hibernate_session_by_calling_getDBSession_on_DBSessionManager() {
-		Session session1 = DBSessionManager.getDBSession();
-		Session session2 = DBSessionManager.getDBSession();
+		Session session1 = DBSessionManagerUtils.getDBSession();
+		Session session2 = DBSessionManagerUtils.getDBSession();
 		assertEquals(session1,session2);
 	}
 	
-	@tested_feature("Supporting functionality")
-	@tested_operation("Session management")
-	@tested_behaviour("VoteManager can be obtained through the IVoteManager interface with a WebServiceContext")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("Session management")
+	@TestedBehaviour("VoteManager can be obtained through the IVoteManager interface with a WebServiceContext")
 	@Test
 	public void two_voteManagers_for_the_same_session_context_are_the_same() {
 		WebServiceContext wsContext = mock(WebServiceContext.class);
@@ -60,41 +60,41 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 		assertEquals(voteManager1, voteManager2);
 	}
 	
-	@tested_feature("Supporting functionality")
-	@tested_operation("Session management")
-	@tested_behaviour("Hibernate session is obtainable from the VoteManager")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("Session management")
+	@TestedBehaviour("Hibernate session is obtainable from the VoteManager")
 	@Test
 	public void database_session_is_closed_when_DBSessionManager_is_closed() {
-		Session session = DBSessionManager.getDBSession();
-		DBSessionManager.close();
+		Session session = DBSessionManagerUtils.getDBSession();
+		DBSessionManagerUtils.close();
 		assertThrows(() -> {
 			session.beginTransaction();
 		})
 				.assertException(IllegalStateException.class);
 	}
 
-	@tested_feature("Supporting functionality")
-	@tested_operation("Session management")
-	@tested_behaviour("Hibernate session is obtainable from the VoteManager")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("Session management")
+	@TestedBehaviour("Hibernate session is obtainable from the VoteManager")
 	@Test
 	public void database_factory_is_closed_when_DBSessionManager_is_closed() {
-		Session session = DBSessionManager.getDBSession();
+		Session session = DBSessionManagerUtils.getDBSession();
 		SessionFactory sessionFactory = session.getSessionFactory();
-		DBSessionManager.close();
+		DBSessionManagerUtils.close();
 		assertThrows(() -> {
 			sessionFactory.createEntityManager();
 		})
 				.assertException(IllegalStateException.class);
 	}
 
-	@tested_feature("Supporting functionality")
-	@tested_operation("Session management")
-	@tested_behaviour("Hibernate session is obtainable from the VoteManager")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("Session management")
+	@TestedBehaviour("Hibernate session is obtainable from the VoteManager")
 	@Test
 	public void you_get_a_new_hibernate_session_by_closing_DBSessionManager() {
-		Session session1 = DBSessionManager.getDBSession();
-		DBSessionManager.close();
-		Session session2 = DBSessionManager.getDBSession();
+		Session session1 = DBSessionManagerUtils.getDBSession();
+		DBSessionManagerUtils.close();
+		Session session2 = DBSessionManagerUtils.getDBSession();
 		assertNotEquals(session1,session2);
 	}
 

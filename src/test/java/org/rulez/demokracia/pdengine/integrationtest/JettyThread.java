@@ -23,7 +23,7 @@ public class JettyThread extends Thread {
         try {
 			server.start();
 			String state = "none";
-			while (!state.equals("STARTED")) {
+			while (!"STARTED".equals(state)) {
 				state = server.getState();
 					sleepOneSecond();
 			}
