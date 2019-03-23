@@ -6,14 +6,22 @@
     xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
     <description>Every Java Rule in PMD</description>
 
-    <rule ref="category/java/bestpractices.xml"/>
-    <rule ref="category/java/bestpractices.xml/UnusedImports" />
+    <rule ref="category/java/bestpractices.xml">
+      <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+    </rule>
     <rule ref="category/java/codestyle.xml" >
       <exclude name="LongVariable"/>
       <exclude name="ControlStatementBraces"/>
+      <exclude name="MethodNamingConventions"/>
+      <exclude name="AtLeastOneConstructor"/>
+    </rule>
+    <rule ref="category/java/codestyle.xml/MethodNamingConventions">
+      <properties>
+        <property name="junit4TestPattern" value="[a-z][a-zA-Z0-9_]*"/>
+      </properties>
     </rule>
     <rule ref="category/java/design.xml">
-      <exclude name="LawOfDemeter"/><!-- consult with Athos about it -->
+      <exclude name="LawOfDemeter"/>
       <exclude name="CyclomaticComplexity"/>
       <exclude name="LoosePackageCoupling"/>
     </rule>
@@ -37,7 +45,9 @@
         <property name="accessorCommentRequirement" value="Unwanted"/>
       </properties>
     </rule>
-    <rule ref="category/java/errorprone.xml" />
+    <rule ref="category/java/errorprone.xml">
+      <exclude name="BeanMembersShouldSerialize"/>
+    </rule>
     <rule ref="category/java/multithreading.xml" />
     <rule ref="category/java/performance.xml" />
     <rule ref="category/java/security.xml" />
