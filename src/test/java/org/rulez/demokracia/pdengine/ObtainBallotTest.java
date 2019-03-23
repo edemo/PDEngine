@@ -14,8 +14,6 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 @TestedOperation("Obtain ballot")
 public class ObtainBallotTest extends CreatedDefaultChoice{
 
-	private Vote vote;
-
 	@Before
 	public void setUp() {
 		super.setUp();

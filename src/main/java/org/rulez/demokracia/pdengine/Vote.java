@@ -118,7 +118,7 @@ public class Vote extends VoteEntity {
 		return obj;
 	}
 
-	protected void addCastVote(final String proxyId, final List<RankedChoice> theVote) {
+	protected CastVote addCastVote(final String proxyId, final List<RankedChoice> theVote) {
 		Iterator<CastVote> listIterator = votesCast.iterator();
 		while (listIterator.hasNext()) {
 			CastVote element = listIterator.next();
@@ -129,5 +129,6 @@ public class Vote extends VoteEntity {
 
 		CastVote castVote = new CastVote(proxyId, theVote);
 		votesCast.add(castVote);
+		return castVote;
 	}
 }

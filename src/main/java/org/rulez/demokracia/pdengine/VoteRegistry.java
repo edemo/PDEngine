@@ -5,6 +5,7 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 import org.json.JSONObject;
+import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
@@ -48,7 +49,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	@Override
-	public void castVote(final String voteId, final String ballot, final List<RankedChoice> theVote) {
+	public CastVote castVote(final String voteId, final String ballot, final List<RankedChoice> theVote) {
 		Vote vote = getVote(voteId);
 
 		checkIfVotingEnabled(vote);
@@ -56,12 +57,14 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		validateBallot(ballot, vote);
 		validatePreferences(theVote, vote);
     
+		CastVote receipt;
 		if (vote.canUpdate)
-			vote.addCastVote(getWsUserName(), theVote);
+			receipt = vote.addCastVote(getWsUserName(), theVote);
 		else
-			vote.addCastVote(null, theVote);
+			receipt = vote.addCastVote(null, theVote);
 		
 		vote.ballots.remove(ballot);
+		return receipt;
 	}
 
 	private void validatePreferences(final List<RankedChoice> theVote, Vote vote) {

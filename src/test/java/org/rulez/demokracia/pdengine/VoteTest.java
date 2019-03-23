@@ -19,11 +19,6 @@ public class VoteTest extends CreatedDefaultChoice {
 
 	private static final int LAST_WRONG_RANK = -1;
 	private static final int FIRST_GOOD_RANK = 0;
-	private Vote vote;
-	private String ballot;
-	private List<RankedChoice> theCastVote;
-
-
 	@Before
 	public void setUp() {
 		super.setUp();
