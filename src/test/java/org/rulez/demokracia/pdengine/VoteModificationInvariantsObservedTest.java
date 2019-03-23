@@ -10,7 +10,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRegistry {
@@ -49,7 +48,7 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 	@TestedOperation("modify vote")
 	@TestedBehaviour("vote invariants")
 	@Test
-	public void vote_invariants_are_observerd_in_modify_vote() throws ReportedException {
+	public void vote_invariants_are_observerd_in_modify_vote() {
 		Vote vote = getTheVote();
 		saveInvariables(vote);
 		voteManager.modifyVote(savedVoteId, savedAdminKey, "modifiedVoteName");

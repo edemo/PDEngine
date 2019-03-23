@@ -18,13 +18,13 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 public class VoteTest extends CreatedDefaultChoice {
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 	}
 
 	@TestedBehaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
 	@Test
-	public void cast_vote_deletes_ballot_if_canVote_is_true() throws ReportedException {
+	public void cast_vote_deletes_ballot_if_canVote_is_true() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
 		Vote vote = getTheVote();
@@ -35,7 +35,7 @@ public class VoteTest extends CreatedDefaultChoice {
 
 	@TestedBehaviour("works only if canVote is true")
 	@Test
-	public void cast_vote_does_not_delete_ballot_if_canVote_is_false() throws ReportedException {
+	public void cast_vote_does_not_delete_ballot_if_canVote_is_false() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
 		Vote vote = getTheVote();
@@ -48,7 +48,7 @@ public class VoteTest extends CreatedDefaultChoice {
 
 	@TestedBehaviour("validates inputs")
 	@Test
-	public void cast_vote_checks_vote_id() throws ReportedException {
+	public void cast_vote_checks_vote_id() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
 		Vote vote = getTheVote();
@@ -75,7 +75,7 @@ public class VoteTest extends CreatedDefaultChoice {
 
 	@TestedBehaviour("validates inputs")
 	@Test
-	public void cast_vote_checks_the_cast_if_choiceids_are_valid() throws ReportedException {
+	public void cast_vote_checks_the_cast_if_choiceids_are_valid() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
 		Vote vote = getTheVote();
@@ -93,7 +93,7 @@ public class VoteTest extends CreatedDefaultChoice {
 
 	@TestedBehaviour("validates inputs")
 	@Test
-	public void cast_vote_checks_the_cast_if_ranks_are_nonnegative() throws ReportedException {
+	public void cast_vote_checks_the_cast_if_ranks_are_nonnegative() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
 		Vote vote = getTheVote();
@@ -111,7 +111,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	
 	@TestedBehaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
 	@Test
-	public void cast_vote_deletes_ballot_if_it_gets_a_proper_not_empty_cast() throws ReportedException {
+	public void cast_vote_deletes_ballot_if_it_gets_a_proper_not_empty_cast() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
 		Vote vote = getTheVote();
@@ -128,7 +128,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	
 	@TestedBehaviour("if updatable is true, only authenticated users can vote")
 	@Test
-	public void cannot_cast_a_user_if_canUpdate_is_true_but_not_logged_in() throws ReportedException {
+	public void cannot_cast_a_user_if_canUpdate_is_true_but_not_logged_in() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
 		Vote vote = getTheVote();

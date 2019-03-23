@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 @TestedFeature("Manage votes")
@@ -27,7 +26,7 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 		originalVoteId = adminInfo.voteId;
 		originalAdminKey = adminInfo.adminKey;

@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -15,7 +14,7 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 public class VoteCreationNeededAssurancesValidationTest extends CreatedDefaultVoteRegistry {
 
 	@Test
-	public void neededAssurances_is_checked_not_to_contain_strings_longer_than_255() throws ReportedException {
+	public void neededAssurances_is_checked_not_to_contain_strings_longer_than_255() {
 	    int length = 255;
 	    String str255 = createLongString(length);
 	
@@ -30,7 +29,7 @@ public class VoteCreationNeededAssurancesValidationTest extends CreatedDefaultVo
 	}
 
 	@Test
-	public void neededAssurances_is_checked_not_to_contain_strings_shorter_than_3() throws ReportedException {
+	public void neededAssurances_is_checked_not_to_contain_strings_shorter_than_3() {
 	    neededAssurances.add("aaa");
 	
 	    createAVote();
@@ -74,7 +73,7 @@ public class VoteCreationNeededAssurancesValidationTest extends CreatedDefaultVo
 	}
 
 	@Test
-	public void needed_assurances_can_contain_local_characters() throws ReportedException {
+	public void needed_assurances_can_contain_local_characters() {
 	    neededAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
 	    
 	    createAVote();

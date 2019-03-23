@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -16,7 +15,7 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 
 	@TestedBehaviour("if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void if_canAddin_is_false_then_other_users_cannot_add_choices() throws ReportedException {
+	public void if_canAddin_is_false_then_other_users_cannot_add_choices() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.canAddin = false;
 		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, CHOICE1, TEST_USER_NAME);
@@ -27,7 +26,7 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 	
 	@TestedBehaviour("if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void if_adminKey_is_user_and_the_user_is_not_the_one_who_added_the_choice_then_the_choice_cannot_be_deleted() throws ReportedException {
+	public void if_adminKey_is_user_and_the_user_is_not_the_one_who_added_the_choice_then_the_choice_cannot_be_deleted() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.canAddin = true;
 		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, CHOICE1, USER);
@@ -39,7 +38,7 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 	
 	@TestedBehaviour("if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void if_adminKey_is_user_and_canAddin_is_true_then_the_user_who_added_the_choice_is_able_to_delete_it() throws ReportedException {
+	public void if_adminKey_is_user_and_canAddin_is_true_then_the_user_who_added_the_choice_is_able_to_delete_it() {
 		String voteId = adminInfo.voteId;
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin = true;
@@ -53,7 +52,7 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 	
 	@TestedBehaviour("if the vote has ballots issued, the choice cannot be deleted")
 	@Test
-	public void if_the_vote_has_issued_ballots_then_the_choice_cannot_be_deleted() throws ReportedException {
+	public void if_the_vote_has_issued_ballots_then_the_choice_cannot_be_deleted() {
 		String voteId = adminInfo.voteId;
 		String adminKey = adminInfo.adminKey;
 		Vote vote = voteManager.getVote(voteId);

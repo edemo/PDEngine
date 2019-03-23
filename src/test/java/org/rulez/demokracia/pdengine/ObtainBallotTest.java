@@ -17,21 +17,21 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 	private Vote vote;
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 		vote = this.getTheVote();
 	}
 
 	@TestedBehaviour("creates a new ballot with an id for the vote")
 	@Test
-	public void obtain_ballot_returns_the_ballot_string() throws ReportedException {
+	public void obtain_ballot_returns_the_ballot_string() {
 		String ballot = voteManager.obtainBallot(vote.id,vote.adminKey);
 		assertTrue(ballot instanceof String);
 	}
 
 	@TestedBehaviour("creates a new ballot with an id for the vote")
 	@Test
-	public void two_ballots_are_different() throws ReportedException {
+	public void two_ballots_are_different() {
 		String ballot1 = voteManager.obtainBallot(vote.id,vote.adminKey);
 		String ballot2 = voteManager.obtainBallot(vote.id,vote.adminKey);
 		assertNotEquals(ballot1,ballot2);
@@ -61,7 +61,7 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 
 	@TestedBehaviour("creates a new ballot with an id for the vote")
 	@Test
-	public void obtainBallot_stores_the_ballot() throws ReportedException {
+	public void obtainBallot_stores_the_ballot() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		Vote vote = getTheVote();
 		assertTrue(vote.ballots.contains(ballot));
@@ -69,7 +69,7 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 
 	@TestedBehaviour("the number of ballots obtained with adminKey are recorded for \"admin\"")
 	@Test
-	public void obtainBallot_increases_recordedBallots_when_adminKey_is_admin() throws ReportedException {
+	public void obtainBallot_increases_recordedBallots_when_adminKey_is_admin() {
 		String voteId = adminInfo.voteId;
 		String adminKey = adminInfo.adminKey;
 		
@@ -81,7 +81,7 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 
 	@TestedBehaviour("the number of ballots obtained with anon adminkey are recorded with the proxy id of the user")
 	@Test
-	public void obtainBallot_increases_recordedBallots_when_adminKey_is_anon() throws ReportedException {
+	public void obtainBallot_increases_recordedBallots_when_adminKey_is_anon() {
 		String voteId = adminInfo.voteId;
 		Vote vote = voteManager.getVote(voteId);
 		int originalObtainedBallots = vote.getRecordedBallotsCount(TEST_USER_NAME);

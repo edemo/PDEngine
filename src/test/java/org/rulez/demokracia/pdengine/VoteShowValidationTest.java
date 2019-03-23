@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
@@ -13,7 +12,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@TestedOperation("show vote")
 	@TestedBehaviour("validates inputs")
 	@Test
-	public void invalid_voteId_is_rejected() throws ReportedException {
+	public void invalid_voteId_is_rejected() {
 		String invalidvoteId = RandomUtils.createRandomKey();
 		assertThrows(
 			() -> voteManager.showVote(invalidvoteId, adminInfo.adminKey)
@@ -24,7 +23,7 @@ public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 	@TestedOperation("show vote")
 	@TestedBehaviour("validates inputs")
 	@Test
-	public void invalid_adminKey_is_rejected() throws ReportedException {
+	public void invalid_adminKey_is_rejected() {
 		String invalidAdminKey = RandomUtils.createRandomKey();
 		assertThrows(
 			() -> voteManager.showVote(adminInfo.voteId, invalidAdminKey)

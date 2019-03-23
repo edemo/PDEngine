@@ -52,7 +52,7 @@ public class Vote extends VoteEntity {
 		return choice.id;
 	}
 
-	public Choice getChoice(final String choiceId) throws ReportedException {
+	public Choice getChoice(final String choiceId) {
 		if (!choices.containsKey(choiceId)) {
 			throw new ReportedException("Illegal choiceId", choiceId);
 		}
@@ -72,7 +72,7 @@ public class Vote extends VoteEntity {
 		this.canView = canView;
 	}
 
-	public void checkAdminKey(final String providedAdminKey) throws ReportedException {
+	public void checkAdminKey(final String providedAdminKey) {
 		if (!(adminKey.equals(providedAdminKey) || "user".equals(providedAdminKey))) {
 			throw new ReportedException("Illegal adminKey", providedAdminKey);
 		}

@@ -16,7 +16,7 @@ public class VoteManager extends SessionFactoryManager {
 
 	public VoteAdminInfo createVote(final String voteName, final Set<String> neededAssurances,
 			final Set<String> countedAssurances, final boolean isClosed, final int minEndorsements)
-			throws ReportedException {
+			{
 
 		    ValidationUtil.checkVoteName(voteName);
 

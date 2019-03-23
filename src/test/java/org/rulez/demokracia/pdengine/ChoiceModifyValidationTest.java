@@ -1,8 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +8,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -24,7 +21,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	public String choice;
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 		
 		voteId = adminInfo.voteId;
@@ -35,7 +32,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 
 	@TestedBehaviour("validates inputs")
 	@Test
-	public void invalid_voteId_is_rejected() throws ReportedException {
+	public void invalid_voteId_is_rejected() {
 		String invalidVoteId = "invalidVoteId";
 		
 		assertThrows(
@@ -45,7 +42,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	
 	@TestedBehaviour("validates inputs")
 	@Test
-	public void invalid_choiceId_is_rejected() throws ReportedException {
+	public void invalid_choiceId_is_rejected() {
 		String invalidChoiceId = "invalidChoiceId";
 		
 		assertThrows(
@@ -55,7 +52,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	
 	@TestedBehaviour("validates inputs")
 	@Test
-	public void invalid_adminKey_is_rejected() throws ReportedException {
+	public void invalid_adminKey_is_rejected() {
 		String invalidAdminKey = "invalidAdminKey";
 		
 		assertThrows(
@@ -65,7 +62,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 
 	@TestedBehaviour("modifies the string of the choice")
 	@Test
-	public void proper_voteId_choiceId_and_adminKey_does_modify_choice() throws ReportedException {
+	public void proper_voteId_choiceId_and_adminKey_does_modify_choice() {
 		voteManager.modifyChoice(voteId, choiceId, adminKey, choice);
 		
 		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
@@ -75,7 +72,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	
 	@TestedBehaviour("validates inputs")
 	@Test
-	public void when_ballots_are_already_issued_choices_cannot_be_modified() throws ReportedException {
+	public void when_ballots_are_already_issued_choices_cannot_be_modified() {
 		Vote vote = voteManager.getVote(voteId);
 		vote.ballots.add("Test Ballot");
 		
@@ -85,7 +82,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	
 	@TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void userAdmin_cannot_modify_choice_if_canAddin_is_false() throws ReportedException {
+	public void userAdmin_cannot_modify_choice_if_canAddin_is_false() {
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin=false;
 		
@@ -96,7 +93,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	
 	@TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void userAdmin_cannot_modify_choice_if_it_is_not_added_by_other_user() throws ReportedException {
+	public void userAdmin_cannot_modify_choice_if_it_is_not_added_by_other_user() {
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin=true;
 		
@@ -108,7 +105,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	
 	@TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
 	@Test
-	public void userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() throws ReportedException {
+	public void userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() {
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin=true;
 		String myName = voteManager.getWsUserName();

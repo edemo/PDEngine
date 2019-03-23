@@ -8,7 +8,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -17,7 +16,7 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultVoteRegistry {
 
 	@Test
-	public void countedAssurances_is_checked_not_to_contain_strings_longer_than_255() throws ReportedException {
+	public void countedAssurances_is_checked_not_to_contain_strings_longer_than_255() {
 	    int length = 255;
 	    String str255 = createLongString(length);
 	
@@ -32,7 +31,7 @@ public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultV
 	}
 
 	@Test
-	public void countedAssurances_is_checked_not_to_contain_strings_shorter_than_3() throws ReportedException {
+	public void countedAssurances_is_checked_not_to_contain_strings_shorter_than_3() {
 	    countedAssurances.add("aaa");
 	
 	    createAVote();
@@ -60,7 +59,7 @@ public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultV
 	}
 
 	@Test
-	public void counted_assurances_can_contain_local_characters() throws ReportedException {
+	public void counted_assurances_can_contain_local_characters() {
 	    countedAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
 	    
 	    createAVote();
@@ -69,7 +68,7 @@ public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultV
 	}
 
 	@Test
-	public void counted_assurance_can_be_empty() throws ReportedException {
+	public void counted_assurance_can_be_empty() {
 	    countedAssurances.add("");
 		VoteAdminInfo secondVote = createAVote();
 		assertTrue(voteManager.getVote(secondVote.voteId).countedAssurances.contains(null));
