@@ -3,7 +3,6 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,10 +14,6 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 
-	private String ballot;
-	private List<RankedChoice> theCastVote;
-	private Vote vote;
-	
 	@Before
 	public void setUp() {
 		super.setUp();
