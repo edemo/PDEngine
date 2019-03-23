@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -16,7 +17,7 @@ public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 		String modifiedVoteName = null;
 		assertThrows(
 			() -> voteManager.modifyVote(
-					adminInfo.voteId, adminInfo.adminKey, modifiedVoteName)
+					new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), modifiedVoteName)
 		).assertMessageIs("vote name is null");
 	}
 
@@ -26,7 +27,7 @@ public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 		String invalidAdminKey = RandomUtils.createRandomKey();
 		assertThrows(
 			() -> voteManager.modifyVote(
-					adminInfo.voteId, invalidAdminKey, voteName)
+					new VoteAdminInfo(adminInfo.voteId, invalidAdminKey), voteName)
 		).assertMessageIs("Illegal adminKey");
 	}
 
@@ -36,7 +37,7 @@ public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 		String invalidvoteId = RandomUtils.createRandomKey();
 		assertThrows(
 			() -> voteManager.modifyVote(
-					invalidvoteId, adminInfo.adminKey, voteName)
+					new VoteAdminInfo(invalidvoteId, adminInfo.adminKey), voteName)
 		).assertMessageIs("illegal voteId");
 	}
 	
@@ -49,7 +50,7 @@ public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 		
 		assertThrows(
 			() -> voteManager.modifyVote(
-					voteId, adminInfo.adminKey, voteName)
+					new VoteAdminInfo(voteId, adminInfo.adminKey), voteName)
 		).assertMessageIs("The vote cannot be modified there are ballots issued.");
 	}
 }

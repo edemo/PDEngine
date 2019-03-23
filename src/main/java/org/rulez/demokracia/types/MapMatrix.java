@@ -3,40 +3,40 @@ package org.rulez.demokracia.types;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MapMatrix<KeyType extends Serializable, ValueType extends Serializable> implements Matrix<KeyType, ValueType> {
 
 	private static final long serialVersionUID = 1L;
-	private Map<KeyType,HashMap<KeyType,ValueType>> value = 
-			new HashMap<>();
+	private final Map<KeyType,ConcurrentHashMap<KeyType,ValueType>> value = 
+			new ConcurrentHashMap<>();
 	private final Collection<KeyType> keyCollection;
 
 	public MapMatrix(final Collection<KeyType> keyCollection) {
 		for (KeyType key : keyCollection) {
-			value.put(key, newRow());
+			value.put(key, (ConcurrentHashMap<KeyType, ValueType>) newRow());
 		}
 		this.keyCollection=Collections.unmodifiableSet(
 				new HashSet<KeyType>(keyCollection));
 	}
 
-	private HashMap<KeyType, ValueType> newRow() {
-		return new HashMap<KeyType, ValueType>();
+	private Map<KeyType, ValueType> newRow() {
+		return new ConcurrentHashMap<>();
 	}
 
 	@Override
 	public void setElement(final KeyType columnKey, final KeyType rowKey, final ValueType value) {
 		checkKeys(columnKey, rowKey);
-		HashMap<KeyType, ValueType> column = this.value.get(columnKey);
+		ConcurrentHashMap<KeyType, ValueType> column = this.value.get(columnKey);
 		column.put(rowKey, value);
 	}
 
 	@Override
 	public ValueType getElement(final KeyType columnKey, final KeyType rowKey) {
 		checkKeys(columnKey, rowKey);
-		HashMap<KeyType, ValueType> column = this.value.get(columnKey);
+		ConcurrentHashMap<KeyType, ValueType> column = this.value.get(columnKey);
 		return column.get(rowKey);
 	}
 

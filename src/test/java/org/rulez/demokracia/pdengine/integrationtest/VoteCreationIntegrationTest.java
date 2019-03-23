@@ -22,7 +22,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.servlet.requests.CreateVoteRequest;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
@@ -31,7 +30,7 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	private CreateVoteRequest req;
 
 	@Before
-    public void setUp() throws ReportedException{
+    public void setUp(){
 		thread = new JettyThread();
         thread.run();
 		initializeCreateVoteRequest();

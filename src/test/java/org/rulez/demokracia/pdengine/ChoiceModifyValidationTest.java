@@ -8,6 +8,7 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
+import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -25,7 +26,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		super.setUp();
 		
 		voteId = adminInfo.voteId;
-		choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", USER);
+		choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice1", USER);
 		adminKey = adminInfo.adminKey;
 		choice = "New choice name";
 	}
@@ -36,7 +37,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		String invalidVoteId = "invalidVoteId";
 		
 		assertThrows(
-				() -> voteManager.modifyChoice(invalidVoteId, choiceId, adminKey, choice)
+				() -> voteManager.modifyChoice(new VoteAdminInfo(invalidVoteId, adminKey), choiceId, choice)
 			).assertMessageIs("illegal voteId");
 	}
 	
@@ -46,7 +47,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		String invalidChoiceId = "invalidChoiceId";
 		
 		assertThrows(
-				() -> voteManager.modifyChoice(voteId, invalidChoiceId, adminKey, choice)
+				() -> voteManager.modifyChoice(new VoteAdminInfo(voteId, adminKey), invalidChoiceId, choice)
 			).assertMessageIs("Illegal choiceId");
 	}
 	
@@ -56,14 +57,14 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		String invalidAdminKey = "invalidAdminKey";
 		
 		assertThrows(
-				() -> voteManager.modifyChoice(voteId, choiceId, invalidAdminKey, choice)
+				() -> voteManager.modifyChoice(new VoteAdminInfo(voteId, invalidAdminKey), choiceId, choice)
 			).assertMessageIs("Illegal adminKey");
 	}
 
 	@TestedBehaviour("modifies the string of the choice")
 	@Test
 	public void proper_voteId_choiceId_and_adminKey_does_modify_choice() {
-		voteManager.modifyChoice(voteId, choiceId, adminKey, choice);
+		voteManager.modifyChoice(new VoteAdminInfo(voteId, adminKey), choiceId, choice);
 		
 		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
 		assertEquals(choiceEntity.name, choice);
@@ -76,8 +77,8 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		Vote vote = voteManager.getVote(voteId);
 		vote.ballots.add("Test Ballot");
 		
-		assertThrows( () -> voteManager.modifyChoice(voteId, choiceId, adminKey, "something else")
-				).assertMessageIs("Choice modification disallowed: ballots already issued");
+		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, adminKey), choiceId, "something else")
+				).assertMessageIs("Vote modification disallowed: ballots already issued");
 	}
 	
 	@TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
@@ -86,7 +87,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin=false;
 		
-		assertThrows( () -> voteManager.modifyChoice(voteId, choiceId, USER, choice)
+		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice)
 				).assertMessageIs("Choice modification disallowed: adminKey is user, but canAddin is false");
 
 	}
@@ -97,7 +98,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin=true;
 		
-		assertThrows( () -> voteManager.modifyChoice(voteId, choiceId, USER, choice)
+		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice)
 				).assertMessageIs("Choice modification disallowed: adminKey is user, " +
 							       "and the choice was added by a different user");
 
@@ -109,9 +110,9 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin=true;
 		String myName = voteManager.getWsUserName();
-		choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice2", myName);
+		choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice2", myName);
 		
-		voteManager.modifyChoice(voteId, choiceId, USER, choice);
+		voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice);
 		
 		ChoiceEntity choiceEntity = voteManager.getChoice(voteId, choiceId);
 		assertEquals(choiceEntity.name, choice);

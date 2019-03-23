@@ -5,7 +5,6 @@ import static org.mockito.Mockito.*;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
@@ -14,11 +13,6 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class ContextTest extends CreatedDefaultVoteRegistry {
 
-
-	@Before
-	public void setUp() {
-		super.setUp();
-	}
 
 	@TestedFeature("Supporting functionality")
 	@TestedOperation("get context parameter")

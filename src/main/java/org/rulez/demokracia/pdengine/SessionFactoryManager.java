@@ -7,7 +7,7 @@ import org.hibernate.Session;
 public class SessionFactoryManager {
 
 	protected Session session;
-	private WebServiceContext wsContext;
+	private final WebServiceContext wsContext;
 
 	public SessionFactoryManager(final WebServiceContext wsContext) {
 		super();

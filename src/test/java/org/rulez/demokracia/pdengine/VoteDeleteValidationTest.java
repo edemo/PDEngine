@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -15,7 +16,7 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 	public void invalid_voteId_is_rejected() {
 		String invalidvoteId = RandomUtils.createRandomKey();
 		assertThrows(
-			() -> voteManager.deleteVote(invalidvoteId, adminInfo.adminKey)
+			() -> voteManager.deleteVote(new VoteAdminInfo(invalidvoteId, adminInfo.adminKey))
 		).assertMessageIs("illegal voteId");
 	}
 
@@ -25,7 +26,7 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 	public void invalid_adminKey_is_rejected() {
 		String invalidAdminKey = RandomUtils.createRandomKey();
 		assertThrows(
-			() -> voteManager.deleteVote(adminInfo.voteId, invalidAdminKey)
+			() -> voteManager.deleteVote(new VoteAdminInfo(adminInfo.voteId, invalidAdminKey))
 		).assertMessageIs("Illegal adminKey");
 	}
 	
@@ -36,7 +37,7 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 		Vote vote = voteManager.getVote(voteId);
 		vote.ballots.add("TestBallot");
 		assertThrows(
-			() -> voteManager.deleteVote(voteId, adminInfo.adminKey)
+			() -> voteManager.deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey))
 		).assertMessageIs("This vote cannot be deleted it has issued ballots.");
 	}
 	
@@ -44,7 +45,7 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void proper_voteId_and_adminKey_does_delete_vote() {
 		String voteId = adminInfo.voteId;
-		voteManager.deleteVote(voteId, adminInfo.adminKey);
+		voteManager.deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey));
 		assertThrows(
 			() -> voteManager.getVote(voteId)
 		).assertMessageIs("illegal voteId");
@@ -58,7 +59,7 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 		vote.ballots.add("TestBallots");
 		
 		assertThrows(
-			() -> voteManager.deleteVote(voteId, adminInfo.adminKey)
+			() -> voteManager.deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey))
 		).assertMessageIs("This vote cannot be deleted it has issued ballots.");
 	}
 }
