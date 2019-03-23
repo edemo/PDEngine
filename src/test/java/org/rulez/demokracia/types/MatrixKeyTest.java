@@ -11,66 +11,60 @@ public class MatrixKeyTest extends MatrixTestSetup {
 
 	@Test
 	public void rowKey_should_be_in_keyCollection_for_setElement() {
-		keyCollection.add(columnKey);
-		updateMatrix();
-		assertThrows(
-				() -> theMatrix.setElement(columnKey, rowKey, value))
-			.assertException(IllegalArgumentException.class).assertMessageIs("Invalid row key");
+		updateMatrixWithNewKey(columnKey);
+		assertSetElementFailsWith(columnKey,rowKey, "Invalid row key");
 	}
 
 	@Test
 	public void columnKey_should_be_in_keyCollection_for_setElement() {
-		keyCollection.add(rowKey);
-		updateMatrix();
-		assertThrows(
-				() -> theMatrix.setElement(columnKey,rowKey, value))
-			.assertException(IllegalArgumentException.class).assertMessageIs("Invalid column key");
+		updateMatrixWithNewKey(rowKey);
+		assertSetElementFailsWith(columnKey,rowKey, "Invalid column key");
 	}
 
 	@Test
 	public void rowKey_should_be_in_keyCollection_for_getElement() {
-		keyCollection.add(columnKey);
-		updateMatrix();
-		assertThrows(
-				() -> theMatrix.getElement(columnKey, rowKey))
-			.assertException(IllegalArgumentException.class).assertMessageIs("Invalid row key");
+		updateMatrixWithNewKey(columnKey);
+		assertSetElementFailsWith(columnKey,rowKey, "Invalid row key");
 	}
 
 	@Test
 	public void columnKey_should_be_in_keyCollection_for_getElement() {
-		keyCollection.add(rowKey);
-		updateMatrix();
-		assertThrows(
-				() -> theMatrix.getElement(columnKey,rowKey))
-			.assertException(IllegalArgumentException.class).assertMessageIs("Invalid column key");
+		updateMatrixWithNewKey(rowKey);
+		assertSetElementFailsWith(columnKey,rowKey, "Invalid column key");
 	}
 
 	@Test
 	public void after_the_matrix_is_created_there_is_no_way_to_change_its_keyCollection() {
-		keyCollection.add(columnKey);
-		updateMatrix();
-		String newRowKey = "newRow";
-		keyCollection.add(newRowKey);
-		assertThrows(
-				() -> theMatrix.setElement(columnKey, newRowKey, value))
-			.assertException(IllegalArgumentException.class).assertMessageIs("Invalid row key");
+		updateMatrixWithNewKey(columnKey);
+		keyCollection.add("newRow");
+		assertSetElementFailsWith(columnKey, "newRow", "Invalid row key");
 	}
 
 	@Test
 	public void the_keyCollection_of_the_matrix_can_be_obtained() {
-		keyCollection.add(rowKey);
-		updateMatrix();
+		updateMatrixWithNewKey(rowKey);
 		Collection<String> collection = theMatrix.getKeyCollection();
 		assertTrue(collection.contains(rowKey));
 	}
 
 	@Test
 	public void the_keyCollection_of_the_matrix_is_immutable() {
-		keyCollection.add(rowKey);
-		updateMatrix();
+		updateMatrixWithNewKey(rowKey);
 		Collection<String> collection = theMatrix.getKeyCollection();
 		assertThrows(
 				() -> collection.add("foo"));
 	}
 
+	private void updateMatrixWithNewKey(final String key) {
+		keyCollection.add(key);
+		updateMatrix();
+	}
+
+	private void assertSetElementFailsWith(final String columnKey, final String rowKey, final String message) {
+		assertThrows(
+				() -> {
+					theMatrix.setElement(columnKey, rowKey, value);
+				})
+			.assertException(IllegalArgumentException.class).assertMessageIs(message);
+	}
 }

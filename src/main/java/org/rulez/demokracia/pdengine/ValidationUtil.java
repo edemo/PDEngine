@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import org.rulez.demokracia.pdengine.exception.IsNullException;
 import org.rulez.demokracia.pdengine.exception.NotValidCharsException;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.exception.TooLongException;
 import org.rulez.demokracia.pdengine.exception.TooShortException;
 
@@ -22,7 +21,7 @@ public class ValidationUtil {
 		checkStringWithSpaces(voteName, "vote name");
     }
 
-	public static Set<String> checkAssurances(final Set<String> neededAssurances, final String type) throws ReportedException{
+	public static Set<String> checkAssurances(final Set<String> neededAssurances, final String type) {
 
 		Set<String> uniques = new HashSet<>();
 

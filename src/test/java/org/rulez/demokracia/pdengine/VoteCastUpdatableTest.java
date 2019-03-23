@@ -59,18 +59,18 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 	@Test
 	public void castVote_does_not_record_the_proxy_id_when_updatable_is_false_and_it_does_not_delete_the_other_not_recorded_proxyIds_votescast() {
 		vote.canUpdate = false;
-		vote.votesCast.add(new CastVote(TEST_USER_NAME, theCastVote));
-		vote.votesCast.add(new CastVote(null, theCastVote));
-		vote.votesCast.add(new CastVote(null, theCastVote));
-		vote.votesCast.add(new CastVote(null, theCastVote));
-		vote.votesCast.add(new CastVote(null, theCastVote));
-		vote.votesCast.add(new CastVote(null, theCastVote));
-		vote.votesCast.add(new CastVote("dummy6", theCastVote));
-		vote.votesCast.add(new CastVote("dummy7", theCastVote));
+		addCastVoteWithDefaultPreferencesForUser(TEST_USER_NAME);
+		for(Integer i=0;i<7;i++)
+			addCastVoteWithDefaultPreferencesForUser("dummy"+ i);
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
-		assertTrue(vote.votesCast.get(8).proxyId == null);
+		assertEquals(null,vote.votesCast.get(8).proxyId
+);
+	}
+
+	private void addCastVoteWithDefaultPreferencesForUser(final String proxyId) {
+		vote.votesCast.add(new CastVote(proxyId, theCastVote));
 	}
 	
 }

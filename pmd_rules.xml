@@ -31,6 +31,7 @@
       <exclude name="CyclomaticComplexity"/>
       <exclude name="LoosePackageCoupling"/>
       <exclude name="UseUtilityClass"/>
+      <exclude name="DataClass"/>
     </rule>
     <rule ref="category/java/design.xml/CyclomaticComplexity">
       <properties>

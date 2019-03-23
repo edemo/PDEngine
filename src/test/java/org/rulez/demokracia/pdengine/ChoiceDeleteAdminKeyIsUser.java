@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -18,9 +19,9 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 	public void if_canAddin_is_false_then_other_users_cannot_add_choices() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.canAddin = false;
-		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, CHOICE1, TEST_USER_NAME);
+		String choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), CHOICE1, TEST_USER_NAME);
 		assertThrows(
-			() -> voteManager.deleteChoice(adminInfo.voteId, choiceId , USER)
+			() -> voteManager.deleteChoice(new VoteAdminInfo(adminInfo.voteId, USER), choiceId)
 		).assertMessageIs("The adminKey is \"user\" but canAddin is false.");
 	}
 	
@@ -29,9 +30,9 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 	public void if_adminKey_is_user_and_the_user_is_not_the_one_who_added_the_choice_then_the_choice_cannot_be_deleted() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.canAddin = true;
-		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, CHOICE1, USER);
+		String choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), CHOICE1, USER);
 		assertThrows(
-			() -> voteManager.deleteChoice(adminInfo.voteId, choiceId , USER)
+			() -> voteManager.deleteChoice(new VoteAdminInfo(adminInfo.voteId, USER), choiceId)
 		).assertMessageIs("The adminKey is \"user\" but the user is not same with that user who added the choice.");
 	}
 	
@@ -42,8 +43,8 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 		String voteId = adminInfo.voteId;
 		Vote vote = voteManager.getVote(voteId);
 		vote.canAddin = true;
-		String choiceId = voteManager.addChoice(USER, adminInfo.voteId, CHOICE1, TEST_USER_NAME);
-		voteManager.deleteChoice(voteId, choiceId, USER);
+		String choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, USER), CHOICE1, TEST_USER_NAME);
+		voteManager.deleteChoice(new VoteAdminInfo(voteId, USER), choiceId);
 		
 		assertThrows(
 			() -> voteManager.getChoice(voteId, choiceId)
@@ -56,11 +57,11 @@ public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
 		String voteId = adminInfo.voteId;
 		String adminKey = adminInfo.adminKey;
 		Vote vote = voteManager.getVote(voteId);
-		String choiceId = voteManager.addChoice(adminKey, adminInfo.voteId, CHOICE1, USER);
+		String choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminKey), CHOICE1, USER);
 		vote.ballots.add("TestBallot");
 
 		assertThrows(
-			() -> voteManager.deleteChoice(voteId, choiceId, adminKey)
-		).assertMessageIs("This choice cannot be deleted the vote has issued ballots.");
+			() -> voteManager.deleteChoice(new VoteAdminInfo(voteId, adminKey), choiceId)
+		).assertMessageIs("Vote modification disallowed: ballots already issued");
 	}
 }

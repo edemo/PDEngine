@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -14,9 +15,9 @@ public class ChoiceDeleteValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void invalid_voteId_is_rejected() {
 		String invalidvoteId = RandomUtils.createRandomKey();
-		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "user");
+		String choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice1", "user");
 		assertThrows(
-			() -> voteManager.deleteChoice(invalidvoteId, choiceId ,adminInfo.adminKey)
+			() -> voteManager.deleteChoice(new VoteAdminInfo(invalidvoteId, adminInfo.adminKey), choiceId)
 		).assertMessageIs("illegal voteId");
 	}
 
@@ -25,7 +26,7 @@ public class ChoiceDeleteValidationTest extends CreatedDefaultVoteRegistry {
 	public void invalid_choiceId_is_rejected() {
 		String invalidChoiceId = "InvalidChoiceId";
 		assertThrows(
-				() -> voteManager.deleteChoice(adminInfo.voteId, invalidChoiceId, adminInfo.adminKey)
+				() -> voteManager.deleteChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), invalidChoiceId)
 			).assertMessageIs("Illegal choiceId");
 	}
 	
@@ -34,18 +35,18 @@ public class ChoiceDeleteValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void invalid_adminKey_is_rejected() {
 		String invalidAdminKey = RandomUtils.createRandomKey();
-		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "user");
+		String choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice1", "user");
 		assertThrows(
-			() -> voteManager.deleteChoice(adminInfo.voteId, choiceId, invalidAdminKey)
+			() -> voteManager.deleteChoice(new VoteAdminInfo(adminInfo.voteId, invalidAdminKey), choiceId)
 		).assertMessageIs("Illegal adminKey");
 	}
 	
 	@TestedBehaviour("deletes the choice")
 	@Test
 	public void proper_voteId_choiceId_and_adminKey_does_delete_choice() {
-		String choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "user");
+		String choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice1", "user");
 		String voteId = adminInfo.voteId;
-		voteManager.deleteChoice(adminInfo.voteId, choiceId, adminInfo.adminKey);
+		voteManager.deleteChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), choiceId);
 		assertThrows(
 			() -> voteManager.getChoice(voteId, choiceId)
 		).assertMessageIs("Illegal choiceId");

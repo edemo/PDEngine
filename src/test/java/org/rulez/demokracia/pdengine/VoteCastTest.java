@@ -62,13 +62,8 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		vote.canUpdate = true;
 		
 		addCastVote(TEST_USER_NAME, theCastVote);
-		addCastVote("dummy1", theCastVote);
-		addCastVote("dummy2", theCastVote);
-		addCastVote("dummy3", theCastVote);
-		addCastVote("dummy4", theCastVote);
-		addCastVote("dummy5", theCastVote);
-		addCastVote("dummy6", theCastVote);
-		addCastVote("dummy7", theCastVote);
+		addfirstDummies();
+		addSecondDummies();
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
@@ -81,13 +76,8 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		List<RankedChoice> theCastVote1 = new ArrayList<>();
 		vote.canUpdate = true;
 		
-		addCastVote("dummy1", theCastVote);
-		addCastVote("dummy2", theCastVote);
-		addCastVote("dummy3", theCastVote);
-		addCastVote("dummy4", theCastVote);
-		addCastVote("dummy5", theCastVote);
-		addCastVote("dummy6", theCastVote);
-		addCastVote("dummy7", theCastVote);
+		addfirstDummies();
+		addSecondDummies();
 		addCastVote(TEST_USER_NAME, theCastVote1);
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
@@ -100,18 +90,26 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_middle_of_the_list() {
 		vote.canUpdate = true;
 		
-		addCastVote("dummy1", theCastVote);
-		addCastVote("dummy2", theCastVote);
-		addCastVote("dummy3", theCastVote);
+		addfirstDummies();
 		addCastVote(TEST_USER_NAME, theCastVote);
-		addCastVote("dummy4", theCastVote);
-		addCastVote("dummy5", theCastVote);
-		addCastVote("dummy6", theCastVote);
-		addCastVote("dummy7", theCastVote);
+		addSecondDummies();
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 
 		assertTrue(vote.votesCast.get(7).proxyId.equals(TEST_USER_NAME));
+	}
+
+	private void addSecondDummies() {
+		addCastVote("dummy4", theCastVote);
+		addCastVote("dummy5", theCastVote);
+		addCastVote("dummy6", theCastVote);
+		addCastVote("dummy7", theCastVote);
+	}
+
+	private void addfirstDummies() {
+		addCastVote("dummy1", theCastVote);
+		addCastVote("dummy2", theCastVote);
+		addCastVote("dummy3", theCastVote);
 	}
 	
 	@TestedBehaviour("if there was a cast vote from the same user, the old one is deleted")

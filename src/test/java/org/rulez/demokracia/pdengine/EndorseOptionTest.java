@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
@@ -23,7 +24,7 @@ public class EndorseOptionTest extends CreatedDefaultChoice {
 			+ "as endorserName for the choice")
 	@Test
 	public void endorsement_is_registered() {
-		voteManager.endorseChoice(adminInfo.adminKey, adminInfo.voteId, choiceId, "testuser");
+		voteManager.endorseChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), choiceId, "testuser");
 		assertTrue(getChoice(choiceId).endorsers.contains("testuser"));
 	}
 
@@ -32,7 +33,7 @@ public class EndorseOptionTest extends CreatedDefaultChoice {
 	@Test
 	public void if_adminKey_is_user_and_canEndorse_is_false_then_an_exception_is_thrown() {
 		assertThrows(() -> voteManager.endorseChoice(
-				"user", adminInfo.voteId, choiceId, "testuserke"))
+				new VoteAdminInfo(adminInfo.voteId, "user"), choiceId, "testuserke"))
 			.assertException(ReportedException.class);
 	}
 
@@ -41,7 +42,7 @@ public class EndorseOptionTest extends CreatedDefaultChoice {
 	@Test
 	public void if_adminKey_is_user_then_the_proxy_id_is_registered_for_the_vote() {
 		setVoteEndorseable();
-		voteManager.endorseChoice("user", adminInfo.voteId, choiceId, "testuserke");
+		voteManager.endorseChoice(new VoteAdminInfo(adminInfo.voteId, "user"), choiceId, "testuserke");
 		assertTrue(getChoice(choiceId).endorsers.contains(TEST_USER_NAME));
 	}
 
