@@ -11,10 +11,10 @@ public class User extends UserEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	public User(String proxyId)  {
+	public User(final String proxyId)  {
 		super();
 		this.proxyId = proxyId;
-		assurances = new ArrayList<String>();
+		assurances = new ArrayList<>();
 	}
 
 }

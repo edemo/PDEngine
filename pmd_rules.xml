@@ -1,19 +1,25 @@
 <?xml version="1.0"?>
 
-<ruleset name="All Java Rules" 
+<ruleset name="Kode Konveyor WAR" 
     xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
-    <description>Every Java Rule in PMD</description>
+    <description>WAR project PMD rules of Kode Konveyor</description>
+    <exclude-pattern>.*/JettyThread.java</exclude-pattern>
 
     <rule ref="category/java/bestpractices.xml">
       <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+      <exclude name="UseAssertTrueInsteadOfAssertEquals"/>
+      <exclude name="UseAssertNullInsteadOfAssertTrue"/>
     </rule>
     <rule ref="category/java/codestyle.xml" >
       <exclude name="LongVariable"/>
       <exclude name="ControlStatementBraces"/>
       <exclude name="MethodNamingConventions"/>
       <exclude name="AtLeastOneConstructor"/>
+      <exclude name="LocalVariableCouldBeFinal"/>
+      <exclude name="GenericsNaming"/>
+      <exclude name="OnlyOneReturn"/>
     </rule>
     <rule ref="category/java/codestyle.xml/MethodNamingConventions">
       <properties>
@@ -24,6 +30,7 @@
       <exclude name="LawOfDemeter"/>
       <exclude name="CyclomaticComplexity"/>
       <exclude name="LoosePackageCoupling"/>
+      <exclude name="UseUtilityClass"/>
     </rule>
     <rule ref="category/java/design.xml/CyclomaticComplexity">
       <properties>
@@ -47,9 +54,36 @@
     </rule>
     <rule ref="category/java/errorprone.xml">
       <exclude name="BeanMembersShouldSerialize"/>
+      <exclude name="DataflowAnomalyAnalysis"/>
     </rule>
     <rule ref="category/java/multithreading.xml" />
     <rule ref="category/java/performance.xml" />
     <rule ref="category/java/security.xml" />
+
+    <rule name="GenericsNamesShouldBeDescriptive"
+          language="java"
+          message="Generics names should match '[A-Z][a-z0-9]*Type'"
+          class="net.sourceforge.pmd.lang.rule.XPathRule">
+        <description>
+Rule Description
+         </description>
+         <priority>3</priority>
+         <properties>
+             <property name="xpath">
+                 <value><![CDATA[
+//TypeDeclaration/ClassOrInterfaceDeclaration/TypeParameters/TypeParameter[
+  not(matches(@Image,'[A-Z][a-z0-9]*Type'))
+]
+]]></value>
+             </property>
+         </properties>
+         <example>
+ <![CDATA[
+public interface Matryx<KeyType extends Serializable, ValueType extends Serializable> {
+    // This is ok...
+}
+]]>
+        </example>
+    </rule>
 
 </ruleset>

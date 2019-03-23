@@ -19,6 +19,8 @@ import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class CreatedDefaultVoteRegistry extends ThrowableTester{
 
+	public static final String ASSURANCE_NAME = "magyar";
+	public static final String TEST_USER_NAME = "test_user_in_ws_context";
 	public IVoteManager voteManager;
 	public VoteAdminInfo adminInfo;
 	public String voteName = "VoteInitialValuesTest";
@@ -36,7 +38,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		countedAssurances = new HashSet<>();
 		isPrivate = true;
 		minEndorsements = 0;
-		neededAssurances.add("magyar");
+		neededAssurances.add(ASSURANCE_NAME);
         voteName = "testVote";
 		adminInfo = createAVote();
 	}
@@ -45,8 +47,8 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		WebServiceContext wsContext = mock(WebServiceContext.class);
 		Principal principal = mock(Principal.class);
 		when(wsContext.getUserPrincipal()).thenReturn(principal);
-		when(principal.getName()).thenReturn("test_user_in_ws_context");
-		when(wsContext.isUserInRole("magyar")).thenReturn(true);
+		when(principal.getName()).thenReturn(TEST_USER_NAME);
+		when(wsContext.isUserInRole(ASSURANCE_NAME)).thenReturn(true);
 		when(wsContext.isUserInRole("appmagyar")).thenReturn(true);
 		return wsContext;
 	}
@@ -70,11 +72,10 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		vote.canEndorse=true;
 	}
 	
-	protected String createLongString(int length) {
+	protected String createLongString(final int length) {
 		char[] charArray = new char[length];
 	    Arrays.fill(charArray, 'w');
-	    String str256 = new String(charArray);
-		return str256;
+	    return new String(charArray);
 	}
 
 

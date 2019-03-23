@@ -3,41 +3,39 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRegistry {
 
-	public VoteModificationInvariantsObservedTest() {
-		super();
-	}
-	
 	public VoteEntity savedVote;
 	public String savedVoteId;
 	public String savedAdminKey;
-	public ArrayList<String> savedNeededAssurances;
-	public ArrayList<String> savedCountedAssurances;
-	public boolean savedIsPrivate, savedCanUpdate;
+	public List<String> savedNeededAssurances;
+	public List<String> savedCountedAssurances;
+	public boolean savedIsPrivate;
+	public boolean savedCanUpdate;
 	public long savedCreationTime;
 
-	protected void saveInvariables(VoteEntity vote) {
+	protected void saveInvariables(final VoteEntity vote) {
 		savedVote = vote;
 		savedVoteId = vote.id;
 		savedAdminKey=vote.adminKey;
-		savedNeededAssurances = new ArrayList<String>(vote.neededAssurances);
-		savedCountedAssurances = new ArrayList<String>(vote.countedAssurances);
+		savedNeededAssurances = new ArrayList<>(vote.neededAssurances);
+		savedCountedAssurances = new ArrayList<>(vote.countedAssurances);
 		savedIsPrivate = vote.isPrivate;
 		savedCreationTime = vote.creationTime;
 		savedCanUpdate = vote.canUpdate;
 	}
 	
-	public void checkInvariables(Vote vote) {
+	public void assertInvariables(final Vote vote) {
 		assertEquals(savedVoteId, vote.id);
 		assertEquals(savedAdminKey, vote.adminKey);
 		assertEquals(savedNeededAssurances,vote.neededAssurances);
@@ -47,15 +45,15 @@ public class VoteModificationInvariantsObservedTest extends CreatedDefaultVoteRe
 		assertEquals(savedCanUpdate, vote.canUpdate);
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("modify vote")
-	@tested_behaviour("vote invariants")
+	@TestedFeature("Manage votes")
+	@TestedOperation("modify vote")
+	@TestedBehaviour("vote invariants")
 	@Test
 	public void vote_invariants_are_observerd_in_modify_vote() throws ReportedException {
 		Vote vote = getTheVote();
 		saveInvariables(vote);
 		voteManager.modifyVote(savedVoteId, savedAdminKey, "modifiedVoteName");
 		vote = voteManager.getVote(adminInfo.voteId);
-		checkInvariables(vote);
+		assertInvariables(vote);
 	}
 }

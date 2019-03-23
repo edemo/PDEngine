@@ -8,7 +8,7 @@ public class RankedChoice extends RankedChoiceEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	public RankedChoice(String choiceId, int rank) {
+	public RankedChoice(final String choiceId, final int rank) {
 		super();
 		this.choiceId = choiceId;
 		this.rank = rank;

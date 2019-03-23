@@ -2,6 +2,7 @@
 *.iml
 /target
 *.class
+.*.swp
 engine.zenta.bak
 engine.compiled
 engine.consistency.stderr

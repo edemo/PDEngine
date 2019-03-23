@@ -8,24 +8,24 @@ import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
-	public VoteRegistry(WebServiceContext wsContext) {
+	public VoteRegistry(final WebServiceContext wsContext) {
 		super(wsContext);
 	}
 
 	@Override
-	public String obtainBallot(String id, String adminKey) {
-		Vote vote = getVote(id);
+	public String obtainBallot(final String identifier, final String adminKey) throws ReportedException {
+		Vote vote = getVote(identifier);
 		vote.checkAdminKey(adminKey);
 
 		if (adminKey.equals(vote.adminKey))
 			vote.increaseRecordedBallots("admin");
 
-		else if (adminKey.equals("user")) {
+		else if ("user".equals(adminKey)) {
 			if (getWsContext().getUserPrincipal() == null)
 				throw new IllegalArgumentException("Simple user is not authenticated, cannot issue any ballot.");
 			if (!userHasAllAssurance(vote.neededAssurances))
 				throw new IllegalArgumentException("The user does not have all of the needed assurances.");
-			if (vote.getRecordedBallots(getWsUserName()).intValue() > 0)
+			if (vote.getRecordedBallotsCount(getWsUserName()).intValue() > 0)
 				throw new IllegalArgumentException("This user already have a ballot.");
 
 			vote.increaseRecordedBallots(getWsUserName());
@@ -36,7 +36,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		return ballot;
 	}
 
-	public boolean userHasAllAssurance(List<String> neededAssuranceList) {
+	public boolean userHasAllAssurance(final List<String> neededAssuranceList) {
 		for (String neededAssurance : neededAssuranceList) {
 			if (!hasAssurance(neededAssurance)) {
 				return false;
@@ -46,35 +46,35 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	@Override
-	public void castVote(String voteId, String ballot, List<RankedChoice> theVote) {
+	public void castVote(final String voteId, final String ballot, final List<RankedChoice> theVote) {
 		Vote vote = getVote(voteId);
 		if (!vote.canVote)
-			throw new IllegalArgumentException("This issue cannot be voted on yet");
+			throw new ReportedException("This issue cannot be voted on yet");
 
 		if (vote.canUpdate && getWsContext().getUserPrincipal() == null)
-			throw new IllegalArgumentException("canUpdate is true but the user is not authenticated");
+			throw new ReportedException("canUpdate is true but the user is not authenticated");
 
 		if (!vote.ballots.contains(ballot))
-			throw new IllegalArgumentException(String.format("Illegal ballot: %s", ballot));
+			throw new ReportedException("Illegal ballot");
 
 		for (RankedChoice choice : theVote) {
 			if (!vote.choices.containsKey(choice.choiceId))
-				throw new IllegalArgumentException(String.format("Invalid choiceId: %s", choice.choiceId));
+				throw new ReportedException("Invalid choiceId");
 			if (choice.rank < 0)
-				throw new IllegalArgumentException(String.format("Invalid rank: %d", choice.rank));
+				throw new ReportedException("Invalid rank");
 		}
     
-		if (!vote.canUpdate)
-			vote.addCastVote(null, theVote);
-		else
+		if (vote.canUpdate)
 			vote.addCastVote(getWsUserName(), theVote);
+		else
+			vote.addCastVote(null, theVote);
 		
 		vote.ballots.remove(ballot);
 	}
 
 	@Override
-	public void modifyVote(String voteId, String adminKey, String votename) throws ReportedException {
-		Validate.checkVoteName(votename);
+	public void modifyVote(final String voteId, final String adminKey, final String votename) throws ReportedException {
+		ValidationUtil.checkVoteName(votename);
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 
@@ -84,7 +84,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.name = votename;
 	}
 
-	public void deleteVote(String voteId, String adminKey) throws ReportedException {
+	public void deleteVote(final String voteId, final String adminKey) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 
@@ -94,7 +94,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		session.remove(vote);
 	}
 
-	public JSONObject showVote(String voteId, String adminKey) throws ReportedException {
+	public JSONObject showVote(final String voteId, final String adminKey) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 
@@ -102,15 +102,15 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	@Override
-	public String deleteChoice(String voteId, String choiceId, String adminKey) throws ReportedException {
+	public String deleteChoice(final String voteId, final String choiceId, final String adminKey) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
-		Choice votesChoice = vote.getChoice(choiceId);
 
 		if (vote.hasIssuedBallots())
 			throw new IllegalArgumentException("This choice cannot be deleted the vote has issued ballots.");
 
-		if (adminKey.equals("user"))
+		Choice votesChoice = vote.getChoice(choiceId);
+		if ("user".equals(adminKey))
 			if (votesChoice.userName.equals(getWsUserName()))
 				if (vote.canAddin)
 					vote.choices.remove(votesChoice.id);
@@ -124,32 +124,32 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		return "OK";
 	}
 
-	public void modifyChoice(String voteId, String choiceId, String adminKey, String choice) throws ReportedException {
+	public void modifyChoice(final String voteId, final String choiceId, final String adminKey, final String choice) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
-		Choice votesChoice = vote.getChoice(choiceId);
 
 		if (vote.hasIssuedBallots())
-			throw new IllegalArgumentException("Choice modification disallowed: ballots already issued");
+			throw new ReportedException("Choice modification disallowed: ballots already issued");
 
+		Choice votesChoice = vote.getChoice(choiceId);
 		if ("user".equals(adminKey)) {
 			if (!vote.canAddin)
-				throw new IllegalArgumentException(
+				throw new ReportedException(
 						"Choice modification disallowed: adminKey is user, but canAddin is false");
 
 			if (!votesChoice.userName.equals(getWsUserName()))
-				throw new IllegalArgumentException(String.format(
+				throw new ReportedException(
 						"Choice modification disallowed: adminKey is user, "
-								+ "and the choice was added by a different user: %s, me: %s",
-						votesChoice.userName, getWsUserName()));
+								+ "and the choice was added by a different user",
+						votesChoice.userName);
 		}
 
 		votesChoice.name = choice;
 	}
 
 	@Override
-	public void setVoteParameters(String voteId, String adminKey, int minEndorsements, boolean canAddin,
-			boolean canEndorse, boolean canVote, boolean canView) throws ReportedException {
+	public void setVoteParameters(final String voteId, final String adminKey, final int minEndorsements, final boolean canAddin,
+			final boolean canEndorse, final boolean canVote, final boolean canView) throws ReportedException {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 

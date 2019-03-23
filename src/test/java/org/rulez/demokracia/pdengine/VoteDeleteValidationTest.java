@@ -1,44 +1,36 @@
 package org.rulez.demokracia.pdengine;
 
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
+@TestedFeature("Manage votes")
+@TestedOperation("delete vote")
 public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 
-	public VoteDeleteValidationTest() {
-		super();
-	}
-
-	@tested_feature("Manage votes")
-	@tested_operation("delete vote")
-	@tested_behaviour("validate inputs")
+	@TestedBehaviour("validate inputs")
 	@Test
 	public void invalid_voteId_is_rejected() throws ReportedException {
 		String invalidvoteId = RandomUtils.createRandomKey();
 		assertThrows(
 			() -> voteManager.deleteVote(invalidvoteId, adminInfo.adminKey)
-		).assertMessageIs(String.format("illegal voteId: %s",invalidvoteId));
+		).assertMessageIs("illegal voteId");
 	}
 
 
-	@tested_feature("Manage votes")
-	@tested_operation("delete vote")
-	@tested_behaviour("validate inputs")
+	@TestedBehaviour("validate inputs")
 	@Test
 	public void invalid_adminKey_is_rejected() throws ReportedException {
 		String invalidAdminKey = RandomUtils.createRandomKey();
 		assertThrows(
 			() -> voteManager.deleteVote(adminInfo.voteId, invalidAdminKey)
-		).assertMessageIs(String.format("Illegal adminKey: %s",invalidAdminKey));
+		).assertMessageIs("Illegal adminKey");
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("delete vote")
-	@tested_behaviour("deletes the vote with all parameters, choices, ballots and votes cast")
+	@TestedBehaviour("deletes the vote with all parameters, choices, ballots and votes cast")
 	@Test
 	public void proper_voteId_and_adminKey_with_ballot_does_not_delete_vote() throws ReportedException {
 		String voteId = adminInfo.voteId;
@@ -49,21 +41,17 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 		).assertMessageIs("This vote cannot be deleted it has issued ballots.");
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("delete vote")
-	@tested_behaviour("deletes the vote with all parameters, choices, ballots and votes cast")
+	@TestedBehaviour("deletes the vote with all parameters, choices, ballots and votes cast")
 	@Test
 	public void proper_voteId_and_adminKey_does_delete_vote() throws ReportedException {
 		String voteId = adminInfo.voteId;
 		voteManager.deleteVote(voteId, adminInfo.adminKey);
 		assertThrows(
 			() -> voteManager.getVote(voteId)
-		).assertMessageIs(String.format("illegal voteId: %s", voteId));
+		).assertMessageIs("illegal voteId");
 	}
 	
-	@tested_feature("Manage votes")
-	@tested_operation("delete vote")
-	@tested_behaviour("A vote cannot be deleted if it have issued ballots.")
+	@TestedBehaviour("A vote cannot be deleted if it have issued ballots.")
 	@Test
 	public void proper_voteId_and_adminKey_with_issued_ballots_does_not_delete_vote() throws ReportedException {
 		String voteId = adminInfo.voteId;

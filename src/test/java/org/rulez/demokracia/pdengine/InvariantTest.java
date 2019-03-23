@@ -1,71 +1,84 @@
 package org.rulez.demokracia.pdengine;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.testhelpers.VoteInvariantCheck;
 import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
 
-@tested_feature("Manage votes")
-@tested_operation("create vote")
-@tested_behaviour("vote invariants")
+@TestedFeature("Manage votes")
+@TestedOperation("create vote")
+@TestedBehaviour("vote invariants")
 public class InvariantTest extends VoteInvariantCheck {
 
+	private static final String BAD = "bad";
 	private VariantVote vote;
 
 	@Before
-	public void Setup() {
+	public void setUp() {
 		vote = new VariantVote();
 		saveInvariables(vote);
 	}
 
 	@Test
 	public void vote_id_is_invariant() {
-		vote.setId("bad");
-		assertThrows(() -> checkInvariables());
-		vote.setId(savedVoteId);
+		vote.id=BAD;
+		assertInvariantViolation();
+		vote.id=savedVoteId;
+	}
+
+	private void assertInvariantViolation() {
+		try {
+			checkInvariables();
+		} catch(AssertionError e ) {
+			return;
+		}
+		fail("missing invariant violation");
 	}
 
 	@Test
 	public void adminKey_is_invariant() {
-		vote.setAdminKey("bad");
-		assertThrows(() -> checkInvariables());
-		vote.setAdminKey(savedAdminKey);
+		vote.adminKey=BAD;
+		assertInvariantViolation();
+		vote.adminKey=savedAdminKey;
 	}
 
 	@Test
 	public void neededAssurances_is_invariant() {
-		ArrayList<String> badAssurances = new ArrayList<String>();
-		badAssurances.add("bad");
+		ArrayList<String> badAssurances = new ArrayList<>();
+		badAssurances.add(BAD);
 		vote.neededAssurances = badAssurances;
-		assertThrows(() -> checkInvariables());
+		assertInvariantViolation();
 		vote.neededAssurances = savedNeededAssurances;
 	}
 
 	@Test
 	public void countedAssurances_is_invariant() {
-		ArrayList<String> badAssurances = new ArrayList<String>();
-		badAssurances.add("bad");
+		ArrayList<String> badAssurances = new ArrayList<>();
+		badAssurances.add(BAD);
 		vote.countedAssurances = badAssurances;
-		assertThrows(() -> checkInvariables());
+		assertInvariantViolation();
 		vote.countedAssurances = savedCountedAssurances;
 	}
 
 	@Test
 	public void isPrivate_is_invariant() {
-		vote.setisPrivate(!savedIsPrivate);
-		assertThrows(() -> checkInvariables());
-		vote.setisPrivate(savedIsPrivate);
+		vote.isPrivate=!savedIsPrivate;
+		assertInvariantViolation();
+		vote.isPrivate=savedIsPrivate;
 	}
 
 	@Test
 	public void creationTime_is_invariant() {
-		vote.setCreationTime(0);
-		assertThrows(() -> checkInvariables());
-		vote.setCreationTime(savedCreationTime);
+		vote.creationTime=0;
+		assertInvariantViolation();
+		vote.creationTime=savedCreationTime;
 	}
 
 }
