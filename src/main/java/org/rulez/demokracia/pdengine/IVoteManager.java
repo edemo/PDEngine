@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.xml.ws.WebServiceContext;
 
 import org.json.JSONObject;
+import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
@@ -35,7 +36,7 @@ public interface IVoteManager {
 
 	String obtainBallot(final String identifier, final String adminKey);
 
-	void castVote(final String voteId, final String ballot, final List<RankedChoice> theVote);
+	CastVote castVote(final String voteId, final String ballot, final List<RankedChoice> theVote);
 
 	String getWsUserName();
 

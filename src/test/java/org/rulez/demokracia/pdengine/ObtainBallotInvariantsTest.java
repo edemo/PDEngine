@@ -15,7 +15,6 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 @TestedOperation("Obtain ballot")
 public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 
-	private Vote vote;
 	private String originalVoteId;
 	private String originalAdminKey;
 	private List<String> originalNeededAssurances;
