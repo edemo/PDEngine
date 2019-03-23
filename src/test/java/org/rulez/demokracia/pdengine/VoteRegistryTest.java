@@ -8,13 +8,12 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class VoteRegistryTest extends CreatedDefaultVoteRegistry {
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 	}
 

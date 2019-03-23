@@ -9,20 +9,20 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 	protected String choiceId;
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 		addTestChoice();
 	}
 
-	protected void addTestChoice() throws ReportedException {
+	protected void addTestChoice() {
 		choiceId = voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice1", "user");
 	}
 
-	protected ChoiceEntity getChoice(final String theChoice) throws ReportedException {
+	protected ChoiceEntity getChoice(final String theChoice) {
 		return voteManager.getChoice(adminInfo.voteId, theChoice);
 	}
 
-	protected String addMyChoice() throws ReportedException {
+	protected String addMyChoice() {
 		return voteManager.addChoice(adminInfo.adminKey, adminInfo.voteId, "choice2", null);
 	}
 

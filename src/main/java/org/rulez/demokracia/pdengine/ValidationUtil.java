@@ -18,7 +18,7 @@ public class ValidationUtil {
 	public static final String EMPTY_STRING = "";
 	public static final String COUNTED = "counted";
 
-    public static void checkVoteName(final String voteName) throws ReportedException {
+    public static void checkVoteName(final String voteName) {
 		checkStringWithSpaces(voteName, "vote name");
     }
 
@@ -36,7 +36,7 @@ public class ValidationUtil {
 		return uniques;
 	}
 
-	private static String normalizeAssurance(final String type, final String assurance) throws ReportedException {
+	private static String normalizeAssurance(final String type, final String assurance) {
 		if(COUNTED.equals(type) && EMPTY_STRING.equals(assurance)) {
 			return null;
 		} else {
@@ -45,12 +45,12 @@ public class ValidationUtil {
 		return assurance;
 	}
 
-	public static void checkStringNoSpaces(final String inputString, final String description) throws ReportedException {
+	public static void checkStringNoSpaces(final String inputString, final String description) {
 		String noSpaceString = "(\\d|\\w)+";
 		checkStringForPattern(inputString, description, noSpaceString);
 	}
 
-	public static void checkStringWithSpaces(final String inputString, final String description) throws ReportedException {
+	public static void checkStringWithSpaces(final String inputString, final String description) {
 		String noSpaceString = "(\\d| |\\w)+";
 		checkStringForPattern(inputString, description, noSpaceString);
 	}

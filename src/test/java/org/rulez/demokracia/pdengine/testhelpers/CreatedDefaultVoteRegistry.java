@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class CreatedDefaultVoteRegistry extends ThrowableTester{
@@ -31,7 +30,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 	protected int minEndorsements;
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		WebServiceContext wsContext = setupMockWsContext();
 		voteManager = IVoteManager.getVoteManager(wsContext);
 		neededAssurances = new HashSet<>();
@@ -59,7 +58,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		voteManager = IVoteManager.getVoteManager(wsContext);
 	}
 
-	protected VoteAdminInfo createAVote() throws ReportedException {
+	protected VoteAdminInfo createAVote() {
 		return voteManager.createVote(voteName, neededAssurances, countedAssurances, isPrivate, minEndorsements );
 	}
 

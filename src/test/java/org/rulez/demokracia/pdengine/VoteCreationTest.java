@@ -10,7 +10,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -19,7 +18,7 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 	}
 
@@ -34,7 +33,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 	
 	@Test
-	public void neededAssurances_contains_the_assurances_of_the_input() throws ReportedException {
+	public void neededAssurances_contains_the_assurances_of_the_input() {
 		VoteAdminInfo secondVote = createAVote();
 		assertEquals(ASSURANCE_NAME, voteManager.getVote(secondVote.voteId).neededAssurances.get(0));
 	}
@@ -45,7 +44,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 	
 	@Test
-	public void countedAssurances_contains_the_assurances_of_the_input() throws ReportedException {
+	public void countedAssurances_contains_the_assurances_of_the_input() {
 		countedAssurances.add(ASSURANCE_NAME);
 		VoteAdminInfo secondVote = createAVote();
 		assertEquals(ASSURANCE_NAME, voteManager.getVote(secondVote.voteId).countedAssurances.get(0));
@@ -57,7 +56,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void isPrivate_is_the_same_what_is_given_in_create() throws ReportedException {
+	public void isPrivate_is_the_same_what_is_given_in_create() {
 		isPrivate = false;
 		VoteAdminInfo secondVote = createAVote();
 		assertEquals(false, voteManager.getVote(secondVote.voteId).isPrivate);
@@ -69,7 +68,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void create_creates_a_vote_with_creationTime() throws ReportedException {
+	public void create_creates_a_vote_with_creationTime() {
 		Instant before = Instant.now();
 		VoteAdminInfo secondVote = createAVote();
 		Instant after = Instant.now();
@@ -88,7 +87,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	}
 
 	@Test
-	public void minEndorsements_is_the_same_what_is_given_in_create() throws ReportedException {
+	public void minEndorsements_is_the_same_what_is_given_in_create() {
 		minEndorsements = 42;
 		VoteAdminInfo secondVote = createAVote();
 		assertEquals(42, voteManager.getVote(secondVote.voteId).minEndorsements);

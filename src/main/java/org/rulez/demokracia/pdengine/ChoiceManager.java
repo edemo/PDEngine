@@ -10,7 +10,7 @@ public class ChoiceManager extends VoteManager {
 		super(wsContext);
 	}
 
-	public String addChoice(final String adminKey, final String voteId, final String choiceName, final String user) throws ReportedException {
+	public String addChoice(final String adminKey, final String voteId, final String choiceName, final String user) {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 		if(vote.hasIssuedBallots())
@@ -19,11 +19,11 @@ public class ChoiceManager extends VoteManager {
 		return getVote(voteId).addChoice(choiceName, user);
 	}
 
-	public Choice getChoice(final String voteId, final String choiceId) throws ReportedException {
+	public Choice getChoice(final String voteId, final String choiceId) {
 		return getVote(voteId).getChoice(choiceId);
 	}
 
-	public void endorseChoice(final String adminKey, final String voteId, final String choiceId, final String givenUserName) throws ReportedException {
+	public void endorseChoice(final String adminKey, final String voteId, final String choiceId, final String givenUserName) {
 		String userName = givenUserName;
 		if("user".equals(adminKey)) {
 			checkIfVoteIsEndorseable(voteId);

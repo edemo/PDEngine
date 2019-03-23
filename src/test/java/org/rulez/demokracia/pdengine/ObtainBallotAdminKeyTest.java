@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 @TestedFeature("Manage votes")
@@ -18,7 +17,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 	private static final String USER = "user";
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 	}
 
@@ -35,7 +34,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 
 	@TestedBehaviour("if adminKey is anon, the user should have all the neededAssurances")
 	@Test
-	public void if_the_user_does_have_all_the_assurances_then_a_ballot_is_served() throws ReportedException {
+	public void if_the_user_does_have_all_the_assurances_then_a_ballot_is_served() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add(ASSURANCE_NAME);
@@ -46,7 +45,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 
 	@TestedBehaviour("if adminKey is anon, the user should have all the neededAssurances")
 	@Test
-	public void if_neededAssurances_is_empty_then_a_ballot_is_served_to_anyone() throws ReportedException {
+	public void if_neededAssurances_is_empty_then_a_ballot_is_served_to_anyone() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		
@@ -56,7 +55,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 
 	@TestedBehaviour("if adminkey is anon, only one ballot can be issued")
 	@Test
-	public void even_if_the_user_does_have_all_the_assurances_he_cannot_issue_more_than_one_ballot() throws ReportedException {
+	public void even_if_the_user_does_have_all_the_assurances_he_cannot_issue_more_than_one_ballot() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add(ASSURANCE_NAME);
@@ -69,7 +68,7 @@ public class ObtainBallotAdminKeyTest extends CreatedDefaultChoice{
 
 	@TestedBehaviour("Admin can obtain more ballots")
 	@Test
-	public void admin_can_obtain_more_ballots() throws ReportedException {
+	public void admin_can_obtain_more_ballots() {
 		Vote vote = voteManager.getVote(adminInfo.voteId);
 		vote.neededAssurances.clear();
 		vote.neededAssurances.add(ASSURANCE_NAME);

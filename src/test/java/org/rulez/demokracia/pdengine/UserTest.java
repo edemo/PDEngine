@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 public class UserTest extends CreatedDefaultChoice {
@@ -17,7 +16,7 @@ public class UserTest extends CreatedDefaultChoice {
 	private static final String TEST = "Test";
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 	}
 

@@ -15,14 +15,14 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 public class EndorseOptionTest extends CreatedDefaultChoice {
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 	}
 
 	@TestedBehaviour("if adminKey is not user, the userName is registered "
 			+ "as endorserName for the choice")
 	@Test
-	public void endorsement_is_registered() throws ReportedException {
+	public void endorsement_is_registered() {
 		voteManager.endorseChoice(adminInfo.adminKey, adminInfo.voteId, choiceId, "testuser");
 		assertTrue(getChoice(choiceId).endorsers.contains("testuser"));
 	}
@@ -39,7 +39,7 @@ public class EndorseOptionTest extends CreatedDefaultChoice {
 	@TestedBehaviour("if adminKey is 'user', then canEndorse must be true,"
 			+ " and the proxy id of the user will be registered as endorserName for the choice")
 	@Test
-	public void if_adminKey_is_user_then_the_proxy_id_is_registered_for_the_vote() throws ReportedException {
+	public void if_adminKey_is_user_then_the_proxy_id_is_registered_for_the_vote() {
 		setVoteEndorseable();
 		voteManager.endorseChoice("user", adminInfo.voteId, choiceId, "testuserke");
 		assertTrue(getChoice(choiceId).endorsers.contains(TEST_USER_NAME));

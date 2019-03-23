@@ -13,7 +13,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	@Override
-	public String obtainBallot(final String identifier, final String adminKey) throws ReportedException {
+	public String obtainBallot(final String identifier, final String adminKey) {
 		Vote vote = getVote(identifier);
 		vote.checkAdminKey(adminKey);
 
@@ -73,7 +73,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	@Override
-	public void modifyVote(final String voteId, final String adminKey, final String votename) throws ReportedException {
+	public void modifyVote(final String voteId, final String adminKey, final String votename) {
 		ValidationUtil.checkVoteName(votename);
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
@@ -84,7 +84,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.name = votename;
 	}
 
-	public void deleteVote(final String voteId, final String adminKey) throws ReportedException {
+	public void deleteVote(final String voteId, final String adminKey) {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 
@@ -94,7 +94,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		session.remove(vote);
 	}
 
-	public JSONObject showVote(final String voteId, final String adminKey) throws ReportedException {
+	public JSONObject showVote(final String voteId, final String adminKey) {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 
@@ -102,7 +102,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	@Override
-	public String deleteChoice(final String voteId, final String choiceId, final String adminKey) throws ReportedException {
+	public String deleteChoice(final String voteId, final String choiceId, final String adminKey) {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 
@@ -124,7 +124,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		return "OK";
 	}
 
-	public void modifyChoice(final String voteId, final String choiceId, final String adminKey, final String choice) throws ReportedException {
+	public void modifyChoice(final String voteId, final String choiceId, final String adminKey, final String choice) {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 
@@ -149,7 +149,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 	@Override
 	public void setVoteParameters(final String voteId, final String adminKey, final int minEndorsements, final boolean canAddin,
-			final boolean canEndorse, final boolean canVote, final boolean canView) throws ReportedException {
+			final boolean canEndorse, final boolean canVote, final boolean canView) {
 		Vote vote = getVote(voteId);
 		vote.checkAdminKey(adminKey);
 

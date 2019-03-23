@@ -11,7 +11,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 @TestedFeature("Manage votes")
@@ -21,7 +20,7 @@ public class AddChoiceAddsChoiceToTheVoteTest extends CreatedDefaultChoice{
 	private ChoiceEntity choice;
 
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 		String theChoice = choiceId;
 		choice = getChoice(theChoice);
@@ -43,14 +42,14 @@ public class AddChoiceAddsChoiceToTheVoteTest extends CreatedDefaultChoice{
 
 	@TestedBehaviour("registers the user with the choice")
 	@Test
-	public void if_no_user_then_null_is_Registered() throws ReportedException {
+	public void if_no_user_then_null_is_Registered() {
 		String myChoiceId = addMyChoice();
 		assertEquals(null,getChoice(myChoiceId).userName);
 	}
 
 	@TestedBehaviour("returns a unique choice id")
 	@Test
-	public void choice_ids_are_unique() throws ReportedException {
+	public void choice_ids_are_unique() {
 		Set<String> existingIds = new HashSet<>();
 		for(int i=0;i<100;i++) {
 			String myChoiceId = addMyChoice();

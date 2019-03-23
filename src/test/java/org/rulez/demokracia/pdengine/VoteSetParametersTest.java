@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -32,7 +31,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	private long originCreationTime;
 	
 	@Before
-	public void setUp() throws ReportedException {
+	public void setUp() {
 		super.setUp();
 		vote = voteManager.getVote(adminInfo.voteId);
 		
