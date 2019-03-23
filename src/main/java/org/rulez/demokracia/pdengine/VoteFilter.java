@@ -2,6 +2,7 @@ package org.rulez.demokracia.pdengine;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 
@@ -14,7 +15,9 @@ public class VoteFilter {
 		if (Objects.isNull(assurance)) {
 			return votes;
 		}
-		return null;
+		return votes.stream()
+				.filter(v->v.getAssurances().contains(assurance))
+				.collect(Collectors.toList());
 	}
 	
 

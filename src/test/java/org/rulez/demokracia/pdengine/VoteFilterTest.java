@@ -43,7 +43,7 @@ public class VoteFilterTest {
 		when(castVote.getAssurances()).thenReturn(assuranceList);
 		return castVote;
 	}
-	
+
 	@tested_feature("Supporting functionality")
 	@tested_operation("filter votes")
 	@tested_behaviour("null assurance means all of the votes")
@@ -51,5 +51,26 @@ public class VoteFilterTest {
 	public void filter_returns_full_list_on_null_assurance() {
 		List<CastVote> filteredVotes = VoteFilter.filterVotes(votes, null);
 		assertEquals(votes, filteredVotes);
+	}
+	
+	@tested_feature("Supporting functionality")
+	@tested_operation("filter votes")
+	@tested_behaviour("the output of the filter contains all votes with the given assurance")
+	@Test
+	public void filter_returns_all_votes_with_given_assurance() {
+		List<CastVote> expected = votes.subList(1, 4);
+		List<CastVote> actual = VoteFilter.filterVotes(votes, "1");
+		assertEquals(expected, actual);
+	}
+	
+	@tested_feature("Supporting functionality")
+	@tested_operation("filter votes")
+	@tested_behaviour("the output of the filter contains only votes with the given assurance")
+	@Test
+	public void filter_returns_only_votes_with_given_assurance() {
+		List<CastVote> actual = VoteFilter.filterVotes(votes, "3");
+		for (CastVote vote : actual) {
+			assertTrue(vote.getAssurances().contains("3"));
+		}
 	}
 }
