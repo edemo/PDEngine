@@ -42,4 +42,14 @@ public class CastVoteTest extends CreatedDefaultChoice {
 		List<RankedChoice> preferences = castVote.getPreferences();
 		assertEquals(theCastVote, preferences);
 	}
+
+	@TestedFeature("Unimplemented")
+	@TestedOperation("Unimplemented")
+	@TestedBehaviour("Unimplemented")
+	@Test
+	public void getAssurances_is_not_implemented_yet() {
+		assertUnimplemented(() ->
+			new CastVote("proxyId", new ArrayList<>()).getAssurances());
+	}
+	
 }

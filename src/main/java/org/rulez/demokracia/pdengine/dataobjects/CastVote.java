@@ -3,7 +3,6 @@ package org.rulez.demokracia.pdengine.dataobjects;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.cfg.NotYetImplementedException;
 import org.rulez.demokracia.pdengine.RandomUtils;
 import org.rulez.demokracia.pdengine.RankedChoice;
 
@@ -24,6 +23,6 @@ public class CastVote extends CastVoteEntity{
 
 	public List<String> getAssurances() {
 		// TODO Auto-generated method stub
-		throw new NotYetImplementedException();
+		throw new UnsupportedOperationException();
 	}
 }
