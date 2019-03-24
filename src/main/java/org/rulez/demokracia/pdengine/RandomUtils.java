@@ -5,8 +5,8 @@ import java.security.SecureRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RandomUtils {
-    static SecureRandom entropySource;
+final public class RandomUtils {
+    private static SecureRandom entropySource;
     private static final Logger LOGGER = Logger.getLogger( RandomUtils.class.getName() );
 
     private RandomUtils() {

@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine.annotations;
 
-public @interface tested_operation {
+public @interface TestedFeature {
 
 	String value();
 

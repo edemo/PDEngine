@@ -4,24 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
+@TestedFeature("Manage votes")
+@TestedOperation("create vote")
+@TestedBehaviour("formally validates all inputs")
 public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultVoteRegistry {
 
-	public VoteCreationCountedAssurancesValidationTest() {
-		super();
-	}
-
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
-	public void countedAssurances_is_checked_not_to_contain_strings_longer_than_255() throws ReportedException {
+	public void countedAssurances_is_checked_not_to_contain_strings_longer_than_255() {
 	    int length = 255;
 	    String str255 = createLongString(length);
 	
@@ -35,11 +30,8 @@ public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultV
 			).assertMessageIs("string too long: counted assurance name");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
-	public void countedAssurances_is_checked_not_to_contain_strings_shorter_than_3() throws ReportedException {
+	public void countedAssurances_is_checked_not_to_contain_strings_shorter_than_3() {
 	    countedAssurances.add("aaa");
 	
 	    createAVote();
@@ -49,9 +41,6 @@ public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultV
 			).assertMessageIs("string too short: counted assurance name");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void counted_assurances_should_not_contain_space() {
 	    countedAssurances.add("This contains space");
@@ -61,9 +50,6 @@ public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultV
 			).assertMessageIs("invalid characters in counted assurance name");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
 	public void counted_assurances_should_not_contain_tab() {
 	    countedAssurances.add("thiscontainstab\t");
@@ -72,11 +58,8 @@ public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultV
 			).assertMessageIs("invalid characters in counted assurance name");
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
-	public void counted_assurances_can_contain_local_characters() throws ReportedException {
+	public void counted_assurances_can_contain_local_characters() {
 	    countedAssurances.add("ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ");
 	    
 	    createAVote();
@@ -84,15 +67,10 @@ public class VoteCreationCountedAssurancesValidationTest extends CreatedDefaultV
 	
 	}
 
-	@tested_feature("Manage votes")
-	@tested_operation("create vote")
-	@tested_behaviour("formally validates all inputs")
 	@Test
-	public void counted_assurance_can_be_empty() throws ReportedException {
+	public void counted_assurance_can_be_empty() {
 	    countedAssurances.add("");
-	    assertEquals(1,countedAssurances.size());
 		VoteAdminInfo secondVote = createAVote();
 		assertTrue(voteManager.getVote(secondVote.voteId).countedAssurances.contains(null));
 	}
-
 }
