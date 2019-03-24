@@ -22,7 +22,6 @@ public class CastVote extends CastVoteEntity{
 	}
 
 	public List<String> getAssurances() {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();
 	}
 }
