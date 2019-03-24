@@ -12,9 +12,9 @@ import java.util.stream.IntStream;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 
 public class VoteFilterTest {
@@ -44,18 +44,18 @@ public class VoteFilterTest {
 		return castVote;
 	}
 
-	@tested_feature("Supporting functionality")
-	@tested_operation("filter votes")
-	@tested_behaviour("null assurance means all of the votes")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("filter votes")
+	@TestedBehaviour("null assurance means all of the votes")
 	@Test
 	public void filter_returns_full_list_on_null_assurance() {
 		List<CastVote> filteredVotes = VoteFilter.filterVotes(votes, null);
 		assertEquals(votes, filteredVotes);
 	}
 	
-	@tested_feature("Supporting functionality")
-	@tested_operation("filter votes")
-	@tested_behaviour("the output of the filter contains all votes with the given assurance")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("filter votes")
+	@TestedBehaviour("the output of the filter contains all votes with the given assurance")
 	@Test
 	public void filter_returns_all_votes_with_given_assurance() {
 		List<CastVote> expected = votes.subList(1, 4);
@@ -63,9 +63,9 @@ public class VoteFilterTest {
 		assertEquals(expected, actual);
 	}
 	
-	@tested_feature("Supporting functionality")
-	@tested_operation("filter votes")
-	@tested_behaviour("the output of the filter contains only votes with the given assurance")
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("filter votes")
+	@TestedBehaviour("the output of the filter contains only votes with the given assurance")
 	@Test
 	public void filter_returns_only_votes_with_given_assurance() {
 		List<CastVote> actual = VoteFilter.filterVotes(votes, "3");
