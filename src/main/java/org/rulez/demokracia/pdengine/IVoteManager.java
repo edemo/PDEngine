@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.xml.ws.WebServiceContext;
 
 import org.json.JSONObject;
-import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;

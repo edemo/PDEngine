@@ -13,12 +13,11 @@ import javax.persistence.Entity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 @Entity
-public class Vote extends VoteEntity {
+public class Vote extends VoteEntity implements VoteFilter{
 
 	private static final long serialVersionUID = 1L;
 
