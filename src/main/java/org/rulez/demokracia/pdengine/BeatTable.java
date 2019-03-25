@@ -50,4 +50,22 @@ public class BeatTable {
 
 		matrix.setElement(choice1, choice2, pair);
 	}
+	
+	public Pair compareBeats(Pair beat1, Pair beat2){
+		if (beat1 == null || beat2 == null)
+			throw new IllegalArgumentException("Invalid Pair key");
+		
+		if(beat1.winning > beat2.winning)
+			return beat1;
+		else if (beat1.winning == beat2.winning)
+			if(beat1.losing < beat2.losing)
+				return beat1;
+			else if(beat1.losing == beat2.losing) 
+				throw new IllegalArgumentException("Can not decide");
+			else
+				return beat2;
+		else
+			return beat2;
+		
+	}
 }
