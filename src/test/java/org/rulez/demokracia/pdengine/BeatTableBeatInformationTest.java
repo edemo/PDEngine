@@ -3,7 +3,6 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +11,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
-import org.rulez.demokracia.pdengine.exception.IsNullException;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
@@ -49,7 +47,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	@TestedOperation("BeatTable")
 	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
-	public void beatTable_with_empty_matrix() {
+	public void beatTable_when_the_key_does_not_belong_to_the_table() {
 		Choice choice1 = new Choice("name", "userName");
 		Choice choice2 = null;
 		
@@ -63,7 +61,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	@TestedOperation("BeatTable")
 	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
-	public void beatTable_forward() {
+	public void beatInformation_forward_gives_the_number_of_winnings_of_choice1_to_choice2() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
@@ -83,7 +81,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	@TestedOperation("BeatTable")
 	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
-	public void beatTable_backward() throws IsNullException {
+	public void beatInformation_backward_gives_the_number_of_winnings_of_choice1_to_choice2() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");

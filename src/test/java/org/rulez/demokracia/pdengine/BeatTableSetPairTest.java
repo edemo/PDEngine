@@ -3,17 +3,13 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.BeatTable.Direction;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
-import org.rulez.demokracia.pdengine.exception.IsNullException;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
@@ -39,35 +35,7 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 	@TestedOperation("BeatTable")
 	@TestedBehaviour("the pair related to a and b can be set")
 	@Test
-	public void setPair_with_not_defined_choices() {
-		BeatTable beatTable = new BeatTable();
-		Pair pair = new Pair(1, 2);
-		
-		assertThrows(() -> beatTable.setPair(null, null, pair)
-				).assertMessageIs("Invalid row key");
-	}
-	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the pair related to a and b can be set")
-	@Test
-	public void setPair_with_not_proper_keyCollection() {
-		Choice choice1 = new Choice("name1", "userName1");
-		Choice choice2 = new Choice("name2", "userName2");
-		
-		BeatTable beatTable = new BeatTable();
-		
-		Pair pair = new Pair(1, 2);
-		
-		assertThrows(() -> beatTable.setPair(choice1, choice2, pair)
-				).assertMessageIs("Invalid row key");
-	}
-	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the pair related to a and b can be set")
-	@Test
-	public void setPair_with_proper_matrix_so_it_inserts_the_pair() {
+	public void setPair_with_not_existing_choices_insert_the_pair() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
@@ -90,7 +58,7 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 	@TestedOperation("BeatTable")
 	@TestedBehaviour("the pair related to a and b can be set")
 	@Test
-	public void setPair_with_proper_matrix_so_it_modify_the_existing_values() {
+	public void setPair_with_existing_choices_update_the_pair() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
