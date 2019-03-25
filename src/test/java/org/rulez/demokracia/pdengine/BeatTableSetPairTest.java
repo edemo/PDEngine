@@ -32,7 +32,7 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 		BeatTable beatTable = new BeatTable();
 
 		assertThrows(() -> beatTable.setPair(null, null, null)
-				).assertMessageIs("Pair is null");
+				).assertMessageIs("Invalid Pair key");
 	}
 	
 	@TestedFeature("Supporting functionality")
@@ -44,50 +44,45 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 		Pair pair = new Pair(1, 2);
 		
 		assertThrows(() -> beatTable.setPair(null, null, pair)
-				).assertMessageIs("Illegal choice");
+				).assertMessageIs("Invalid row key");
 	}
 	
 	@TestedFeature("Supporting functionality")
 	@TestedOperation("BeatTable")
 	@TestedBehaviour("the pair related to a and b can be set")
 	@Test
-	public void setPair_with_not_proper_matrix_so_it_inserts_the_new_values() throws IsNullException {
+	public void setPair_with_not_proper_keyCollection() {
+		Choice choice1 = new Choice("name1", "userName1");
+		Choice choice2 = new Choice("name2", "userName2");
+		
 		BeatTable beatTable = new BeatTable();
+		
+		Pair pair = new Pair(1, 2);
+		
+		assertThrows(() -> beatTable.setPair(choice1, choice2, pair)
+				).assertMessageIs("Invalid row key");
+	}
+	
+	@TestedFeature("Supporting functionality")
+	@TestedOperation("BeatTable")
+	@TestedBehaviour("the pair related to a and b can be set")
+	@Test
+	public void setPair_with_proper_matrix_so_it_inserts_the_pair() {
+		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
 		Choice choice2 = new Choice("name2", "userName2");
 		
-		beatTable.setPair(choice1, choice2, pair);
+		list.add(choice1);
+		list.add(choice2);
 		
-		int value1 = beatTable.table.get(choice1).get(choice2);
-		int value2 = beatTable.table.get(choice2).get(choice1);
-		
-		assertTrue(value1 == 1 && value2 == 2);
-		
-	}
-	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the pair related to a and b can be set")
-	@Test
-	public void setPair_with_proper_matrix_so_it_inserts_and_modify_the_values() throws IsNullException {
-		BeatTable beatTable = new BeatTable();
-		Pair pair = new Pair(1, 2);
-		Choice choice1 = new Choice("name1", "userName1");
-		Choice choice2 = new Choice("name2", "userName2");
-		
-		HashMap<Choice, Integer> value = new HashMap<Choice, Integer>();
-		value.put(choice2, 13);
-		
-		beatTable.table.put(choice1, value);
+		BeatTable beatTable = new BeatTable(list);
 		
 		beatTable.setPair(choice1, choice2, pair);
 		
-		int value1 = beatTable.table.get(choice1).get(choice2);
-		int value2 = beatTable.table.get(choice2).get(choice1);
+		Pair result = beatTable.matrix.getElement(choice1, choice2);
 		
-		assertTrue(value1 == 1 && value2 == 2);
-		
+		assertTrue(result.winning == pair.winning && result.losing == pair.losing);	
 	}
 	
 	
@@ -95,36 +90,27 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 	@TestedOperation("BeatTable")
 	@TestedBehaviour("the pair related to a and b can be set")
 	@Test
-	public void setPair_with_proper_matrix_so_it_modify_the_existing_values() throws IsNullException {
-		BeatTable beatTable = new BeatTable();
+	public void setPair_with_proper_matrix_so_it_modify_the_existing_values() {
+		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
 		Choice choice2 = new Choice("name2", "userName2");
 		Choice choice3 = new Choice("name3", "userName3");
 		
-		HashMap<Choice, Integer> value12 = new HashMap<Choice, Integer>();
-		value12.put(choice2, 14);
-		HashMap<Choice, Integer> value13 = new HashMap<Choice, Integer>();
-		value13.put(choice3, 13);
-		HashMap<Choice, Integer> value21 = new HashMap<Choice, Integer>();
-		value21.put(choice1, 12);
-		HashMap<Choice, Integer> value23 = new HashMap<Choice, Integer>();
-		value23.put(choice3, 11);
-		HashMap<Choice, Integer> value32 = new HashMap<Choice, Integer>();
-		value32.put(choice2, 10);
+		list.add(choice1);
+		list.add(choice2);
+		list.add(choice3);
 		
-		beatTable.table.put(choice1, value12);
-		beatTable.table.put(choice1, value13);
-		beatTable.table.put(choice2, value21);
-		beatTable.table.put(choice2, value23);
-		beatTable.table.put(choice3, value32);
+		BeatTable beatTable = new BeatTable(list);
 		
-		beatTable.setPair(choice1, choice3, pair);
+		beatTable.setPair(choice1, choice2, new Pair(14, 1));
+		beatTable.setPair(choice1, choice3, new Pair(13, 2));
+		beatTable.setPair(choice2, choice1, new Pair(12, 3));
+		beatTable.setPair(choice2, choice3, new Pair(11, 4));
+		beatTable.setPair(choice1, choice2, new Pair(pair.winning, pair.losing));
 		
-		int value1 = beatTable.table.get(choice1).get(choice3);
-		int value2 = beatTable.table.get(choice3).get(choice1);
+		Pair result = beatTable.matrix.getElement(choice1, choice2);
 		
-		assertTrue(value1 == 1 && value2 == 2);
-		
+		assertTrue(result.winning == pair.winning && result.losing == pair.losing);
 	}
 }

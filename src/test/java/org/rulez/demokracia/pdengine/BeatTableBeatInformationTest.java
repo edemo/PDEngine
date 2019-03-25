@@ -2,6 +2,7 @@ package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Before;
@@ -10,6 +11,7 @@ import org.rulez.demokracia.pdengine.BeatTable.Direction;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.IsNullException;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
@@ -29,7 +31,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 		BeatTable beatTable = new BeatTable();
 
 		assertThrows(() -> beatTable.beatInformation(null, null, null)
-				).assertMessageIs("Direction is null");
+				).assertMessageIs("Invalid direction");
 	}
 	
 	@TestedFeature("Supporting functionality")
@@ -40,59 +42,41 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 		BeatTable beatTable = new BeatTable();
 		
 		assertThrows(() -> beatTable.beatInformation(null, null, Direction.DIRECTION_FORWARD)
-				).assertMessageIs("Choice is null");
+				).assertMessageIs("Invalid row key");
 	}
 	
 	@TestedFeature("Supporting functionality")
 	@TestedOperation("BeatTable")
 	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
-	public void beatTable_forward_with_not_proper_matrix() {
+	public void beatTable_with_empty_matrix() {
 		Choice choice1 = new Choice("name", "userName");
 		Choice choice2 = null;
 		
 		BeatTable beatTable = new BeatTable();
 		
-		beatTable.table.put(choice1, new HashMap<Choice, Integer>());
-		
 		assertThrows(() -> beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_FORWARD)
-				).assertMessageIs("Choice is null");
+				).assertMessageIs("Invalid row key");
 	}
 	
 	@TestedFeature("Supporting functionality")
 	@TestedOperation("BeatTable")
 	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
-	public void beatTable_forward() throws IsNullException {
+	public void beatTable_forward() {
+		ArrayList<Choice> list = new ArrayList<Choice>();
+		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
 		Choice choice2 = new Choice("name2", "userName2");
-		int expectedValue = 1;
 		
-		HashMap<Choice, Integer> value = new HashMap<Choice, Integer>();
-		value.put(choice2, expectedValue);
+		list.add(choice1);
+		list.add(choice2);
 		
-		BeatTable beatTable = new BeatTable();
-		beatTable.table.put(choice1, value);
+		BeatTable beatTable = new BeatTable(list);
 		
-		int actualValue = beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_FORWARD);
+		beatTable.setPair(choice1, choice2, pair);
 		
-		assertEquals(expectedValue, actualValue);
-	}
-	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
-	@Test
-	public void beatTable_backward_with_not_proper_matrix() {
-		Choice choice2 = new Choice("name", "userName");
-		Choice choice1 = null;
-		
-		BeatTable beatTable = new BeatTable();
-		
-		beatTable.table.put(choice2, new HashMap<Choice, Integer>());
-		
-		assertThrows(() -> beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_BACKWARD)
-				).assertMessageIs("Choice is null");
+		assertEquals(pair.winning, beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_FORWARD));
 	}
 	
 	@TestedFeature("Supporting functionality")
@@ -100,18 +84,18 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
 	public void beatTable_backward() throws IsNullException {
-		Choice choice2 = new Choice("name1", "userName1");
-		Choice choice1 = new Choice("name2", "userName2");
-		int expectedValue = 1;
+		ArrayList<Choice> list = new ArrayList<Choice>();
+		Pair pair = new Pair(1, 2);
+		Choice choice1 = new Choice("name1", "userName1");
+		Choice choice2 = new Choice("name2", "userName2");
 		
-		HashMap<Choice, Integer> value = new HashMap<Choice, Integer>();
-		value.put(choice1, 1);
+		list.add(choice1);
+		list.add(choice2);
 		
-		BeatTable beatTable = new BeatTable();
-		beatTable.table.put(choice2, value);
+		BeatTable beatTable = new BeatTable(list);
 		
-		int actualValue = beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_BACKWARD);
+		beatTable.setPair(choice1, choice2, pair);
 		
-		assertEquals(expectedValue, actualValue);
+		assertEquals(pair.losing, beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_BACKWARD));
 	}
 }

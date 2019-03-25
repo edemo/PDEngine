@@ -5,17 +5,17 @@ import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 public class Pair extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
-	public int key1;
-	public int key2;
+	public int winning;
+	public int losing;
 	
 	public Pair() {
 		super();
 	}
 	
-	public Pair(int key1, int key2) {
+	public Pair(int winning, int losing) {
 		super();
-		this.key1 = key1;
-		this.key2 = key2;
+		this.winning = winning;
+		this.losing = losing;
 	}
 
 }
