@@ -21,11 +21,11 @@ public class BeatTable {
 		this(new ArrayList<Choice>());
 	}
 
-	public BeatTable(Collection<Choice> keyCollection) {
-		matrix = new MapMatrix<Choice, Pair>(keyCollection);
+	public BeatTable(final Collection<Choice> keyCollection) {
+		matrix = new MapMatrix<>(keyCollection);
 	}
 
-	public int beatInformation(Choice choice1, Choice choice2, Direction direction) {
+	public int beatInformation(final Choice choice1, final Choice choice2, final Direction direction) {
 		if (direction == null) 
 			throw new IllegalArgumentException("Invalid direction");
 		
@@ -40,11 +40,11 @@ public class BeatTable {
 		return result;
 	}
 
-	public Pair getPair(Choice choice1, Choice choice2) {
+	public Pair getPair(final Choice choice1, final Choice choice2) {
 		return matrix.getElement(choice1, choice2);
 	}
 
-	public void setPair(Choice choice1, Choice choice2, Pair pair) {
+	public void setPair(final Choice choice1, final Choice choice2, final Pair pair) {
 		if (pair == null)
 			throw new IllegalArgumentException("Invalid Pair key");
 

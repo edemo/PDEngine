@@ -13,6 +13,9 @@ import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
+@TestedFeature("Supporting functionality")
+@TestedOperation("BeatTable")
+@TestedBehaviour("the pair related to a and b can be set")
 public class BeatTableSetPairTest extends CreatedDefaultChoice {
 
 	@Before
@@ -20,9 +23,6 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 		super.setUp();
 	}
 
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the pair related to a and b can be set")
 	@Test
 	public void setPair_with_not_defined_inputs() {
 		BeatTable beatTable = new BeatTable();
@@ -31,9 +31,6 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 				).assertMessageIs("Invalid Pair key");
 	}
 	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the pair related to a and b can be set")
 	@Test
 	public void setPair_with_not_existing_choices_insert_the_pair() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
@@ -53,10 +50,6 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 		assertTrue(result.winning == pair.winning && result.losing == pair.losing);	
 	}
 	
-	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the pair related to a and b can be set")
 	@Test
 	public void setPair_with_existing_choices_update_the_pair() {
 		ArrayList<Choice> list = new ArrayList<Choice>();

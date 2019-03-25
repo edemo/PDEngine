@@ -14,6 +14,9 @@ import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
+@TestedFeature("Supporting functionality")
+@TestedOperation("BeatTable")
+@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 
 	@Before
@@ -21,9 +24,6 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 		super.setUp();
 	}
 
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
 	public void beatInformation_needs_a_defined_direction() {
 		BeatTable beatTable = new BeatTable();
@@ -32,9 +32,6 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 				).assertMessageIs("Invalid direction");
 	}
 	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
 	public void The_1st_key_should_be_a_Choice() {
 		BeatTable beatTable = new BeatTable();
@@ -43,9 +40,6 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 				).assertMessageIs("Invalid row key");
 	}
 	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
 	public void beatTable_when_the_key_does_not_belong_to_the_table() {
 		Choice choice1 = new Choice("name", "userName");
@@ -57,9 +51,6 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 				).assertMessageIs("Invalid row key");
 	}
 	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
 	public void beatInformation_forward_gives_the_number_of_winnings_of_choice1_to_choice2() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
@@ -77,9 +68,6 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 		assertEquals(pair.winning, beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_FORWARD));
 	}
 	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
 	@Test
 	public void beatInformation_backward_gives_the_number_of_winnings_of_choice1_to_choice2() {
 		ArrayList<Choice> list = new ArrayList<Choice>();

@@ -13,6 +13,9 @@ import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
+@TestedFeature("Supporting functionality")
+@TestedOperation("BeatTable")
+@TestedBehaviour("the pair related to a and b can be obtained")
 public class BeatTableGetPairTest extends CreatedDefaultChoice {
 
 	@Before
@@ -20,9 +23,6 @@ public class BeatTableGetPairTest extends CreatedDefaultChoice {
 		super.setUp();
 	}
 
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the pair related to a and b can be obtained")
 	@Test
 	public void getPair_with_not_defined_inputs() {
 		BeatTable beatTable = new BeatTable();
@@ -31,10 +31,6 @@ public class BeatTableGetPairTest extends CreatedDefaultChoice {
 				).assertMessageIs("Invalid row key");
 	}
 	
-	
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("BeatTable")
-	@TestedBehaviour("the pair related to a and b can be obtained")
 	@Test
 	public void getPair_gives_the_pair_related_to_choice1_and_choice2() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
