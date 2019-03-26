@@ -58,9 +58,11 @@ public class BeatTableCompareBeatsTest extends CreatedDefaultChoice {
 		assertTrue(result.winning == beats1.winning && result.losing == beats1.losing);	
 	}
 	
-	@TestedBehaviour("if beats are different, the bigger wins")
+    @TestedFeature("Unimplemented")
+    @TestedOperation("Unimplemented")
+    @TestedBehaviour("Unimplemented")
 	@Test
-	public void compareBeats_gives_back_the_equal_beat() {
+	public void compareBeats_is_not_yet_implemented_when_the_result_is_tie() {
 		assertThrows(() -> beatTable.compareBeats(beats1, beats1)
 				).assertMessageIs("Can not decide");
 	}
