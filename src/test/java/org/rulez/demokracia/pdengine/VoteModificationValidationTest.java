@@ -51,6 +51,6 @@ public class VoteModificationValidationTest extends CreatedDefaultVoteRegistry {
 		assertThrows(
 			() -> voteManager.modifyVote(
 					new VoteAdminInfo(voteId, adminInfo.adminKey), voteName)
-		).assertMessageIs("The vote cannot be modified there are ballots issued.");
+		).assertMessageIs("This vote cannot be modified it has issued ballots.");
 	}
 }

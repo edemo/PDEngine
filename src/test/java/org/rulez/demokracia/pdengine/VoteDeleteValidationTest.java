@@ -38,7 +38,7 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 		vote.ballots.add("TestBallot");
 		assertThrows(
 			() -> voteManager.deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey))
-		).assertMessageIs("This vote cannot be deleted it has issued ballots.");
+		).assertMessageIs("This vote cannot be modified it has issued ballots.");
 	}
 	
 	@TestedBehaviour("deletes the vote with all parameters, choices, ballots and votes cast")
@@ -60,6 +60,6 @@ public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 		
 		assertThrows(
 			() -> voteManager.deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey))
-		).assertMessageIs("This vote cannot be deleted it has issued ballots.");
+		).assertMessageIs("This vote cannot be modified it has issued ballots.");
 	}
 }
