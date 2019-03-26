@@ -24,7 +24,7 @@ public class BeatTableGetPairTest extends CreatedDefaultChoice {
 	}
 
 	@Test
-	public void getPair_with_not_defined_inputs() {
+	public void getPair_throws_an_exception_when_inputs_are_not_defined() {
 		BeatTable beatTable = new BeatTable();
 
 		assertThrows(() -> beatTable.getPair(null, null)
@@ -32,7 +32,7 @@ public class BeatTableGetPairTest extends CreatedDefaultChoice {
 	}
 	
 	@Test
-	public void getPair_gives_the_pair_related_to_choice1_and_choice2() {
+	public void getPair_gives_back_the_pair_related_to_choice1_and_choice2() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
 		Choice choice1 = new Choice("name1", "userName1");
 		Choice choice2 = new Choice("name2", "userName2");

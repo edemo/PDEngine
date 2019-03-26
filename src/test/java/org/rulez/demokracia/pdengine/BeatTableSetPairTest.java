@@ -24,7 +24,7 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 	}
 
 	@Test
-	public void setPair_with_not_defined_inputs() {
+	public void setPair_throws_an_exception_when_inputs_are_not_defined() {
 		BeatTable beatTable = new BeatTable();
 
 		assertThrows(() -> beatTable.setPair(null, null, null)
@@ -32,7 +32,7 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 	}
 	
 	@Test
-	public void setPair_with_not_existing_choices_insert_the_pair() {
+	public void setPair_inserts_the_pair_when_there_is_no_pair_in_the_matrix() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
@@ -51,7 +51,7 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 	}
 	
 	@Test
-	public void setPair_with_existing_choices_update_the_pair() {
+	public void setPair_updates_the_pair_when_there_are_pairs_in_the_matrix() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");

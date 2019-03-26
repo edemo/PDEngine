@@ -8,10 +8,6 @@ public class Pair extends BaseEntity {
 	public int winning;
 	public int losing;
 	
-	public Pair() {
-		super();
-	}
-	
 	public Pair(final int winning, final int losing) {
 		super();
 		this.winning = winning;

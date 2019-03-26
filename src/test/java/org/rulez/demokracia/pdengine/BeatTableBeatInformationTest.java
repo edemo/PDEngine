@@ -25,7 +25,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	}
 
 	@Test
-	public void beatInformation_needs_a_defined_direction() {
+	public void beatInformation_throws_an_exception_when_direction_is_not_defined() {
 		BeatTable beatTable = new BeatTable();
 
 		assertThrows(() -> beatTable.beatInformation(null, null, null)
@@ -33,7 +33,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	}
 	
 	@Test
-	public void The_1st_key_should_be_a_Choice() {
+	public void beatInformation_throws_an_exception_when_the_chocies_are_not_defined() {
 		BeatTable beatTable = new BeatTable();
 		
 		assertThrows(() -> beatTable.beatInformation(null, null, Direction.DIRECTION_FORWARD)
@@ -41,7 +41,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	}
 	
 	@Test
-	public void beatTable_when_the_key_does_not_belong_to_the_table() {
+	public void beatInformation_throws_an_exception_when_the_choices_are_not_belong_to_the_matrix() {
 		Choice choice1 = new Choice("name", "userName");
 		Choice choice2 = null;
 		
@@ -52,7 +52,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	}
 	
 	@Test
-	public void beatInformation_forward_gives_the_number_of_winnings_of_choice1_to_choice2() {
+	public void beatInformation_gives_back_the_number_of_winnings_from_choice1_to_choice2() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");
@@ -69,7 +69,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	}
 	
 	@Test
-	public void beatInformation_backward_gives_the_number_of_winnings_of_choice1_to_choice2() {
+	public void beatInformation_gives_back_the_number_of_losing_from_choice1_to_choice2() {
 		ArrayList<Choice> list = new ArrayList<Choice>();
 		Pair pair = new Pair(1, 2);
 		Choice choice1 = new Choice("name1", "userName1");

@@ -26,9 +26,9 @@ public class BeatTable {
 	}
 
 	public int beatInformation(final Choice choice1, final Choice choice2, final Direction direction) {
-		if (direction == null) 
+		if (direction == null)
 			throw new IllegalArgumentException("Invalid direction");
-		
+
 		int result = 0;
 		Pair pair = getPair(choice1, choice2);
 
@@ -50,22 +50,18 @@ public class BeatTable {
 
 		matrix.setElement(choice1, choice2, pair);
 	}
-	
-	public Pair compareBeats(Pair beat1, Pair beat2){
+
+	public Pair compareBeats(final Pair beat1, final Pair beat2) {
 		if (beat1 == null || beat2 == null)
 			throw new IllegalArgumentException("Invalid Pair key");
-		
-		if(beat1.winning > beat2.winning)
+
+		if (beat1.winning > beat2.winning)
 			return beat1;
 		else if (beat1.winning == beat2.winning)
-			if(beat1.losing < beat2.losing)
+			if (beat1.losing < beat2.losing)
 				return beat1;
-			else if(beat1.losing == beat2.losing) 
+			else if (beat1.losing == beat2.losing)
 				throw new IllegalArgumentException("Can not decide");
-			else
-				return beat2;
-		else
-			return beat2;
-		
+		return beat2;
 	}
 }

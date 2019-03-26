@@ -32,49 +32,49 @@ public class BeatTableCompareBeatsTest extends CreatedDefaultChoice {
 
 	@TestedBehaviour("if beats are different, the bigger wins")
 	@Test
-	public void compareBeats_with_not_defined_first_input() {
+	public void compareBeats_throws_an_exception_when_first_input_param_is_not_defined() {
 		assertThrows(() -> beatTable.compareBeats(beats1, null)
 				).assertMessageIs("Invalid Pair key");
 	}
 	
 	@TestedBehaviour("if beats are different, the bigger wins")
 	@Test
-	public void compareBeats_with_not_defined_second_input() {
+	public void compareBeats_throws_an_exception_when_second_input_param_is_not_defined() {
 		assertThrows(() -> beatTable.compareBeats(null, beats2)
 				).assertMessageIs("Invalid Pair key");
 	}
 	
 	@TestedBehaviour("if beats are different, the bigger wins")
 	@Test
-	public void compareBeats_with_bigger_beat1_forward() {
+	public void compareBeats_gives_back_the_forward_bigger_beat1() {
 		result = beatTable.compareBeats(beats1, beats2);
 		assertTrue(result.winning == beats1.winning && result.losing == beats1.losing);	
 	}
 	
 	@TestedBehaviour("if beats tie, looses decide")
 	@Test
-	public void compareBeats_with_equal_forward_and_lower_beat1_backward() {
+	public void compareBeats_gives_back_the_backward_lower_beat1() {
 		result = beatTable.compareBeats(beats1, beats3);
 		assertTrue(result.winning == beats1.winning && result.losing == beats1.losing);	
 	}
 	
 	@TestedBehaviour("if beats are different, the bigger wins")
 	@Test
-	public void compareBeats_with_equal_forward_and_equal_backward_beats() {
+	public void compareBeats_gives_back_the_equal_beat() {
 		assertThrows(() -> beatTable.compareBeats(beats1, beats1)
 				).assertMessageIs("Can not decide");
 	}
 	
 	@TestedBehaviour("if beats are different, the bigger wins")
 	@Test
-	public void compareBeats_with_bigger_beat2_forward() {
+	public void compareBeats_gives_back_the_forward_bigger_beat2() {
 		result = beatTable.compareBeats(beats4, beats3);
 		assertTrue(result.winning == beats3.winning && result.losing == beats3.losing);	
 	}
 	
 	@TestedBehaviour("if beats tie, looses decide")
 	@Test
-	public void compareBeats_with_equal_forward_and_lower_beat2_backward() {
+	public void compareBeats_gives_back_the_backward_lower_beat2() {
 		result = beatTable.compareBeats(beats1, beats5);
 		assertTrue(result.winning == beats5.winning && result.losing == beats5.losing);	
 	}
