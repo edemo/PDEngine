@@ -8,9 +8,4 @@ public class RankedChoiceEntity extends BaseEntity {
 	public String choiceId;
 	public int rank;
 	
-	public RankedChoiceEntity() {
-		super();
-	}
-	
-	
 }

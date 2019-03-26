@@ -4,7 +4,7 @@ public class TooLongException extends ReportedException {
 	
 	private static final long serialVersionUID = 1L;
 
-	public TooLongException(String description) {
+	public TooLongException(final String description) {
 		super("string too long: {0}", description);
 	}
 

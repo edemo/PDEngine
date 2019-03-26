@@ -5,7 +5,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-feature_docker_populate_cache_133.1d62a5a</version>
+  <version>0.0.1-feature_matrix.64f1423</version>
   <packaging>war</packaging>
 
   <name>PDEngine</name>
@@ -20,6 +20,25 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.0.0</version>
+      </plugin>
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-compiler-plugin</artifactId>
+      	<version>3.8.0</version>
+      	<configuration>
+        	<source>${maven.compiler.source}</source>
+        	<target>${maven.compiler.target}</target>
+        	<showWarnings>true</showWarnings>
+        	<failOnWarning>true</failOnWarning>
+        	<compilerArgs>
+          		<arg>-Xlint:all</arg>
+        	</compilerArgs>
+      	</configuration>
+      </plugin>
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
@@ -65,31 +84,82 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.4</version>
-        <executions>
-          <execution>
-            <id>xml-doclet</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>javadoc</goal>
-            </goals>
-            <configuration>
-              <doclet>com.github.markusbernhardt.xmldoclet.XmlDoclet</doclet>
-              <additionalparam>-d ${project.build.directory} -filename
-                ${project.artifactId}-${project.version}-javadoc.xml</additionalparam>
-              <useStandardDocletOptions>false</useStandardDocletOptions>
-              <docletArtifact>
-                <groupId>com.github.markusbernhardt</groupId>
-                <artifactId>xml-doclet</artifactId>
-                <version>1.0.5</version>
-              </docletArtifact>
-            </configuration>
-          </execution>
-        </executions>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.7.1</version>
       </plugin>
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.11.0</version>
+            <configuration>
+             <minimumTokens>15</minimumTokens>
+             <ignoreAnnotations>true</ignoreAnnotations>
+             <includeTests>true</includeTests>
+             <rulesets>
+              <ruleset>pmd_rules.xml</ruleset>
+             </rulesets>
+            </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <reportSets>
+	      <reportSet>
+	        <id>production-javadoc</id>
+	        <configuration>
+	          <doclet>com.github.markusbernhardt.xmldoclet.XmlDoclet</doclet>
+	          <additionalparam>-d ${project.build.directory}/production -filename
+	            javadoc.xml</additionalparam>
+	          <useStandardDocletOptions>false</useStandardDocletOptions>
+	          <docletArtifact>
+	            <groupId>com.github.markusbernhardt</groupId>
+	            <artifactId>xml-doclet</artifactId>
+	            <version>1.0.5</version>
+	          </docletArtifact>
+	        </configuration>
+	        <reports>
+              <report>javadoc</report>
+	        </reports>
+	      </reportSet>
+	      <reportSet>
+	        <id>test-javadoc</id>
+	        <configuration>
+	          <doclet>com.github.markusbernhardt.xmldoclet.XmlDoclet</doclet>
+	          <additionalparam>
+	            -d ${project.build.directory}/test
+	            -filename javadoc.xml
+	          </additionalparam>
+	          <useStandardDocletOptions>false</useStandardDocletOptions>
+	          <docletArtifact>
+	            <groupId>com.github.markusbernhardt</groupId>
+	            <artifactId>xml-doclet</artifactId>
+	            <version>1.0.5</version>
+	          </docletArtifact>
+	        </configuration>
+	        <reports>
+	          <report>test-javadoc</report>
+	        </reports>
+	      </reportSet>
+	    </reportSets>
+	  </plugin>
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.0.0</version>
+        <reportSets>
+          <reportSet>
+            <reports></reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

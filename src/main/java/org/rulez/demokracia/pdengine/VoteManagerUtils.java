@@ -5,14 +5,14 @@ import java.util.Map;
 
 import javax.xml.ws.WebServiceContext;
 
-public class VoteManagerRegistry {
+final public class VoteManagerUtils {
 	
 	private static Map<WebServiceContext,IVoteManager> registry = new HashMap<>();
 
-	private VoteManagerRegistry() {
+	private VoteManagerUtils() {
 	}
 
-	public static IVoteManager getVoteManager(WebServiceContext wsContext) {
+	public static IVoteManager getVoteManager(final WebServiceContext wsContext) {
 		if(!registry.containsKey(wsContext)) {
 			registry.put(wsContext, new VoteRegistry(wsContext));
 		}

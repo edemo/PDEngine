@@ -3,14 +3,14 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.rulez.demokracia.pdengine.annotations.tested_behaviour;
-import org.rulez.demokracia.pdengine.annotations.tested_feature;
-import org.rulez.demokracia.pdengine.annotations.tested_operation;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
-@tested_feature("Manage votes")
-@tested_operation("create vote")
-@tested_behaviour("The vote initially can only be modified with the adminkey")
+@TestedFeature("Manage votes")
+@TestedOperation("create vote")
+@TestedBehaviour("The vote initially can only be modified with the adminkey")
 public class VoteInitialValuesTest extends CreatedDefaultVoteRegistry {
 
 

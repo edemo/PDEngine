@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine.testhelpers;
+package org.rulez.demokracia.testhelpers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -9,24 +9,19 @@ public class ThrowableTester {
 
 	private Throwable thrown;
 
-	public ThrowableTester() {
-		super();
-	}
-
-	public ThrowableTester assertThrows(Thrower thrower) {
-		thrown = null;
+	public ThrowableTester assertThrows(final Thrower thrower) {
 		try {
 			thrower.throwException();
-		} catch (Throwable exception) {
+		} catch (RuntimeException exception) {
 			thrown = exception;
 		}
 		if (thrown == null) {
-			fail("no exception thrown");			
+			fail("no exception thrown");
 		}
 		return this;
 	}
 
-	public ThrowableTester assertMessageIs(String message) {
+	public ThrowableTester assertMessageIs(final String message) {
 		assertEquals(message, thrown.getMessage());
 		return this;
 	}
@@ -35,7 +30,7 @@ public class ThrowableTester {
 		return thrown;
 	}
 
-	public ThrowableTester assertException(Class<? extends RuntimeException> klass) {
+	public ThrowableTester assertException(final Class<? extends RuntimeException> klass) {
 		String message = String.format("expected %s but got %s", klass, ExceptionUtils.getStackTrace(thrown));
 		assertEquals(message, klass, thrown.getClass());
 		return this;

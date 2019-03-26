@@ -13,8 +13,4 @@ public class ChoiceEntity extends BaseEntity {
 	@ElementCollection
 	public List<String> endorsers;
 
-	public ChoiceEntity() {
-		super();
-	}
-
 }

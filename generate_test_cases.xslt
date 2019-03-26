@@ -31,9 +31,9 @@
     <xsl:for-each select="$testcases//testcase">
 ----------------------------------------------------------------------------
 Behaviour: <xsl:value-of select="@name"/>
- @tested_feature("<xsl:value-of select="@feature"/>")
- @tested_operation("<xsl:value-of select="@operation"/>")
- @tested_behaviour("<xsl:value-of select="@testcase"/>")
+ @TestedFeature("<xsl:value-of select="@feature"/>")
+ @TestedOperation("<xsl:value-of select="@operation"/>")
+ @TestedBehaviour("<xsl:value-of select="@testcase"/>")
 <xsl:if test="@addtestcase">
  @tested_aspect(<xsl:value-of select="@addtestcase"/>)
 </xsl:if>

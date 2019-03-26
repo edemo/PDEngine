@@ -8,7 +8,7 @@ import javax.persistence.ElementCollection;
 import org.rulez.demokracia.pdengine.Choice;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
-public abstract class VoteEntity extends BaseEntity {
+public class VoteEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	public String name;
@@ -30,10 +30,7 @@ public abstract class VoteEntity extends BaseEntity {
 	@ElementCollection
 	public Map<String,Choice> choices;
 	@ElementCollection
-	public Map<String, Integer> recordedBallots;
-
-	public VoteEntity() {
-		super();
-	}
+	public List<CastVote> votesCast;
+	public Map<String,Integer> recordedBallots;
 
 }
