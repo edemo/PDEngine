@@ -47,14 +47,14 @@ public class BeatTableCompareBeatsTest extends CreatedDefaultChoice {
 	@TestedBehaviour("if beats are different, the bigger wins")
 	@Test
 	public void compareBeats_gives_back_the_forward_bigger_beat1() {
-		result = beatTable.compareBeats(beats1, beats2);
+		compareBeats(beats1, beats2);
 		assertTrue(result.winning == beats1.winning && result.losing == beats1.losing);	
 	}
 	
 	@TestedBehaviour("if beats tie, looses decide")
 	@Test
 	public void compareBeats_gives_back_the_backward_lower_beat1() {
-		result = beatTable.compareBeats(beats1, beats3);
+		compareBeats(beats1, beats3);
 		assertTrue(result.winning == beats1.winning && result.losing == beats1.losing);	
 	}
 	
@@ -68,14 +68,18 @@ public class BeatTableCompareBeatsTest extends CreatedDefaultChoice {
 	@TestedBehaviour("if beats are different, the bigger wins")
 	@Test
 	public void compareBeats_gives_back_the_forward_bigger_beat2() {
-		result = beatTable.compareBeats(beats4, beats3);
+		compareBeats(beats4, beats3);
 		assertTrue(result.winning == beats3.winning && result.losing == beats3.losing);	
 	}
 	
 	@TestedBehaviour("if beats tie, looses decide")
 	@Test
 	public void compareBeats_gives_back_the_backward_lower_beat2() {
-		result = beatTable.compareBeats(beats1, beats5);
+		compareBeats(beats1, beats5);
 		assertTrue(result.winning == beats5.winning && result.losing == beats5.losing);	
+	}
+	
+	private void compareBeats(Pair beats1, Pair beats2) {
+		result = beatTable.compareBeats(beats1, beats2);
 	}
 }

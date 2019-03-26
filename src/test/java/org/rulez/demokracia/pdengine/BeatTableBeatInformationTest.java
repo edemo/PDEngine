@@ -27,6 +27,7 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
+		
 		beatTable = new BeatTable();
 		list = new ArrayList<Choice>();
 		pair = new Pair(4, 5);
