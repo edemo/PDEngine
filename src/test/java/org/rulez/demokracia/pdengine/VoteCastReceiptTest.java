@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,13 +13,14 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 @TestedOperation("Cast vote")
 @TestedBehaviour("The vote receipt contains the ballot cast and the cast vote identifier")
 public class VoteCastReceiptTest extends CreatedDefaultChoice {
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
-		
+
 		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		vote = getTheVote();
-		vote.canVote = true;
+		vote.voteParameters.canVote = true;
 		vote.canUpdate = true;
 		vote.votesCast.clear();
 	}

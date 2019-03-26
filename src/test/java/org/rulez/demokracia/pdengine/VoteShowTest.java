@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertEquals;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -20,6 +21,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	private String voteId;
 	private String adminKey;
 
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -29,33 +31,33 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		voteId = adminInfo.voteId;
 		adminKey = adminInfo.adminKey;
 	}
-	
+
 	@Test
 	public void the_name_attribute_contains_the_name_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		
+
 		assertEquals(result.get("name"), vote.name);
 	}
-	
+
 	@Test
 	public void the_canAddIn_attribute_contains_whether_the_voters_can_add_choices_to_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		
-		assertEquals(result.get("canAddIn"), vote.canAddin);
+
+		assertEquals(result.get("canAddIn"), vote.voteParameters.canAddin);
 	}
 
 	@Test
 	public void the_creationTime_attribute_contains_the_creation_time_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		
+
 		assertEquals(result.get("creationTime"), vote.creationTime);
 	}
-	
+
 	@Test
 	public void the_choices_attribute_contains_the_choices_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		JSONArray jsonArray = vote.createChoicesJson(vote.choices);
-		
+
 		assertEquals(result.getJSONArray("choices").toString(), jsonArray.toString());
 	}
 	@Test
@@ -65,56 +67,56 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		String initiatorInJson = (String) firstChoice.get("initiator");
 		assertEquals("user", initiatorInJson);
 	}
-	
+
 	@Test
 	public void the_canEndorse_attribute_contains_whether_the_voters_endorse_choices_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		
-		assertEquals(result.get("canEndorse"), vote.canEndorse);
+
+		assertEquals(result.get("canEndorse"), vote.voteParameters.canEndorse);
 	}
-	
+
 	@Test
 	public void the_countedAssurances_attribute_contains_the_counted_assurances_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		JSONArray jsonArray = new JSONArray(vote.countedAssurances);
-		
+
 		assertEquals(result.get("countedAssurances").toString(), jsonArray.toString());
 	}
-	
+
 	@Test
 	public void the_neededAssurances_attribute_contains_the_needed_assurances_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		JSONArray jsonArray = new JSONArray(vote.neededAssurances);
-		
-		
+
+
 		assertEquals(result.get("neededAssurances").toString(), jsonArray.toString());
 	}
-	
+
 	@Test
 	public void the_minEndorsements_attribute_contains_the_mininimum_endorsements_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		
-		assertEquals(result.get("minEndorsements"), vote.minEndorsements);
+
+		assertEquals(result.get("minEndorsements"), vote.voteParameters.minEndorsements);
 	}
-	
+
 	@Test
 	public void the_id_attribute_contains_the_id_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		
+
 		assertEquals(result.get("id"), vote.id);
 	}
-	
+
 	@Test
 	public void the_canView_attribute_contains_whether_the_voters_can_view_the_results() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		
-		assertEquals(result.get("canView"), vote.canView);
+
+		assertEquals(result.get("canView"), vote.voteParameters.canView);
 	}
-	
+
 	@Test
 	public void the_canVote_attribute_contains_whether_the_votes_can_be_cast() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		
-		assertEquals(result.get("canVote"), vote.canVote);
-	}	
+
+		assertEquals(result.get("canVote"), vote.voteParameters.canVote);
+	}
 }

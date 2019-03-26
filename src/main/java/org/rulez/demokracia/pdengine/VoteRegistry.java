@@ -19,10 +19,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(identifier);
 		vote.checkAdminKey(adminKey);
 
-		if (adminKey.equals(vote.adminKey))
+		if (adminKey.equals(vote.adminKey)) {
 			vote.increaseRecordedBallots("admin");
-
-		else if ("user".equals(adminKey)) {
+		} else if ("user".equals(adminKey)) {
 			if (getWsContext().getUserPrincipal() == null)
 				throw new IllegalArgumentException("Simple user is not authenticated, cannot issue any ballot.");
 			if (!userHasAllAssurance(vote.neededAssurances))
@@ -31,7 +30,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 				throw new IllegalArgumentException("This user already have a ballot.");
 
 			vote.increaseRecordedBallots(getWsUserName());
-			}
+		}
 
 		String ballot = RandomUtils.createRandomKey();
 		vote.ballots.add(ballot);
@@ -40,9 +39,8 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 	public boolean userHasAllAssurance(final List<String> neededAssuranceList) {
 		for (String neededAssurance : neededAssuranceList) {
-			if (!hasAssurance(neededAssurance)) {
+			if (!hasAssurance(neededAssurance))
 				return false;
-			}
 		}
 		return true;
 	}
@@ -55,18 +53,19 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		checkIfUpdateConditionsAreConsistent(vote);
 		validateBallot(ballot, vote);
 		validatePreferences(theVote, vote);
-    
+
 		CastVote receipt;
-		if (vote.canUpdate)
+		if (vote.canUpdate) {
 			receipt = vote.addCastVote(getWsUserName(), theVote);
-		else
+		} else {
 			receipt = vote.addCastVote(null, theVote);
-		
+		}
+
 		vote.ballots.remove(ballot);
 		return receipt;
 	}
 
-	private void validatePreferences(final List<RankedChoice> theVote, Vote vote) {
+	private void validatePreferences(final List<RankedChoice> theVote, final Vote vote) {
 		for (RankedChoice choice : theVote) {
 			validateOnePreference(vote, choice);
 		}
@@ -90,7 +89,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	private void checkIfVotingEnabled(final Vote vote) {
-		if (!vote.canVote)
+		if (!vote.voteParameters.canVote)
 			throw new ReportedException("This issue cannot be voted on yet");
 	}
 
@@ -106,6 +105,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		vote.name = voteName;
 	}
 
+	@Override
 	public void deleteVote(final VoteAdminInfo adminInfo) {
 		Vote vote = getVote(adminInfo.voteId);
 		vote.checkAdminKey(adminInfo.adminKey);
@@ -116,6 +116,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		session.remove(vote);
 	}
 
+	@Override
 	public JSONObject showVote(final VoteAdminInfo adminInfo) {
 		Vote vote = getVote(adminInfo.voteId);
 		vote.checkAdminKey(adminInfo.adminKey);
@@ -130,24 +131,26 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Choice votesChoice = vote.getChoice(choiceId);
 		if ("user".equals(voteAdminInfo.adminKey))
 			if (votesChoice.userName.equals(getWsUserName()))
-				if (vote.canAddin)
+				if (vote.voteParameters.canAddin) {
 					vote.choices.remove(votesChoice.id);
-				else
+				} else
 					throw new IllegalArgumentException("The adminKey is \"user\" but canAddin is false.");
 			else
 				throw new IllegalArgumentException(
 						"The adminKey is \"user\" but the user is not same with that user who added the choice.");
-		else
+		else {
 			vote.choices.remove(votesChoice.id);
+		}
 		return "OK";
 	}
 
+	@Override
 	public void modifyChoice(final VoteAdminInfo adminInfo, final String choiceId, final String choiceName) {
 		Vote vote = getVoteIfModifiable(adminInfo.voteId, adminInfo.adminKey);
 
 		Choice votesChoice = vote.getChoice(choiceId);
 		if ("user".equals(adminInfo.adminKey)) {
-			if (!vote.canAddin)
+			if (!vote.voteParameters.canAddin)
 				throw new ReportedException(
 						"Choice modification disallowed: adminKey is user, but canAddin is false");
 
@@ -155,7 +158,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 				throw new ReportedException(
 						"Choice modification disallowed: adminKey is user, "
 								+ "and the choice was added by a different user",
-						votesChoice.userName);
+								votesChoice.userName);
 		}
 
 		votesChoice.name = choiceName;
@@ -166,9 +169,9 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(adminInfo.voteId);
 		vote.checkAdminKey(adminInfo.adminKey);
 
-		if (voteParameters.minEndorsements >= 0)
-			vote.setParameters(voteParameters.minEndorsements, voteParameters.canAddin, voteParameters.canEndorse, voteParameters.canVote, voteParameters.canView);
-		else
+		if (voteParameters.minEndorsements >= 0) {
+			vote.setParameters(voteParameters);
+		} else
 			throw new ReportedException("Illegal minEndorsements", Integer.toString(voteParameters.minEndorsements));
 	}
 }

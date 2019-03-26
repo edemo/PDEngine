@@ -1,6 +1,11 @@
 package org.rulez.demokracia.pdengine.dataobjects;
 
-public class VoteParameters {
+import org.rulez.demokracia.pdengine.persistence.BaseEntity;
+
+public class VoteParameters extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
+
 	public int minEndorsements;
 	public boolean canAddin;
 	public boolean canEndorse;

@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
+import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 @Entity
@@ -29,7 +30,7 @@ public class Vote extends VoteEntity implements VoteFilter{
 		this.neededAssurances = new ArrayList<>(neededAssurances);
 		this.countedAssurances = new ArrayList<>(countedAssurances);
 		isPrivate = isClosed;
-		this.minEndorsements = minEndorsements;
+		voteParameters = new VoteParameters(minEndorsements, false, false, false, false);
 		creationTime = Instant.now().getEpochSecond();
 		choices = new HashMap<>();
 		ballots = new ArrayList<>();
@@ -52,9 +53,8 @@ public class Vote extends VoteEntity implements VoteFilter{
 	}
 
 	public Choice getChoice(final String choiceId) {
-		if (!choices.containsKey(choiceId)) {
+		if (!choices.containsKey(choiceId))
 			throw new ReportedException("Illegal choiceId", choiceId);
-		}
 		return choices.get(choiceId);
 	}
 
@@ -62,34 +62,28 @@ public class Vote extends VoteEntity implements VoteFilter{
 		return !ballots.isEmpty();
 	}
 
-	public void setParameters(final int minEndorsements, final boolean canAddin, final boolean canEndorse, final boolean canVote,
-			final boolean canView) {
-		this.minEndorsements = minEndorsements;
-		this.canAddin = canAddin;
-		this.canEndorse = canEndorse;
-		this.canVote = canVote;
-		this.canView = canView;
+	public void setParameters(final VoteParameters voteParameters) {
+		this.voteParameters = voteParameters;
 	}
 
 	public void checkAdminKey(final String providedAdminKey) {
-		if (!(adminKey.equals(providedAdminKey) || "user".equals(providedAdminKey))) {
+		if (!(adminKey.equals(providedAdminKey) || "user".equals(providedAdminKey)))
 			throw new ReportedException("Illegal adminKey", providedAdminKey);
-		}
 	}
 
 	public JSONObject toJson(final String voteId) {
 		JSONObject obj = new JSONObject();
-		obj.put("name", this.name);
-		obj.put("canAddIn", this.canAddin);
-		obj.put("creationTime", this.creationTime);
-		obj.put("choices", createChoicesJson(this.choices));
-		obj.put("canEndorse", this.canEndorse);
-		obj.put("countedAssurances", this.countedAssurances);
-		obj.put("neededAssurances", this.neededAssurances);
-		obj.put("minEndorsements", this.minEndorsements);
+		obj.put("name", name);
+		obj.put("canAddIn", voteParameters.canAddin);
+		obj.put("creationTime", creationTime);
+		obj.put("choices", createChoicesJson(choices));
+		obj.put("canEndorse", voteParameters.canEndorse);
+		obj.put("countedAssurances", countedAssurances);
+		obj.put("neededAssurances", neededAssurances);
+		obj.put("minEndorsements", voteParameters.minEndorsements);
 		obj.put("id", voteId);
-		obj.put("canView", this.canView);
-		obj.put("canVote", this.canVote);
+		obj.put("canView", voteParameters.canView);
+		obj.put("canVote", voteParameters.canVote);
 		return obj;
 	}
 
@@ -122,8 +116,9 @@ public class Vote extends VoteEntity implements VoteFilter{
 		while (listIterator.hasNext()) {
 			CastVote element = listIterator.next();
 
-			if (element.proxyId != null && element.proxyId.equals(proxyId))
+			if (element.proxyId != null && element.proxyId.equals(proxyId)) {
 				listIterator.remove();
+			}
 		}
 
 		CastVote castVote = new CastVote(proxyId, theVote);
