@@ -14,13 +14,15 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteMocks;
 
 public class VoteFilterTest extends CreatedDefaultCastVoteMocks {
 
-	private VoteFilter voteFilter;
+	private Vote vote;
 
 	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
-		voteFilter = new VoteFilter();
+		vote = getTheVote();
+		vote.votesCast = castVoteMocks;
+
 	}
 
 	@TestedFeature("Supporting functionality")
@@ -28,7 +30,7 @@ public class VoteFilterTest extends CreatedDefaultCastVoteMocks {
 	@TestedBehaviour("null assurance means all of the votes")
 	@Test
 	public void filter_returns_full_list_on_null_assurance() {
-		final List<CastVote> filteredVotes = voteFilter.filterVotes(castVoteMocks, null);
+		final List<CastVote> filteredVotes = vote.filterVotes(null);
 		assertEquals(castVoteMocks, filteredVotes);
 	}
 
@@ -38,7 +40,7 @@ public class VoteFilterTest extends CreatedDefaultCastVoteMocks {
 	@Test
 	public void filter_returns_all_votes_with_given_assurance() {
 		final List<CastVote> expected = castVoteMocks.subList(1, 4);
-		final List<CastVote> actual = voteFilter.filterVotes(castVoteMocks, "1");
+		final List<CastVote> actual = vote.filterVotes("1");
 		for (final CastVote vote : expected) {
 			assertTrue(actual.contains(vote));
 		}
@@ -49,7 +51,7 @@ public class VoteFilterTest extends CreatedDefaultCastVoteMocks {
 	@TestedBehaviour("the output of the filter contains only votes with the given assurance")
 	@Test
 	public void filter_returns_only_votes_with_given_assurance() {
-		final List<CastVote> actual = voteFilter.filterVotes(castVoteMocks, "3");
+		final List<CastVote> actual = vote.filterVotes("3");
 		for (final CastVote vote : actual) {
 			assertTrue(vote.getAssurances().contains("3"));
 		}
