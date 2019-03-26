@@ -58,8 +58,6 @@ public class BeatTableCompareBeatsTest extends CreatedDefaultChoice {
 		assertTrue(result.winning == beats1.winning && result.losing == beats1.losing);	
 	}
 	
-    @TestedFeature("Unimplemented")
-    @TestedOperation("Unimplemented")
     @TestedBehaviour("Unimplemented")
 	@Test
 	public void compareBeats_is_not_yet_implemented_when_the_result_is_tie() {
