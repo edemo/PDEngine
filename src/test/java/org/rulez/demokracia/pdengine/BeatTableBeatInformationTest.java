@@ -27,62 +27,49 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
+		beatTable = new BeatTable();
+		list = new ArrayList<Choice>();
+		pair = new Pair(4, 5);
+		choice1 = new Choice("name1", "userName1");
+		choice2 = new Choice("name2", "userName2");
+		list.add(choice1);
+		list.add(choice2);
 	}
 
 	@Test
 	public void beatInformation_throws_an_exception_when_direction_is_not_defined() {
-		beatTable = new BeatTable();
 		assertThrows(() -> beatTable.beatInformation(null, null, null)
 				).assertMessageIs("Invalid direction");
 	}
 	
 	@Test
 	public void beatInformation_throws_an_exception_when_the_chocies_are_not_defined() {
-		beatTable = new BeatTable();
 		assertThrows(() -> beatTable.beatInformation(null, null, Direction.DIRECTION_FORWARD)
 				).assertMessageIs("Invalid row key");
 	}
 	
 	@Test
 	public void beatInformation_throws_an_exception_when_the_choices_are_not_belong_to_the_matrix() {
-		choice1 = new Choice("name", "userName");
-		choice2 = null;
-		beatTable = new BeatTable();
-		
-		assertThrows(() -> beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_FORWARD)
+		assertThrows(() -> beatTable.beatInformation(choice1, null, Direction.DIRECTION_FORWARD)
 				).assertMessageIs("Invalid row key");
 	}
 	
 	@Test
-	public void beatInformation_gives_back_the_number_of_winnings_from_choice1_to_choice2() {
-		list = new ArrayList<Choice>();
-		pair = new Pair(1, 2);
-		choice1 = new Choice("name1", "userName1");
-		choice2 = new Choice("name2", "userName2");
-		
-		list.add(choice1);
-		list.add(choice2);
-		
-		BeatTable beatTable = new BeatTable(list);
-		
-		beatTable.setPair(choice1, choice2, pair);
+	public void beatInformation_gives_back_the_number_of_winnings_from_choice1_to_choice2() {			
+		createNewBeatTableWithData();
 		
 		assertEquals(pair.winning, beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_FORWARD));
 	}
 	
 	@Test
 	public void beatInformation_gives_back_the_number_of_losing_from_choice1_to_choice2() {
-		list = new ArrayList<Choice>();
-		pair = new Pair(4, 5);
-		choice1 = new Choice("name1", "userName1");
-		choice2 = new Choice("name2", "userName2");
-		
-		list.add(choice1);
-		list.add(choice2);
-		
-		beatTable = new BeatTable(list);
-		beatTable.setPair(choice1, choice2, pair);
+		createNewBeatTableWithData();
 		
 		assertEquals(pair.losing, beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_BACKWARD));
+	}
+	
+	private void createNewBeatTableWithData() {
+		beatTable = new BeatTable(list);
+		beatTable.setPair(choice1, choice2, pair);
 	}
 }
