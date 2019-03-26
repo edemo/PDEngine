@@ -43,26 +43,29 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_canAddIn_attribute_contains_whether_the_voters_can_add_choices_to_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get("canAddIn"), vote.voteParameters.canAddin);
+		assertEquals(result.getJSONObject("voteParameters").get("canAddin"), vote.voteParameters.canAddin);
 	}
 
 	@Test
 	public void the_creationTime_attribute_contains_the_creation_time_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get("creationTime"), vote.creationTime);
+		assertEquals(result.getLong("creationTime"), vote.creationTime);
 	}
 
 	@Test
 	public void the_choices_attribute_contains_the_choices_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		JSONArray jsonArray = vote.createChoicesJson(vote.choices);
+		String expected = String
+				.format("[{\"initiator\":\"user\",\"endorsers\":[],\"name\":\"choiceName\",\"id\":\"%s\"},"
+						+ "{\"initiator\":\"user\",\"endorsers\":[],\"name\":\"choiceName\",\"id\":\"%s\"}]",
+						vote.choices.keySet().toArray());
 
-		assertEquals(result.getJSONArray("choices").toString(), jsonArray.toString());
+		assertEquals(result.getJSONArray("choices").toString(), expected);
 	}
 	@Test
 	public void the_initiator_of_the_choice_is_in_the_json() {
-		JSONArray jsonArray = vote.createChoicesJson(vote.choices);
+		JSONArray jsonArray = vote.toJson().getJSONArray("choices");
 		JSONObject firstChoice = (JSONObject) jsonArray.get(0);
 		String initiatorInJson = (String) firstChoice.get("initiator");
 		assertEquals("user", initiatorInJson);
@@ -72,7 +75,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_canEndorse_attribute_contains_whether_the_voters_endorse_choices_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get("canEndorse"), vote.voteParameters.canEndorse);
+		assertEquals(result.getJSONObject("voteParameters").get("canEndorse"), vote.voteParameters.canEndorse);
 	}
 
 	@Test
@@ -96,7 +99,8 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_minEndorsements_attribute_contains_the_mininimum_endorsements_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get("minEndorsements"), vote.voteParameters.minEndorsements);
+		assertEquals(result.getJSONObject("voteParameters").get("minEndorsements"),
+				vote.voteParameters.minEndorsements);
 	}
 
 	@Test
@@ -110,13 +114,13 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_canView_attribute_contains_whether_the_voters_can_view_the_results() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get("canView"), vote.voteParameters.canView);
+		assertEquals(result.getJSONObject("voteParameters").get("canView"), vote.voteParameters.canView);
 	}
 
 	@Test
 	public void the_canVote_attribute_contains_whether_the_votes_can_be_cast() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get("canVote"), vote.voteParameters.canVote);
+		assertEquals(result.getJSONObject("voteParameters").get("canVote"), vote.voteParameters.canVote);
 	}
 }

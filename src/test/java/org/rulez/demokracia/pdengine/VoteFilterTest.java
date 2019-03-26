@@ -20,7 +20,7 @@ public class VoteFilterTest extends CreatedDefaultCastVoteMocks {
 	@Before
 	public void setUp() {
 		super.setUp();
-		voteFilter = getTheVote();
+		voteFilter = new VoteFilter();
 	}
 
 	@TestedFeature("Supporting functionality")

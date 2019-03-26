@@ -121,7 +121,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Vote vote = getVote(adminInfo.voteId);
 		vote.checkAdminKey(adminInfo.adminKey);
 
-		return vote.toJson(adminInfo.voteId);
+		return vote.toJson();
 	}
 
 	@Override

@@ -6,19 +6,16 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.persistence.Entity;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 @Entity
-public class Vote extends VoteEntity implements VoteFilter{
+public class Vote extends VoteEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -71,44 +68,8 @@ public class Vote extends VoteEntity implements VoteFilter{
 			throw new ReportedException("Illegal adminKey", providedAdminKey);
 	}
 
-	public JSONObject toJson(final String voteId) {
-		JSONObject obj = new JSONObject();
-		obj.put("name", name);
-		obj.put("canAddIn", voteParameters.canAddin);
-		obj.put("creationTime", creationTime);
-		obj.put("choices", createChoicesJson(choices));
-		obj.put("canEndorse", voteParameters.canEndorse);
-		obj.put("countedAssurances", countedAssurances);
-		obj.put("neededAssurances", neededAssurances);
-		obj.put("minEndorsements", voteParameters.minEndorsements);
-		obj.put("id", voteId);
-		obj.put("canView", voteParameters.canView);
-		obj.put("canVote", voteParameters.canVote);
-		return obj;
-	}
-
-	public JSONArray createChoicesJson(final Map<String, Choice> choices) {
-		JSONArray array = new JSONArray();
-
-		for (Entry<String, Choice> entry : choices.entrySet()) {
-			String key = entry.getKey();
-			Choice value = entry.getValue();
-
-			JSONObject obj = choiceAsJson(key, value);
-
-			array.put(obj);
-		}
-
-		return array;
-	}
-
-	private JSONObject choiceAsJson(final String key, final Choice choice) {
-		JSONObject obj = new JSONObject();
-		obj.put("initiator", choice.userName);
-		obj.put("endorsers", choice.endorsers);
-		obj.put("name", choice.name);
-		obj.put("id", key);
-		return obj;
+	public JSONObject toJson() {
+		return new VoteJSONSerializer().fromVote(this);
 	}
 
 	protected CastVote addCastVote(final String proxyId, final List<RankedChoice> theVote) {
@@ -124,5 +85,9 @@ public class Vote extends VoteEntity implements VoteFilter{
 		CastVote castVote = new CastVote(proxyId, theVote);
 		votesCast.add(castVote);
 		return castVote;
+	}
+
+	public List<CastVote> filterVotes(final String assurance) {
+		return new VoteFilter().filterVotes(votesCast, assurance);
 	}
 }

@@ -5,9 +5,9 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public interface VoteFilter {
+public class VoteFilter {
 
-	public default List<CastVote> filterVotes(final List<CastVote> votes, final String assurance) {
+	public List<CastVote> filterVotes(final List<CastVote> votes, final String assurance) {
 		Function<? super String, List<CastVote>> voteFilter = a -> votes.stream()
 				.filter(v -> v.getAssurances().contains(a))
 				.collect(Collectors.toList());
