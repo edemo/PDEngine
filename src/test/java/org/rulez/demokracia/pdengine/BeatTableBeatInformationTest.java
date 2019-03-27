@@ -2,39 +2,23 @@ package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.BeatTable.Direction;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
+import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
 
 @TestedFeature("Supporting functionality")
 @TestedOperation("BeatTable")
 @TestedBehaviour("the beat information related to a and b can be obtained for forward and backward")
-public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
-
-	BeatTable beatTable;
-	Choice choice1, choice2;
-	Pair pair;
-	ArrayList<Choice> list;
+public class BeatTableBeatInformationTest extends CreatedBeatTable {
 	
 	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
-		
-		beatTable = new BeatTable();
-		list = new ArrayList<Choice>();
-		pair = new Pair(4, 5);
-		choice1 = new Choice("name1", "userName1");
-		choice2 = new Choice("name2", "userName2");
-		list.add(choice1);
-		list.add(choice2);
 	}
 
 	@Test
@@ -67,10 +51,5 @@ public class BeatTableBeatInformationTest extends CreatedDefaultChoice {
 		createNewBeatTableWithData();
 		
 		assertEquals(pair.losing, beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_BACKWARD));
-	}
-	
-	private void createNewBeatTableWithData() {
-		beatTable = new BeatTable(list);
-		beatTable.setPair(choice1, choice2, pair);
 	}
 }

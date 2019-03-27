@@ -2,8 +2,6 @@ package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
@@ -11,17 +9,13 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
+import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
 
 @TestedFeature("Supporting functionality")
 @TestedOperation("BeatTable")
 @TestedBehaviour("the pair related to a and b can be set")
-public class BeatTableSetPairTest extends CreatedDefaultChoice {
+public class BeatTableSetPairTest extends CreatedBeatTable {
 
-	BeatTable beatTable;
-	Choice choice1, choice2, choice3;
-	Pair pair;
-	ArrayList<Choice> list;
 	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
@@ -37,42 +31,16 @@ public class BeatTableSetPairTest extends CreatedDefaultChoice {
 	
 	@Test
 	public void setPair_inserts_the_pair_when_there_is_no_pair_in_the_matrix() {
-		list = new ArrayList<Choice>();
-		pair = new Pair(1, 2);
-		choice1 = new Choice("name1", "userName1");
-		choice2 = new Choice("name2", "userName2");
-		
-		list.add(choice1);
-		list.add(choice2);
-		
-		beatTable = new BeatTable(list);
-		beatTable.setPair(choice1, choice2, pair);
-		Pair result = beatTable.matrix.getElement(choice1, choice2);
+		createNewBeatTableWithData();
+		result = beatTable.matrix.getElement(choice1, choice2);
 		
 		assertTrue(result.winning == pair.winning && result.losing == pair.losing);	
 	}
 	
 	@Test
 	public void setPair_updates_the_pair_when_there_are_pairs_in_the_matrix() {
-		list = new ArrayList<Choice>();
-		pair = new Pair(3, 4);
-		choice1 = new Choice("name1", "userName1");
-		choice2 = new Choice("name2", "userName2");
-		choice3 = new Choice("name3", "userName3");
-		
-		list.add(choice1);
-		list.add(choice2);
-		list.add(choice3);
-		
-		beatTable = new BeatTable(list);
-		
-		beatTable.setPair(choice1, choice2, new Pair(14, 1));
-		beatTable.setPair(choice1, choice3, new Pair(13, 2));
-		beatTable.setPair(choice2, choice1, new Pair(12, 3));
-		beatTable.setPair(choice2, choice3, new Pair(11, 4));
-		beatTable.setPair(choice1, choice2, new Pair(pair.winning, pair.losing));
-		
-		Pair result = beatTable.matrix.getElement(choice1, choice2);
+		createNewBeatTableWithComplexData();
+		result = beatTable.matrix.getElement(choice1, choice2);
 		
 		assertTrue(result.winning == pair.winning && result.losing == pair.losing);
 	}

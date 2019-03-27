@@ -9,20 +9,18 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
+import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
 
 @TestedFeature("Schulze method")
 @TestedOperation("compare beats")
-public class BeatTableCompareBeatsTest extends CreatedDefaultChoice {
+public class BeatTableCompareBeatsTest extends CreatedBeatTable {
 
-	Pair beats1, beats2, beats3, beats4, beats5, result;
-	BeatTable beatTable;
+	Pair beats1, beats2, beats3, beats4, beats5;
 	
 	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
 		
-		beatTable = new BeatTable();
 		beats1 = new Pair(150, 22);
 		beats2 = new Pair(100, 40);
 		beats3 = new Pair(150, 40);
@@ -77,9 +75,5 @@ public class BeatTableCompareBeatsTest extends CreatedDefaultChoice {
 	public void compareBeats_gives_back_the_backward_lower_beat2() {
 		compareBeats(beats1, beats5);
 		assertTrue(result.winning == beats5.winning && result.losing == beats5.losing);	
-	}
-	
-	private void compareBeats(Pair beats1, Pair beats2) {
-		result = beatTable.compareBeats(beats1, beats2);
 	}
 }
