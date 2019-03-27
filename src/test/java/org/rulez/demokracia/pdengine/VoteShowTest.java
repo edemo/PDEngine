@@ -36,7 +36,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	private static final String CHOICES = "choices";
 	private static final String CREATION_TIME = "creationTime";
 	private static final String CAN_ADDIN = "canAddin";
-	private static final String VOTE_PARAMETERS = "voteParameters";
+	private static final String VOTE_PARAMETERS = "parameters";
 	private static final String NAME = "name";
 	private static final String USER = "user";
 	private static final String CHOICE_NAME = "choiceName";
