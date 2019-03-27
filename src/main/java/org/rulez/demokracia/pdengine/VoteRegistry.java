@@ -132,7 +132,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		return vote.toJson(adminInfo.voteId);
 	}
 
-	private void checkAssurances(final Vote vote) throws ReportedException {
+	private void checkAssurances(final Vote vote) {
 
 		for(String assurance : vote.countedAssurances) 
 			if (!this.hasAssurance(assurance))
@@ -187,3 +187,4 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 			throw new ReportedException("Illegal minEndorsements", Integer.toString(voteParameters.minEndorsements));
 	}
 }
+
