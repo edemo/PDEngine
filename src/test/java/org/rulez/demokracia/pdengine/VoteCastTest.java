@@ -42,4 +42,13 @@ public class VoteCastTest extends CreatedDefaultChoice {
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		assertTrue(vote.votesCast.get(0).secretId instanceof String);
 	}
+	
+	@TestedBehaviour("cast vote identifier is different from the ballot identifier")
+	@Test
+	public void voteCast_identifier_is_different_from_the_ballot_identifier() {
+		String ballotId = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
+		CastVote castVote = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		
+		assertNotEquals(ballotId, castVote.secretId);
+	}
 }
