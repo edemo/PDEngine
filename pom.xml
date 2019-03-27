@@ -198,11 +198,6 @@
       <version>3.3.1</version>
     </dependency>
     <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20140107</version>
-    </dependency>
-    <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-servlet-core</artifactId>
       <version>2.26-b02</version>

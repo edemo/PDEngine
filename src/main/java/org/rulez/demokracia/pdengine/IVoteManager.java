@@ -5,10 +5,11 @@ import java.util.Set;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
+
+import com.google.gson.JsonObject;
 
 public interface IVoteManager {
 
@@ -24,7 +25,7 @@ public interface IVoteManager {
 	Vote getVote(final String voteId);
 
 	String addChoice(final VoteAdminInfo voteAdminInfo, final String choiceName, final String user);
-	
+
 	String deleteChoice(final VoteAdminInfo voteAdminInfo, final String choiceId);
 
 	void modifyChoice(final VoteAdminInfo adminInfo, final String choiceId, final String choiceName);
@@ -44,8 +45,8 @@ public interface IVoteManager {
 	void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName);
 
 	void deleteVote(final VoteAdminInfo adminInfo);
-	
-	JSONObject showVote(final VoteAdminInfo adminInfo);
+
+	JsonObject showVote(final VoteAdminInfo adminInfo);
 
 	void setVoteParameters(final VoteAdminInfo adminInfo, final VoteParameters voteParameters);
 

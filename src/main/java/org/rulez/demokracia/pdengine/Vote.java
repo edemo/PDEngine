@@ -9,10 +9,11 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
-import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+
+import com.google.gson.JsonObject;
 
 @Entity
 public class Vote extends VoteEntity {
@@ -68,7 +69,7 @@ public class Vote extends VoteEntity {
 			throw new ReportedException("Illegal adminKey", providedAdminKey);
 	}
 
-	public JSONObject toJson() {
+	public JsonObject toJson() {
 		return new VoteJSONSerializer().fromVote(this);
 	}
 

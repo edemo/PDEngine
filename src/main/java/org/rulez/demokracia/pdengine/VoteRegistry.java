@@ -4,10 +4,11 @@ import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.json.JSONObject;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+
+import com.google.gson.JsonObject;
 
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	public VoteRegistry(final WebServiceContext wsContext) {
@@ -117,7 +118,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	@Override
-	public JSONObject showVote(final VoteAdminInfo adminInfo) {
+	public JsonObject showVote(final VoteAdminInfo adminInfo) {
 		Vote vote = getVote(adminInfo.voteId);
 		vote.checkAdminKey(adminInfo.adminKey);
 

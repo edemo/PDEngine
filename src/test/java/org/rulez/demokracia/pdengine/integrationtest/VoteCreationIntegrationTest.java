@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine.integrationtest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,18 +24,22 @@ import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.servlet.requests.CreateVoteRequest;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	private JettyThread thread;
 	private CreateVoteRequest req;
 
+	@Override
 	@Before
-    public void setUp(){
+	public void setUp(){
 		thread = new JettyThread();
-        thread.run();
+		thread.run();
 		initializeCreateVoteRequest();
 		super.setUp();
-    }
-	
+	}
+
 	@TestedFeature("Manage votes")
 	@TestedOperation("create vote")
 	@TestedBehaviour("Creates a vote")
@@ -74,10 +77,10 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 		Invocation.Builder invocationBuilder = createWebClient();
 		Response response = invocationBuilder.post(Entity.entity(req,MediaType.APPLICATION_JSON));
 		String responseString = response.readEntity(String.class);
-		JSONObject responseJson = new JSONObject(responseString);
+		JsonObject responseJson = new JsonParser().parse(responseString).getAsJsonObject();
 		assertEquals("invalid characters in {0}", responseJson
-				.getJSONObject("error")
-				.getString("message"));
+				.get("error").getAsJsonObject()
+				.get("message").getAsString());
 	}
 
 	private Invocation.Builder createWebClient() {
