@@ -7,7 +7,7 @@ import org.rulez.demokracia.types.Matrix;
 
 public interface ContainingBeats extends Matrix<Choice, Pair>{
 	
-	static final long serialVersionUID = 1L;
+	long serialVersionUID = 1L;
 	default void checkPair(final Pair pair) {
 		if (pair == null)
 			throw new ReportedException("Invalid Pair key");
@@ -29,7 +29,7 @@ public interface ContainingBeats extends Matrix<Choice, Pair>{
 		return result;
 	}
 	
-	default public Pair compareBeats(final Pair beat1, final Pair beat2) {
+	default Pair compareBeats(final Pair beat1, final Pair beat2) {
 		checkPair(beat1);
 		checkPair(beat2);
 		
