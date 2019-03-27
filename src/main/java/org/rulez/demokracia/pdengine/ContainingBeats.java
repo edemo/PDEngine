@@ -6,6 +6,8 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.types.Matrix;
 
 public interface ContainingBeats extends Matrix<Choice, Pair>{
+	
+	static final long serialVersionUID = 1L;
 	default void checkPair(final Pair pair) {
 		if (pair == null)
 			throw new ReportedException("Invalid Pair key");
