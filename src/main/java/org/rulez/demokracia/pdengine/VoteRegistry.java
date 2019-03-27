@@ -97,31 +97,46 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 	@Override
 	public void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName) {
-		Vote vote = getVote(voteAdminInfo.voteId);
-		vote.checkAdminKey(voteAdminInfo.adminKey);
 		ValidationUtil.checkVoteName(voteName);
-
-		if (vote.hasIssuedBallots())
-			throw new IllegalArgumentException("The vote cannot be modified there are ballots issued.");
+		Vote vote = checkIfVoteCanBeModified(voteAdminInfo);
 
 		vote.name = voteName;
 	}
 
 	public void deleteVote(final VoteAdminInfo adminInfo) {
-		Vote vote = getVote(adminInfo.voteId);
-		vote.checkAdminKey(adminInfo.adminKey);
-
-		if (vote.hasIssuedBallots())
-			throw new IllegalArgumentException("This vote cannot be deleted it has issued ballots.");
+		Vote vote = checkIfVoteCanBeModified(adminInfo);
 
 		session.remove(vote);
 	}
 
-	public JSONObject showVote(final VoteAdminInfo adminInfo) {
+	private Vote checkIfVoteCanBeModified(final VoteAdminInfo adminInfo) {
+		Vote vote = checkAdminInfo(adminInfo);
+
+		if (vote.hasIssuedBallots())
+			throw new IllegalArgumentException("This vote cannot be modified it has issued ballots.");
+		return vote;
+	}
+
+	private Vote checkAdminInfo(final VoteAdminInfo adminInfo) {
 		Vote vote = getVote(adminInfo.voteId);
 		vote.checkAdminKey(adminInfo.adminKey);
+		return vote;
+	}
+	
+	@Override
+	public JSONObject showVote(final VoteAdminInfo adminInfo) {
+		Vote vote = checkAdminInfo(adminInfo);
+		if (!adminInfo.adminKey.equals(vote.adminKey))
+			checkAssurances(vote);
 
 		return vote.toJson();
+	}
+
+	private void checkAssurances(final Vote vote) {
+
+		for(String assurance : vote.countedAssurances) 
+			if (!this.hasAssurance(assurance))
+				throw new ReportedException("missing assurances", assurance);
 	}
 
 	@Override
@@ -164,8 +179,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 	@Override
 	public void setVoteParameters(final VoteAdminInfo adminInfo, final VoteParameters voteParameters) {
-		Vote vote = getVote(adminInfo.voteId);
-		vote.checkAdminKey(adminInfo.adminKey);
+		Vote vote = checkAdminInfo(adminInfo);
 
 		if (voteParameters.minEndorsements >= 0)
 			vote.setParameters(voteParameters.minEndorsements, voteParameters.canAddin, voteParameters.canEndorse, voteParameters.canVote, voteParameters.canView);
@@ -173,3 +187,4 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 			throw new ReportedException("Illegal minEndorsements", Integer.toString(voteParameters.minEndorsements));
 	}
 }
+
