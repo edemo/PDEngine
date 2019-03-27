@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 @TestedBehaviour("returns the vote in json")
 public class VoteShowTest extends CreatedDefaultVoteRegistry {
 
+	private static final String COUNTED_ASSURANCE = "CountedAssurance";
 	private static final String ADMIN_KEY = "adminKey";
 	private static final String CAN_VOTE = "canVote";
 	private static final String CAN_VIEW = "canView";
@@ -103,8 +104,10 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 
 	@Test
 	public void the_countedAssurances_attribute_contains_the_counted_assurances_of_the_vote() {
+		vote.countedAssurances.add(COUNTED_ASSURANCE);
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		JsonArray jsonCountedAssurances = result.get(COUNTED_ASSURANCES).getAsJsonArray();
+
 
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		assertFalse(vote.countedAssurances.isEmpty());
