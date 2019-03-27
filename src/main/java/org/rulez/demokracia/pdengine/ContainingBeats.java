@@ -3,15 +3,9 @@ package org.rulez.demokracia.pdengine;
 import org.rulez.demokracia.pdengine.BeatTable.Direction;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.types.Matrix;
 
-public interface ContainingBeats {
-	default void checkDirection(final Direction direction) {
-			
-	}
-	
-	Pair getPair(final Choice choice1, final Choice choice2);
-	
-	
+public interface ContainingBeats extends Matrix<Choice, Pair>{
 	default void checkPair(final Pair pair) {
 		if (pair == null)
 			throw new ReportedException("Invalid Pair key");
@@ -22,7 +16,8 @@ public interface ContainingBeats {
 			throw new IllegalArgumentException("Invalid direction");
 		
 		int result = 0;
-		Pair pair = getPair(choice1, choice2);
+		Pair pair = getElement(choice1, choice2);
+	
 
 		if (direction.equals(Direction.DIRECTION_FORWARD))
 			result = pair.winning;

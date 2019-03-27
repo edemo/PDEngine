@@ -47,16 +47,16 @@ public class CreatedBeatTable extends ThrowableTester{
 	
 	protected void createNewBeatTableWithData() {
 		beatTable = new BeatTable(list);
-		beatTable.setPair(choice1, choice2, pair);
+		beatTable.setElement(choice1, choice2, pair);
 	}
 	
 	protected void createNewBeatTableWithComplexData() {	
 		createNewBeatTableWithData();
-		beatTable.setPair(choice1, choice2, new Pair(14, 1));
-		beatTable.setPair(choice1, choice3, new Pair(13, 2));
-		beatTable.setPair(choice2, choice1, new Pair(12, 3));
-		beatTable.setPair(choice2, choice3, new Pair(11, 4));
-		beatTable.setPair(choice1, choice2, pair);
+		beatTable.setElement(choice1, choice2, new Pair(14, 1));
+		beatTable.setElement(choice1, choice3, new Pair(13, 2));
+		beatTable.setElement(choice2, choice1, new Pair(12, 3));
+		beatTable.setElement(choice2, choice3, new Pair(11, 4));
+		beatTable.setElement(choice1, choice2, pair);
 	}
 	
 	protected void setGetElementAsResult(final Choice first, final Choice second) {
