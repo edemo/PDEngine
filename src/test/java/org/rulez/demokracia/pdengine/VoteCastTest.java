@@ -23,7 +23,7 @@ public class VoteCastTest extends CreatedDefaultChoice {
 	@TestedBehaviour("records cast vote with the vote and user's proxy id")
 	@Test
 	public void cast_vote_records_the_proxy_id() {
-		vote.canUpdate = true;
+		vote.parameters.canUpdate = true;
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		CastVote voteCast = new CastVote(TEST_USER_NAME, theCastVote);
 		assertEquals(voteCast.proxyId, vote.votesCast.get(0).proxyId);
