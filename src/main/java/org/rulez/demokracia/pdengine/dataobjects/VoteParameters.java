@@ -18,6 +18,7 @@ public class VoteParameters extends BaseEntity {
 			final boolean canEndorse,
 			final boolean canVote,
 			final boolean canView) {
+		super();
 		this.minEndorsements = minEndorsements;
 		this.canAddin = canAddin;
 		this.canEndorse = canEndorse;

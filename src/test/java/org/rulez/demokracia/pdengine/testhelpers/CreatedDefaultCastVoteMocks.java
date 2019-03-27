@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.junit.Before;
 import org.rulez.demokracia.pdengine.CastVote;
 
 public class CreatedDefaultCastVoteMocks extends CreatedDefaultChoice {
@@ -14,6 +15,7 @@ public class CreatedDefaultCastVoteMocks extends CreatedDefaultChoice {
 	protected List<CastVote> castVoteMocks;
 
 	@Override
+	@Before
 	public void setUp() {
 		super.setUp();
 		castVoteMocks = castVoteMocksWithIncrementalAssurances(5);

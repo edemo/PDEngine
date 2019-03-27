@@ -13,7 +13,7 @@ import org.rulez.demokracia.testhelpers.ThrowableTester;
 public class UnimplementedTests extends ThrowableTester {
 
 	@Test
-	public void getAssurances_is_not_implemented_yet() {
+	public void the_getAssurances_method_is_not_implemented_yet() {
 		assertUnimplemented(() -> new CastVote("proxyId", new ArrayList<>()).getAssurances());
 	}
 }

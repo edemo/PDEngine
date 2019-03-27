@@ -8,11 +8,11 @@ import com.google.gson.JsonObject;
 
 public class VoteJSONSerializer {
 
-	private ExclusionStrategy exclusionStrategy = new ExclusionStrategy() {
+	private final ExclusionStrategy exclusionStrategy = new ExclusionStrategy() {
 
 		@Override
-		public boolean shouldSkipField(final FieldAttributes f) {
-			return f.getDeclaredClass().equals(Vote.class) && f.getName().equals("adminKey");
+		public boolean shouldSkipField(final FieldAttributes field) {
+			return field.getDeclaredClass().equals(Vote.class) && field.getName().equals("adminKey");
 		}
 
 		@Override

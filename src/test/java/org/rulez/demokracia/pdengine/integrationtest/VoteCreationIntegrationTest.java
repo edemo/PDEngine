@@ -24,6 +24,7 @@ import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.servlet.requests.CreateVoteRequest;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -81,6 +82,35 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 		assertEquals("invalid characters in {0}", responseJson
 				.get("error").getAsJsonObject()
 				.get("message").getAsString());
+	}
+
+	@TestedFeature("Manage votes")
+	@TestedOperation("create vote")
+	@TestedBehaviour("Creates a vote")
+	@Test
+	public void vote_creation_fails_and_reports_error_details_on_bad_input() {
+		req.voteName = "`drop table little_bobby tables;`";
+		Invocation.Builder invocationBuilder = createWebClient();
+		Response response = invocationBuilder.post(Entity.entity(req, MediaType.APPLICATION_JSON));
+		String responseString = response.readEntity(String.class);
+		JsonObject responseJson = new JsonParser().parse(responseString).getAsJsonObject();
+		assertEquals("vote name", responseJson
+				.get("error").getAsJsonObject()
+				.get("details").getAsString());
+	}
+
+	@TestedFeature("Manage votes")
+	@TestedOperation("create vote")
+	@TestedBehaviour("Creates a vote")
+	@Test
+	public void vote_creation_fails_and_returns_the_bad_input() {
+		req.voteName = "`drop table little_bobby tables;`";
+		Invocation.Builder invocationBuilder = createWebClient();
+		Response response = invocationBuilder.post(Entity.entity(req, MediaType.APPLICATION_JSON));
+		String responseString = response.readEntity(String.class);
+		JsonObject responseJson = new JsonParser().parse(responseString).getAsJsonObject();
+		assertEquals(new Gson().toJson(req), responseJson
+				.get("input").toString());
 	}
 
 	private Invocation.Builder createWebClient() {
