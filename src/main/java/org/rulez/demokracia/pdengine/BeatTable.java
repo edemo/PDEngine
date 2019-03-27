@@ -3,15 +3,12 @@ package org.rulez.demokracia.pdengine;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.ElementCollection;
-
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 
 import org.rulez.demokracia.types.MapMatrix;
 
-public class BeatTable {
-	@ElementCollection
-	public MapMatrix<Choice, Pair> matrix;
+public class BeatTable extends MapMatrix<Choice, Pair>{
+	private static final long serialVersionUID = 1L;
 
 	public enum Direction {
 		DIRECTION_FORWARD, DIRECTION_BACKWARD
@@ -22,7 +19,7 @@ public class BeatTable {
 	}
 
 	public BeatTable(final Collection<Choice> keyCollection) {
-		matrix = new MapMatrix<>(keyCollection);
+		super(keyCollection);
 	}
 
 	public int beatInformation(final Choice choice1, final Choice choice2, final Direction direction) {
@@ -41,14 +38,14 @@ public class BeatTable {
 	}
 
 	public Pair getPair(final Choice choice1, final Choice choice2) {
-		return matrix.getElement(choice1, choice2);
+		return this.getElement(choice1, choice2);
 	}
 
 	public void setPair(final Choice choice1, final Choice choice2, final Pair pair) {
 		if (pair == null)
 			throw new IllegalArgumentException("Invalid Pair key");
 
-		matrix.setElement(choice1, choice2, pair);
+		this.setElement(choice1, choice2, pair);
 	}
 
 	public Pair compareBeats(final Pair beat1, final Pair beat2) {

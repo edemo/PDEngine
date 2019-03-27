@@ -1,11 +1,12 @@
 package org.rulez.demokracia.pdengine;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
 
@@ -13,17 +14,9 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
 @TestedOperation("compare beats")
 public class BeatTableCompareBeatsTest extends CreatedBeatTable {
 
-	Pair beats1, beats2, beats3, beats4, beats5;
-	
 	@Before
 	public void setUp() throws ReportedException {
 		super.setUp();
-		
-		beats1 = new Pair(150, 22);
-		beats2 = new Pair(100, 40);
-		beats3 = new Pair(150, 40);
-		beats4 = new Pair(100, 22);
-		beats5 = new Pair(150, 10);
 	}
 
 	@TestedBehaviour("if beats are different, the bigger wins")
@@ -43,13 +36,15 @@ public class BeatTableCompareBeatsTest extends CreatedBeatTable {
 	@TestedBehaviour("if beats are different, the bigger wins")
 	@Test
 	public void compareBeats_gives_back_the_forward_bigger_beat1() {	
-		compareAndAssertBeats(beats1, beats2, beats1);
+		setResult(beats1, beats2);
+		assertTrue(result.winning == beats1.winning && result.losing == beats1.losing);
 	}
 	
 	@TestedBehaviour("if beats tie, looses decide")
 	@Test
 	public void compareBeats_gives_back_the_backward_lower_beat1() {
-		compareAndAssertBeats(beats1, beats3, beats1);	
+		setResult(beats1, beats3);	
+		assertTrue(result.winning == beats1.winning && result.losing == beats1.losing);
 	}
 	
     @TestedBehaviour("Unimplemented")
@@ -62,12 +57,14 @@ public class BeatTableCompareBeatsTest extends CreatedBeatTable {
 	@TestedBehaviour("if beats are different, the bigger wins")
 	@Test
 	public void compareBeats_gives_back_the_forward_bigger_beat2() {
-		compareAndAssertBeats(beats4, beats3, beats3);	
+		setResult(beats4, beats3);
+		assertTrue(result.winning == beats3.winning && result.losing == beats3.losing);
 	}
 	
 	@TestedBehaviour("if beats tie, looses decide")
 	@Test
 	public void compareBeats_gives_back_the_backward_lower_beat2() {
-		compareAndAssertBeats(beats1, beats5, beats5);	
+		setResult(beats1, beats5);
+		assertTrue(result.winning == beats5.winning && result.losing == beats5.losing);
 	}
 }

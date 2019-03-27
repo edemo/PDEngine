@@ -34,12 +34,6 @@ public class BeatTableBeatInformationTest extends CreatedBeatTable {
 	}
 	
 	@Test
-	public void beatInformation_throws_an_exception_when_the_choices_are_not_belong_to_the_matrix() {
-		assertThrows(() -> beatTable.beatInformation(choice1, null, Direction.DIRECTION_FORWARD)
-				).assertMessageIs("Invalid row key");
-	}
-	
-	@Test
 	public void beatInformation_gives_back_the_number_of_winnings_from_choice1_to_choice2() {			
 		createNewBeatTableWithData();
 		
