@@ -5,7 +5,6 @@ import java.util.Set;
 import javax.xml.ws.WebServiceContext;
 
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class VoteManager extends SessionFactoryManager {
@@ -21,14 +20,14 @@ public class VoteManager extends SessionFactoryManager {
 		    ValidationUtil.checkVoteName(voteName);
 
 			VoteAdminInfo admininfo = new VoteAdminInfo();
-			VoteEntity vote = new Vote (
+			Vote vote = new Vote (
 					voteName,
 					ValidationUtil.checkAssurances(neededAssurances, "needed"),
 					ValidationUtil.checkAssurances(countedAssurances, "counted"),
 					isClosed,
 					minEndorsements);
-			admininfo.adminKey = vote.adminKey;
-			admininfo.voteId = vote.id;
+			admininfo.adminKey = vote.getAdminKey();
+			admininfo.voteId = vote.getId();
 			session.save(vote);
 			return admininfo;
 		}
@@ -48,7 +47,7 @@ public class VoteManager extends SessionFactoryManager {
 
 	protected void checkIfVoteIsEndorseable(final String voteId) {
 		Vote vote = getVote(voteId);
-		if(! vote.canEndorse) {
+		if(! vote.isEndorseable()) {
 			throw new ReportedException("user cannot endorse this vote");
 		}
 	}

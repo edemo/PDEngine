@@ -25,7 +25,7 @@ public class VoteCastAgainTest extends CreatedDefaultChoice {
 
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_top_of_the_list() {
-		vote.canUpdate = true;
+		vote.parameters.canUpdate = true;
 		
 		addCastVote(TEST_USER_NAME, theCastVote);
 		addfirstDummies();
@@ -39,7 +39,7 @@ public class VoteCastAgainTest extends CreatedDefaultChoice {
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_bottom_of_the_list() {
 		List<RankedChoice> theCastVote1 = new ArrayList<>();
-		vote.canUpdate = true;
+		vote.parameters.canUpdate = true;
 		
 		addfirstDummies();
 		addSecondDummies();
@@ -52,7 +52,7 @@ public class VoteCastAgainTest extends CreatedDefaultChoice {
 	
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_middle_of_the_list() {
-		vote.canUpdate = true;
+		vote.parameters.canUpdate = true;
 		
 		addfirstDummies();
 		addCastVote(TEST_USER_NAME, theCastVote);
@@ -65,7 +65,7 @@ public class VoteCastAgainTest extends CreatedDefaultChoice {
 
 	@Test 
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_the_list_does_not_contain_same_user() {
-		vote.canUpdate = true;
+		vote.parameters.canUpdate = true;
 		
 		addCastVote("OtherUser1", theCastVote);
 		addCastVote("OtherUser2", theCastVote);

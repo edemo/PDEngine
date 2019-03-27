@@ -85,7 +85,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void userAdmin_cannot_modify_choice_if_canAddin_is_false() {
 		Vote vote = voteManager.getVote(voteId);
-		vote.canAddin=false;
+		vote.parameters.canAddin=false;
 		
 		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice)
 				).assertMessageIs("Choice modification disallowed: adminKey is user, but canAddin is false");
@@ -96,7 +96,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void userAdmin_cannot_modify_choice_if_it_is_not_added_by_other_user() {
 		Vote vote = voteManager.getVote(voteId);
-		vote.canAddin=true;
+		vote.parameters.canAddin=true;
 		
 		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice)
 				).assertMessageIs("Choice modification disallowed: adminKey is user, " +
@@ -108,7 +108,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() {
 		Vote vote = voteManager.getVote(voteId);
-		vote.canAddin=true;
+		vote.parameters.canAddin=true;
 		String myName = voteManager.getWsUserName();
 		choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice2", myName);
 		

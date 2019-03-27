@@ -41,7 +41,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_canAddIn_attribute_contains_whether_the_voters_can_add_choices_to_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		
-		assertEquals(result.get("canAddIn"), vote.canAddin);
+		assertEquals(result.get("canAddIn"), vote.parameters.canAddin);
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_canEndorse_attribute_contains_whether_the_voters_endorse_choices_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		
-		assertEquals(result.get("canEndorse"), vote.canEndorse);
+		assertEquals(result.get("canEndorse"), vote.parameters.canEndorse);
 	}
 	
 	@Test
@@ -94,7 +94,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_minEndorsements_attribute_contains_the_mininimum_endorsements_of_the_vote() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		
-		assertEquals(result.get("minEndorsements"), vote.minEndorsements);
+		assertEquals(result.get("minEndorsements"), vote.parameters.minEndorsements);
 	}
 	
 	@Test
@@ -108,13 +108,13 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_canView_attribute_contains_whether_the_voters_can_view_the_results() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		
-		assertEquals(result.get("canView"), vote.canView);
+		assertEquals(result.get("canView"), vote.parameters.canView);
 	}
 	
 	@Test
 	public void the_canVote_attribute_contains_whether_the_votes_can_be_cast() {
 		JSONObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		
-		assertEquals(result.get("canVote"), vote.canVote);
+		assertEquals(result.get("canVote"), vote.parameters.canVote);
 	}	
 }

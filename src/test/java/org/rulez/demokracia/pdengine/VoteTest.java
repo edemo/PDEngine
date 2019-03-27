@@ -95,7 +95,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	@TestedBehaviour("if updatable is true, only authenticated users can vote")
 	@Test
 	public void cannot_cast_a_user_if_canUpdate_is_true_but_not_logged_in() {
-		vote.canUpdate = true;
+		vote.parameters.canUpdate = true;
 		setupUnauthenticatedMockWsContext();
 		
 		newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK);
@@ -110,7 +110,7 @@ public class VoteTest extends CreatedDefaultChoice {
 		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
 		vote = getTheVote();
-		vote.canVote = canVote;
+		vote.parameters.canVote = canVote;
 		return theCastVote;
 	}
 
