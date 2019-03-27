@@ -1,8 +1,7 @@
 package org.rulez.demokracia.pdengine.testhelpers;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.BeatTable;
@@ -12,11 +11,18 @@ import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class CreatedBeatTable extends ThrowableTester{
 	protected BeatTable beatTable;
-	protected Choice choice1, choice2, choice3;
 	protected Pair pair, result;
-	protected ArrayList<Choice> list;
+	protected List<Choice> list;
 	
-	protected Pair beats1, beats2, beats3, beats4, beats5;
+	protected Choice choice1;
+	protected Choice choice2;
+	protected Choice choice3;
+	
+	protected Pair beats1;
+	protected Pair beats2;
+	protected Pair beats3;
+	protected Pair beats4;
+	protected Pair beats5;
 	
 	@Before
 	public void setUp() {
@@ -37,26 +43,29 @@ public class CreatedBeatTable extends ThrowableTester{
 		beats5 = new Pair(150, 10);
 	}
 	
-	protected void createNewBeatTableWithData() {
+	private void createNewBeatTable() {
 		beatTable = new BeatTable(list);
+	}
+	
+	protected void createNewBeatTableWithData() {
+		createNewBeatTable();
 		beatTable.setPair(choice1, choice2, pair);
 	}
 	
 	protected void createNewBeatTableWithComplexData() {	
-		beatTable = new BeatTable(list);
+		createNewBeatTable();
 		beatTable.setPair(choice1, choice2, new Pair(14, 1));
 		beatTable.setPair(choice1, choice3, new Pair(13, 2));
 		beatTable.setPair(choice2, choice1, new Pair(12, 3));
 		beatTable.setPair(choice2, choice3, new Pair(11, 4));
-		beatTable.setPair(choice1, choice2, new Pair(pair.winning, pair.losing));
+		beatTable.setPair(choice1, choice2, pair);
 	}
 	
-	protected void getAndAssertResult(Choice first, Choice second) {
-		result = beatTable.getElement(first, second);
-		assertTrue(result.winning == pair.winning && result.losing == pair.losing);	
+	protected void setGetElementAsResult(Choice first, Choice second) {
+		result = beatTable.getElement(first, second);	
 	}
 	
-	protected void setResult(Pair first, Pair second) {
+	protected void setCompareBeatsAsResult(Pair first, Pair second) {
 		result = beatTable.compareBeats(first, second);
 	}
 }
