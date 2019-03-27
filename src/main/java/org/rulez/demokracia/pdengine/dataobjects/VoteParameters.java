@@ -1,11 +1,20 @@
 package org.rulez.demokracia.pdengine.dataobjects;
 
-public class VoteParameters {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+@Entity
+public class VoteParameters implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
 	public int minEndorsements;
 	public boolean canAddin;
 	public boolean canEndorse;
 	public boolean canVote;
 	public boolean canView;
+	public boolean canUpdate;
 
 	public VoteParameters(
 			final int minEndorsements,
@@ -18,5 +27,9 @@ public class VoteParameters {
 		this.canEndorse = canEndorse;
 		this.canVote = canVote;
 		this.canView = canView;
+	}
+
+	public VoteParameters() {
+		// TODO Auto-generated constructor stub
 	}
 }

@@ -43,7 +43,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 		originCountedAssurances = new ArrayList<>(vote.countedAssurances);
 		originIsPrivate = vote.isPrivate;
 		originCreationTime = vote.creationTime;
-		originCanUpdate = vote.canUpdate;
+		originCanUpdate = vote.parameters.canUpdate;
 		
 		minEndorsements = 0;
 		canAddin = true;
@@ -83,31 +83,31 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_minEndorsement_parameter_of_the_vote() {
-		assertEquals(minEndorsements, vote.minEndorsements);
+		assertEquals(minEndorsements, vote.parameters.minEndorsements);
 	}
 
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canAddIn_parameter_of_the_vote() {
-		assertEquals(true, vote.canAddin);
+		assertEquals(true, vote.parameters.canAddin);
 	}
 
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canEndorse_parameter_of_the_vote() {
-		assertEquals(true, vote.canEndorse);
+		assertEquals(true, vote.parameters.canEndorse);
 	}
 
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canVote_parameter_of_the_vote() {
-		assertEquals(true, vote.canVote);
+		assertEquals(true, vote.parameters.canVote);
 	}
 
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canView_parameter_of_the_vote() {
-		assertEquals(true, vote.canView);
+		assertEquals(true, vote.parameters.canView);
 	}
 	
 	@TestedBehaviour("vote invariants")
@@ -149,6 +149,6 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	@TestedBehaviour("updatable is a vote invariant")
 	@Test
 	public void setVoteParameters_does_not_overwrite_canUpdate_value() {
-		assertEquals(originCanUpdate, vote.canUpdate);
+		assertEquals(originCanUpdate, vote.parameters.canUpdate);
 	}
 }

@@ -27,7 +27,7 @@ public class InvariantTesting extends CreatedDefaultVoteRegistry {
 		savedCountedAssurances = new ArrayList<>(vote.countedAssurances);
 		savedIsPrivate = vote.isPrivate;
 		savedCreationTime = vote.creationTime;
-		savedCanUpdate = vote.canUpdate;
+		savedCanUpdate = vote.parameters.canUpdate;
 	}
 
 	public void assertInvariables(final Vote vote) {
@@ -37,7 +37,7 @@ public class InvariantTesting extends CreatedDefaultVoteRegistry {
 		assertEquals(savedCountedAssurances,vote.countedAssurances);
 		assertEquals(savedIsPrivate, vote.isPrivate);
 		assertEquals(savedCreationTime, vote.creationTime);
-		assertEquals(savedCanUpdate, vote.canUpdate);
+		assertEquals(savedCanUpdate, vote.parameters.canUpdate);
 	}
 
 }
