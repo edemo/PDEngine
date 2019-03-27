@@ -71,7 +71,7 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		theCastVote = new ArrayList<>();
 		vote = getTheVote();
-		vote.canVote = true;
+		vote.parameters.canVote = true;
 		vote.votesCast.clear();
 	}
 

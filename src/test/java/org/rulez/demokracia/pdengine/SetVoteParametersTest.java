@@ -34,26 +34,26 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 
 	@Test
 	public void set_vote_parameters_sets_the_minEndorsement_parameter_of_the_vote() {
-		assertEquals(3,vote.minEndorsements);
+		assertEquals(3,vote.parameters.minEndorsements);
 	}
 
 	@Test
 	public void set_vote_parameters_sets_the_canAddIn_parameter_of_the_vote() {
-		assertEquals(true,vote.canAddin);
+		assertEquals(true,vote.parameters.canAddin);
 	}
 
 	@Test
 	public void set_vote_parameters_sets_the_canEndorse_parameter_of_the_vote() {
-		assertEquals(true,vote.canEndorse);
+		assertEquals(true,vote.parameters.canEndorse);
 	}
 
 	@Test
 	public void set_vote_parameters_sets_the_canVote_parameter_of_the_vote() {
-		assertEquals(true,vote.canVote);
+		assertEquals(true,vote.parameters.canVote);
 	}
 
 	@Test
 	public void set_vote_parameters_sets_the_canView_parameter_of_the_vote() {
-		assertEquals(true,vote.canView);
+		assertEquals(true,vote.parameters.canView);
 	}
 }

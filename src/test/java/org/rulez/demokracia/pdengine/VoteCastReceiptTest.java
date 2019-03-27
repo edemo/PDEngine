@@ -20,8 +20,8 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 		
 		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		vote = getTheVote();
-		vote.canVote = true;
-		vote.canUpdate = true;
+		vote.parameters.canVote = true;
+		vote.parameters.canUpdate = true;
 		vote.votesCast.clear();
 	}
 

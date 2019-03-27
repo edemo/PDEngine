@@ -35,7 +35,7 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 		originalCountedAssurances = new ArrayList<>(vote.countedAssurances);
 		originalIsPrivate = vote.isPrivate;
 		originalCreationTime = vote.creationTime;
-		originalCanUpdate = vote.canUpdate;
+		originalCanUpdate = vote.parameters.canUpdate;
 		
 		
 		voteManager.obtainBallot(originalVoteId, originalAdminKey);
@@ -80,6 +80,6 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	@TestedBehaviour("updatable is a vote invariant")
 	@Test
 	public void canUpdate_is_Invariant() {
-		assertEquals(originalCanUpdate, vote.canUpdate);
+		assertEquals(originalCanUpdate, vote.parameters.canUpdate);
 	}
 }

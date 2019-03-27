@@ -22,7 +22,7 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 		theCastVote = new ArrayList<>();
 		
 		vote = getTheVote();
-		vote.canVote = true;
+		vote.parameters.canVote = true;
 		vote.votesCast.clear();
 	}
 
@@ -31,7 +31,7 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 	@TestedBehaviour("if updatable is true then the cast vote records the proxy id of the user")
 	@Test
 	public void castVote_records_the_proxy_id_when_updatable_is_true() {
-		vote.canUpdate = true;
+		vote.parameters.canUpdate = true;
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		
 		assertTrue(vote.votesCast.get(0).proxyId.equals(TEST_USER_NAME));
@@ -42,7 +42,7 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 	@TestedBehaviour("If updatable is false then the cast vote is not associated with the voter")
 	@Test
 	public void castVote_does_not_record_the_proxy_id_when_updatable_is_false() {
-		vote.canUpdate = false;
+		vote.parameters.canUpdate = false;
 		
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		assertTrue(vote.votesCast.get(0).proxyId == null);
@@ -53,7 +53,7 @@ public class VoteCastUpdatableTest extends CreatedDefaultChoice {
 	@TestedBehaviour("If updatable is false then the cast vote is not associated with the voter")
 	@Test
 	public void castVote_does_not_record_the_proxy_id_when_updatable_is_false_and_it_does_not_delete_the_other_not_recorded_proxyIds_votescast() {
-		vote.canUpdate = false;
+		vote.parameters.canUpdate = false;
 		addCastVoteWithDefaultPreferencesForUser(TEST_USER_NAME);
 		for(Integer i=0;i<7;i++)
 			addCastVoteWithDefaultPreferencesForUser("dummy"+ i);
