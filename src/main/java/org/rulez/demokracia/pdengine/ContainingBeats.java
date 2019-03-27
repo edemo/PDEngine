@@ -15,7 +15,7 @@ public interface ContainingBeats extends Matrix<Choice, Pair>{
 	
 	default int beatInformation(final Choice choice1, final Choice choice2, final Direction direction) {
 		if (direction == null)
-			throw new IllegalArgumentException("Invalid direction");
+			throw new ReportedException("Invalid direction");
 		
 		int result = 0;
 		Pair pair = getElement(choice1, choice2);
@@ -43,7 +43,7 @@ public interface ContainingBeats extends Matrix<Choice, Pair>{
 			else if (beat2.losing < beat1.losing)
 				return beat2;
 			else
-				throw new IllegalArgumentException("Can not decide");
+				throw new ReportedException("Can not decide");
 	}
 	
  
