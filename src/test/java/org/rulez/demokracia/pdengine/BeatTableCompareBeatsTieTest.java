@@ -20,7 +20,6 @@ public class BeatTableCompareBeatsTieTest extends CreatedBeatTable {
 	
 	@Test
 	public void compareBeats_is_not_yet_implemented_when_the_result_is_tie() {
-		assertThrows(() -> beatTable.compareBeats(beats1, beats1)
-				).assertMessageIs("Can not decide");
+		assertUnimplemented(() -> beatTable.compareBeats(beats1, beats1));
 	}
 }
