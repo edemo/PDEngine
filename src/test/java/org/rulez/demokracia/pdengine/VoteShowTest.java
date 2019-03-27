@@ -61,14 +61,17 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_choices_attribute_contains_the_choices_of_the_vote() {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get("choices").getAsJsonArray().size(), 2);
+		assertEquals(result.get("choices").getAsJsonObject().entrySet().size(), 2);
 	}
 	@Test
 	public void the_initiator_of_the_choice_is_in_the_json() {
-		JsonArray choicesJson = vote.toJson().get("choices").getAsJsonArray();
-		JsonObject firstChoice = choicesJson.get(0).getAsJsonObject();
-		String initiatorInJson = firstChoice.get("initiator").getAsString();
-		assertEquals("user", initiatorInJson);
+		JsonObject choicesJson = vote.toJson().get("choices").getAsJsonObject();
+		choicesJson.entrySet().forEach(e -> assertEquals(
+				e.getValue()
+				.getAsJsonObject()
+				.get("userName")
+				.getAsString(),
+				vote.choices.get(e.getKey()).userName));
 	}
 
 	@Test
