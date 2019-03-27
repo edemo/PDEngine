@@ -6,9 +6,8 @@ import java.util.Collection;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.types.MapMatrix;
-import org.rulez.demokracia.types.Matrix;
 
-public class BeatTable extends MapMatrix<Choice, Pair> implements Matrix<Choice, Pair>{
+public class BeatTable extends MapMatrix<Choice, Pair> {
 	private static final long serialVersionUID = 1L;
 
 	public enum Direction {
@@ -52,14 +51,25 @@ public class BeatTable extends MapMatrix<Choice, Pair> implements Matrix<Choice,
 		checkPair(beat1);
 		checkPair(beat2);
 		
+		return compareBeatsWinning(beat1, beat2);
+	}
+
+	private Pair compareBeatsWinning(final Pair beat1, final Pair beat2) {
 		if (beat1.winning > beat2.winning)
 			return beat1;
-		else if (beat1.winning == beat2.winning)
-			if (beat1.losing < beat2.losing)
-				return beat1;
-			else if (beat1.losing == beat2.losing)
-				throw new IllegalArgumentException("Can not decide");
-		return beat2;
+		else if (beat1.winning < beat2.winning)
+			return beat2;
+		else
+			return compareBeatsLosing(beat1, beat2);
+	}
+	
+	private Pair compareBeatsLosing(final Pair beat1, final Pair beat2) {
+		if (beat1.losing < beat2.losing)
+			return beat1;
+		else if (beat2.losing < beat1.losing)
+			return beat2;
+		else
+			throw new IllegalArgumentException("Can not decide");
 	}
 	
 	private void checkPair(final Pair pair) {
