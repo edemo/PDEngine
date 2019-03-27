@@ -1,5 +1,7 @@
 package org.rulez.demokracia.pdengine.testhelpers;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -41,7 +43,13 @@ public class CreatedBeatTable extends ThrowableTester{
 		beatTable.setPair(choice1, choice2, new Pair(pair.winning, pair.losing));
 	}
 	
-	protected void compareBeats(Pair firstBeats, Pair secondBeats) {
-		result = beatTable.compareBeats(firstBeats, secondBeats);	
+	protected void getAndAssertResult(Choice first, Choice second) {
+		result = beatTable.matrix.getElement(first, second);
+		assertTrue(result.winning == pair.winning && result.losing == pair.losing);	
+	}
+	
+	protected void compareAndAssertBeats(Pair first, Pair second, Pair expectedResult) {
+		result = beatTable.compareBeats(first, second);
+		assertTrue(result.winning == expectedResult.winning && result.losing == expectedResult.losing);	
 	}
 }

@@ -1,13 +1,10 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
 
@@ -30,8 +27,6 @@ public class BeatTableGetPairTest extends CreatedBeatTable {
 	@Test
 	public void getPair_gives_back_the_pair_related_to_choice1_and_choice2() {
 		createNewBeatTableWithComplexData();
-		Pair result = beatTable.matrix.getElement(choice1, choice2);
-		
-		assertTrue(result.winning == pair.winning && result.losing == pair.losing);	
+		getAndAssertResult(choice1, choice2);
 	}
 }
