@@ -11,8 +11,10 @@ import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class CreatedBeatTable extends ThrowableTester{
 	protected BeatTable beatTable;
-	protected Pair pair, result;
 	protected List<Choice> list;
+	
+	protected Pair pair;
+	protected Pair result;
 	
 	protected Choice choice1;
 	protected Choice choice2;
@@ -43,17 +45,13 @@ public class CreatedBeatTable extends ThrowableTester{
 		beats5 = new Pair(150, 10);
 	}
 	
-	private void createNewBeatTable() {
-		beatTable = new BeatTable(list);
-	}
-	
 	protected void createNewBeatTableWithData() {
-		createNewBeatTable();
+		beatTable = new BeatTable(list);
 		beatTable.setPair(choice1, choice2, pair);
 	}
 	
 	protected void createNewBeatTableWithComplexData() {	
-		createNewBeatTable();
+		createNewBeatTableWithData();
 		beatTable.setPair(choice1, choice2, new Pair(14, 1));
 		beatTable.setPair(choice1, choice3, new Pair(13, 2));
 		beatTable.setPair(choice2, choice1, new Pair(12, 3));
@@ -61,11 +59,11 @@ public class CreatedBeatTable extends ThrowableTester{
 		beatTable.setPair(choice1, choice2, pair);
 	}
 	
-	protected void setGetElementAsResult(Choice first, Choice second) {
+	protected void setGetElementAsResult(final Choice first, final Choice second) {
 		result = beatTable.getElement(first, second);	
 	}
 	
-	protected void setCompareBeatsAsResult(Pair first, Pair second) {
+	protected void setCompareBeatsAsResult(final Pair first, final Pair second) {
 		result = beatTable.compareBeats(first, second);
 	}
 }

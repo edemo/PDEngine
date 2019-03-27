@@ -28,12 +28,6 @@ public class BeatTableBeatInformationTest extends CreatedBeatTable {
 	}
 	
 	@Test
-	public void beatInformation_throws_an_exception_when_the_chocies_are_not_defined() {
-		assertThrows(() -> beatTable.beatInformation(null, null, Direction.DIRECTION_FORWARD)
-				).assertMessageIs("Invalid row key");
-	}
-	
-	@Test
 	public void beatInformation_gives_back_the_number_of_winnings_from_choice1_to_choice2() {			
 		createNewBeatTableWithData();
 		

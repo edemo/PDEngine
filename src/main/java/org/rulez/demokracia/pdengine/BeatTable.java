@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
-
+import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.types.MapMatrix;
+import org.rulez.demokracia.types.Matrix;
 
-public class BeatTable extends MapMatrix<Choice, Pair>{
+public class BeatTable extends MapMatrix<Choice, Pair> implements Matrix<Choice, Pair>{
 	private static final long serialVersionUID = 1L;
 
 	public enum Direction {
@@ -42,16 +43,15 @@ public class BeatTable extends MapMatrix<Choice, Pair>{
 	}
 
 	public void setPair(final Choice choice1, final Choice choice2, final Pair pair) {
-		if (pair == null)
-			throw new IllegalArgumentException("Invalid Pair key");
+		checkPair(pair);
 
 		this.setElement(choice1, choice2, pair);
 	}
 
 	public Pair compareBeats(final Pair beat1, final Pair beat2) {
-		if (beat1 == null || beat2 == null)
-			throw new IllegalArgumentException("Invalid Pair key");
-
+		checkPair(beat1);
+		checkPair(beat2);
+		
 		if (beat1.winning > beat2.winning)
 			return beat1;
 		else if (beat1.winning == beat2.winning)
@@ -60,5 +60,10 @@ public class BeatTable extends MapMatrix<Choice, Pair>{
 			else if (beat1.losing == beat2.losing)
 				throw new IllegalArgumentException("Can not decide");
 		return beat2;
+	}
+	
+	private void checkPair(final Pair pair) {
+		if (pair == null)
+			throw new ReportedException("Invalid Pair key");
 	}
 }
