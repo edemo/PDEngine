@@ -19,11 +19,6 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 
 	private Vote vote;
-	private boolean canAddin;
-	private boolean canEndorse;
-	private boolean canVote;
-	private boolean canView;
-	private int minEndorsements;
 	private String originVoteId;
 	private String originAdminKey;
 	private List<String> originNeededAssurances;
@@ -31,6 +26,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	private Boolean originIsPrivate;
 	private Boolean originCanUpdate;
 	private long originCreationTime;
+	private VoteParameters voteParameters;
 	
 	@Before
 	public void setUp() {
@@ -45,12 +41,14 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 		originCreationTime = vote.creationTime;
 		originCanUpdate = vote.parameters.canUpdate;
 		
-		minEndorsements = 0;
-		canAddin = true;
-		canEndorse = true;
-		canVote = true;
-		canView = true;
-		voteManager.setVoteParameters(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey),new VoteParameters(minEndorsements, canAddin, canEndorse, canVote, canView));
+		voteParameters = new VoteParameters();
+		voteParameters.minEndorsements = 0;
+		voteParameters.canAddin = true;
+		voteParameters.canEndorse = true;
+		voteParameters.canVote = true;
+		voteParameters.canView = true;
+		
+		voteManager.setVoteParameters(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey),voteParameters);
 	}
 	
 	@TestedBehaviour("validates inputs")
@@ -58,7 +56,9 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	public void invalid_voteId_is_rejected() {
 		String voteName = "modifiedVoteName";
 		assertThrows(
-				() -> voteManager.setVoteParameters(new VoteAdminInfo(voteName, adminInfo.adminKey), new VoteParameters(minEndorsements, canAddin, canEndorse, canVote, canView))
+				() -> {
+					voteManager.setVoteParameters(new VoteAdminInfo(voteName, adminInfo.adminKey), voteParameters);
+				}
 			).assertMessageIs("illegal voteId");
 	}
 	
@@ -67,7 +67,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	public void invalid_adminKey_is_rejected() {
 		String invalidAdminKey = RandomUtils.createRandomKey();
 		assertThrows(
-				() -> voteManager.setVoteParameters(new VoteAdminInfo(adminInfo.voteId, invalidAdminKey), new VoteParameters( minEndorsements, canAddin, canEndorse, canVote, canView))
+				() -> voteManager.setVoteParameters(new VoteAdminInfo(adminInfo.voteId, invalidAdminKey), voteParameters)
 			).assertMessageIs("Illegal adminKey");
 	}
 	
@@ -75,8 +75,9 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void invalid_minEndorsements_is_rejected() {
 		int invalidMinEndorsements = -2;
+		voteParameters.minEndorsements = invalidMinEndorsements;
 		assertThrows(
-				() -> voteManager.setVoteParameters(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), new VoteParameters(invalidMinEndorsements, canAddin, canEndorse, canVote, canView))
+				() -> voteManager.setVoteParameters(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), voteParameters)
 			).assertMessageIs("Illegal minEndorsements");
 	}
 	

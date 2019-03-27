@@ -16,20 +16,4 @@ public class VoteParameters implements Serializable{
 	public boolean canView;
 	public boolean canUpdate;
 
-	public VoteParameters(
-			final int minEndorsements,
-			final boolean canAddin,
-			final boolean canEndorse,
-			final boolean canVote,
-			final boolean canView) {
-		this.minEndorsements = minEndorsements;
-		this.canAddin = canAddin;
-		this.canEndorse = canEndorse;
-		this.canVote = canVote;
-		this.canView = canView;
-	}
-
-	public VoteParameters() {
-		// TODO Auto-generated constructor stub
-	}
 }
