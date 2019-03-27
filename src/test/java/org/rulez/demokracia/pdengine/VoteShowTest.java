@@ -16,6 +16,7 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 @TestedFeature("Manage votes")
@@ -160,6 +161,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void the_adminKey_attribute_should_not_be_contained_by_json() {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
-		assertFalse(Objects.isNull(result.get(ADMIN_KEY)));
+		JsonElement obj = result.get(ADMIN_KEY);
+		assertTrue(Objects.isNull(obj));
 	}
 }

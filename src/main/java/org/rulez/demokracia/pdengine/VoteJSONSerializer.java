@@ -1,5 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
+import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
+
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -12,7 +14,7 @@ public class VoteJSONSerializer {
 
 		@Override
 		public boolean shouldSkipField(final FieldAttributes field) {
-			return field.getDeclaredClass().equals(Vote.class) && field.getName().equals("adminKey");
+			return field.getDeclaringClass().equals(VoteEntity.class) && field.getName().equals("adminKey");
 		}
 
 		@Override
