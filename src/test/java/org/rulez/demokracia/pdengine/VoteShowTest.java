@@ -67,7 +67,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(CAN_ADDIN).getAsBoolean(),
-				vote.voteParameters.canAddin);
+				vote.parameters.canAddin);
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(CAN_ENDORSE).getAsBoolean(),
-				vote.voteParameters.canEndorse);
+				vote.parameters.canEndorse);
 	}
 
 	@Test
@@ -132,7 +132,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(MIN_ENDORSEMENTS).getAsInt(),
-				vote.voteParameters.minEndorsements);
+				vote.parameters.minEndorsements);
 	}
 
 	@Test
@@ -147,7 +147,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(CAN_VIEW).getAsBoolean(),
-				vote.voteParameters.canView);
+				vote.parameters.canView);
 	}
 
 	@Test
@@ -155,7 +155,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(CAN_VOTE).getAsBoolean(),
-				vote.voteParameters.canVote);
+				vote.parameters.canVote);
 	}
 
 	@Test

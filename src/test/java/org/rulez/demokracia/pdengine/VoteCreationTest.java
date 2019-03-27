@@ -85,14 +85,14 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void create_creates_a_vote_with_minEndorsements() {
-		assertEquals(0, voteManager.getVote(adminInfo.voteId).voteParameters.minEndorsements);
+		assertEquals(0, voteManager.getVote(adminInfo.voteId).parameters.minEndorsements);
 	}
 
 	@Test
 	public void minEndorsements_is_the_same_what_is_given_in_create() {
 		minEndorsements = 42;
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(minEndorsements, voteManager.getVote(secondVote.voteId).voteParameters.minEndorsements);
+		assertEquals(minEndorsements, voteManager.getVote(secondVote.voteId).parameters.minEndorsements);
 	}
 
 	@Test

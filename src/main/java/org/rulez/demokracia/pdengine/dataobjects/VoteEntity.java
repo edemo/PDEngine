@@ -22,8 +22,7 @@ public class VoteEntity extends BaseEntity {
 	public boolean isPrivate;
 	public String adminKey;
 	public long creationTime;
-	public VoteParameters voteParameters;
-	public boolean canUpdate;
+	public VoteParameters parameters;
 	@ElementCollection
 	public Map<String,Choice> choices;
 	@ElementCollection

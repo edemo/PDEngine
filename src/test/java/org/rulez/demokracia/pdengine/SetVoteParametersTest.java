@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
@@ -26,38 +25,31 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 		boolean canEndorse = true;
 		boolean canVote = true;
 		boolean canView = true;
-		VoteParameters voteParameters = new VoteParameters(
-				minEndorsements,
-				canAddin,
-				canEndorse,
-				canVote,
-				canView);
-		vote.setParameters(
-				voteParameters);
+		vote.setParameters(minEndorsements, canAddin, canEndorse, canVote, canView);
 	}
 
 	@Test
 	public void set_vote_parameters_sets_the_minEndorsement_parameter_of_the_vote() {
-		assertEquals(3, vote.voteParameters.minEndorsements);
+		assertEquals(3,vote.parameters.minEndorsements);
 	}
 
 	@Test
 	public void set_vote_parameters_sets_the_canAddIn_parameter_of_the_vote() {
-		assertEquals(true, vote.voteParameters.canAddin);
+		assertEquals(true,vote.parameters.canAddin);
 	}
 
 	@Test
 	public void set_vote_parameters_sets_the_canEndorse_parameter_of_the_vote() {
-		assertEquals(true, vote.voteParameters.canEndorse);
+		assertEquals(true,vote.parameters.canEndorse);
 	}
 
 	@Test
 	public void set_vote_parameters_sets_the_canVote_parameter_of_the_vote() {
-		assertEquals(true, vote.voteParameters.canVote);
+		assertEquals(true,vote.parameters.canVote);
 	}
 
 	@Test
 	public void set_vote_parameters_sets_the_canView_parameter_of_the_vote() {
-		assertEquals(true, vote.voteParameters.canView);
+		assertEquals(true,vote.parameters.canView);
 	}
 }

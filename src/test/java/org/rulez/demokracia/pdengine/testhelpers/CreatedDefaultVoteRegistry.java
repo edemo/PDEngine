@@ -68,7 +68,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 
 	protected void setVoteEndorseable() {
 		Vote vote = getTheVote();
-		vote.voteParameters.canEndorse = true;
+		vote.parameters.canEndorse=true;
 	}
 
 	protected String createLongString(final int length) {
