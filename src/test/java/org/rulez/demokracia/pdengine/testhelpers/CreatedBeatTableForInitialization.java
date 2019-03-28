@@ -38,12 +38,10 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		rankedChoice1 = new RankedChoice(first, 2);
 		rankedChoice2 = new RankedChoice(second, 3);
 		rankedChoice3 = new RankedChoice(third, 1);
-		rankedChoice4 = new RankedChoice(fourth, 1);
 		
 		preferences.add(rankedChoice1);
 		preferences.add(rankedChoice2);
 		preferences.add(rankedChoice3);
-		preferences.add(rankedChoice4);
 		
 		castVotes = new ArrayList<CastVote>();
 		castVote1 = new CastVote("TestUser1", preferences);
@@ -58,7 +56,6 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		list.add(first);
 		list.add(second);
 		list.add(third);
-		list.add(fourth);
 		
 		beatTable = new BeatTable(list);
 	}
