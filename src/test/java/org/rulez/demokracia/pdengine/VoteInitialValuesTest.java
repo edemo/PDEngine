@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
@@ -33,7 +33,7 @@ public class VoteInitialValuesTest extends CreatedDefaultVoteRegistry {
 	public void canView_is_false_in_the_created_vote() {
 		assertEquals(false, getTheVote().parameters.canView);
 	}
-	
+
 	@Test
 	public void canUpdate_is_false_in_the_created_vote() {
 		assertEquals(false, getTheVote().parameters.canUpdate);

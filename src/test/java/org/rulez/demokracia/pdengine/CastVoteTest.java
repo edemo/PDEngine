@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,11 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 public class CastVoteTest extends CreatedDefaultChoice {
 
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -42,4 +42,5 @@ public class CastVoteTest extends CreatedDefaultChoice {
 		List<RankedChoice> preferences = castVote.getPreferences();
 		assertEquals(theCastVote, preferences);
 	}
+	
 }
