@@ -25,8 +25,6 @@ public class ReportedException extends RuntimeException {
 
 	@Override
 	public String getMessage() {
-		if (additionalDetails.isEmpty())
-			return super.getMessage();
 		return MessageFormat.format(super.getMessage(), additionalDetails.get(0));
 	}
 

@@ -63,9 +63,7 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	@TestedBehaviour("Creates a vote")
 	@Test
 	public void vote_creation_fails_with_404_on_bad_input() {
-		req.voteName= "`drop table little_bobby tables;`";
-		Invocation.Builder invocationBuilder = createWebClient();
-		Response response = invocationBuilder.post(Entity.entity(req,MediaType.APPLICATION_JSON));
+		Response response = RestCallWithBadInput();
 		assertEquals(400, response.getStatus());
 	}
 
@@ -74,9 +72,7 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	@TestedBehaviour("Creates a vote")
 	@Test
 	public void vote_creation_fails_and_reports_error_message_on_bad_input() {
-		req.voteName= "`drop table little_bobby tables;`";
-		Invocation.Builder invocationBuilder = createWebClient();
-		Response response = invocationBuilder.post(Entity.entity(req,MediaType.APPLICATION_JSON));
+		Response response = RestCallWithBadInput();
 		String responseString = response.readEntity(String.class);
 		JsonObject responseJson = new JsonParser().parse(responseString).getAsJsonObject();
 		assertEquals("invalid characters in {0}", responseJson
@@ -89,9 +85,7 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	@TestedBehaviour("Creates a vote")
 	@Test
 	public void vote_creation_fails_and_reports_error_details_on_bad_input() {
-		req.voteName = "`drop table little_bobby tables;`";
-		Invocation.Builder invocationBuilder = createWebClient();
-		Response response = invocationBuilder.post(Entity.entity(req, MediaType.APPLICATION_JSON));
+		Response response = RestCallWithBadInput();
 		String responseString = response.readEntity(String.class);
 		JsonObject responseJson = new JsonParser().parse(responseString).getAsJsonObject();
 		assertEquals("vote name", responseJson
@@ -104,13 +98,18 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	@TestedBehaviour("Creates a vote")
 	@Test
 	public void vote_creation_fails_and_returns_the_bad_input() {
-		req.voteName = "`drop table little_bobby tables;`";
-		Invocation.Builder invocationBuilder = createWebClient();
-		Response response = invocationBuilder.post(Entity.entity(req, MediaType.APPLICATION_JSON));
+		Response response = RestCallWithBadInput();
 		String responseString = response.readEntity(String.class);
 		JsonObject responseJson = new JsonParser().parse(responseString).getAsJsonObject();
 		assertEquals(new Gson().toJson(req), responseJson
 				.get("input").toString());
+	}
+
+	private Response RestCallWithBadInput() {
+		req.voteName = "`drop table little_bobby tables;`";
+		Invocation.Builder invocationBuilder = createWebClient();
+		Response response = invocationBuilder.post(Entity.entity(req, MediaType.APPLICATION_JSON));
+		return response;
 	}
 
 	private Invocation.Builder createWebClient() {

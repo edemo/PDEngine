@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.junit.Before;
@@ -86,13 +88,11 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void the_initiator_of_the_choice_is_in_the_json() {
 		JsonObject choicesJson = vote.toJson().get(CHOICES).getAsJsonObject();
+		assertChoicesJsonContainsAllUserNames(choicesJson, vote.choices);
+	}
+
+	private void assertEntrySetIsNotEmpty(final JsonObject choicesJson) {
 		assertFalse(choicesJson.entrySet().isEmpty());
-		choicesJson.entrySet().forEach(e -> assertEquals(
-				e.getValue()
-				.getAsJsonObject()
-				.get(USER_NAME)
-				.getAsString(),
-				vote.choices.get(e.getKey()).userName));
 	}
 
 	@Test
@@ -109,11 +109,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		JsonArray jsonCountedAssurances = result.get(COUNTED_ASSURANCES).getAsJsonArray();
 
-
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		assertFalse(vote.countedAssurances.isEmpty());
-		vote.countedAssurances.stream().forEach(
-				assurance -> assertTrue(jsonCountedAssurances.contains(gsonBuilder.create().toJsonTree(assurance))));
+		assertJsonContainsAllElement(jsonCountedAssurances, vote.countedAssurances);
 	}
 
 	@Test
@@ -121,10 +117,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		JsonArray jsonNeededAssurances = result.get(NEEDED_ASSURANCES).getAsJsonArray();
 
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		assertFalse(vote.neededAssurances.isEmpty());
-		vote.neededAssurances.stream().forEach(
-				assurance -> assertTrue(jsonNeededAssurances.contains(gsonBuilder.create().toJsonTree(assurance))));
+		assertJsonContainsAllElement(jsonNeededAssurances, vote.neededAssurances);
 	}
 
 	@Test
@@ -163,5 +156,27 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		JsonElement obj = result.get(ADMIN_KEY);
 		assertTrue(Objects.isNull(obj));
+	}
+
+	private void assertJsonContainsAllElement(final JsonArray jsonArray, final List<String> elements) {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		assertFalse(elements.isEmpty());
+		elements.stream().forEach(
+				assurance -> assertTrue(jsonArray.contains(gsonBuilder.create().toJsonTree(assurance))));
+	}
+
+	private void assertChoicesJsonContainsAllUserNames(final JsonObject choicesJson,
+			final Map<String, Choice> choices) {
+		assertEntrySetIsNotEmpty(choicesJson);
+		choicesJson.entrySet()
+				.forEach(e -> assertJsonContainsUserName(e.getValue(), choices.get(e.getKey()).userName));
+	}
+
+	private void assertJsonContainsUserName(final JsonElement entry, final String userName) {
+		assertEquals(
+				entry.getAsJsonObject()
+						.get(USER_NAME)
+						.getAsString(),
+				userName);
 	}
 }

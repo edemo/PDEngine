@@ -22,7 +22,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 		if (adminKey.equals(vote.getAdminKey())) {
 			vote.increaseRecordedBallots("admin");
-		} else if ("user".equals(adminKey)) {
+		} else {
 			if (getWsContext().getUserPrincipal() == null) {
 				throw new IllegalArgumentException("Simple user is not authenticated, cannot issue any ballot.");
 			}
