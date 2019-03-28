@@ -28,6 +28,12 @@ public class BeatTableInitializeTest extends CreatedBeatTableForInitialization {
 		assertThrows(() -> beatTable.initialize(null)
 				).assertMessageIs("Invalid castVotes");
 	}
+	
+	@Test
+	public void initialize_does_nothing_when_preferences_is_not_defined() {
+		createNewBeatTableWithNotDefinedPreferences();
+		assertTrue(null == beatTable.getElement("first", "second"));
+	}
 
 	@Test
 	public void initialize_sets_the_new_losing_value_when_the_matrix_is_empty() {

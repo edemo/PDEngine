@@ -54,4 +54,31 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		
 		beatTable = new BeatTable(list);
 	}
+	
+	public void createNewBeatTableWithNotDefinedPreferences() {
+		preferences = new ArrayList<RankedChoice>();
+		rankedChoice1 = new RankedChoice("first", 2);
+		rankedChoice2 = new RankedChoice("second", 3);
+		rankedChoice3 = new RankedChoice("third", 1);
+		rankedChoice4 = new RankedChoice("fourth", 1);
+		
+		preferences.add(rankedChoice1);
+		preferences.add(rankedChoice2);
+		preferences.add(rankedChoice3);
+		preferences.add(rankedChoice4);
+		
+		castVotes = new ArrayList<CastVote>();
+		castVote2 = new CastVote("TestUser2", new ArrayList<>());
+		
+		castVotes.add(castVote2);
+		
+		list = new ArrayList<String>();
+		list.add("first");
+		list.add("second");
+		list.add("third");
+		list.add("fourth");
+		
+		beatTable = new BeatTable(list);
+	}
+	
 }
