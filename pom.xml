@@ -113,33 +113,30 @@
   
   <profiles>
 	<profile>
-		<id>surefire</id>
-		<build>
-			<plugins>
-				<plugin>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.22.0</version>
-					<executions>
-						<execution>
-							<phase>integration-test</phase>
-							<goals>
-								<goal>test</goal>
-							</goals>
-							<configuration>
-								<excludes>
-									<exclude>none</exclude>
-								</excludes>
-								<includes>
-									<include>**/*IntegrationTest</include>
-								</includes>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</build>
-	</profile>
-</profiles>
+	<id>integration-test</id>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.22.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includes>
+						<include>**/*IntegrationTest</include>
+					</includes>
+				</configuration>
+			  </plugin>
+		  </plugins>
+	  </build>
+    </profile>
+  </profiles>
 
   <reporting>
     <plugins>
