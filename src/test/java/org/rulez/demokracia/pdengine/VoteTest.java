@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ public class VoteTest extends CreatedDefaultChoice {
 
 	private static final int LAST_WRONG_RANK = -1;
 	private static final int FIRST_GOOD_RANK = 0;
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -29,7 +30,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	@Test
 	public void cast_vote_deletes_ballot_if_canVote_is_true() {
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertFalse(vote.ballots.contains(ballot));		
+		assertFalse(vote.ballots.contains(ballot));
 	}
 
 	@TestedBehaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
@@ -38,7 +39,7 @@ public class VoteTest extends CreatedDefaultChoice {
 		newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK);
 
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertFalse(vote.ballots.contains(ballot));	
+		assertFalse(vote.ballots.contains(ballot));
 	}
 
 	@TestedBehaviour("works only if canVote is true")
@@ -48,7 +49,7 @@ public class VoteTest extends CreatedDefaultChoice {
 
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
 				).assertException(ReportedException.class)
-				 .assertMessageIs("This issue cannot be voted on yet");
+		.assertMessageIs("This issue cannot be voted on yet");
 	}
 
 	@TestedBehaviour("validates inputs")
@@ -58,7 +59,7 @@ public class VoteTest extends CreatedDefaultChoice {
 
 		assertThrows(() -> voteManager.castVote(wrongVoteId, ballot, theCastVote)
 				).assertException(ReportedException.class)
-				 .assertMessageIs("illegal voteId");
+		.assertMessageIs("illegal voteId");
 	}
 
 	@TestedBehaviour("validates inputs")
@@ -68,7 +69,7 @@ public class VoteTest extends CreatedDefaultChoice {
 
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, wrongBallot, theCastVote)
 				).assertException(ReportedException.class)
-				 .assertMessageIs("Illegal ballot");
+		.assertMessageIs("Illegal ballot");
 	}
 
 	@TestedBehaviour("validates inputs")
@@ -78,7 +79,7 @@ public class VoteTest extends CreatedDefaultChoice {
 
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
 				).assertException(ReportedException.class)
-				 .assertMessageIs("Invalid choiceId");
+		.assertMessageIs("Invalid choiceId");
 	}
 
 	@TestedBehaviour("validates inputs")
@@ -89,21 +90,21 @@ public class VoteTest extends CreatedDefaultChoice {
 
 		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
 				).assertException(ReportedException.class)
-				 .assertMessageIs("Invalid rank");
+		.assertMessageIs("Invalid rank");
 	}
-	
+
 	@TestedBehaviour("if updatable is true, only authenticated users can vote")
 	@Test
 	public void cannot_cast_a_user_if_canUpdate_is_true_but_not_logged_in() {
 		vote.parameters.canUpdate = true;
 		setupUnauthenticatedMockWsContext();
-		
+
 		newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK);
-		
+
 		assertThrows(() ->  voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
 				).assertException(ReportedException.class)
-		 		 .assertMessageIs("canUpdate is true but the user is not authenticated");
-		
+		.assertMessageIs("canUpdate is true but the user is not authenticated");
+
 	}
 
 	private List<RankedChoice> prepareCastVote(final boolean canVote) {
@@ -115,12 +116,12 @@ public class VoteTest extends CreatedDefaultChoice {
 	}
 
 	private void prepareRankedChoice(final List<RankedChoice> theCastVote, final String choiceId, final int rank) {
-		 RankedChoice rankedChoice = new RankedChoice(choiceId, rank);
+		RankedChoice rankedChoice = new RankedChoice(choiceId, rank);
 		theCastVote.add(rankedChoice);
 	}
 
 	private void newChoiceAndRankedList(final List<RankedChoice> theCastVote, final int firstGoodRank) {
 		String choiceId = vote.addChoice("valid_choice","userke");
 		prepareRankedChoice(theCastVote, choiceId, firstGoodRank);
-	}	
+	}
 }

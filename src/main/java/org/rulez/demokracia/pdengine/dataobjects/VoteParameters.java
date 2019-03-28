@@ -15,5 +15,4 @@ public class VoteParameters implements Serializable{
 	public boolean canVote;
 	public boolean canView;
 	public boolean canUpdate;
-
 }
