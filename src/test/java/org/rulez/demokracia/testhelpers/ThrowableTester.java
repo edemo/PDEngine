@@ -35,4 +35,10 @@ public class ThrowableTester {
 		assertEquals(message, klass, thrown.getClass());
 		return this;
 	}
+	
+	public ThrowableTester assertUnimplemented(final Thrower thrower) {
+		assertThrows(thrower);
+		assertEquals(UnsupportedOperationException.class, thrown.getClass());
+		return this;
+	}
 }
