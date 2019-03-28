@@ -246,11 +246,6 @@
       <version>3.3.1</version>
     </dependency>
     <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20140107</version>
-    </dependency>
-    <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-servlet-core</artifactId>
       <version>2.26-b02</version>
@@ -291,6 +286,11 @@
     	<artifactId>mockito-core</artifactId>
     	<version>2.23.0</version>
     </dependency>
+    <dependency>
+    	<groupId>com.google.code.gson</groupId>
+    	<artifactId>gson</artifactId>
+    	<version>2.8.5</version>
+	</dependency>
   </dependencies>
 </project>
 

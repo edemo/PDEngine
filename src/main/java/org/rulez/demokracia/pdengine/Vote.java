@@ -6,15 +6,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.persistence.Entity;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
+
+import com.google.gson.JsonObject;
 
 @Entity
 public class Vote extends VoteEntity implements VoteInterface, Admnistrable, HasChoices, HasBallots, Endorseable, Voteable {
@@ -38,43 +36,8 @@ public class Vote extends VoteEntity implements VoteInterface, Admnistrable, Has
 		this.recordedBallots = new HashMap<>();
 	}
 
-	public JSONObject toJson() {
-		JSONObject obj = new JSONObject();
-		obj.put("name", this.name);
-		obj.put("canAddIn", this.parameters.canAddin);
-		obj.put("creationTime", this.creationTime);
-		obj.put("choices", createChoicesJson(this.choices));
-		obj.put("canEndorse", this.parameters.canEndorse);
-		obj.put("countedAssurances", this.countedAssurances);
-		obj.put("neededAssurances", this.neededAssurances);
-		obj.put("minEndorsements", this.parameters.minEndorsements);
-		obj.put("id", this.id);
-		obj.put("canView", this.parameters.canView);
-		obj.put("canVote", this.parameters.canVote);
-		return obj;
-	}
-
-	public JSONArray createChoicesJson(final Map<String, Choice> choices) {
-		JSONArray array = new JSONArray();
-
-		for (Entry<String, Choice> entry : choices.entrySet()) {
-			Choice value = entry.getValue();
-
-			JSONObject obj = choiceAsJson(value);
-
-			array.put(obj);
-		}
-
-		return array;
-	}
-
-	private JSONObject choiceAsJson(final Choice choice) {
-		JSONObject obj = new JSONObject();
-		obj.put("initiator", choice.userName);
-		obj.put("endorsers", choice.endorsers);
-		obj.put("name", choice.name);
-		obj.put("id", choice.id);
-		return obj;
+	public JsonObject toJson() {
+		return new VoteJSONSerializer().fromVote(this);
 	}
 
 	@Override
@@ -115,5 +78,9 @@ public class Vote extends VoteEntity implements VoteInterface, Admnistrable, Has
 	@Override
 	public List<String> getNeededAssurances() {
 		return new ArrayList<>(this.neededAssurances);
+	}
+
+	public List<CastVote> filterVotes(final String assurance) {
+		return new VoteFilter().filterVotes(votesCast, assurance);
 	}
 }

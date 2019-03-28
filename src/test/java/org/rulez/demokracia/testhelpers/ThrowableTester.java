@@ -37,8 +37,8 @@ public class ThrowableTester {
 	}
 	
 	public ThrowableTester assertUnimplemented(final Thrower thrower) {
-		assertThrows(thrower);
-		assertEquals(UnsupportedOperationException.class, thrown.getClass());
+		assertThrows(thrower)
+			.assertException(UnsupportedOperationException.class);
 		return this;
 	}
 }

@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +15,7 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 
 	private Vote vote;
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -24,12 +25,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 		boolean canEndorse = true;
 		boolean canVote = true;
 		boolean canView = true;
-		vote.setParameters(
-				minEndorsements,
-				canAddin,
-				canEndorse,
-				canVote,
-				canView);
+		vote.setParameters(minEndorsements, canAddin, canEndorse, canVote, canView);
 	}
 
 	@Test

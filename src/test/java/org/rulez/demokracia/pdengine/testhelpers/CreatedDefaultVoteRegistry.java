@@ -1,10 +1,10 @@
 package org.rulez.demokracia.pdengine.testhelpers;
 
-import java.util.Arrays;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,7 +38,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		isPrivate = true;
 		minEndorsements = 0;
 		neededAssurances.add(ASSURANCE_NAME);
-        voteName = "testVote";
+		voteName = "testVote";
 		adminInfo = createAVote();
 	}
 
@@ -51,7 +51,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		when(wsContext.isUserInRole("appmagyar")).thenReturn(true);
 		return wsContext;
 	}
-	
+
 	public void setupUnauthenticatedMockWsContext() {
 		WebServiceContext wsContext = mock(WebServiceContext.class);
 		when(wsContext.getUserPrincipal()).thenReturn(null);
@@ -70,11 +70,11 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		Vote vote = getTheVote();
 		vote.parameters.canEndorse=true;
 	}
-	
+
 	protected String createLongString(final int length) {
 		char[] charArray = new char[length];
-	    Arrays.fill(charArray, 'w');
-	    return new String(charArray);
+		Arrays.fill(charArray, 'w');
+		return new String(charArray);
 	}
 
 
