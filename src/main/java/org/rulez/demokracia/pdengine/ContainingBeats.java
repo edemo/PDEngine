@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.rulez.demokracia.pdengine.BeatTable.Direction;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
-import org.rulez.demokracia.pdengine.CastVote;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.types.Matrix;
 
@@ -56,7 +55,7 @@ public interface ContainingBeats extends Matrix<String, Pair>{
 		return result;
 	}
 	
-	default BeatTable initialize(List<CastVote> castVotes) {
+	default void initialize(List<CastVote> castVotes) {
 		if (castVotes == null)
 			throw new ReportedException("Invalid castVotes");
 		
@@ -82,15 +81,12 @@ public interface ContainingBeats extends Matrix<String, Pair>{
 						Pair value2 = getPair(preferences.get(i).choiceId, preferences.get(j).choiceId);
 						setElement(preferences.get(i).choiceId, preferences.get(j).choiceId, new Pair(value2.winning, value2.losing + 1));
 					}
-					
-					System.out.println("I: " + preferences.get(i).choiceId + " J: " + preferences.get(j).choiceId);
 				}
 				
 			}
 			
 			
 		}
-		return (BeatTable) this;
 	}
 	
  
