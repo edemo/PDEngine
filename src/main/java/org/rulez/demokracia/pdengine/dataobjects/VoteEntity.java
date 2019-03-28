@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.persistence.ElementCollection;
 
+import org.rulez.demokracia.pdengine.CastVote;
 import org.rulez.demokracia.pdengine.Choice;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
