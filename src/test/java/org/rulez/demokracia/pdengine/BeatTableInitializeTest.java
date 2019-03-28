@@ -28,12 +28,6 @@ public class BeatTableInitializeTest extends CreatedBeatTableForInitialization {
 		assertThrows(() -> beatTable.initialize(null)
 				).assertMessageIs("Invalid castVotes");
 	}
-	
-	@Test
-	public void initialize_does_nothing_when_preferences_is_not_defined() {
-		createNewBeatTableWithNotDefinedPreferences();
-		assertTrue(null == beatTable.getElement("first", "second"));
-	}
 
 	@Test
 	public void initialize_sets_the_new_losing_value_when_the_matrix_is_empty() {
@@ -43,9 +37,23 @@ public class BeatTableInitializeTest extends CreatedBeatTableForInitialization {
 	}
 	
 	@Test
+	public void initialize_sets_the_new_losing_value_when_the_matrix_is_empty1() {
+		beatTable.initialize(castVotes);
+		Pair result = beatTable.getElement("second", "first");
+		assertTrue(result.winning == 2 && result.losing == 0);
+	}
+	
+	@Test
 	public void initialize_sets_the_new_winning_value_when_the_matrix_is_empty() {
 		beatTable.initialize(castVotes);
 		Pair result = beatTable.getElement("second", "third");
 		assertTrue(result.winning == 2 && result.losing == 0);
+	}
+	
+	@Test
+	public void initialize_sets_the_new_winning_value_when_the_matrix_is_empty1() {
+		beatTable.initialize(castVotes);
+		Pair result = beatTable.getElement("third", "second");
+		assertTrue(result.winning == 0 && result.losing == 2);
 	}
 }

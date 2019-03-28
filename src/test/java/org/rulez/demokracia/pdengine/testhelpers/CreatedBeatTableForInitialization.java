@@ -10,6 +10,11 @@ import org.rulez.demokracia.pdengine.CastVote;
 
 public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 	
+	private String first = "first";
+	private String second = "second";
+	private String third = "third";
+	private String fourth = "fourth";
+	
 	protected List<RankedChoice> preferences;
 	
 	protected RankedChoice rankedChoice1;
@@ -29,10 +34,10 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		super.setUp();
 		
 		preferences = new ArrayList<RankedChoice>();
-		rankedChoice1 = new RankedChoice("first", 2);
-		rankedChoice2 = new RankedChoice("second", 3);
-		rankedChoice3 = new RankedChoice("third", 1);
-		rankedChoice4 = new RankedChoice("fourth", 1);
+		rankedChoice1 = new RankedChoice(first, 2);
+		rankedChoice2 = new RankedChoice(second, 3);
+		rankedChoice3 = new RankedChoice(third, 1);
+		rankedChoice4 = new RankedChoice(fourth, 1);
 		
 		preferences.add(rankedChoice1);
 		preferences.add(rankedChoice2);
@@ -47,38 +52,17 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		castVotes.add(castVote2);
 		
 		list = new ArrayList<String>();
-		list.add("first");
-		list.add("second");
-		list.add("third");
-		list.add("fourth");
+		list.add(first);
+		list.add(second);
+		list.add(third);
+		list.add(fourth);
 		
 		beatTable = new BeatTable(list);
 	}
 	
 	public void createNewBeatTableWithNotDefinedPreferences() {
-		preferences = new ArrayList<RankedChoice>();
-		rankedChoice1 = new RankedChoice("first", 2);
-		rankedChoice2 = new RankedChoice("second", 3);
-		rankedChoice3 = new RankedChoice("third", 1);
-		rankedChoice4 = new RankedChoice("fourth", 1);
-		
-		preferences.add(rankedChoice1);
-		preferences.add(rankedChoice2);
-		preferences.add(rankedChoice3);
-		preferences.add(rankedChoice4);
-		
-		castVotes = new ArrayList<CastVote>();
-		castVote2 = new CastVote("TestUser2", new ArrayList<>());
-		
-		castVotes.add(castVote2);
-		
-		list = new ArrayList<String>();
-		list.add("first");
-		list.add("second");
-		list.add("third");
-		list.add("fourth");
-		
-		beatTable = new BeatTable(list);
+		CastVote castVote3 = new CastVote("TestUser3", preferences);
+		castVotes.add(castVote3);
 	}
 	
 }
