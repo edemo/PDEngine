@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public interface Matrix<KeyType extends Serializable, ValueType extends Serializable> extends Serializable {
 
-	void setElement(KeyType columnKey, KeyType rank, ValueType value);
+	void setElement(KeyType columnKey, KeyType rowKey, ValueType value);
 
 	ValueType getElement(KeyType columnKey, KeyType rowKey);
 
