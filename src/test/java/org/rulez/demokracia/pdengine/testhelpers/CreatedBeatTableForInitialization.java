@@ -26,6 +26,7 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 	
 	protected CastVote castVote1;
 	protected CastVote castVote2;
+	protected CastVote castVote3;
 	
 	protected List<String> list;
 	
@@ -47,9 +48,11 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		castVotes = new ArrayList<CastVote>();
 		castVote1 = new CastVote("TestUser1", preferences);
 		castVote2 = new CastVote("TestUser2", preferences);
+		castVote3 = new CastVote("TestUser3", new ArrayList<RankedChoice>());
 		
 		castVotes.add(castVote1);
 		castVotes.add(castVote2);
+		castVotes.add(castVote3);
 		
 		list = new ArrayList<String>();
 		list.add(first);
@@ -58,11 +61,6 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		list.add(fourth);
 		
 		beatTable = new BeatTable(list);
-	}
-	
-	public void createNewBeatTableWithNotDefinedPreferences() {
-		CastVote castVote3 = new CastVote("TestUser3", preferences);
-		castVotes.add(castVote3);
 	}
 	
 }
