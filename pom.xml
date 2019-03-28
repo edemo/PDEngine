@@ -97,7 +97,7 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>3.11.0</version>
             <configuration>
-             <minimumTokens>15</minimumTokens>
+             <minimumTokens>25</minimumTokens>
              <ignoreAnnotations>true</ignoreAnnotations>
              <includeTests>true</includeTests>
              <rulesets>
