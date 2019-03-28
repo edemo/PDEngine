@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.BeatTable;
 import org.rulez.demokracia.pdengine.RankedChoice;
-import org.rulez.demokracia.pdengine.dataobjects.CastVote;
+import org.rulez.demokracia.pdengine.CastVote;
 
 public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 	
