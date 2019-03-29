@@ -68,6 +68,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		}
 
 		vote.removeBallot(ballot);
+
 		return receipt;
 	}
 
