@@ -29,5 +29,6 @@ else
      -Dsonar.java.pmd.reportPaths=target/pmd_full.xml\
      -Dsonar.branch.name=${BRANCH}\
      -Dsonar.externalIssuesReportPaths=issuesReport.json\
+     -Dsonar.tests=src/test,src/integration-test\
      -Pintegration-test
 fi
