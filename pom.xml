@@ -5,7 +5,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-feature_for_show_vote_the_user_needs_a_counted_assurance_40.5a79d7b</version>
+  <version>0.0.1-devops_separate-test-types-132.0df00bb</version>
   <packaging>war</packaging>
 
   <name>PDEngine</name>

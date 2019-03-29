@@ -21,10 +21,12 @@ then
         -Dsonar.issuesReport.console.enable=true\
         -Dsonar.github.login=magwas\
         -Dsonar.externalIssuesReportPaths=issuesReport.json\
-        -Dsonar.java.pmd.reportPaths=target/pmd_full.xml
+        -Dsonar.java.pmd.reportPaths=target/pmd_full.xml\
+        -Pintegration-test
 else
     mvn sonar:sonar -Dsonar.organization=edemo\
      -Dsonar.java.pmd.reportPaths=target/pmd_full.xml\
      -Dsonar.branch.name=${BRANCH}\
-     -Dsonar.externalIssuesReportPaths=issuesReport.json
+     -Dsonar.externalIssuesReportPaths=issuesReport.json\
+     -Pintegration-test
 fi
