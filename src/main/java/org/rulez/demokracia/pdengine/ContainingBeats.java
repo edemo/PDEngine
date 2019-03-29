@@ -1,5 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.rulez.demokracia.pdengine.BeatTable.Direction;
@@ -54,12 +55,14 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 		
 		for (CastVote castVote  : castVotes) {
 			List<RankedChoice> preferences = castVote.getPreferences();
-
+			
 			for (int columnIndex = 0; columnIndex < preferences.size(); columnIndex++) {
+				RankedChoice column = preferences.get(columnIndex);
 				for (int rowIndex = columnIndex + 1; rowIndex < preferences.size(); rowIndex++) {
-					if (preferences.get(columnIndex).rank > preferences.get(rowIndex).rank) {
+					RankedChoice row = preferences.get(rowIndex);
+					if (column.rank > row.rank) {
 						increasePairValue(preferences, columnIndex, rowIndex);
-					} else if(preferences.get(columnIndex).rank < preferences.get(rowIndex).rank){
+					} else if(column.rank < row.rank){
 						increasePairValue(preferences, rowIndex, columnIndex);
 					}
 				}
