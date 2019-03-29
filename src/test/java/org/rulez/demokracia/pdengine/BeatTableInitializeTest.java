@@ -39,28 +39,28 @@ public class BeatTableInitializeTest extends CreatedBeatTableForInitialization {
 	@Test
 	public void initialize_sets_the_new_losing_value_when_the_matrix_is_empty() {
 		beatTable.initialize(castVotes);
-		Pair result = beatTable.getElement(first, second);
+		Pair result = beatTable.getElement(FIRST, SECOND);
 		assertTrue(result.winning == 0 && result.losing == 2);
 	}
 	
 	@Test
 	public void initialize_sets_the_new_losing_value_when_the_matrix_is_empty1() {
 		beatTable.initialize(castVotes);
-		Pair result = beatTable.getElement(second, first);
+		Pair result = beatTable.getElement(SECOND, FIRST);
 		assertTrue(result.winning == 2 && result.losing == 0);
 	}
 	
 	@Test
 	public void initialize_sets_the_new_winning_value_when_the_matrix_is_empty() {
 		beatTable.initialize(castVotes);
-		Pair result = beatTable.getElement(second, third);
+		Pair result = beatTable.getElement(SECOND, THIRD);
 		assertTrue(result.winning == 2 && result.losing == 0);
 	}
 	
 	@Test
 	public void initialize_sets_the_new_winning_value_when_the_matrix_is_empty1() {
 		beatTable.initialize(castVotes);
-		Pair result = beatTable.getElement(third, second);
+		Pair result = beatTable.getElement(THIRD, SECOND);
 		assertTrue(result.winning == 0 && result.losing == 2);
 	}
 }

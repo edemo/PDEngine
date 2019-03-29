@@ -78,13 +78,13 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 		return result;
 	}
 
-	default void increasePairValue(List<RankedChoice> preferences, int i, int j) {
-		Pair value1 = getPair(preferences.get(i).choiceId, preferences.get(j).choiceId);
-		setElement(preferences.get(i).choiceId, preferences.get(j).choiceId,
+	default void increasePairValue(List<RankedChoice> preferences, int column, int row) {
+		Pair value1 = getPair(preferences.get(column).choiceId, preferences.get(row).choiceId);
+		setElement(preferences.get(column).choiceId, preferences.get(row).choiceId,
 				new Pair(value1.winning + 1, value1.losing));
 
-		Pair value2 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
-		setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
+		Pair value2 = getPair(preferences.get(row).choiceId, preferences.get(column).choiceId);
+		setElement(preferences.get(row).choiceId, preferences.get(column).choiceId,
 				new Pair(value2.winning, value2.losing + 1));
 	}
 }

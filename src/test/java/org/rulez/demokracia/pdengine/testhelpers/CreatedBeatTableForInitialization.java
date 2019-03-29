@@ -10,10 +10,10 @@ import org.rulez.demokracia.pdengine.CastVote;
 
 public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 	
-	public static final String first = "first";
-	public static final String second = "second";
-	public static final String third = "third";
-	public static final String fourth = "fourth";
+	public static final String FIRST = "first";
+	public static final String SECOND = "second";
+	public static final String THIRD = "third";
+	public static final String FOURTH = "fourth";
 	
 	protected List<RankedChoice> preferences;
 	
@@ -35,9 +35,9 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		super.setUp();
 		
 		preferences = new ArrayList<RankedChoice>();
-		rankedChoice1 = new RankedChoice(first, 2);
-		rankedChoice2 = new RankedChoice(second, 3);
-		rankedChoice3 = new RankedChoice(third, 1);
+		rankedChoice1 = new RankedChoice(FIRST, 2);
+		rankedChoice2 = new RankedChoice(SECOND, 3);
+		rankedChoice3 = new RankedChoice(THIRD, 1);
 		
 		preferences.add(rankedChoice1);
 		preferences.add(rankedChoice2);
@@ -53,18 +53,18 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		castVotes.add(castVote2);
 		
 		list = new ArrayList<String>();
-		list.add(first);
-		list.add(second);
-		list.add(third);
+		list.add(FIRST);
+		list.add(SECOND);
+		list.add(THIRD);
 		
 		beatTable = new BeatTable(list);
 	}
 	
 	public void createBeatTableWithInvalidRank() {
-		rankedChoice4 = new RankedChoice(fourth, 1);
+		rankedChoice4 = new RankedChoice(FOURTH, 1);
 		preferences.add(rankedChoice4);
 		castVotes.add(new CastVote("TestUser4", preferences));
-		list.add(fourth);
+		list.add(FOURTH);
 		
 		beatTable = new BeatTable(list);
 		
