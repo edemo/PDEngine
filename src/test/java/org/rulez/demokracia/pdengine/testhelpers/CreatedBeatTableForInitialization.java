@@ -60,7 +60,7 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		beatTable = new BeatTable(list);
 	}
 	
-	public void createBeatTableWithInvalidRank() {
+	public void createBeatTableWithSameRank() {
 		rankedChoice4 = new RankedChoice(FOURTH, 1);
 		preferences.add(rankedChoice4);
 		castVotes.add(new CastVote("TestUser4", preferences));

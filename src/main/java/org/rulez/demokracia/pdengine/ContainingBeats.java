@@ -51,19 +51,16 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 		if (castVotes == null)
 			throw new ReportedException("Invalid castVotes");
 
-		for (int castVoteIndex = 0; castVoteIndex < castVotes.size(); castVoteIndex++) {
-			CastVote castVote = castVotes.get(castVoteIndex);
-
+		
+		for (CastVote castVote  : castVotes) {
 			List<RankedChoice> preferences = castVote.getPreferences();
 
-			for (int columnIndex = 0; columnIndex < preferences.size() && preferences.get(columnIndex).choiceId != null; columnIndex++) {
+			for (int columnIndex = 0; columnIndex < preferences.size(); columnIndex++) {
 				for (int rowIndex = columnIndex + 1; rowIndex < preferences.size(); rowIndex++) {
 					if (preferences.get(columnIndex).rank > preferences.get(rowIndex).rank) {
 						increasePairValue(preferences, columnIndex, rowIndex);
 					} else if(preferences.get(columnIndex).rank < preferences.get(rowIndex).rank){
 						increasePairValue(preferences, rowIndex, columnIndex);
-					} else {
-						throw new ReportedException("Invalid ranks");
 					}
 				}
 			}
