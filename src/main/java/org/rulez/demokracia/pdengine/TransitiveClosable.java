@@ -6,6 +6,8 @@ import jersey.repackaged.com.google.common.collect.Sets;
 
 public interface TransitiveClosable extends ContainingBeats {
 
+	long serialVersionUID = 1L;
+
 	default void computeTransitiveClosure() {
 		FloydWarshall floydWarshall = new FloydWarshall(this);
 		floydWarshall.computeTransitiveClosure();
