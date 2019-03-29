@@ -22,6 +22,7 @@ then
         -Dsonar.github.login=magwas\
         -Dsonar.externalIssuesReportPaths=issuesReport.json\
         -Dsonar.java.pmd.reportPaths=target/pmd_full.xml\
+        -Dsonar.tests=src/test,src/integration-test\
         -Pintegration-test
 else
     mvn sonar:sonar -Dsonar.organization=edemo\
