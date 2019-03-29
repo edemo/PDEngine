@@ -25,4 +25,11 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 	public List<String> getAssurances() {
 		throw new UnsupportedOperationException();
 	}
+
+	public void updateSignature() {
+		// TODO: create signature
+		// append all EntityElement in char array, calculate signature store in "signature"
+
+		signature="TEST123";
+	}
 }

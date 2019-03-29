@@ -37,4 +37,14 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 		assertEquals(vote.votesCast.get(0).preferences.get(0).choiceId, receipt.preferences.get(0).choiceId);
 	}
 
+	@TestedFeature("Vote")
+	@TestedOperation("Cast vote")
+	@TestedBehaviour("the vote receipt is signed by the server")
+	@Test
+	public void cast_vote_signed_by_the_server() {
+		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		//TODO: verify signature
+		assertEquals(receipt.signature, "TEST123");
+	}
+
 }
