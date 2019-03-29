@@ -44,15 +44,20 @@ public class BeatTableTransitiveClosureTest extends CreatedBeatTable {
 				if (i.equals(j)) {
 					continue;
 				}
-				for (Choice k: keyCollection) {
-					if (Sets.newHashSet(i, j).contains(k)) {
-						continue;
-					}
-					Pair greater = beatTable.getElement(i, j);
-					Pair less = beatTable.lessBeat(beatTable.getElement(i, k), beatTable.getElement(k, j));
-					assertEquals(greater, beatTable.compareBeats(less, greater));
-				}
+				assertNoShorterPathBetweenChoices(keyCollection, i, j);
 			}
+		}
+	}
+
+	private void assertNoShorterPathBetweenChoices(final Collection<Choice> keyCollection, final Choice choice1,
+			final Choice choice2) {
+		for (Choice k: keyCollection) {
+			if (Sets.newHashSet(choice1, choice2).contains(k)) {
+				continue;
+			}
+			Pair greater = beatTable.getElement(choice1, choice2);
+			Pair less = beatTable.lessBeat(beatTable.getElement(choice1, k), beatTable.getElement(k, choice2));
+			assertEquals(greater, beatTable.compareBeats(less, greater));
 		}
 	}
 

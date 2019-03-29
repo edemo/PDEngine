@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +27,6 @@ public class BeatTableCompareBeatsTieTest extends CreatedBeatTable {
 		Pair beat1 = new Pair(4, 3);
 		Pair beat2 = new Pair(4, 3);
 
-		assertTrue(beatTable.compareBeats(beat1, beat2) == beat1);
+		assertSame(beat1, beatTable.compareBeats(beat1, beat2));
 	}
 }
