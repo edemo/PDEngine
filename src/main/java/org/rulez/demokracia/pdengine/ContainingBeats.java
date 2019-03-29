@@ -65,7 +65,7 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 
 			for (int i = 0; i < preferences.size(); i++) {
 				for (int j = i + 1; j < preferences.size(); j++) {
-					if (preferences.get(i).rank > preferences.get(j).rank) {
+					if (preferences.get(i).rank > preferences.get(j).rank && preferences.get(i).choiceId != null && preferences.get(j).choiceId != null) {
 
 						Pair value1 = getPair(preferences.get(i).choiceId, preferences.get(j).choiceId);
 						setElement(preferences.get(i).choiceId, preferences.get(j).choiceId,
@@ -74,7 +74,7 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 						Pair value2 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
 						setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
 								new Pair(value2.winning, value2.losing + 1));
-					} else if(preferences.get(i).rank < preferences.get(j).rank){
+					} else if(preferences.get(i).rank < preferences.get(j).rank && preferences.get(i).choiceId != null && preferences.get(j).choiceId != null){
 
 						Pair value1 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
 						setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
