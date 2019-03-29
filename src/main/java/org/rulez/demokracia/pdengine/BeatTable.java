@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.types.MapMatrix;
 
-public class BeatTable extends MapMatrix<Choice, Pair> implements ContainingBeats{
+public class BeatTable extends MapMatrix<String, Pair> implements ContainingBeats{
 	private static final long serialVersionUID = 1L;
 
 	public enum Direction {
@@ -14,10 +14,10 @@ public class BeatTable extends MapMatrix<Choice, Pair> implements ContainingBeat
 	}
 
 	public BeatTable() {
-		this(new ArrayList<Choice>());
+		this(new ArrayList<String>());
 	}
 
-	public BeatTable(final Collection<Choice> keyCollection) {
+	public BeatTable(final Collection<String> keyCollection) {
 		super(keyCollection);
 	}
 }

@@ -5,20 +5,19 @@ import java.util.List;
 
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.BeatTable;
-import org.rulez.demokracia.pdengine.Choice;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class CreatedBeatTable extends ThrowableTester{
 	protected BeatTable beatTable;
-	protected List<Choice> list;
+	protected List<String> list;
 	
 	protected Pair pair;
 	protected Pair result;
 	
-	protected Choice choice1;
-	protected Choice choice2;
-	protected Choice choice3;
+	protected String choice1;
+	protected String choice2;
+	protected String choice3;
 	
 	protected Pair beats1;
 	protected Pair beats2;
@@ -29,11 +28,11 @@ public class CreatedBeatTable extends ThrowableTester{
 	@Before
 	public void setUp() {
 		beatTable = new BeatTable();
-		list = new ArrayList<Choice>();
+		list = new ArrayList<String>();
 		pair = new Pair(4, 5);
-		choice1 = new Choice("name1", "userName1");
-		choice2 = new Choice("name2", "userName2");
-		choice3 = new Choice("name3", "userName3");
+		choice1 = "name1";
+		choice2 = "name2";
+		choice3 = "name3";
 		list.add(choice1);
 		list.add(choice2);
 		list.add(choice3);
@@ -59,7 +58,7 @@ public class CreatedBeatTable extends ThrowableTester{
 		beatTable.setElement(choice1, choice2, pair);
 	}
 	
-	protected void setGetElementAsResult(final Choice first, final Choice second) {
+	protected void setGetElementAsResult(final String first, final String second) {
 		result = beatTable.getElement(first, second);	
 	}
 	
