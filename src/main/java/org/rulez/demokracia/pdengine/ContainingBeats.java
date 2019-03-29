@@ -51,17 +51,17 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 		if (castVotes == null)
 			throw new ReportedException("Invalid castVotes");
 
-		for (int h = 0; h < castVotes.size(); h++) {
-			CastVote castVote = castVotes.get(h);
+		for (int castVoteIndex = 0; castVoteIndex < castVotes.size(); castVoteIndex++) {
+			CastVote castVote = castVotes.get(castVoteIndex);
 
 			List<RankedChoice> preferences = castVote.getPreferences();
 
-			for (int i = 0; i < preferences.size() && preferences.get(i).choiceId != null; i++) {
-				for (int j = i + 1; j < preferences.size(); j++) {
-					if (preferences.get(i).rank > preferences.get(j).rank) {
-						increasePairValue(preferences, i, j);
-					} else if(preferences.get(i).rank < preferences.get(j).rank){
-						increasePairValue(preferences, j, i);
+			for (int columnIndex = 0; columnIndex < preferences.size() && preferences.get(columnIndex).choiceId != null; columnIndex++) {
+				for (int rowIndex = columnIndex + 1; rowIndex < preferences.size(); rowIndex++) {
+					if (preferences.get(columnIndex).rank > preferences.get(rowIndex).rank) {
+						increasePairValue(preferences, columnIndex, rowIndex);
+					} else if(preferences.get(columnIndex).rank < preferences.get(rowIndex).rank){
+						increasePairValue(preferences, rowIndex, columnIndex);
 					} else {
 						throw new ReportedException("Invalid ranks");
 					}

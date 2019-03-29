@@ -10,10 +10,10 @@ import org.rulez.demokracia.pdengine.CastVote;
 
 public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 	
-	public final String first = "first";
-	public final String second = "second";
-	public final String third = "third";
-	public final String fourth = "fourth";
+	public static final String first = "first";
+	public static final String second = "second";
+	public static final String third = "third";
+	public static final String fourth = "fourth";
 	
 	protected List<RankedChoice> preferences;
 	
