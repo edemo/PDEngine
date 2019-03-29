@@ -47,13 +47,6 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 			throw new UnsupportedOperationException();
 	}
 
-	default Pair getPair(String beats1, String beats2) {
-		Pair result = getElement(beats1, beats2);
-		if (result == null)
-			return new Pair(0, 0);
-		return result;
-	}
-
 	default void initialize(List<CastVote> castVotes) {
 		if (castVotes == null)
 			throw new ReportedException("Invalid castVotes");
@@ -66,28 +59,32 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 			for (int i = 0; i < preferences.size() && preferences.get(i).choiceId != null; i++) {
 				for (int j = i + 1; j < preferences.size(); j++) {
 					if (preferences.get(i).rank > preferences.get(j).rank) {
-
-						Pair value1 = getPair(preferences.get(i).choiceId, preferences.get(j).choiceId);
-						setElement(preferences.get(i).choiceId, preferences.get(j).choiceId,
-								new Pair(value1.winning + 1, value1.losing));
-
-						Pair value2 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
-						setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
-								new Pair(value2.winning, value2.losing + 1));
+						increasePairValue(preferences, i, j);
 					} else if(preferences.get(i).rank < preferences.get(j).rank){
-
-						Pair value1 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
-						setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
-								new Pair(value1.winning + 1, value1.losing));
-
-						Pair value2 = getPair(preferences.get(i).choiceId, preferences.get(j).choiceId);
-						setElement(preferences.get(i).choiceId, preferences.get(j).choiceId,
-								new Pair(value2.winning, value2.losing + 1));
+						increasePairValue(preferences, j, i);
 					} else {
 						throw new ReportedException("Invalid ranks");
 					}
 				}
 			}
 		}
+	}
+	
+	
+	default Pair getPair(String beats1, String beats2) {
+		Pair result = getElement(beats1, beats2);
+		if (result == null)
+			return new Pair(0, 0);
+		return result;
+	}
+
+	default void increasePairValue(List<RankedChoice> preferences, int i, int j) {
+		Pair value1 = getPair(preferences.get(i).choiceId, preferences.get(j).choiceId);
+		setElement(preferences.get(i).choiceId, preferences.get(j).choiceId,
+				new Pair(value1.winning + 1, value1.losing));
+
+		Pair value2 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
+		setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
+				new Pair(value2.winning, value2.losing + 1));
 	}
 }
