@@ -63,7 +63,7 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 
 			List<RankedChoice> preferences = castVote.getPreferences();
 
-			for (int i = 0; i < preferences.size() && preferences.get(i).choiceId == null; i++) {
+			for (int i = 0; i < preferences.size() && preferences.get(i).choiceId != null; i++) {
 				for (int j = i + 1; j < preferences.size(); j++) {
 					if (preferences.get(i).rank > preferences.get(j).rank) {
 
