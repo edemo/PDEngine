@@ -48,9 +48,9 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		castVote2 = new CastVote("TestUser2", preferences);
 		castVote3 = new CastVote("TestUser3", new ArrayList<RankedChoice>());
 		
+		castVotes.add(castVote3);
 		castVotes.add(castVote1);
 		castVotes.add(castVote2);
-		castVotes.add(castVote3);
 		
 		list = new ArrayList<String>();
 		list.add(first);
