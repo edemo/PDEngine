@@ -63,9 +63,9 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 
 			List<RankedChoice> preferences = castVote.getPreferences();
 
-			for (int i = 0; i < preferences.size(); i++) {
+			for (int i = 0; i < preferences.size() && preferences.get(i).choiceId == null; i++) {
 				for (int j = i + 1; j < preferences.size(); j++) {
-					if (preferences.get(i).rank > preferences.get(j).rank && preferences.get(i).choiceId != null && preferences.get(j).choiceId != null) {
+					if (preferences.get(i).rank > preferences.get(j).rank) {
 
 						Pair value1 = getPair(preferences.get(i).choiceId, preferences.get(j).choiceId);
 						setElement(preferences.get(i).choiceId, preferences.get(j).choiceId,
@@ -74,7 +74,7 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 						Pair value2 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
 						setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
 								new Pair(value2.winning, value2.losing + 1));
-					} else if(preferences.get(i).rank < preferences.get(j).rank && preferences.get(i).choiceId != null && preferences.get(j).choiceId != null){
+					} else if(preferences.get(i).rank < preferences.get(j).rank){
 
 						Pair value1 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
 						setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
