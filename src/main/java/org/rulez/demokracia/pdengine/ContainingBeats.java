@@ -16,6 +16,7 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 			throw new ReportedException("Invalid Pair key");
 	}
 
+
 	default int beatInformation(final String choice1, final String choice2, final Direction direction) {
 		if (direction == null)
 			throw new ReportedException("Invalid direction");
@@ -35,23 +36,18 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 		checkPair(beat1);
 		checkPair(beat2);
 
-		if (beat1.winning > beat2.winning)
-			return beat1;
-		else if (beat1.winning < beat2.winning)
+		if (beat1.winning < beat2.winning)
 			return beat2;
-		else if (beat1.losing < beat2.losing)
+		if (beat1.winning > beat2.winning || beat1.losing <= beat2.losing)
 			return beat1;
-		else if (beat2.losing < beat1.losing)
-			return beat2;
-		else
-			throw new UnsupportedOperationException();
+		return beat2;
 	}
 
-	default void initialize(List<CastVote> castVotes) {
+	default void initialize(final List<CastVote> castVotes) {
 		if (castVotes == null)
 			throw new ReportedException("Invalid castVotes");
 
-		
+
 		for (CastVote castVote  : castVotes) {
 			List<RankedChoice> preferences = castVote.getPreferences();
 
@@ -68,16 +64,16 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 			}
 		}
 	}
-	
-	
-	default Pair getPair(String beats1, String beats2) {
+
+
+	default Pair getPair(final String beats1, final String beats2) {
 		Pair result = getElement(beats1, beats2);
 		if (result == null)
 			return new Pair(0, 0);
 		return result;
 	}
 
-	default void increasePairValue(List<RankedChoice> preferences, int column, int row) {
+	default void increasePairValue(final List<RankedChoice> preferences, final int column, final int row) {
 		Pair value1 = getPair(preferences.get(column).choiceId, preferences.get(row).choiceId);
 		setElement(preferences.get(column).choiceId, preferences.get(row).choiceId,
 				new Pair(value1.winning + 1, value1.losing));
