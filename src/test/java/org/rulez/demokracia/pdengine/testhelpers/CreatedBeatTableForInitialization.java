@@ -60,4 +60,36 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable{
 		beatTable = new BeatTable(list);
 	}
 	
+	public void createBeatTableWithInvalidRank() {
+		preferences = new ArrayList<RankedChoice>();
+		rankedChoice1 = new RankedChoice(first, 2);
+		rankedChoice2 = new RankedChoice(second, 3);
+		rankedChoice3 = new RankedChoice(third, 1);
+		rankedChoice4 = new RankedChoice(fourth, 1);
+		
+		preferences.add(rankedChoice1);
+		preferences.add(rankedChoice2);
+		preferences.add(rankedChoice3);
+		preferences.add(rankedChoice4);
+		
+		castVotes = new ArrayList<CastVote>();
+		castVote1 = new CastVote("TestUser1", preferences);
+		castVote2 = new CastVote("TestUser2", preferences);
+		castVote3 = new CastVote("TestUser3", new ArrayList<RankedChoice>());
+		
+		castVotes.add(castVote1);
+		castVotes.add(castVote2);
+		castVotes.add(castVote3);
+		
+		list = new ArrayList<String>();
+		list.add(first);
+		list.add(second);
+		list.add(third);
+		list.add(fourth);
+		
+		beatTable = new BeatTable(list);
+		
+		
+	}
+	
 }

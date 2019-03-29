@@ -74,7 +74,7 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 						Pair value2 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
 						setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
 								new Pair(value2.winning, value2.losing + 1));
-					} else {
+					} else if(preferences.get(i).rank < preferences.get(j).rank){
 
 						Pair value1 = getPair(preferences.get(j).choiceId, preferences.get(i).choiceId);
 						setElement(preferences.get(j).choiceId, preferences.get(i).choiceId,
@@ -83,6 +83,8 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 						Pair value2 = getPair(preferences.get(i).choiceId, preferences.get(j).choiceId);
 						setElement(preferences.get(i).choiceId, preferences.get(j).choiceId,
 								new Pair(value2.winning, value2.losing + 1));
+					} else {
+						throw new ReportedException("Invalid ranks");
 					}
 				}
 			}

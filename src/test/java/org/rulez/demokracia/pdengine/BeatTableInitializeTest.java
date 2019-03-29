@@ -28,6 +28,13 @@ public class BeatTableInitializeTest extends CreatedBeatTableForInitialization {
 		assertThrows(() -> beatTable.initialize(null)
 				).assertMessageIs("Invalid castVotes");
 	}
+	
+	@Test
+	public void initialize_throws_exception_when_there_are_two_same_rank() {
+		createBeatTableWithInvalidRank();
+		assertThrows(() -> beatTable.initialize(castVotes)
+				).assertMessageIs("Invalid ranks");
+	}
 
 	@Test
 	public void initialize_sets_the_new_losing_value_when_the_matrix_is_empty() {
