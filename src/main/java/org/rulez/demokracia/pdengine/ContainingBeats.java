@@ -1,6 +1,5 @@
 package org.rulez.demokracia.pdengine;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.rulez.demokracia.pdengine.BeatTable.Direction;
