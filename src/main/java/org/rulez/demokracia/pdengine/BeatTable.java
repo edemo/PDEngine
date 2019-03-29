@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.types.MapMatrix;
 
-public class BeatTable extends MapMatrix<String, Pair> implements ContainingBeats{
+public class BeatTable extends MapMatrix<String, Pair> implements TransitiveClosable {
 	private static final long serialVersionUID = 1L;
 
 	public enum Direction {
