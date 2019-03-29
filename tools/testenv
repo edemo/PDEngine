@@ -4,7 +4,15 @@ DEVHOME=${DEVHOME:-~/pdengine-developer-home/}
 DEV_UID=$(id -u)
 DEV_GID=$(id -g)
 PDENGINE_IMAGE=${PDENGINE_IMAGE:-edemo/pdengine}
-docker run --rm -p 5900:5900 -e PULL_REQUEST=false -e DEVUID=${DEV_UID} -e DEVGID=${DEV_GID} -e ORG_NAME=local \
+VNCPORT=5900
+PORTMAP="-p $VNCPORT:$VNCPORT"
+if docker ps | grep -q ":$VNCPORT-"
+then
+	# port already taken by other container
+	PORTMAP=""
+fi
+
+docker run --rm $PORTMAP -e PULL_REQUEST=false -e DEVUID=${DEV_UID} -e DEVGID=${DEV_GID} -e ORG_NAME=local \
     -v $(pwd):/pdengine -v ${DEVHOME}:/home/developer -v /tmp/.X11-unix:/tmp/.X11-unix \
     -w /pdengine -it ${PDENGINE_IMAGE}
 
