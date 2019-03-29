@@ -38,9 +38,9 @@ public class BeatTableTransitiveClosureTest extends CreatedBeatTable {
 	@Test
 	public void transitive_closure_computes_the_shortest_paths_by_pairs() {
 		beatTable.computeTransitiveClosure();
-		Collection<Choice> keyCollection = beatTable.getKeyCollection();
-		for (Choice i : keyCollection) {
-			for (Choice j : keyCollection) {
+		Collection<String> keyCollection = beatTable.getKeyCollection();
+		for (String i : keyCollection) {
+			for (String j : keyCollection) {
 				if (i.equals(j)) {
 					continue;
 				}
@@ -49,9 +49,9 @@ public class BeatTableTransitiveClosureTest extends CreatedBeatTable {
 		}
 	}
 
-	private void assertNoShorterPathBetweenChoices(final Collection<Choice> keyCollection, final Choice choice1,
-			final Choice choice2) {
-		for (Choice k: keyCollection) {
+	private void assertNoShorterPathBetweenChoices(final Collection<String> keyCollection, final String choice1,
+			final String choice2) {
+		for (String k : keyCollection) {
 			if (Sets.newHashSet(choice1, choice2).contains(k)) {
 				continue;
 			}

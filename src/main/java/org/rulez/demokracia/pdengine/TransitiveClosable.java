@@ -13,7 +13,7 @@ public interface TransitiveClosable extends ContainingBeats {
 		floydWarshall.computeTransitiveClosure();
 	}
 
-	default void selectShorterPath(final Choice choice1, final Choice choice2, final Choice middleChoice) {
+	default void selectShorterPath(final String choice1, final String choice2, final String middleChoice) {
 		if (!Sets.newHashSet(choice1, choice2).contains(middleChoice)) {
 			setElement(choice1, choice2,
 					compareBeats(getElement(choice1, choice2),

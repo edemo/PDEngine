@@ -11,17 +11,17 @@ public class FloydWarshall {
 	}
 
 	public void computeTransitiveClosure() {
-		Collection<Choice> keyCollection = beatTable.getKeyCollection();
+		Collection<String> keyCollection = beatTable.getKeyCollection();
 		keyCollection.forEach(i -> keyCollection.forEach(j -> computeMinimalRoute(i, j)));
 	}
 
-	private void computeMinimalRoute(final Choice choice1, final Choice choice2) {
+	private void computeMinimalRoute(final String choice1, final String choice2) {
 		if (!choice1.equals(choice2)) {
 			beatTable.getKeyCollection().forEach(k -> selectShorterPath(choice1, choice2, k));
 		}
 	}
 
-	private void selectShorterPath(final Choice choice1, final Choice choice2, final Choice middleChoice) {
-			beatTable.selectShorterPath(choice1, choice2, middleChoice);
+	private void selectShorterPath(final String choice1, final String choice2, final String middleChoice) {
+		beatTable.selectShorterPath(choice1, choice2, middleChoice);
 	}
 }
