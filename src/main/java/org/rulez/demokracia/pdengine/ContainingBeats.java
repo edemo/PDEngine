@@ -38,8 +38,6 @@ public interface ContainingBeats extends Matrix<Choice, Pair>{
 		if (beat1.winning > beat2.winning || beat1.losing <= beat2.losing)
 			return beat1;
 		return beat2;
-
-
 	}
 
 
