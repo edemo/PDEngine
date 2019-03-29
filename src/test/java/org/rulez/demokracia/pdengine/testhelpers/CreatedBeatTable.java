@@ -12,20 +12,20 @@ import org.rulez.demokracia.testhelpers.ThrowableTester;
 public class CreatedBeatTable extends ThrowableTester{
 	protected BeatTable beatTable;
 	protected List<Choice> list;
-	
+
 	protected Pair pair;
 	protected Pair result;
-	
+
 	protected Choice choice1;
 	protected Choice choice2;
 	protected Choice choice3;
-	
+
 	protected Pair beats1;
 	protected Pair beats2;
 	protected Pair beats3;
 	protected Pair beats4;
 	protected Pair beats5;
-	
+
 	@Before
 	public void setUp() {
 		beatTable = new BeatTable();
@@ -37,32 +37,33 @@ public class CreatedBeatTable extends ThrowableTester{
 		list.add(choice1);
 		list.add(choice2);
 		list.add(choice3);
-		
+
 		beats1 = new Pair(150, 22);
 		beats2 = new Pair(100, 40);
 		beats3 = new Pair(150, 40);
 		beats4 = new Pair(100, 22);
 		beats5 = new Pair(150, 10);
 	}
-	
+
 	protected void createNewBeatTableWithData() {
 		beatTable = new BeatTable(list);
 		beatTable.setElement(choice1, choice2, pair);
 	}
-	
-	protected void createNewBeatTableWithComplexData() {	
+
+	protected void createNewBeatTableWithComplexData() {
 		createNewBeatTableWithData();
-		beatTable.setElement(choice1, choice2, new Pair(14, 1));
-		beatTable.setElement(choice1, choice3, new Pair(13, 2));
-		beatTable.setElement(choice2, choice1, new Pair(12, 3));
+		beatTable.setElement(choice1, choice2, new Pair(5, 1));
+		beatTable.setElement(choice1, choice3, new Pair(4, 2));
+		beatTable.setElement(choice2, choice1, new Pair(1, 5));
 		beatTable.setElement(choice2, choice3, new Pair(11, 4));
-		beatTable.setElement(choice1, choice2, pair);
+		beatTable.setElement(choice3, choice1, new Pair(2, 4));
+		beatTable.setElement(choice3, choice2, new Pair(4, 11));
 	}
-	
+
 	protected void setGetElementAsResult(final Choice first, final Choice second) {
-		result = beatTable.getElement(first, second);	
+		result = beatTable.getElement(first, second);
 	}
-	
+
 	protected void setCompareBeatsAsResult(final Pair first, final Pair second) {
 		result = beatTable.compareBeats(first, second);
 	}

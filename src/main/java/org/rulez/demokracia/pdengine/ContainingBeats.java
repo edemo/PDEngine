@@ -43,7 +43,7 @@ public interface ContainingBeats extends Matrix<Choice, Pair>{
 			else if (beat2.losing < beat1.losing)
 				return beat2;
 			else
-				throw new UnsupportedOperationException();
+				return beat1;
 	}
 	
  
