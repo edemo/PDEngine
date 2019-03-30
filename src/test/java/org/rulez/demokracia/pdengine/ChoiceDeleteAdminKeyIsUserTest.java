@@ -11,7 +11,7 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 @TestedFeature("Manage votes")
 @TestedOperation("delete choice")
-public class ChoiceDeleteAdminKeyIsUser extends CreatedDefaultVoteRegistry {
+public class ChoiceDeleteAdminKeyIsUserTest extends CreatedDefaultVoteRegistry {
 
 	private static final String USER = "user";
 	private static final String CHOICE1 = "choice1";
