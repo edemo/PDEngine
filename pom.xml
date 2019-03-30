@@ -48,9 +48,6 @@
                   <outputFormat>XML</outputFormat>
                   <outputFormat>HTML</outputFormat>
               </outputFormats>
-              <excludedMethods>
-              	<excludedMethod>hashCode</excludedMethod>
-              </excludedMethods>
           </configuration>
       </plugin>
       <plugin>
