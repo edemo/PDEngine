@@ -30,6 +30,9 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 		// TODO: create signature
 		// append all EntityElement in char array, calculate signature store in "signature"
 
-		signature="TEST123";
+		byte[] data = "xxx".getBytes();
+		MessageSigner messageSigner=new MessageSigner();
+		signature = messageSigner.SignatureOfMessage(data);
+
 	}
 }
