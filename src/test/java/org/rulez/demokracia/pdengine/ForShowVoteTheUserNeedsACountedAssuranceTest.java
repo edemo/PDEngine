@@ -15,7 +15,7 @@ import com.google.gson.JsonObject;
 @TestedFeature("Manage votes")
 @TestedOperation("show vote")
 @TestedBehaviour("if adminKey is anon, the user should have any of the countedAssurances")
-public class ForShowVoteTheUserNeedsACountedAssurance extends CreatedDefaultVoteRegistry {
+public class ForShowVoteTheUserNeedsACountedAssuranceTest extends CreatedDefaultVoteRegistry {
 
 	@Test
 	public void a_user_with_not_all_assourances_cannot_show_the_vote() throws ReportedException {
