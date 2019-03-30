@@ -43,8 +43,7 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 	@Test
 	public void cast_vote_signed_by_the_server() {
 		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		//TODO: verify signature
-		assertEquals(receipt.signature, "TEST123");
-	}
 
+		assertEquals(receipt.signature.substring(0, 10), "jaKMZmZCEI");
+	}
 }
