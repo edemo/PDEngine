@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.rulez.demokracia.pdengine.dataobjects.CastVoteEntity;
 
-
 public class CastVote extends CastVoteEntity implements CastVoteInterface {
 	private static final long serialVersionUID = 1L;
 
@@ -26,13 +25,29 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 		throw new UnsupportedOperationException();
 	}
 
+	protected CastVote(CastVote cv) {
+		proxyId  = cv.proxyId;
+		secretId = cv.secretId;
+		preferences = cv.preferences;
+	}
+
+	public String contentToBeSigned() {
+		StringBuilder str  = new StringBuilder();
+		final String DELIMITER="|";
+
+		// TODO: decide what content should be signed, ids too?
+		str.append(proxyId).append(DELIMITER);
+		str.append(secretId).append(DELIMITER);
+
+		for (RankedChoice rc : preferences) {
+			str.append(rc.id).append(DELIMITER);
+			str.append(rc.choiceId).append(DELIMITER);
+			str.append(rc.rank).append(DELIMITER);
+		}
+		return str.toString();
+	}
+
 	public void updateSignature() {
-		// TODO: create signature
-		// append all EntityElement in char array, calculate signature store in "signature"
-
-		byte[] data = "xxx".getBytes();
-		MessageSigner messageSigner=new MessageSigner();
-		signature = messageSigner.SignatureOfMessage(data);
-
+		signature = MessageSigner.SignatureOfMessage(contentToBeSigned().getBytes());
 	}
 }
