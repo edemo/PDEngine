@@ -39,9 +39,7 @@ public class BeatTableNormalizationTest extends CreatedBeatTable {
 	@TestedBehaviour("the elements corresponding to loosers are (0,0)")
 	@Test
 	public void normalization_sets_the_looser_to_0_0() {
-		beatTable.normalize();
-		pair = beatTable.getPair(choice2, choice1);
-        assertTrue(pair.winning == 0 && pair.losing == 0);
+        check(choice3, choice1, 0, 0);
 	}
 	
 	@TestedBehaviour("the elements corresponding to winners contain the number of looses backward")
@@ -64,26 +62,26 @@ public class BeatTableNormalizationTest extends CreatedBeatTable {
 	@Test
 	public void normalization_set_the_ties_to_0_0() {
 		createNewBeatTableWithEqualData();
-		beatTable.normalize();
-		pair = beatTable.getPair(choice2, choice1);
-        assertTrue(pair.winning == 0 && pair.losing == 0);
+		check(choice2, choice1, 0, 0);
 	}
 	
 	@TestedBehaviour("the elements for ties are (0,0)")
 	@Test
 	public void normalization_set_the_other_part_of_the_ties_to_0_0_too() {
 		createNewBeatTableWithEqualData();
-		beatTable.normalize();
-		pair = beatTable.getPair(choice1, choice2);
-        assertTrue(pair.winning == 0 && pair.losing == 0);
+		check(choice1, choice2, 0, 0);
 	}
 	
 	@TestedBehaviour("the elements for ties are (0,0)")
 	@Test
 	public void normalization_does_not_modify_the_values_when_the_selected_beats_are_not_ties() {
 		createNewBeatTableWithEqualData();
+		check(choice2, choice3, 4, 1);
+	}
+
+	private void check(String choice1, String choice2, int expectedWinning, int expectedLosing) {
 		beatTable.normalize();
-		pair = beatTable.getPair(choice2, choice3);
-        assertTrue(pair.winning == 4 && pair.losing == 1);
+		pair = beatTable.getPair(choice1, choice2);
+        assertTrue(pair.winning == expectedWinning && pair.losing == expectedLosing);
 	}
 }
