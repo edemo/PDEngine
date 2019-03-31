@@ -83,7 +83,7 @@ public class BeatTableNormalizationTest extends CreatedBeatTable {
 		assertTrue(pair.winning == 4 && pair.losing == 1);
 	}
 
-	private void setPair(String choice1, String choice2) {
+	private void setPair(final String choice1, final String choice2) {
 		beatTable.normalize();
 		pair = beatTable.getPair(choice1, choice2);
 	}
