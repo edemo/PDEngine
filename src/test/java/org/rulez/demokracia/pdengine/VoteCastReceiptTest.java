@@ -12,7 +12,6 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 @TestedFeature("Vote")
 @TestedOperation("Cast vote")
-@TestedBehaviour("The vote receipt contains the ballot cast and the cast vote identifier")
 public class VoteCastReceiptTest extends CreatedDefaultChoice {
 	@Override
 	@Before
@@ -26,20 +25,20 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 		vote.votesCast.clear();
 	}
 
+	@TestedBehaviour("The vote receipt contains the cast vote identifier")
 	@Test
 	public void cast_vote_returns_the_cast_vote_id() {
 		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		assertEquals(vote.votesCast.get(0).secretId, receipt.secretId);
 	}
 
+	@TestedBehaviour("The vote receipt contains the ballot cast")
 	@Test
 	public void cast_vote_returns_the_cast_vote_preferences() {
 		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		assertEquals(vote.votesCast.get(0).preferences.get(0).choiceId, receipt.preferences.get(0).choiceId);
 	}
 
-	@TestedFeature("Vote")
-	@TestedOperation("Cast vote")
 	@TestedBehaviour("the vote receipt is signed by the server")
 	@Test
 	public void cast_vote_signed_by_the_server() {
@@ -47,8 +46,6 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 		assertTrue(receipt.signature.length() > 0);
 	}
 
-	@TestedFeature("Vote")
-	@TestedOperation("Cast vote")
 	@TestedBehaviour("the vote receipt signature is valid")
 	@Test
 	public void cast_vote_signature_can_be_verified_by_public_key() {
