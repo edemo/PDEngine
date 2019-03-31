@@ -1,4 +1,5 @@
 set -x
+./tools/generate_keystore
 export DISPLAY=:0
 if [ ! -s /tmp/.X11-unix/X0 ]
 then
@@ -7,7 +8,6 @@ fi
 set +x
 . <(./tools/decrypt_secret_env $ORG_NAME)
 set -x
-./tools/generate_keystore
 #!!!do not do it on a production system!!!
 #run haveged instead
 sudo rm /dev/random
