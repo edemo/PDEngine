@@ -8,11 +8,17 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
+import org.rulez.demokracia.pdengine.annotations.TestedFeature;
+import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRankedChoices;
 
 import jersey.repackaged.com.google.common.collect.Sets;
 
+@TestedFeature("Vote")
+@TestedOperation("Compute vote results")
+@TestedBehaviour("compares and stores initial beat matrix")
 public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 
 	@Before
