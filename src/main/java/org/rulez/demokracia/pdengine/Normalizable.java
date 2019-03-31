@@ -13,7 +13,7 @@ public interface Normalizable extends ContainingBeats {
 		
 		for (String key1 : keys) {
 			for (String key2 : keys) {
-				if(key1.contentEquals(key2))
+				if(key1.equals(key2))
 					setElement(key1, key2, new Pair(0, 0));
 				
 				Pair beats1 = getPair(key1, key2);
