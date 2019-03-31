@@ -31,9 +31,13 @@ public class CreatedDefaultCastVoteWithRankedChoices extends CreatedDefaultChoic
 	private CastVote createRankedChoices(final List<String> choices) {
 		List<RankedChoice> rankedChoices = new ArrayList<>();
 		for (int i = 0; i < choices.size(); ++i) {
-			rankedChoices.add(new RankedChoice(choices.get(i), i));
+			addRankedChoice(rankedChoices, choices.get(i), i);
 		}
 		return new CastVote("proxyId", rankedChoices);
+	}
+
+	private boolean addRankedChoice(final List<RankedChoice> rankedChoices, final String choice, final int rank) {
+		return rankedChoices.add(new RankedChoice(choice, rank));
 	}
 
 }

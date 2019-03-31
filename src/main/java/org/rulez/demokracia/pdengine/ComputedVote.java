@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ComputedVote implements ComputeVoteInterface, Serializable {
+public class ComputedVote implements ComputedVoteInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private BeatTable beatTable;
-	private Vote vote;
+	private final Vote vote;
 
 	public ComputedVote(final Vote vote) {
 		this.vote = vote;

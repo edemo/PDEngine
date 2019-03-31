@@ -1,6 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
-public interface ComputeVoteInterface {
+public interface ComputedVoteInterface {
 
 	void computeVote();
 }

@@ -58,7 +58,6 @@ public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 	private BeatTable initBeatTable() {
 		ComputedVote computedVote = new ComputedVote(getTheVote());
 		computedVote.computeVote();
-		BeatTable beatTable = computedVote.getBeatTable();
-		return beatTable;
+		return computedVote.getBeatTable();
 	}
 }
