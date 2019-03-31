@@ -13,9 +13,6 @@ public interface Normalizable extends ContainingBeats {
 		
 		for (String key1 : keys) {
 			for (String key2 : keys) {
-				if(key1.equals(key2))
-					setElement(key1, key2, new Pair(0, 0));
-				
 				Pair beats1 = getPair(key1, key2);
 				Pair beats2 = getPair(key2, key1);
 				Pair pair = compareBeats(beats1, beats2);
