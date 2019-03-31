@@ -60,6 +60,20 @@ public class CreatedBeatTable extends ThrowableTester{
 		beatTable.setElement(choice3, choice2, new Pair(4, 11));
 	}
 	
+	protected void createNewBeatTableWithEqualData() {
+		List<String> list = new ArrayList<String>();
+		list.add(choice1);
+		list.add(choice2);
+		list.add(choice3);
+		beatTable = new BeatTable(list);
+		beatTable.setElement(choice1, choice2, new Pair(2, 2));
+		beatTable.setElement(choice2, choice1, new Pair(2, 2));
+		beatTable.setElement(choice1, choice3, new Pair(4, 1));
+		beatTable.setElement(choice3, choice1, new Pair(4, 4));
+		beatTable.setElement(choice2, choice3, new Pair(4, 1));
+		beatTable.setElement(choice3, choice2, new Pair(4, 4));
+	}
+	
 	protected void setGetElementAsResult(final String first, final String second) {
 		result = beatTable.getElement(first, second);	
 	}
