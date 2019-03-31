@@ -25,12 +25,6 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 		throw new UnsupportedOperationException();
 	}
 
-	protected CastVote(CastVote cv) {
-		proxyId  = cv.proxyId;
-		secretId = cv.secretId;
-		preferences = cv.preferences;
-	}
-
 	public String contentToBeSigned() {
 		StringBuilder str  = new StringBuilder();
 		final String DELIMITER="|";
