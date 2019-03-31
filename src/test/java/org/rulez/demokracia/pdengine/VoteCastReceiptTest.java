@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,15 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 	@Test
 	public void cast_vote_signed_by_the_server() {
 		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		assertTrue(receipt.signature.length() > 0);
+	}
 
-		assertEquals(receipt.signature.substring(0, 10), "jaKMZmZCEI");
+	@TestedFeature("Vote")
+	@TestedOperation("Cast vote")
+	@TestedBehaviour("the vote receipt signature is valid")
+	@Test
+	public void cast_vote_signature_can_be_verified_by_public_key() {
+		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		assertTrue( MessageSigner.VerifyMessage(receipt.contentToBeSigned().getBytes(), receipt.signature) );
 	}
 }
