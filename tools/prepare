@@ -7,6 +7,7 @@ fi
 set +x
 . <(./tools/decrypt_secret_env $ORG_NAME)
 set -x
+./tools/generate_keystore
 #!!!do not do it on a production system!!!
 #run haveged instead
 sudo rm /dev/random
