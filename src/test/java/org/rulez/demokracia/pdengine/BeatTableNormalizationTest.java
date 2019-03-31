@@ -44,6 +44,15 @@ public class BeatTableNormalizationTest extends CreatedBeatTable {
         assertTrue(pair.winning == 0 && pair.losing == 0);
 	}
 	
+	@TestedBehaviour("the elements corresponding to loosers are (0,0)")
+	@Test
+	public void normalization_does_not_modify_the_looser_numbers_in_case_of_of_equal_beats() {
+		createNewBeatTableWithEqualData();
+		beatTable.normalize();
+		pair = beatTable.getPair(choice2, choice1);
+        assertTrue(pair.winning == 2 && pair.losing == 2);
+	}
+	
 	@TestedBehaviour("the elements corresponding to winners contain the number of looses backward")
 	@Test
 	public void normalization_does_not_modify_the_winners_number_of_looses() {
