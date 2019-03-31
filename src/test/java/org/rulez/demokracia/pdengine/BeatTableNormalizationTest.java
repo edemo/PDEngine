@@ -1,9 +1,11 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.rulez.demokracia.pdengine.BeatTable.Direction;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
@@ -32,5 +34,29 @@ public class BeatTableNormalizationTest extends CreatedBeatTable {
 	private void assertDiagonalElementIsZero(final String key) {
 		Pair element = beatTable.getElement(key, key);
 		assertEquals(new Pair(0, 0), element);
+	}
+	
+	@TestedBehaviour("the elements corresponding to loosers are (0,0)")
+	@Test
+	public void normalization_sets_the_looser_to_0_0() {
+		beatTable.normalize();
+		pair = beatTable.getPair(choice2, choice1);
+        assertTrue(pair.winning == 0 && pair.losing == 0);
+	}
+	
+	@TestedBehaviour("the elements corresponding to winners contain the number of looses backward")
+	@Test
+	public void normalization_does_not_modify_the_winners_number_of_looses() {
+		beatTable.normalize();
+		int actualResult = beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_BACKWARD);
+		assertEquals(1, actualResult);
+	}
+	
+	@TestedBehaviour("the elements corresponding to winners contain the number of wins forward")
+	@Test
+	public void normalization_does_not_modify_the_winners_number_of_wins() {
+		beatTable.normalize();
+		int actualResult = beatTable.beatInformation(choice1, choice2, Direction.DIRECTION_FORWARD);
+		assertEquals(5, actualResult);
 	}
 }
