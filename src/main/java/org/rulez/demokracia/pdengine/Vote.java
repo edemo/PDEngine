@@ -73,7 +73,7 @@ public class Vote extends VoteEntity implements VoteInterface, Admnistrable, Has
 	
 	@Override
 	public List<String> getVotesCastIdentifiers() {
-		List<String> castVoteIdentifiers = new ArrayList<String>();
+		List<String> castVoteIdentifiers = new ArrayList<>();
 		for (CastVote castVote : this.votesCast) {
 			castVoteIdentifiers.add(castVote.secretId);
 		}
