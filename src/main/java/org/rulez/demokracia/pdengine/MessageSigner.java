@@ -27,9 +27,7 @@ public class MessageSigner {
 
 	private PublicKey pubkey;
 	private PrivateKey privkey;
-	private static final String KEYSTOREPW="changit";
 	private static final String KEYALIAS="PDEngineKeys";
-	private static final String KEYSTOREPATHINTESTENV="/keystore/keystore.pk12";
 
     private static class Storage {
         private static final MessageSigner INSTANCE = new MessageSigner();
@@ -44,7 +42,7 @@ public class MessageSigner {
 			Context xmlNode = (Context) context.lookup("java:comp/env");
 			keyStorePath = (String) xmlNode.lookup("keyStorePath");
 		} catch (NamingException e2) {
-			keyStorePath= System.getenv("HOME") + KEYSTOREPATHINTESTENV;
+			keyStorePath= System.getenv("KEYSTORE");
 		}
 
 		try {
@@ -53,7 +51,7 @@ public class MessageSigner {
 			throw new ReportedException("Cannot handle PKCS12 keystore");
 		}
 
-    	char[] keyStorePassword = KEYSTOREPW.toCharArray();
+    	char[] keyStorePassword = System.getenv("KEYSTOREPASS").toCharArray();
     	try (InputStream keyStoreData = Files.newInputStream(Paths.get(keyStorePath))) {
 
 	    	keyStore.load(keyStoreData, keyStorePassword);
