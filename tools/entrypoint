@@ -15,5 +15,5 @@ then
 fi
 
 export HOME=/home/developer
-sudo -u developer "/pdengine/tools/generate_keystore"
+#sudo -u developer "/pdengine/tools/generate_keystore"
 exec sudo -u developer "$@"

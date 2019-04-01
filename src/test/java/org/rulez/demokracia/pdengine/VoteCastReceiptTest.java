@@ -50,6 +50,6 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 	@Test
 	public void cast_vote_signature_can_be_verified_by_public_key() {
 		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertTrue( MessageSigner.VerifyMessage(receipt.contentToBeSigned().getBytes(), receipt.signature) );
+		assertTrue( MessageSigner.verifyMessage(receipt.contentToBeSigned().getBytes(), receipt.signature) );
 	}
 }

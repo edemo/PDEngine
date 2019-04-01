@@ -27,21 +27,19 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 
 	public String contentToBeSigned() {
 		StringBuilder str  = new StringBuilder();
-		final String DELIMITER="|";
+		String delimiter="|";
 
-		// TODO: decide what content should be signed, ids too?
-		str.append(proxyId).append(DELIMITER);
-		str.append(secretId).append(DELIMITER);
-
+		str.append(proxyId) .append(delimiter)
+		   .append(secretId).append(delimiter);
 		for (RankedChoice rc : preferences) {
-			str.append(rc.id).append(DELIMITER);
-			str.append(rc.choiceId).append(DELIMITER);
-			str.append(rc.rank).append(DELIMITER);
+			str.append(rc.id)      .append(delimiter)
+			   .append(rc.choiceId).append(delimiter)
+			   .append(rc.rank)    .append(delimiter);
 		}
 		return str.toString();
 	}
 
 	public void updateSignature() {
-		signature = MessageSigner.SignatureOfMessage(contentToBeSigned().getBytes());
+		signature = MessageSigner.signatureOfMessage(contentToBeSigned().getBytes());
 	}
 }

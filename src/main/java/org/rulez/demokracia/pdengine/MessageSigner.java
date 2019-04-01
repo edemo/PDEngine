@@ -1,9 +1,9 @@
 package org.rulez.demokracia.pdengine;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -25,29 +25,26 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class MessageSigner {
 
-	private KeyStore keyStore=null;
 	private PublicKey pubkey;
 	private PrivateKey privkey;
-	final private String KEYSTOREPW="changit";
-	//final private String KEYSTOREPATH="/home/chris/keystore/keystore.pk12";
-	private String keyStorePath;
-	final private String KEYALIAS="PDEngineKeys";
+	private static final String KEYSTOREPW="changit";
+	private static final String KEYALIAS="PDEngineKeys";
+	private static final String KEYSTOREPATHINTESTENV="/keystore/keystore.pk12";
 
     private static class Storage {
         private static final MessageSigner INSTANCE = new MessageSigner();
      }
 
-	private MessageSigner () throws ReportedException {
+	private MessageSigner () {
+		KeyStore keyStore;
+		String keyStorePath;
 
 		try {
 			InitialContext context = new InitialContext();
 			Context xmlNode = (Context) context.lookup("java:comp/env");
-			String keyStorePath = (String) xmlNode.lookup("keyStorePath");
+			keyStorePath = (String) xmlNode.lookup("keyStorePath");
 		} catch (NamingException e2) {
-			//throw new ReportedException("Cannot reach GlobalNamingResources");
-
-			// running in test environment, use keystore put in ~/keystore
-			keyStorePath= System.getenv("HOME") + "/keystore/keystore.pk12";
+			keyStorePath= System.getenv("HOME") + KEYSTOREPATHINTESTENV;
 		}
 
 		try {
@@ -57,7 +54,7 @@ public class MessageSigner {
 		}
 
     	char[] keyStorePassword = KEYSTOREPW.toCharArray();
-    	try (InputStream keyStoreData = new FileInputStream(keyStorePath)) {
+    	try (InputStream keyStoreData = Files.newInputStream(Paths.get(keyStorePath))) {
 
 	    	keyStore.load(keyStoreData, keyStorePassword);
 
@@ -66,29 +63,19 @@ public class MessageSigner {
 	    	Certificate cert = keyStore.getCertificate(KEYALIAS);
 	    	pubkey = cert.getPublicKey();
 
-    	} catch ( KeyStoreException e) {
-    		throw new ReportedException("Cannot initialize keystore type PKCS12");
-    	} catch (FileNotFoundException e1) {
-    		throw new ReportedException("Cannot open keystore: " + keyStorePath);
-		} catch (IOException e1) {
-			throw new ReportedException("IO error on file:" + keyStorePath);
-		} catch (NoSuchAlgorithmException e) {
-			throw new ReportedException("Unsupported keystore algorithm in keystore file");
-		} catch (CertificateException e) {
-			throw new ReportedException("Bad certificate in keystore file");
-		} catch (UnrecoverableKeyException e) {
-			throw new ReportedException("Invalid key in keystore file");
-		}
+    	} catch ( KeyStoreException | IOException | NoSuchAlgorithmException |
+    			CertificateException | UnrecoverableKeyException e ) {
+    		throw new ReportedException("Keystore initialization error: "+ e.toString());
+    	}
 	}
 
-	public static String SignatureOfMessage( byte[] msg ) throws ReportedException {
+	public static String signatureOfMessage( final byte[] msg ) {
 
         Signature sig;
         String signature=null;
-        final String algo = "SHA256WithRSA";
 
 		try {
-			sig = Signature.getInstance(algo);
+			sig = Signature.getInstance("SHA256WithRSA");
 	        sig.initSign(Storage.INSTANCE.privkey);
 	        sig.update(msg);
 	        byte[] signatureBytes = sig.sign();
@@ -100,7 +87,7 @@ public class MessageSigner {
 		return signature;
 	}
 
-	public static boolean VerifyMessage( byte[] msg , String signature) {
+	public static boolean verifyMessage( final byte[] msg , final String signature) {
 
 		Signature sig;
 		boolean result=false;
