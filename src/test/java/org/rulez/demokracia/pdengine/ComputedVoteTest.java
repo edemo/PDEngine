@@ -21,6 +21,8 @@ import jersey.repackaged.com.google.common.collect.Sets;
 @TestedOperation("Compute vote results")
 public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 
+	private static final Pair ZERO_PAIR = new Pair(0, 0);
+
 	@Before
 	@Override
 	public void setUp() {
@@ -71,7 +73,7 @@ public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 			for (String choice2 : beatPathTable.getKeyCollection()) {
 				Pair beat1 = beatPathTable.getElement(choice1, choice2);
 				Pair beat2 = beatPathTable.getElement(choice2, choice1);
-				assertEquals(new Pair(0, 0), beatPathTable.lessBeat(beat1, beat2));
+				assertEquals(ZERO_PAIR, beatPathTable.lessBeat(beat1, beat2));
 			}
 		}
 	}

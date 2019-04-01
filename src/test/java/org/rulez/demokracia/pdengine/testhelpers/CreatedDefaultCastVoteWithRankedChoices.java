@@ -25,12 +25,10 @@ public class CreatedDefaultCastVoteWithRankedChoices extends CreatedDefaultChoic
 		result.add(createRankedChoices(Arrays.asList("D", "A", "B", "C")));
 		result.add(createRankedChoices(Arrays.asList("B", "A", "C", "D")));
 		result.add(createRankedChoices(Arrays.asList("B", "A", "C", "D")));
-		result.add(createRankedChoices(Arrays.asList("A", "C")));
-		result.add(createRankedChoices(Arrays.asList("A", "C")));
-		result.add(createRankedChoices(Arrays.asList("A", "C")));
-		result.add(createRankedChoices(Arrays.asList("C", "D")));
-		result.add(createRankedChoices(Arrays.asList("C", "D")));
-		result.add(createRankedChoices(Arrays.asList("C", "D")));
+		for (int i = 0; i < 3; ++i) {
+			result.add(createRankedChoices(Arrays.asList("A", "C")));
+			result.add(createRankedChoices(Arrays.asList("C", "D")));
+		}
 
 		return result;
 	}

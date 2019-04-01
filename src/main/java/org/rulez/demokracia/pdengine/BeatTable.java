@@ -16,10 +16,14 @@ public class BeatTable extends MapMatrix<String, Pair> implements TransitiveClos
 			for (String col : getKeyCollection()) {
 				Pair sourcePair = beatTable.getElement(col, row);
 				if (Objects.nonNull(sourcePair)) {
-					this.setElement(col, row, new Pair(sourcePair.winning, sourcePair.losing));
+					this.setElement(col, row, createPair(sourcePair));
 				}
 			}
 		}
+	}
+
+	private Pair createPair(final Pair sourcePair) {
+		return new Pair(sourcePair.winning, sourcePair.losing);
 	}
 
 	public enum Direction {
