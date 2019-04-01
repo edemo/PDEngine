@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,15 @@ public class Vote extends VoteEntity implements VoteInterface, Admnistrable, Has
 	@Override
 	public List<CastVote> getVotesCast() {
 		return this.votesCast;
+	}
+	
+	@Override
+	public List<String> getVotesCastIdentifiers() {
+		List<String> castVoteIdentifiers = new ArrayList<String>();
+		for (CastVote castVote : this.votesCast) {
+			castVoteIdentifiers.add(castVote.secretId);
+		}
+		return castVoteIdentifiers;
 	}
 
 	@Override

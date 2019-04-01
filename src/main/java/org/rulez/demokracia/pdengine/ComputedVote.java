@@ -11,9 +11,11 @@ public class ComputedVote implements ComputedVoteInterface, Serializable {
 	private BeatTable beatTable;
 	private final Vote vote;
 	private BeatTable beatPathTable;
+	private List<String> secretCastVoteIdentifiers;
 
 	public ComputedVote(final Vote vote) {
 		this.vote = vote;
+		this.secretCastVoteIdentifiers = vote.getVotesCastIdentifiers();
 	}
 
 	@Override
@@ -37,5 +39,9 @@ public class ComputedVote implements ComputedVoteInterface, Serializable {
 
 	public BeatTable getBeatPathTable() {
 		return beatPathTable;
+	}
+	
+	public List<String> getSecretCastVoteIdentifiers() {
+		return secretCastVoteIdentifiers;
 	}
 }

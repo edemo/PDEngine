@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -110,5 +111,14 @@ public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 		ComputedVote computedVote = new ComputedVote(getTheVote());
 		computedVote.computeVote();
 		return computedVote.getBeatTable();
+	}
+	
+	@TestedBehaviour("vote result includes the votes cast with the secret cast vote identifier.")
+	@Test
+	public void vote_reulst_includes_the_votes_cast_with_the_secret_cast_vote_id() {
+		ComputedVote computedVote = new ComputedVote(getTheVote());
+		
+		List<String> ids = computedVote.getSecretCastVoteIdentifiers();
+		assertEquals(10, ids.size());
 	}
 }
