@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
+import org.mockito.ArgumentCaptor;
 import org.mockito.stubbing.Answer;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
@@ -30,6 +31,7 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	};
 
 	private ComputedVote computedVote;
+	private final ArgumentCaptor<BeatTable> captor = ArgumentCaptor.forClass(BeatTable.class);
 
 	@Override
 	@Before
@@ -37,7 +39,7 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 		super.setUp();
 		getTheVote().votesCast = castVote;
 		winnerCalculator = mock(WinnerCalculator.class);
-		when(winnerCalculator.calculateWinners(ArgumentMatchers.any(BeatTable.class))).thenAnswer(answerKeyCollection);
+		when(winnerCalculator.calculateWinners(captor.capture())).thenAnswer(answerKeyCollection);
 
 		computedVote = new ComputedVote(getTheVote());
 		computedVote.computeVote();
@@ -49,13 +51,20 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	public void calculate_winners_returns_none_of_the_ignored_choices() {
 		List<String> winners = computedVote.calculateWinners(Arrays.asList("A"));
 		assertFalse(winners.contains("A"));
+
 	}
 
 	@TestedBehaviour("only choices not in ignoredChoices are considered")
 	@Test
 	public void calculate_winners_returns_not_ignored_winner() {
 		List<String> winners = computedVote.calculateWinners(Arrays.asList("C"));
+		assertBeatTableDoesntContainChoice(winners, "A");
+	}
+
+	private void assertBeatTableDoesntContainChoice(final List<String> winners, final String choice) {
 		assertTrue(winners.contains("A"));
+		BeatTable capturedBeatTable = captor.getValue();
+		assertNull(capturedBeatTable.getElement(choice, capturedBeatTable.getKeyCollection().iterator().next()));
 	}
 
 

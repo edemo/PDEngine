@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.Transient;
+
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 
 import jersey.repackaged.com.google.common.collect.Sets;
@@ -17,6 +19,7 @@ public class ComputedVote implements CanCalculateWinners, ComputedVoteInterface,
 	private BeatTable beatTable;
 	private final Vote vote;
 	private BeatTable beatPathTable;
+	@Transient
 	private WinnerCalculator winnerCalculator;
 
 	public ComputedVote(final Vote vote) {
@@ -53,7 +56,7 @@ public class ComputedVote implements CanCalculateWinners, ComputedVoteInterface,
 		return beatPathTable;
 	}
 
-	void setWinnerCalculator(final WinnerCalculator winnerCalculator) {
+	public void setWinnerCalculator(final WinnerCalculator winnerCalculator) {
 		this.winnerCalculator = winnerCalculator;
 	}
 
