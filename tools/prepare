@@ -6,6 +6,7 @@ then
 fi
 set +x
 . <(./tools/decrypt_secret_env $ORG_NAME)
+source ./tools/setenv
 set -x
 #!!!do not do it on a production system!!!
 #run haveged instead
