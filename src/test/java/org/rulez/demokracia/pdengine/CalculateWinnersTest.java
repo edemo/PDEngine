@@ -1,7 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,9 +23,7 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRanke
 @TestedOperation("calculate winners")
 public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoices {
 
-	private WinnerCalculator winnerCalculator;
-
-	private Answer<?> answerKeyCollection = (invocation) -> {
+	private final Answer<?> answerKeyCollection = (invocation) -> {
 		BeatTable beatTable = (BeatTable) invocation.getArguments()[0];
 		return beatTable.getKeyCollection().stream().collect(Collectors.toList());
 	};
@@ -38,7 +36,7 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	public void setUp() {
 		super.setUp();
 		getTheVote().votesCast = castVote;
-		winnerCalculator = mock(WinnerCalculator.class);
+		WinnerCalculator winnerCalculator = mock(WinnerCalculator.class);
 		when(winnerCalculator.calculateWinners(captor.capture())).thenAnswer(answerKeyCollection);
 
 		computedVote = new ComputedVote(getTheVote());
@@ -58,13 +56,13 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@Test
 	public void calculate_winners_returns_not_ignored_winner() {
 		List<String> winners = computedVote.calculateWinners(Arrays.asList("C"));
-		assertBeatTableDoesntContainChoice(winners, "A");
+		assertBeatTableContainChoice(winners, "A");
 	}
 
-	private void assertBeatTableDoesntContainChoice(final List<String> winners, final String choice) {
-		assertTrue(winners.contains("A"));
+	private void assertBeatTableContainChoice(final List<String> winners, final String choice) {
+		assertTrue(winners.contains(choice));
 		BeatTable capturedBeatTable = captor.getValue();
-		assertNull(capturedBeatTable.getElement(choice, capturedBeatTable.getKeyCollection().iterator().next()));
+		assertNotNull(capturedBeatTable.getElement(choice, "B"));
 	}
 
 
