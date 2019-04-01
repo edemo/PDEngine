@@ -10,6 +10,7 @@ public class ComputedVote implements ComputedVoteInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	private BeatTable beatTable;
 	private final Vote vote;
+	private BeatTable beatPathTable;
 
 	public ComputedVote(final Vote vote) {
 		this.vote = vote;
@@ -25,9 +26,16 @@ public class ComputedVote implements ComputedVoteInterface, Serializable {
 
 		beatTable = new BeatTable(keySet);
 		beatTable.initialize(vote.getVotesCast());
+		beatPathTable = new BeatTable(beatTable);
+		beatPathTable.normalize();
+		beatPathTable.computeTransitiveClosure();
 	}
 
 	public BeatTable getBeatTable() {
 		return beatTable;
+	}
+
+	public BeatTable getBeatPathTable() {
+		return beatPathTable;
 	}
 }
