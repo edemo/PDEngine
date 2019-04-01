@@ -61,11 +61,7 @@ public class CreatedBeatTable extends ThrowableTester{
 	}
 	
 	protected void createNewBeatTableWithEqualData() {
-		List<String> list = new ArrayList<String>();
-		list.add(choice1);
-		list.add(choice2);
-		list.add(choice3);
-		beatTable = new BeatTable(list);
+		createNewBeatTableWithData();
 		beatTable.setElement(choice1, choice2, new Pair(2, 2));
 		beatTable.setElement(choice2, choice1, new Pair(2, 2));
 		beatTable.setElement(choice1, choice3, new Pair(4, 1));
