@@ -1,5 +1,4 @@
 set -x
-#./tools/generate_keystore
 export DISPLAY=:0
 if [ ! -s /tmp/.X11-unix/X0 ]
 then
