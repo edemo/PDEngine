@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface WinnerCalculator {
 
-	public List<String> calculateWinners(final BeatTable beatTable);
+	List<String> calculateWinners(final BeatTable beatTable);
 }
