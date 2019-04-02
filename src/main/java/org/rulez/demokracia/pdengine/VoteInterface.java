@@ -18,8 +18,6 @@ public interface VoteInterface {
 	List<String> getBallots();
 	
 	List<CastVote> getVotesCast();
-	
-	List<String> getVotesCastIdentifiers();
 
 	String getId();
 
