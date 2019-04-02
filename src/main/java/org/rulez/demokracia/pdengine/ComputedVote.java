@@ -22,7 +22,7 @@ public class ComputedVote implements CanCalculateWinners, ComputedVoteInterface,
 
 	public ComputedVote(final Vote vote) {
 		this.vote = vote;
-		winnerCalculator = new WinnerCalculator();
+		winnerCalculator = new WinnerCalculatorImpl();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class ComputedVote implements CanCalculateWinners, ComputedVoteInterface,
 		return beatPathTable;
 	}
 
-	public void setWinnerCalculator(final WinnerCalculator winnerCalculator) {
+	public void setWinnerCalculator(final WinnerCalculatorImpl winnerCalculator) {
 		this.winnerCalculator = winnerCalculator;
 	}
 

@@ -33,7 +33,7 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	public void setUp() {
 		super.setUp();
 		getTheVote().votesCast = castVote;
-		WinnerCalculator winnerCalculator = mock(WinnerCalculator.class);
+		WinnerCalculatorImpl winnerCalculator = mock(WinnerCalculatorImpl.class);
 		when(winnerCalculator.calculateWinners(captor.capture())).thenAnswer(answerKeyCollection);
 
 		computedVote = new ComputedVote(getTheVote());

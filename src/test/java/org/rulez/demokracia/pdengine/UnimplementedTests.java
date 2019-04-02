@@ -19,6 +19,6 @@ public class UnimplementedTests extends ThrowableTester {
 
 	@Test
 	public void the_calculateWinners_method_is_not_implemented_yet() {
-		assertUnimplemented(() -> new WinnerCalculator().calculateWinners(null));
+		assertUnimplemented(() -> new WinnerCalculatorImpl().calculateWinners(null));
 	}
 }
