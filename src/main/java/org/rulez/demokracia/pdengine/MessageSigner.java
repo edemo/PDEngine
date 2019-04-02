@@ -27,17 +27,15 @@ public class MessageSigner {
 
 	private PublicKey pubkey;
 	private PrivateKey privkey;
-	private static final String KEYALIAS="PDEngineKeys";
 
     private static class Storage {
         private static final MessageSigner INSTANCE = new MessageSigner();
      }
 
 	private MessageSigner () {
-		KeyStore keyStore;
 		String keyStorePath;
-		String keyAlias=null;
-		Context xmlNode=null;
+		String keyAlias;
+		Context xmlNode;
 		char[] keyStorePassword=null;
 
 		try {
@@ -45,25 +43,26 @@ public class MessageSigner {
 			xmlNode = (Context) context.lookup("java:comp/env");
 			keyStorePath = (String) xmlNode.lookup("keyStorePath");
 			keyAlias = (String) xmlNode.lookup("keyAlias");
-	    	keyStorePassword = ((String) xmlNode.lookup("keyStorePassphrase")).toCharArray();
+			keyStorePassword = ((String) xmlNode.lookup("keyStorePassphrase")).toCharArray();
 		} catch (NamingException e) {
-			throw new ReportedException("Cannot get keystore properties from app server context:"+ e.toString());
+			throw (ReportedException)new ReportedException("Cannot get keystore properties from app server context").initCause(e);
 		}
 
+		KeyStore keyStore;
 		try {
 			keyStore = KeyStore.getInstance("PKCS12");
 		} catch (KeyStoreException e) {
-			throw new ReportedException("Cannot handle PKCS12 keystore:"+ e.toString());
+			throw (ReportedException)new ReportedException("Cannot handle PKCS12 keystore").initCause(e);
 		}
 
     	try (InputStream keyStoreData = Files.newInputStream(Paths.get(keyStorePath))) {
-	    	keyStore.load(keyStoreData, keyStorePassword);
-			privkey = (PrivateKey) keyStore.getKey(KEYALIAS, keyStorePassword);
-	    	Certificate cert = keyStore.getCertificate(KEYALIAS);
-	    	pubkey = cert.getPublicKey();
+			keyStore.load(keyStoreData, keyStorePassword);
+			privkey = (PrivateKey) keyStore.getKey(keyAlias, keyStorePassword);
+			Certificate cert = keyStore.getCertificate(keyAlias);
+			pubkey = cert.getPublicKey();
     	} catch ( KeyStoreException | IOException | NoSuchAlgorithmException |
-    		      CertificateException | UnrecoverableKeyException e ) {
-    		throw new ReportedException("Keystore initialization error: "+ e.toString());
+    			  CertificateException | UnrecoverableKeyException e ) {
+    		throw (ReportedException)new ReportedException("Keystore initialization error").initCause(e);
     	}
 	}
 
@@ -78,7 +77,7 @@ public class MessageSigner {
 	        byte[] signatureBytes = sig.sign();
 	        signature = Base64.getEncoder().encodeToString(signatureBytes);
 		} catch (NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
-			throw new ReportedException("Cannot compute signature: "+ e.toString());
+			throw (ReportedException)new ReportedException("Cannot compute signature").initCause(e);
 		}
 		return signature;
 	}
@@ -95,7 +94,7 @@ public class MessageSigner {
 	        byte[] signatureBytes = Base64.getDecoder().decode(signature);
 	        result=sig.verify(signatureBytes);
 		} catch (InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
-			throw new ReportedException("Cannot verify signature:"+ e.toString());
+			throw (ReportedException)new ReportedException("Cannot verify signature").initCause(e);
 		}
 
 		return result;

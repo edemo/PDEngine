@@ -12,9 +12,9 @@ import javax.naming.spi.InitialContextFactory;
 
 public  class InitialContextFactoryMock implements InitialContextFactory {
 
-  final static String KEYSTORE="/home/developer/keystore/keystore.pk12";
-  final static String KEYALIAS="PDEngineAlias";
-  final static String KEYSTOREPASS="changeit";
+  private final static String KEYSTORE="/home/developer/keystore/keystore.pk12";
+  private final static String KEYALIAS="PDEngineKeys";
+  private final static String KEYSTOREPASS="changeit";
 
   @Override
   public Context getInitialContext(final Hashtable<?,?> environment) throws NamingException {
