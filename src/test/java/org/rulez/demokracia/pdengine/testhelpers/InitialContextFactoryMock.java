@@ -12,12 +12,12 @@ import javax.naming.spi.InitialContextFactory;
 
 public  class InitialContextFactoryMock implements InitialContextFactory {
 
-  final String KEYSTORE="/home/chris/keystore/keystore.pk12";
-  final String KEYALIAS="PDEngineAlias";
-  final String KEYSTOREPASS="changeit";
+  final static String KEYSTORE="/home/developer/keystore/keystore.pk12";
+  final static String KEYALIAS="PDEngineAlias";
+  final static String KEYSTOREPASS="changeit";
 
   @Override
-  public Context getInitialContext(Hashtable<?,?> environment) throws NamingException {
+  public Context getInitialContext(final Hashtable<?,?> environment) throws NamingException {
     InitialContext mockCtx = mock(InitialContext.class);
     when(mockCtx.lookup("java:comp/env")).thenReturn(mockCtx);
     when(mockCtx.lookup("keyStorePath")).thenReturn(KEYSTORE);

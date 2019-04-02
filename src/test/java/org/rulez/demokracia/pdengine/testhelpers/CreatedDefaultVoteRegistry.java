@@ -41,10 +41,12 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		neededAssurances.add(ASSURANCE_NAME);
 		voteName = "testVote";
 		adminInfo = createAVote();
+		setupInitialContextTest();
+	}
 
+	private void setupInitialContextTest() {
 	    MockitoAnnotations.initMocks(this);
-	    InitialContextFactoryMock i = new InitialContextFactoryMock();
-	    System.setProperty("java.naming.factory.initial", i.getClass().getCanonicalName());
+	    System.setProperty("java.naming.factory.initial", InitialContextFactoryMock.class.getName());
 	}
 
 	private WebServiceContext setupMockWsContext() {
