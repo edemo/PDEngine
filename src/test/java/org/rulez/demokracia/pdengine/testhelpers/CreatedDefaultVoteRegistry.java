@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.xml.ws.WebServiceContext;
 
 import org.junit.Before;
+import org.mockito.MockitoAnnotations;
 import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
@@ -40,6 +41,10 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 		neededAssurances.add(ASSURANCE_NAME);
 		voteName = "testVote";
 		adminInfo = createAVote();
+
+	    MockitoAnnotations.initMocks(this);
+	    InitialContextFactoryMock i = new InitialContextFactoryMock();
+	    System.setProperty("java.naming.factory.initial", i.getClass().getCanonicalName());
 	}
 
 	private WebServiceContext setupMockWsContext() {

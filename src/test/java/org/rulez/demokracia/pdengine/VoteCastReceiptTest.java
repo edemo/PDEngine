@@ -13,6 +13,26 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 @TestedFeature("Vote")
 @TestedOperation("Cast vote")
 public class VoteCastReceiptTest extends CreatedDefaultChoice {
+/*
+	@Mock InitialContextFactory ctx;
+
+	  public static class MockedFactory implements InitialContextFactory
+	  {
+		private final String TESTKEYSTORE="/home/developer/keystore/keystore.pk12";
+		private final String TESTKEYALIAS="PDEngineKeys";
+		private final String TESTKEYPASS="changeit";
+
+		@Override
+	    public Context getInitialContext(Hashtable<?,?> environment) throws NamingException {
+	      InitialContext mockCtx = mock(InitialContext.class);
+	      when(mockCtx.lookup("java:comp/env"))     .thenReturn(mockCtx);
+	      when(mockCtx.lookup("keyStorePath"))      .thenReturn(TESTKEYSTORE);
+	      when(mockCtx.lookup("keyAlias"))          .thenReturn(TESTKEYALIAS);
+	      when(mockCtx.lookup("keyStorePassphrase")).thenReturn(TESTKEYPASS);
+	      return mockCtx;
+	    }
+	  }
+*/
 	@Override
 	@Before
 	public void setUp() {
@@ -23,6 +43,10 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 		vote.parameters.canVote = true;
 		vote.parameters.canUpdate = true;
 		vote.votesCast.clear();
+
+	  /*  MockitoAnnotations.initMocks(this);
+	    System.setProperty("java.naming.factory.initial",
+	    this.getClass().getCanonicalName() + "$MockedFactory");*/
 	}
 
 	@TestedBehaviour("The vote receipt contains the cast vote identifier")
