@@ -1,13 +1,9 @@
 export DISPLAY=:0
 export PATH=$PATH:~/bin
-REPO=/pdengine/
-if [ -d $REPO ]; then
-  GITUSER=$(git -C /pdengine/ remote -v |grep origin|head -1|sed 's/^.*://;sA/.*AA')
-  GITCOMMIT=$(git -C /pdengine/ rev-parse HEAD)
-fi
+GITUSER=$(git -C /pdengine/ remote -v |grep origin|head -1|sed 's/^.*://;sA/.*AA')
+GITCOMMIT=$(git -C /pdengine/ rev-parse HEAD)
 export REPO_FULL_NAME=home/$GITUSER
 export HEAD_BRANCH=home/$GITUSER
 export PULL_REQUEST=$GITCOMMIT
 export BASE_BRANCH=develop
-export KEYSTORE=/etc/keystore/keystore.pk12
-export KEYSTOREPASS=changeit
+
