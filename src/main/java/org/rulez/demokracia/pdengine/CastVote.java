@@ -16,7 +16,7 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 		this.secretId = RandomUtils.createRandomKey();
 	}
 	
-	public CastVote(final String proxyId, final List<RankedChoice> preferences, List<String> assurances) {
+	public CastVote(final String proxyId, final List<RankedChoice> preferences, final List<String> assurances) {
 		this(proxyId, preferences);
 		this.assurances = assurances;
 	}
