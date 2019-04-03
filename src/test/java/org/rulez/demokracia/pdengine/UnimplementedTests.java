@@ -29,4 +29,9 @@ public class UnimplementedTests extends CreatedDefaultChoice {
 		CastVote castVote = new CastVote("test_user_in_ws_context", new ArrayList<>(), assurances);
 		assertTrue(castVote.getAssurances().contains("TestAssurance"));
 	}
+
+	@Test
+	public void the_calculateWinners_method_is_not_implemented_yet() {
+		assertUnimplemented(() -> new WinnerCalculatorImpl().calculateWinners(null));
+	}
 }
