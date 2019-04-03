@@ -54,6 +54,10 @@ public class ComputedVote implements CanCalculateWinners, ComputedVoteInterface,
 		return beatPathTable;
 	}
 
+	public Vote getVote() {
+		return vote;
+	}
+
 	public void setWinnerCalculator(final WinnerCalculatorImpl winnerCalculator) {
 		this.winnerCalculator = winnerCalculator;
 	}
