@@ -1,9 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -34,8 +31,7 @@ public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 	@Test
 	public void compute_vote_should_create_initial_matrix_with_full_key_set() {
 		BeatTable beatTable = initBeatTable();
-		assertEquals(Sets.newHashSet("A", "B", "C", "D"),
-				Sets.newHashSet(beatTable.getKeyCollection()));
+		assertEquals(Sets.newHashSet("A", "B", "C", "D"), Sets.newHashSet(beatTable.getKeyCollection()));
 	}
 
 	@TestedBehaviour("compares and stores initial beat matrix")
@@ -43,8 +39,7 @@ public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 	public void compute_vote_should_create_empty_initial_matrix_when_voteCast_is_empty() {
 		getTheVote().votesCast = new ArrayList<>();
 		BeatTable beatTable = initBeatTable();
-		assertEquals(Sets.newHashSet(),
-				Sets.newHashSet(beatTable.getKeyCollection()));
+		assertEquals(Sets.newHashSet(), Sets.newHashSet(beatTable.getKeyCollection()));
 	}
 
 	@TestedBehaviour("compares and stores initial beat matrix")
@@ -95,8 +90,7 @@ public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 	private void assertBeatTableEquals(final BeatTable firstBeatTable, final BeatTable secondBeatTable) {
 		for (String choice1 : firstBeatTable.getKeyCollection()) {
 			for (String choice2 : firstBeatTable.getKeyCollection()) {
-				assertEquals(secondBeatTable.getElement(choice1, choice2),
-						firstBeatTable.getElement(choice1, choice2));
+				assertEquals(secondBeatTable.getElement(choice1, choice2), firstBeatTable.getElement(choice1, choice2));
 			}
 		}
 	}
@@ -110,5 +104,14 @@ public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 		ComputedVote computedVote = new ComputedVote(getTheVote());
 		computedVote.computeVote();
 		return computedVote.getBeatTable();
+	}
+
+	@TestedBehaviour("vote result includes the votes cast with the secret cast vote identifier.")
+	@Test
+	public void vote_result_includes_the_votes_cast_with_the_secret_cast_vote_id() {
+		ComputedVote computedVote = new ComputedVote(getTheVote());
+
+		String secretId = computedVote.getVote().getVotesCast().get(0).secretId;
+		assertFalse(secretId.isEmpty());
 	}
 }
