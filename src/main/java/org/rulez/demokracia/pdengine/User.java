@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 
@@ -15,6 +16,10 @@ public class User extends UserEntity {
 		super();
 		this.proxyId = proxyId;
 		assurances = new ArrayList<>();
+	}
+	
+	public List<String> getAssurances() {
+		return assurances;
 	}
 
 }

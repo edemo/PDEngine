@@ -1,5 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
+import java.util.List;
+
 import javax.xml.ws.WebServiceContext;
 
 import org.hibernate.Session;
@@ -25,6 +27,12 @@ public class SessionFactoryManager {
 
 	public boolean hasAssurance(final String role) {
 		return getWsContext().isUserInRole(role);
+	}
+	
+	public User getWsUser(String proxyId) {
+		User user = new User(proxyId);
+		user.assurances.add("TestAssurances");
+		return user;
 	}
 
 }

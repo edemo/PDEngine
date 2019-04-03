@@ -41,6 +41,8 @@ public interface IVoteManager {
 	String getWsUserName();
 
 	boolean hasAssurance(final String role);
+	
+	User getWsUser(String proxyId);
 
 	void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName);
 

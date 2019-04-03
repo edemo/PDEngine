@@ -13,7 +13,12 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 		super();
 		this.proxyId = proxyId;
 		this.preferences = new ArrayList<>(preferences);
-		secretId = RandomUtils.createRandomKey();
+		this.secretId = RandomUtils.createRandomKey();
+	}
+	
+	public CastVote(final String proxyId, final List<RankedChoice> preferences, List<String> assurances) {
+		this(proxyId, preferences);
+		this.assurances = assurances;
 	}
 
 	@Override
@@ -23,6 +28,6 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 
 	@Override
 	public List<String> getAssurances() {
-		throw new UnsupportedOperationException();
+		return assurances;
 	}
 }
