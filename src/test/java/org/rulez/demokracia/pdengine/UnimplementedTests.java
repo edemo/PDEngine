@@ -16,4 +16,9 @@ public class UnimplementedTests extends ThrowableTester {
 	public void the_getAssurances_method_is_not_implemented_yet() {
 		assertUnimplemented(() -> new CastVote("proxyId", new ArrayList<>()).getAssurances());
 	}
+
+	@Test
+	public void the_calculateWinners_method_is_not_implemented_yet() {
+		assertUnimplemented(() -> new WinnerCalculatorImpl().calculateWinners(null));
+	}
 }
