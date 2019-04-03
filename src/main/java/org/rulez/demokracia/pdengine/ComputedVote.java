@@ -56,6 +56,7 @@ public class ComputedVote implements CanCalculateWinners, ComputedVoteInterface,
 
 	public Vote getVote() {
 		return vote;
+	}
 
 	public void setWinnerCalculator(final WinnerCalculatorImpl winnerCalculator) {
 		this.winnerCalculator = winnerCalculator;
