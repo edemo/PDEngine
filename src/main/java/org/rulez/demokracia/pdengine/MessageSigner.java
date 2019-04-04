@@ -25,7 +25,7 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 public class MessageSigner {
 
-	private PublicKey pubkey;
+	public PublicKey pubkey;
 	private PrivateKey privkey;
 
     private static class Storage {
@@ -82,21 +82,7 @@ public class MessageSigner {
 		return signature;
 	}
 
-	public static boolean verifyMessage( final byte[] msg , final String signature) {
-
-		Signature sig;
-		boolean result=false;
-
-        try {
-        	sig = Signature.getInstance("SHA256WithRSA");
-			sig.initVerify(Storage.INSTANCE.pubkey);
-	        sig.update(msg);
-	        byte[] signatureBytes = Base64.getDecoder().decode(signature);
-	        result=sig.verify(signatureBytes);
-		} catch (InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
-			throw (ReportedException)new ReportedException("Cannot verify signature").initCause(e);
-		}
-
-		return result;
+	public static PublicKey getPublicKey() {
+		return Storage.INSTANCE.pubkey;
 	}
 }

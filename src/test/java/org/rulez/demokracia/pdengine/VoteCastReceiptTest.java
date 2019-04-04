@@ -3,11 +3,18 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
+import java.security.SignatureException;
+import java.util.Base64;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 @TestedFeature("Vote")
@@ -42,15 +49,22 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 
 	@TestedBehaviour("the vote receipt is signed by the server")
 	@Test
-	public void cast_vote_signed_by_the_server() {
+	public void cast_vote_signed_by_the_server_and_the_signature_is_valid() {
 		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertTrue(receipt.signature.length() > 0);
-	}
 
-	@TestedBehaviour("the vote receipt signature is valid")
-	@Test
-	public void cast_vote_signature_can_be_verified_by_public_key() {
-		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertTrue( MessageSigner.verifyMessage(receipt.contentToBeSigned().getBytes(), receipt.signature) );
+		Signature sig;
+		boolean validity=false;
+		try {
+    	sig = Signature.getInstance("SHA256WithRSA");
+		sig.initVerify(MessageSigner.getPublicKey());
+        sig.update((receipt.contentToBeSigned()).getBytes());
+
+        byte[] recepitSignatureBytes = Base64.getDecoder().decode(receipt.signature);
+        validity = sig.verify(recepitSignatureBytes);
+		}
+		catch (InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
+			throw (ReportedException)new ReportedException("Cannot verify signature").initCause(e);
+		}
+        assertTrue(validity);
 	}
 }
