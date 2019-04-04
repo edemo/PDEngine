@@ -14,19 +14,9 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 @TestedOperation("Unimplemented")
 @TestedBehaviour("Unimplemented")
 public class UnimplementedTests extends CreatedDefaultChoice {
-	
-	@Test
-	public void the_empty_assurances_can_be_obtained() {
-		CastVote castVote = new CastVote("test_user_in_ws_context", new ArrayList<>(), new ArrayList<>());
-		List<String> assurances = castVote.getAssurances();
-		assertTrue(assurances.isEmpty());
-	}
-	
-	@Test
-	public void the_not_empty_assurances_can_be_obtained() {
-		List<String> assurances = new ArrayList<String> ();
-		assurances.add("TestAssurance");
-		CastVote castVote = new CastVote("test_user_in_ws_context", new ArrayList<>(), assurances);
-		assertTrue(castVote.getAssurances().contains("TestAssurance"));
-	}
+
+//	@Test
+//	public void the_calculateWinners_method_is_not_implemented_yet() {
+//		assertUnimplemented(() -> new WinnerCalculatorImpl().calculateWinners(null));
+//	}
 }

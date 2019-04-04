@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +43,19 @@ public class CastVoteTest extends CreatedDefaultChoice {
 	
 	@TestedBehaviour("The assurances of the voter can be obtained from a cast vote if canupdateis true")
 	@Test
-	public void the_assurances_of_the_voter_can_be_obtained_from_a_cast_vote_if_canpdate_is_true() {
+	public void the_assurances_of_the_voter_can_be_obtained_from_a_cast_vote_if_canupdate_is_true() {
 		vote.parameters.canUpdate = true;
 		CastVote castVote = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 		assertEquals("TestAssurances", castVote.assurances.get(0));
+	}
+	
+	@TestedBehaviour("The assurances of the voter can be obtained from a cast vote if canupdateis true")
+	@Test
+	public void the_assurances_of_the_voter_is_null_if_canupdate_is_false() {
+		vote.parameters.canUpdate = false;
+		CastVote castVote = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		System.out.println("castVote: " + castVote);
+		List<String> assurances = castVote.getAssurances();
+		assertTrue(assurances == null);
 	}
 }
