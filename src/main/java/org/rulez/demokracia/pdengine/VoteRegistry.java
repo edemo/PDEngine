@@ -63,7 +63,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 		if (vote.getParameters().canUpdate) {
 			String proxyId = getWsUserName();
-			receipt = vote.addCastVote(proxyId, theVote, getWsUser(proxyId).getAssurances());
+			receipt = vote.addCastVote(proxyId, theVote, getAssurances());
 		} else {
 			receipt = vote.addCastVote(null, theVote);
 		}
