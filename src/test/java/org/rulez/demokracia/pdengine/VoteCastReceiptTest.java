@@ -57,7 +57,7 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 		try {
     	sig = Signature.getInstance("SHA256WithRSA");
 		sig.initVerify(MessageSigner.getPublicKey());
-        sig.update((receipt.contentToBeSigned()).getBytes());
+        sig.update(receipt.contentToBeSigned().getBytes());
 
         byte[] recepitSignatureBytes = Base64.getDecoder().decode(receipt.signature);
         validity = sig.verify(recepitSignatureBytes);
