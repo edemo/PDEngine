@@ -16,6 +16,8 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRanke
 public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoices {
 
 	private ComputedVote computedVote;
+	private WinnerCalculator winnerCalculator;
+	private BeatTable beatPathTable;
 
 	@Override
 	@Before
@@ -25,6 +27,8 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 
 		computedVote = new ComputedVote(getTheVote());
 		computedVote.computeVote();
+		winnerCalculator = new WinnerCalculatorImpl();
+		beatPathTable = computedVote.getBeatPathTable();
 	}
 
 	@TestedBehaviour("only choices not in ignoredChoices are considered")
@@ -45,27 +49,24 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@TestedBehaviour("all non-beaten candidates are winners")
 	@Test
 	public void calculate_winners_doesnt_return_beaten_candidates() {
-		WinnerCalculator winnerCalculator = new WinnerCalculatorImpl();
-		BeatTable beatPathTable = computedVote.getBeatPathTable();
-		List<String> winners = winnerCalculator.calculateWinners(beatPathTable);
-		for (String player1 : winners) {
-			if (!isAWinner(player1, beatPathTable)) {
-				assertFalse(winners.contains(player1));
-			}
-		}
+		assertTrue(noWinnerIsBeaten(winnerCalculator.calculateWinners(beatPathTable)));
 	}
 
 	@TestedBehaviour("all non-beaten candidates are winners")
 	@Test
 	public void calculate_winners_return_all_non_beaten_candidates() {
-		WinnerCalculator winnerCalculator = new WinnerCalculatorImpl();
-		BeatTable beatPathTable = computedVote.getBeatPathTable();
-		List<String> winners = winnerCalculator.calculateWinners(beatPathTable);
-		for (String player1 : beatPathTable.getKeyCollection()) {
-			if (isAWinner(player1, beatPathTable)) {
-				assertTrue(player1, winners.contains(player1));
-			}
-		}
+		assertTrue(allNonbeatenAreWinner(winnerCalculator.calculateWinners(beatPathTable)));
+	}
+
+	private boolean noWinnerIsBeaten(final List<String> winners) {
+		return winners.stream().allMatch(choice -> isAWinner(choice, beatPathTable));
+	}
+
+	private boolean allNonbeatenAreWinner(final List<String> winners) {
+		return beatPathTable.getKeyCollection()
+				.stream()
+				.filter(choice -> isAWinner(choice, beatPathTable))
+				.allMatch(choice -> winners.contains(choice));
 	}
 
 	private boolean isAWinner(final String player1, final BeatTable beatPathTable) {
