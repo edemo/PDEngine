@@ -1,44 +1,30 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.stubbing.Answer;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRankedChoices;
 
 @TestedFeature("Vote")
 @TestedOperation("calculate winners")
 public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoices {
 
-	private final Answer<?> answerKeyCollection = (invocation) -> {
-		BeatTable beatTable = (BeatTable) invocation.getArguments()[0];
-		return beatTable.getKeyCollection().stream().collect(Collectors.toList());
-	};
-
 	private ComputedVote computedVote;
-	private final ArgumentCaptor<BeatTable> captor = ArgumentCaptor.forClass(BeatTable.class);
 
 	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
 		getTheVote().votesCast = castVote;
-		WinnerCalculatorImpl winnerCalculator = mock(WinnerCalculatorImpl.class);
-		when(winnerCalculator.calculateWinners(captor.capture())).thenAnswer(answerKeyCollection);
 
 		computedVote = new ComputedVote(getTheVote());
 		computedVote.computeVote();
-		computedVote.setWinnerCalculator(winnerCalculator);
 	}
 
 	@TestedBehaviour("only choices not in ignoredChoices are considered")
@@ -53,14 +39,43 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@Test
 	public void calculate_winners_returns_not_ignored_winner() {
 		List<String> winners = computedVote.calculateWinners(Arrays.asList("C"));
-		assertBeatTableContainChoice(winners, "A");
+		assertTrue(winners.contains("D"));
 	}
 
-	private void assertBeatTableContainChoice(final List<String> winners, final String choice) {
-		assertTrue(winners.contains(choice));
-		BeatTable capturedBeatTable = captor.getValue();
-		assertNotNull(capturedBeatTable.getElement(choice, "B"));
+	@TestedBehaviour("all non-beaten candidates are winners")
+	@Test
+	public void calculate_winners_doesnt_return_beaten_candidates() {
+		WinnerCalculator winnerCalculator = new WinnerCalculatorImpl();
+		BeatTable beatPathTable = computedVote.getBeatPathTable();
+		List<String> winners = winnerCalculator.calculateWinners(beatPathTable);
+		for (String player1 : winners) {
+			if (!isAWinner(player1, beatPathTable)) {
+				assertFalse(winners.contains(player1));
+			}
+		}
 	}
 
+	@TestedBehaviour("all non-beaten candidates are winners")
+	@Test
+	public void calculate_winners_return_all_non_beaten_candidates() {
+		WinnerCalculator winnerCalculator = new WinnerCalculatorImpl();
+		BeatTable beatPathTable = computedVote.getBeatPathTable();
+		List<String> winners = winnerCalculator.calculateWinners(beatPathTable);
+		for (String player1 : beatPathTable.getKeyCollection()) {
+			if (isAWinner(player1, beatPathTable)) {
+				assertTrue(player1, winners.contains(player1));
+			}
+		}
+	}
+
+	private boolean isAWinner(final String player1, final BeatTable beatPathTable) {
+		for (String player2 : beatPathTable.getKeyCollection()) {
+			Pair forward = beatPathTable.getElement(player1, player2);
+			Pair backward = beatPathTable.getElement(player2, player1);
+			if (!forward.equals(beatPathTable.compareBeats(forward, backward)))
+				return false;
+		}
+		return true;
+	}
 
 }

@@ -68,7 +68,7 @@ public class ComputedVote implements CanCalculateWinners, ComputedVoteInterface,
 		BeatTable filteredBeatTable = new BeatTable(activeChoices);
 		for (String key1 : activeChoices) {
 			for (String key2 : activeChoices) {
-				Pair source = beatTable.getElement(key1, key2);
+				Pair source = beatPathTable.getElement(key1, key2);
 				if (Objects.nonNull(source))
 					filteredBeatTable.setElement(key1, key2, source);
 			}
