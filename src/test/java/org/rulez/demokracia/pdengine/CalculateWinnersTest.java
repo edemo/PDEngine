@@ -49,24 +49,24 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@TestedBehaviour("all non-beaten candidates are winners")
 	@Test
 	public void calculate_winners_doesnt_return_beaten_candidates() {
-		assertTrue(noWinnerIsBeaten(winnerCalculator.calculateWinners(beatPathTable)));
+		assertNoWinnerIsBeaten(winnerCalculator.calculateWinners(beatPathTable));
 	}
 
 	@TestedBehaviour("all non-beaten candidates are winners")
 	@Test
 	public void calculate_winners_return_all_non_beaten_candidates() {
-		assertTrue(allNonbeatenAreWinner(winnerCalculator.calculateWinners(beatPathTable)));
+		assertNonbeatensAreWinner(winnerCalculator.calculateWinners(beatPathTable));
 	}
 
-	private boolean noWinnerIsBeaten(final List<String> winners) {
-		return winners.stream().allMatch(choice -> isAWinner(choice, beatPathTable));
+	private void assertNoWinnerIsBeaten(final List<String> winners) {
+		assertTrue(winners.stream().allMatch(choice -> isAWinner(choice, beatPathTable)));
 	}
 
-	private boolean allNonbeatenAreWinner(final List<String> winners) {
-		return beatPathTable.getKeyCollection()
+	private void assertNonbeatensAreWinner(final List<String> winners) {
+		assertTrue(beatPathTable.getKeyCollection()
 				.stream()
 				.filter(choice -> isAWinner(choice, beatPathTable))
-				.allMatch(choice -> winners.contains(choice));
+				.allMatch(choice -> winners.contains(choice)));
 	}
 
 	private boolean isAWinner(final String player1, final BeatTable beatPathTable) {
