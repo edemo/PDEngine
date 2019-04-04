@@ -42,7 +42,7 @@ public interface IVoteManager {
 
 	boolean hasAssurance(final String role);
 	
-	User getWsUser(String proxyId);
+	List<String> getAssurances();
 
 	void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName);
 
