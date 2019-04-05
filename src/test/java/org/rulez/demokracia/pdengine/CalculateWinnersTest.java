@@ -2,6 +2,8 @@ package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.*;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +36,9 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@TestedBehaviour("only choices not in ignoredChoices are considered")
 	@Test
 	public void calculate_winners_returns_none_of_the_ignored_choices() {
-		List<String> winners = computedVote.calculateWinners(Arrays.asList("A"));
+		Collection<String> ignoredChoices = Arrays.asList("A");
+		List<String> winners = winnerCalculator
+				.calculateWinners(beatPathTable, ignoredChoices);
 		assertFalse(winners.contains("A"));
 
 	}
@@ -42,20 +46,20 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@TestedBehaviour("only choices not in ignoredChoices are considered")
 	@Test
 	public void calculate_winners_returns_not_ignored_winner() {
-		List<String> winners = computedVote.calculateWinners(Arrays.asList("C"));
+		List<String> winners = winnerCalculator.calculateWinners(beatPathTable, Arrays.asList("C"));
 		assertTrue(winners.contains("A"));
 	}
 
 	@TestedBehaviour("all non-beaten candidates are winners")
 	@Test
 	public void calculate_winners_doesnt_return_beaten_candidates() {
-		assertNoWinnerIsBeaten(winnerCalculator.calculateWinners(beatPathTable));
+		assertNoWinnerIsBeaten(winnerCalculator.calculateWinners(beatPathTable, new HashSet<>()));
 	}
 
 	@TestedBehaviour("all non-beaten candidates are winners")
 	@Test
 	public void calculate_winners_return_all_non_beaten_candidates() {
-		assertNonbeatensAreWinner(winnerCalculator.calculateWinners(beatPathTable));
+		assertNonbeatensAreWinner(winnerCalculator.calculateWinners(beatPathTable, new HashSet<>()));
 	}
 
 	private void assertNoWinnerIsBeaten(final List<String> winners) {

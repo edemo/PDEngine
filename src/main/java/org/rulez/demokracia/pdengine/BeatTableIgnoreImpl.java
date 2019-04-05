@@ -1,8 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
 import java.util.Collection;
-import java.util.Objects;
-
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 
 import jersey.repackaged.com.google.common.collect.Sets;
@@ -18,7 +16,6 @@ public class BeatTableIgnoreImpl implements BeatTableIgnore {
 		for (String key1 : activeChoices) {
 			for (String key2 : activeChoices) {
 				Pair source = beatPathTable.getElement(key1, key2);
-				if (Objects.nonNull(source))
 					filteredBeatTable.setElement(key1, key2, source);
 			}
 		}
