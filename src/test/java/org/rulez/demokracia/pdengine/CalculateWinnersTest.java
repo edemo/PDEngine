@@ -11,13 +11,12 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRankedChoices;
+import org.rulez.demokracia.pdengine.testhelpers.CreatedComputedVote;
 
 @TestedFeature("Vote")
 @TestedOperation("calculate winners")
-public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoices {
+public class CalculateWinnersTest extends CreatedComputedVote {
 
-	private ComputedVote computedVote;
 	private WinnerCalculator winnerCalculator;
 	private BeatTable beatPathTable;
 
@@ -25,10 +24,6 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@Before
 	public void setUp() {
 		super.setUp();
-		getTheVote().votesCast = castVote;
-
-		computedVote = new ComputedVote(getTheVote());
-		computedVote.computeVote();
 		winnerCalculator = new WinnerCalculatorImpl();
 		beatPathTable = computedVote.getBeatPathTable();
 	}
@@ -82,5 +77,4 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 		}
 		return true;
 	}
-
 }

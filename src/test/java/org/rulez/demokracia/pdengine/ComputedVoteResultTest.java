@@ -10,14 +10,13 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRankedChoices;
+import org.rulez.demokracia.pdengine.testhelpers.CreatedComputedVote;
 
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
-public class ComputedVoteResultTest extends CreatedDefaultCastVoteWithRankedChoices {
+@TestedBehaviour("the winners list contains the looses to the first one")
+public class ComputedVoteResultTest extends CreatedComputedVote {
 
-	private ComputedVote computedVote;
-	private List<VoteResult> result;
 	private Set<String> choicesReturned;
 	private Set<String> keySetOfInitialBeatTable;
 
@@ -25,22 +24,17 @@ public class ComputedVoteResultTest extends CreatedDefaultCastVoteWithRankedChoi
 	@Override
 	public void setUp() {
 		super.setUp();
-		getTheVote().votesCast = castVote;
-		computedVote = new ComputedVote(getTheVote());
-		result = computedVote.computeVote();
 
 		choicesReturned = convertResultToChoiceSet(result);
 		keySetOfInitialBeatTable = getKeySetFromBeatTable(computedVote);
 
 	}
 
-	@TestedBehaviour("the winners list contains the looses to the first one")
 	@Test
 	public void compute_vote_results_returns_every_choice() {
 		assertEquals(keySetOfInitialBeatTable, choicesReturned);
 	}
 
-	@TestedBehaviour("the winners list contains the looses to the first one")
 	@Test
 	public void compute_vote_results_returns_each_choices_once() {
 		List<String> keyList = result.stream().map(VoteResult::getChoices)
@@ -49,14 +43,12 @@ public class ComputedVoteResultTest extends CreatedDefaultCastVoteWithRankedChoi
 		assertEquals(keyList.size(), choicesReturned.size());
 	}
 
-	@TestedBehaviour("the winners list contains the looses to the first one")
 	@Test
 	public void compute_vote_results_assigns_no_beat_to_winners() {
 		int winnersLoses = getNumberOfBeats(result.get(0));
 		assertEquals(0, winnersLoses);
 	}
 
-	@TestedBehaviour("the winners list contains the looses to the first one")
 	@Test
 	public void compute_vote_results_return_nonzero_loses_for_nonwinners() {
 		for (VoteResult choiceMap : result.subList(1, result.size())) {

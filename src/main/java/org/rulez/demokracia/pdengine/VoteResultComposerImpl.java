@@ -11,7 +11,7 @@ import org.rulez.demokracia.pdengine.dataobjects.Pair;
 
 public class VoteResultComposerImpl implements VoteResultComposer {
 
-	private WinnerCalculator winnerCalculator;
+	private final WinnerCalculator winnerCalculator;
 	private final Set<String> ignoredSet;
 
 	public VoteResultComposerImpl() {
@@ -22,13 +22,18 @@ public class VoteResultComposerImpl implements VoteResultComposer {
 	@Override
 	public List<VoteResult> composeResult(final BeatTable beatTable) {
 		List<VoteResult> result = new ArrayList<>();
-		while (!ignoredSet.equals(new HashSet<>(beatTable.getKeyCollection()))) {
+		HashSet<String> keyCollection = new HashSet<>(beatTable.getKeyCollection());
+		while (!ignoredSet.equals(keyCollection)) {
 			List<String> winners = winnerCalculator.calculateWinners(beatTable, ignoredSet);
 
-			result.add(new VoteResult(winners, getBeats(winners, beatTable)));
+			result.add(createVoteResult(beatTable, winners));
 			ignoredSet.addAll(winners);
 		}
 		return result;
+	}
+
+	private VoteResult createVoteResult(final BeatTable beatTable, final List<String> winners) {
+		return new VoteResult(winners, getBeats(winners, beatTable));
 	}
 
 	private Map<String, Map<String, Pair>> getBeats(final List<String> choices, final BeatTable beatTable) {
