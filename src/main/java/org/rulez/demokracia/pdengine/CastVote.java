@@ -40,6 +40,6 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 	}
 
 	public void updateSignature() {
-		signature = MessageSigner.signatureOfMessage(contentToBeSigned().getBytes());
+		signature = MessageSigner.getInstance().signatureOfMessage(contentToBeSigned().getBytes());
 	}
 }

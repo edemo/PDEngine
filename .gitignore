@@ -22,4 +22,3 @@ inputs/
 issuesReport.json
 shippable/
 zentaworkaround
-src/main/resources/keystore.pk12

@@ -2,8 +2,6 @@ package org.rulez.demokracia.pdengine;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -23,21 +21,35 @@ import javax.naming.NamingException;
 
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 
-public class MessageSigner {
+public final class MessageSigner {
 
-	public PublicKey pubkey;
+	private PublicKey pubkey;
 	private PrivateKey privkey;
+    private static MessageSigner instance;
 
-    private static class Storage {
-        private static final MessageSigner INSTANCE = new MessageSigner();
-     }
+	private KeyStore keyStore;
+    private String keyStorePath;
+    private String keyAlias;
+    private char[] keyStorePassword;
+
+    public static MessageSigner getInstance() {
+        if (instance == null) {
+        	synchronized (MessageSigner.class) {
+        		if (instance == null)
+        			instance = new MessageSigner();
+        	}
+        }
+        return instance;
+    }
 
 	private MessageSigner () {
-		String keyStorePath;
-		String keyAlias;
-		Context xmlNode;
-		char[] keyStorePassword=null;
+		fetchKeyStorePriperties();
+		loadKeyStore();
+		fetchKeys();
+	}
 
+	private void fetchKeyStorePriperties() {
+		Context xmlNode;
 		try {
 			InitialContext context = new InitialContext();
 			xmlNode = (Context) context.lookup("java:comp/env");
@@ -47,32 +59,36 @@ public class MessageSigner {
 		} catch (NamingException e) {
 			throw (ReportedException)new ReportedException("Cannot get keystore properties from app server context").initCause(e);
 		}
+	}
 
-		KeyStore keyStore;
+	private void loadKeyStore() {
 		try {
 			keyStore = KeyStore.getInstance("PKCS12");
-		} catch (KeyStoreException e) {
-			throw (ReportedException)new ReportedException("Cannot handle PKCS12 keystore").initCause(e);
-		}
-
-    	try (InputStream keyStoreData = Files.newInputStream(Paths.get(keyStorePath))) {
+    		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+    		InputStream keyStoreData = classloader.getResourceAsStream(keyStorePath);
 			keyStore.load(keyStoreData, keyStorePassword);
-			privkey = (PrivateKey) keyStore.getKey(keyAlias, keyStorePassword);
-			Certificate cert = keyStore.getCertificate(keyAlias);
-			pubkey = cert.getPublicKey();
-    	} catch ( KeyStoreException | IOException | NoSuchAlgorithmException |
-    			  CertificateException | UnrecoverableKeyException e ) {
+    	} catch ( KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e ) {
     		throw (ReportedException)new ReportedException("Keystore initialization error").initCause(e);
     	}
 	}
 
-	public static String signatureOfMessage( final byte[] msg ) {
+	private void fetchKeys() {
+		try {
+			privkey = (PrivateKey) keyStore.getKey(keyAlias, keyStorePassword);
+			Certificate cert = keyStore.getCertificate(keyAlias);
+			pubkey = cert.getPublicKey();
+		} catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException e) {
+			throw (ReportedException)new ReportedException("Error in extracting keys").initCause(e);
+		}
+	}
+
+	public String signatureOfMessage( final byte[] msg ) {
         Signature sig;
         String signature=null;
 
 		try {
 			sig = Signature.getInstance("SHA256WithRSA");
-	        sig.initSign(Storage.INSTANCE.privkey);
+	        sig.initSign(privkey);
 	        sig.update(msg);
 	        byte[] signatureBytes = sig.sign();
 	        signature = Base64.getEncoder().encodeToString(signatureBytes);
@@ -82,7 +98,7 @@ public class MessageSigner {
 		return signature;
 	}
 
-	public static PublicKey getPublicKey() {
-		return Storage.INSTANCE.pubkey;
+	public PublicKey getPublicKey() {
+		return pubkey;
 	}
 }

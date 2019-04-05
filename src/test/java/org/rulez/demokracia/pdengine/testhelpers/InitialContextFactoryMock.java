@@ -12,7 +12,7 @@ import javax.naming.spi.InitialContextFactory;
 
 public  class InitialContextFactoryMock implements InitialContextFactory {
 
-  private final static String KEYSTORE="/pdengine/src/main/resources/keystore.pk12";
+  private final static String KEYSTORE="resources/keystore.pk12";
   private final static String KEYALIAS="PDEngineKeys";
   private final static String KEYSTOREPASS="changeit";
 
