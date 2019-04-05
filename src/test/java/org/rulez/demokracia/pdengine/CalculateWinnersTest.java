@@ -43,7 +43,7 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@Test
 	public void calculate_winners_returns_not_ignored_winner() {
 		List<String> winners = computedVote.calculateWinners(Arrays.asList("C"));
-		assertTrue(winners.contains("D"));
+		assertTrue(winners.contains("A"));
 	}
 
 	@TestedBehaviour("all non-beaten candidates are winners")
