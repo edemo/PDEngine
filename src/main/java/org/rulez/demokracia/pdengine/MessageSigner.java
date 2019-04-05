@@ -2,6 +2,8 @@ package org.rulez.demokracia.pdengine;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -62,6 +64,20 @@ public final class MessageSigner {
 	}
 
 	private void loadKeyStore() {
+		for (String cp: System.getProperty("java.class.path").split(":")) { System.out.println("CLASSPATH="+cp); }
+		System.getenv().forEach((k, v) -> {
+		    System.out.println("ENVIRINMENT:" + k + ":" + v);
+		});
+		ClassLoader cl = ClassLoader.getSystemClassLoader();
+
+        URL[] urls = ((URLClassLoader)cl).getURLs();
+        for(URL url: urls){
+        	System.out.println("URLS:" + url.getFile());
+        }
+
+
+
+
 		try {
 			keyStore = KeyStore.getInstance("PKCS12");
     		ClassLoader classloader = Thread.currentThread().getContextClassLoader();

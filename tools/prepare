@@ -5,7 +5,7 @@ then
     Xvnc4 -SecurityTypes none :0 &
 fi
 set +x
-. <(./tools/decrypt_secret_env $ORG_NAME)
+source ./tools/decrypt_secret_env $ORG_NAME
 set -x
 #!!!do not do it on a production system!!!
 #run haveged instead
