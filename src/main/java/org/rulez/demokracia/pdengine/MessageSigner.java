@@ -2,8 +2,6 @@ package org.rulez.demokracia.pdengine;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -27,7 +25,10 @@ public final class MessageSigner {
 
 	private PublicKey pubkey;
 	private PrivateKey privkey;
-    private static MessageSigner instance;
+
+	private static class Storage {
+		private static final MessageSigner INSTANCE = new MessageSigner();
+	}
 
 	private KeyStore keyStore;
     private String keyStorePath;
@@ -35,13 +36,7 @@ public final class MessageSigner {
     private char[] keyStorePassword;
 
     public static MessageSigner getInstance() {
-        if (instance == null) {
-        	synchronized (MessageSigner.class) {
-        		if (instance == null)
-        			instance = new MessageSigner();
-        	}
-        }
-        return instance;
+        return Storage.INSTANCE;
     }
 
 	private MessageSigner () {
@@ -64,20 +59,6 @@ public final class MessageSigner {
 	}
 
 	private void loadKeyStore() {
-		for (String cp: System.getProperty("java.class.path").split(":")) { System.out.println("CLASSPATH="+cp); }
-		System.getenv().forEach((k, v) -> {
-		    System.out.println("ENVIRINMENT:" + k + ":" + v);
-		});
-		ClassLoader cl = ClassLoader.getSystemClassLoader();
-
-        URL[] urls = ((URLClassLoader)cl).getURLs();
-        for(URL url: urls){
-        	System.out.println("URLS:" + url.getFile());
-        }
-
-
-
-
 		try {
 			keyStore = KeyStore.getInstance("PKCS12");
     		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
