@@ -50,7 +50,7 @@ public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 		assertPairInitialized(abPair);
 	}
 
-	@TestedBehaviour("alculates and stores beatpath matrix")
+	@TestedBehaviour("calculates and stores beatpath matrix")
 	@Test
 	public void beat_path_matrix_is_not_the_same_as_initial_matrix() {
 		ComputedVote computedVote = new ComputedVote(getTheVote());
