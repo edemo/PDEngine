@@ -3,6 +3,8 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
@@ -19,6 +21,8 @@ public class BeatTableIgnoreTest extends CreatedComputedVote {
 
 	private BeatTableIgnore beatTableIgnore;
 	private BeatTable beatTable;
+	private Collection<String> ignoredChoices;
+	private BeatTable ignoredBeatTable;
 
 	@Override
 	@Before
@@ -26,22 +30,33 @@ public class BeatTableIgnoreTest extends CreatedComputedVote {
 		super.setUp();
 		beatTable = computedVote.getBeatPathTable();
 		beatTableIgnore = new BeatTableIgnoreImpl();
+		ignoredChoices = Arrays.asList("A", "B");
+		ignoredBeatTable = beatTableIgnore.ignoreChoices(beatTable, ignoredChoices);
 	}
 
 	@Test
-	public void calculate_winners_returns_none_of_the_ignored_choices() {
-		Collection<String> ignoredChoices = Arrays.asList("A", "B");
-		BeatTable ignoredBeatTable = beatTableIgnore.ignoreChoices(beatTable, ignoredChoices);
-
+	public void ignore_choices_returns_none_of_the_ignored_choices() {
 		assertIntersectionIsEmpty(ignoredChoices, ignoredBeatTable.getKeyCollection());
 	}
 
 	@Test
-	public void calculate_winners_returns_the_not_ignored_choices() {
-		Collection<String> ignoredChoices = Arrays.asList("A", "B");
-		BeatTable ignoredBeatTable = beatTableIgnore.ignoreChoices(beatTable, ignoredChoices);
-
+	public void ignore_choices_returns_the_not_ignored_choices() {
 		assertEquals(Sets.newHashSet("C", "D"), Sets.newHashSet(ignoredBeatTable.getKeyCollection()));
+	}
+
+	@Test
+	public void ignore_choices_copies_every_not_ignored_pairs() {
+		assertBeatsEqualsInSubset(beatTable, ignoredBeatTable, Sets.newHashSet("C", "D"));
+	}
+
+	private void assertBeatsEqualsInSubset(final BeatTable table1, final BeatTable table2,
+			final HashSet<String> choices) {
+		for (String choice1 : choices) {
+			for (String choice2 : choices) {
+				assertEquals(table1.getElement(choice1, choice2), table2.getElement(choice1, choice2));
+			}
+		}
+
 	}
 
 	private void assertIntersectionIsEmpty(final Collection<String> collection1, final Collection<String> collection2) {
