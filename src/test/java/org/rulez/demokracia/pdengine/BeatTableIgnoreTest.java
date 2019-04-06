@@ -10,17 +10,15 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedComputedVote;
-
+import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
 import jersey.repackaged.com.google.common.collect.Sets;
 
 @TestedFeature("Vote")
 @TestedOperation("calculate winners")
 @TestedBehaviour("only choices not in ignoredChoices are considered")
-public class BeatTableIgnoreTest extends CreatedComputedVote {
+public class BeatTableIgnoreTest extends CreatedBeatTable {
 
 	private BeatTableIgnore beatTableIgnore;
-	private BeatTable beatTable;
 	private Collection<String> ignoredChoices;
 	private BeatTable ignoredBeatTable;
 
@@ -28,9 +26,9 @@ public class BeatTableIgnoreTest extends CreatedComputedVote {
 	@Before
 	public void setUp() {
 		super.setUp();
-		beatTable = computedVote.getBeatPathTable();
+		createNewBeatTableWithComplexData();
 		beatTableIgnore = new BeatTableIgnoreImpl();
-		ignoredChoices = Arrays.asList("A", "B");
+		ignoredChoices = Arrays.asList("name1", "name2");
 		ignoredBeatTable = beatTableIgnore.ignoreChoices(beatTable, ignoredChoices);
 	}
 
@@ -41,12 +39,12 @@ public class BeatTableIgnoreTest extends CreatedComputedVote {
 
 	@Test
 	public void ignore_choices_returns_the_not_ignored_choices() {
-		assertEquals(Sets.newHashSet("C", "D"), Sets.newHashSet(ignoredBeatTable.getKeyCollection()));
+		assertEquals(Sets.newHashSet("name3"), Sets.newHashSet(ignoredBeatTable.getKeyCollection()));
 	}
 
 	@Test
 	public void ignore_choices_copies_every_not_ignored_pairs() {
-		assertBeatsEqualsInSubset(beatTable, ignoredBeatTable, Sets.newHashSet("C", "D"));
+		assertBeatsEqualsInSubset(beatTable, ignoredBeatTable, Sets.newHashSet("name3"));
 	}
 
 	private void assertBeatsEqualsInSubset(final BeatTable table1, final BeatTable table2,

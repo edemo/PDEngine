@@ -16,7 +16,7 @@ public class BeatTableIgnoreImpl implements BeatTableIgnore {
 		for (String key1 : activeChoices) {
 			for (String key2 : activeChoices) {
 				Pair source = beatPathTable.getElement(key1, key2);
-					filteredBeatTable.setElement(key1, key2, source);
+				filteredBeatTable.setElement(key1, key2, source);
 			}
 		}
 		return filteredBeatTable;
