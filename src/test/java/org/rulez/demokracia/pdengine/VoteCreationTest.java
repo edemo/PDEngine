@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.time.Instant;
 
@@ -17,6 +18,7 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 @TestedBehaviour("Creates a vote")
 public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -31,7 +33,7 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	public void create_creates_a_vote_with_neededAssurances() {
 		assertEquals(neededAssurances.size(), voteManager.getVote(adminInfo.voteId).neededAssurances.size());
 	}
-	
+
 	@Test
 	public void neededAssurances_contains_the_assurances_of_the_input() {
 		VoteAdminInfo secondVote = createAVote();
@@ -42,14 +44,14 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 	public void create_creates_a_vote_with_countedAssurances() {
 		assertEquals(0, voteManager.getVote(adminInfo.voteId).countedAssurances.size());
 	}
-	
+
 	@Test
 	public void countedAssurances_contains_the_assurances_of_the_input() {
 		countedAssurances.add(ASSURANCE_NAME);
 		VoteAdminInfo secondVote = createAVote();
 		assertEquals(ASSURANCE_NAME, voteManager.getVote(secondVote.voteId).countedAssurances.get(0));
 	}
-	
+
 	@Test
 	public void create_creates_a_vote_with_isPrivate() {
 		assertEquals(true, voteManager.getVote(adminInfo.voteId).isPrivate);
@@ -83,14 +85,14 @@ public class VoteCreationTest extends CreatedDefaultVoteRegistry{
 
 	@Test
 	public void create_creates_a_vote_with_minEndorsements() {
-		assertEquals(voteManager.getVote(adminInfo.voteId).minEndorsements, 0);
+		assertEquals(0, voteManager.getVote(adminInfo.voteId).parameters.minEndorsements);
 	}
 
 	@Test
 	public void minEndorsements_is_the_same_what_is_given_in_create() {
 		minEndorsements = 42;
 		VoteAdminInfo secondVote = createAVote();
-		assertEquals(42, voteManager.getVote(secondVote.voteId).minEndorsements);
+		assertEquals(minEndorsements, voteManager.getVote(secondVote.voteId).parameters.minEndorsements);
 	}
 
 	@Test

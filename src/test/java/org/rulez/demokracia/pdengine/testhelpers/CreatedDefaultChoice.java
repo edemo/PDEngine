@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.rulez.demokracia.pdengine.CastVote;
 import org.rulez.demokracia.pdengine.RankedChoice;
 import org.rulez.demokracia.pdengine.Vote;
-import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
@@ -18,6 +18,7 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 	public List<RankedChoice> theCastVote;
 	public Vote vote;
 
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -47,7 +48,7 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 		assertThrows(() -> {
 			voteManager.endorseChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), choiceId, "testuserke");
 		})
-				.assertException(ReportedException.class).assertMessageIs(message);
+		.assertException(ReportedException.class).assertMessageIs(message);
 	}
 
 	protected void addSecondDummies() {
@@ -67,11 +68,15 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 		vote.votesCast.add(new CastVote(proxyId, theCastVote));
 	}
 
+	protected void addCastVote(final CastVote castVote) {
+		vote.votesCast.add(castVote);
+	}
+
 	protected void initializeVoteCastTest() {
 		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		theCastVote = new ArrayList<>();
 		vote = getTheVote();
-		vote.canVote = true;
+		vote.parameters.canVote = true;
 		vote.votesCast.clear();
 	}
 

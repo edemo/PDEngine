@@ -4,131 +4,83 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.persistence.Entity;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.rulez.demokracia.pdengine.dataobjects.CastVote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
+
+import com.google.gson.JsonObject;
 
 @Entity
-public class Vote extends VoteEntity {
+public class Vote extends VoteEntity implements VoteInterface, Admnistrable, HasChoices, HasBallots, Endorseable, Voteable {
 
 	private static final long serialVersionUID = 1L;
 
 	public Vote(final String voteName, final Collection<String> neededAssurances, final Collection<String> countedAssurances,
 			final boolean isClosed, final int minEndorsements) {
 		super();
-		name = voteName;
-		adminKey = RandomUtils.createRandomKey();
+		this.name = voteName;
+		this.adminKey = RandomUtils.createRandomKey();
 		this.neededAssurances = new ArrayList<>(neededAssurances);
 		this.countedAssurances = new ArrayList<>(countedAssurances);
-		isPrivate = isClosed;
-		this.minEndorsements = minEndorsements;
-		creationTime = Instant.now().getEpochSecond();
-		choices = new HashMap<>();
-		ballots = new ArrayList<>();
-		votesCast = new ArrayList<>();
-		recordedBallots = new HashMap<>();
+		this.isPrivate = isClosed;
+		this.parameters = new VoteParameters();
+		this.parameters.minEndorsements = minEndorsements;
+		this.creationTime = Instant.now().getEpochSecond();
+		this.choices = new HashMap<>();
+		this.ballots = new ArrayList<>();
+		this.votesCast = new ArrayList<>();
+		this.recordedBallots = new HashMap<>();
 	}
 
-	public Integer getRecordedBallotsCount(final String userName) {
-		return recordedBallots.containsKey(userName) ? recordedBallots.get(userName) : 0;
+	public JsonObject toJson() {
+		return new VoteJSONSerializer().fromVote(this);
 	}
 
-	public void increaseRecordedBallots(final String key) {
-		recordedBallots.put(key, getRecordedBallotsCount(key) + 1);
+	@Override
+	public VoteParameters getParameters() {
+		return this.parameters;
 	}
 
-	public String addChoice(final String choiceName, final String user) {
-		Choice choice = new Choice(choiceName, user);
-		choices.put(choice.id, choice);
-		return choice.id;
+	@Override
+	public String getAdminKey() {
+		return this.adminKey;
 	}
 
-	public Choice getChoice(final String choiceId) {
-		if (!choices.containsKey(choiceId)) {
-			throw new ReportedException("Illegal choiceId", choiceId);
-		}
-		return choices.get(choiceId);
+	@Override
+	public Map<String, Choice> getChoices() {
+		return this.choices;
 	}
 
-	public boolean hasIssuedBallots() {
-		return !ballots.isEmpty();
+	@Override
+	public Map<String, Integer> getRecordedBallots() {
+		return this.recordedBallots;
 	}
 
-	public void setParameters(final int minEndorsements, final boolean canAddin, final boolean canEndorse, final boolean canVote,
-			final boolean canView) {
-		this.minEndorsements = minEndorsements;
-		this.canAddin = canAddin;
-		this.canEndorse = canEndorse;
-		this.canVote = canVote;
-		this.canView = canView;
+	@Override
+	public List<String> getBallots() {
+		return this.ballots;
 	}
 
-	public void checkAdminKey(final String providedAdminKey) {
-		if (!(adminKey.equals(providedAdminKey) || "user".equals(providedAdminKey))) {
-			throw new ReportedException("Illegal adminKey", providedAdminKey);
-		}
+	@Override
+	public List<CastVote> getVotesCast() {
+		return this.votesCast;
 	}
 
-	public JSONObject toJson(final String voteId) {
-		JSONObject obj = new JSONObject();
-		obj.put("name", this.name);
-		obj.put("canAddIn", this.canAddin);
-		obj.put("creationTime", this.creationTime);
-		obj.put("choices", createChoicesJson(this.choices));
-		obj.put("canEndorse", this.canEndorse);
-		obj.put("countedAssurances", this.countedAssurances);
-		obj.put("neededAssurances", this.neededAssurances);
-		obj.put("minEndorsements", this.minEndorsements);
-		obj.put("id", voteId);
-		obj.put("canView", this.canView);
-		obj.put("canVote", this.canVote);
-		return obj;
+	@Override
+	public String getId() {
+		return this.id;
 	}
 
-	public JSONArray createChoicesJson(final Map<String, Choice> choices) {
-		JSONArray array = new JSONArray();
-
-		for (Entry<String, Choice> entry : choices.entrySet()) {
-			String key = entry.getKey();
-			Choice value = entry.getValue();
-
-			JSONObject obj = choiceAsJson(key, value);
-
-			array.put(obj);
-		}
-
-		return array;
+	@Override
+	public List<String> getNeededAssurances() {
+		return new ArrayList<>(this.neededAssurances);
 	}
 
-	private JSONObject choiceAsJson(final String key, final Choice choice) {
-		JSONObject obj = new JSONObject();
-		obj.put("initiator", choice.userName);
-		obj.put("endorsers", choice.endorsers);
-		obj.put("name", choice.name);
-		obj.put("id", key);
-		return obj;
-	}
-
-	protected CastVote addCastVote(final String proxyId, final List<RankedChoice> theVote) {
-		Iterator<CastVote> listIterator = votesCast.iterator();
-		while (listIterator.hasNext()) {
-			CastVote element = listIterator.next();
-
-			if (element.proxyId != null && element.proxyId.equals(proxyId))
-				listIterator.remove();
-		}
-
-		CastVote castVote = new CastVote(proxyId, theVote);
-		votesCast.add(castVote);
-		return castVote;
+	public List<CastVote> filterVotes(final String assurance) {
+		return new VoteFilter().filterVotes(votesCast, assurance);
 	}
 }
