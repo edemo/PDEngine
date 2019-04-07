@@ -9,7 +9,7 @@ import org.hibernate.Session;
 public class SessionFactoryManager {
 
 	protected Session session;
-	private ADAAssuranceProvider adaAssuranceProvider;
+	private final ADAAssuranceProvider adaAssuranceProvider;
 	private final WebServiceContext wsContext;
 
 	public SessionFactoryManager(final WebServiceContext wsContext) {

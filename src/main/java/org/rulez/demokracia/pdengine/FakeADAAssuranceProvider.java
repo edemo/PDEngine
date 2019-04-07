@@ -5,25 +5,18 @@ import java.util.List;
 public class FakeADAAssuranceProvider implements ADAAssuranceProvider{
 	private ADAAssuranceProvider assuranceProvider;
 
-	public FakeADAAssuranceProvider(FakeADAAssuranceProvider adaAssuranceProvider) {
-		setAssuranceProvider(adaAssuranceProvider);
+	public FakeADAAssuranceProvider(final FakeADAAssuranceProvider adaAssuranceProvider) {
+		assuranceProvider = adaAssuranceProvider;
 	}
 	
-	public List<String> getassurancesFor(String proxyId) {
+	@Override
+	public List<String> getassurancesFor(final String proxyId) {
 		return getUser(proxyId).getAssurances();
 	}
 	
-	private User getUser(String proxyId) {
+	private User getUser(final String proxyId) {
 		User user = new User(proxyId);
 		user.assurances.add("TestAssurances");
 		return user;
-	}
-
-	public ADAAssuranceProvider getAssuranceProvider() {
-		return assuranceProvider;
-	}
-
-	public void setAssuranceProvider(ADAAssuranceProvider assuranceProvider) {
-		this.assuranceProvider = assuranceProvider;
 	}
 }
