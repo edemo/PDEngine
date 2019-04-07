@@ -9,14 +9,14 @@ import org.hibernate.Session;
 public class SessionFactoryManager {
 
 	protected Session session;
-	private FakeADAAssuranceProvider fakeADAAssuranceProvider;
+	private ADAAssuranceProvider adaAssuranceProvider;
 	private final WebServiceContext wsContext;
 
 	public SessionFactoryManager(final WebServiceContext wsContext) {
 		super();
 		this.wsContext = wsContext;
 		session = DBSessionManagerUtils.getDBSession();
-		fakeADAAssuranceProvider = new FakeADAAssuranceProvider();
+		adaAssuranceProvider = new FakeADAAssuranceProvider(null);
 	}
 
 	public WebServiceContext getWsContext() {
@@ -31,8 +31,8 @@ public class SessionFactoryManager {
 		return getWsContext().isUserInRole(role);
 	}
 	
-	public FakeADAAssuranceProvider getFakeADAAssuranceProvider() {
-		return fakeADAAssuranceProvider;
+	public ADAAssuranceProvider getFakeADAAssuranceProvider() {
+		return adaAssuranceProvider;
 	}
 	
 	public List<String> getAssurances() {

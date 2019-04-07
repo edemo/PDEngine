@@ -1,17 +1,29 @@
 package org.rulez.demokracia.pdengine;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FakeADAAssuranceProvider {
+public class FakeADAAssuranceProvider implements ADAAssuranceProvider{
+	private ADAAssuranceProvider assuranceProvider;
 
-	public FakeADAAssuranceProvider() {
+	public FakeADAAssuranceProvider(FakeADAAssuranceProvider adaAssuranceProvider) {
+		setAssuranceProvider(adaAssuranceProvider);
 	}
 	
 	public List<String> getassurancesFor(String proxyId) {
-		List<String> assurances = new ArrayList<String>();
-		assurances.add("TestAssurances");
-		
-		return assurances;
+		return getUser(proxyId).getAssurances();
+	}
+	
+	private User getUser(String proxyId) {
+		User user = new User(proxyId);
+		user.assurances.add("TestAssurances");
+		return user;
+	}
+
+	public ADAAssuranceProvider getAssuranceProvider() {
+		return assuranceProvider;
+	}
+
+	public void setAssuranceProvider(ADAAssuranceProvider assuranceProvider) {
+		this.assuranceProvider = assuranceProvider;
 	}
 }

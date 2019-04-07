@@ -54,7 +54,6 @@ public class CastVoteTest extends CreatedDefaultChoice {
 	public void the_assurances_of_the_voter_is_null_if_canupdate_is_false() {
 		vote.parameters.canUpdate = false;
 		CastVote castVote = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		System.out.println("castVote: " + castVote);
 		List<String> assurances = castVote.getAssurances();
 		assertTrue(assurances == null);
 	}
