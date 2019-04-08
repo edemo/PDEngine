@@ -1,6 +1,8 @@
 package org.rulez.demokracia.pdengine;
 
+import java.util.List;
+
 public interface ComputedVoteInterface {
 
-	void computeVote();
+	List<VoteResult> computeVote();
 }
