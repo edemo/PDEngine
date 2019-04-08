@@ -11,7 +11,7 @@ import org.rulez.demokracia.pdengine.dataobjects.Pair;
 
 public class VoteResultComposerImpl implements VoteResultComposer {
 
-	private final WinnerCalculator winnerCalculator;
+	private WinnerCalculator winnerCalculator;
 	private final Set<String> ignoredSet;
 
 	public VoteResultComposerImpl() {
@@ -52,5 +52,9 @@ public class VoteResultComposerImpl implements VoteResultComposer {
 			}
 		}
 		return result;
+	}
+
+	public void setWinnerCalculator(final WinnerCalculator winnerCalculator) {
+		this.winnerCalculator = winnerCalculator;
 	}
 }

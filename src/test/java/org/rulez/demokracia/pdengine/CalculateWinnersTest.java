@@ -11,11 +11,11 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedComputedVote;
+import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRankedChoices;
 
 @TestedFeature("Vote")
 @TestedOperation("calculate winners")
-public class CalculateWinnersTest extends CreatedComputedVote {
+public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoices {
 
 	private WinnerCalculator winnerCalculator;
 	private BeatTable beatPathTable;
@@ -25,7 +25,10 @@ public class CalculateWinnersTest extends CreatedComputedVote {
 	public void setUp() {
 		super.setUp();
 		winnerCalculator = new WinnerCalculatorImpl();
-		beatPathTable = computedVote.getBeatPathTable();
+		beatPathTable = new BeatTable(Arrays.asList("A", "B", "C", "D"));
+		beatPathTable.initialize(castVote);
+		beatPathTable.normalize();
+		beatPathTable.computeTransitiveClosure();
 	}
 
 	@TestedBehaviour("only choices not in ignoredChoices are considered")

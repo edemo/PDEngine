@@ -10,12 +10,14 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedComputedVote;
+import org.rulez.demokracia.pdengine.testhelpers.CreatedVoteResultComposer;
+
+import jersey.repackaged.com.google.common.collect.Sets;
 
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
 @TestedBehaviour("the winners list contains the looses to the first one")
-public class ComputedVoteResultTest extends CreatedComputedVote {
+public class ComputedVoteResultTest extends CreatedVoteResultComposer {
 
 	private Set<String> choicesReturned;
 	private Set<String> keySetOfInitialBeatTable;
@@ -26,7 +28,7 @@ public class ComputedVoteResultTest extends CreatedComputedVote {
 		super.setUp();
 
 		choicesReturned = convertResultToChoiceSet(result);
-		keySetOfInitialBeatTable = getKeySetFromBeatTable(computedVote);
+		keySetOfInitialBeatTable = Sets.newHashSet("A", "B", "C", "D");
 
 	}
 
@@ -63,12 +65,6 @@ public class ComputedVoteResultTest extends CreatedComputedVote {
 
 	private Integer getNumberOfBeats(final VoteResult voteResult) {
 		return voteResult.getBeats().values().stream().map(m -> m.size()).reduce((a, b) -> a + b).get();
-	}
-
-	private Set<String> getKeySetFromBeatTable(final ComputedVote computedVote) {
-		return computedVote.getBeatTable()
-				.getKeyCollection().stream()
-				.collect(Collectors.toSet());
 	}
 
 	private Set<String> convertResultToChoiceSet(final List<VoteResult> result) {

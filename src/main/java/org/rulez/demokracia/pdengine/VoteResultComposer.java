@@ -6,4 +6,6 @@ public interface VoteResultComposer {
 
 	List<VoteResult> composeResult(BeatTable beatTable);
 
+	void setWinnerCalculator(WinnerCalculator winnerCalculator);
+
 }
