@@ -12,14 +12,14 @@ public class CreatedBeatTable extends ThrowableTester{
 	protected BeatTable beatTable;
 
 	protected List<String> list;
-	
+
 	protected Pair pair;
 	protected Pair result;
-	
+
 	protected String choice1;
 	protected String choice2;
 	protected String choice3;
-	
+
 	protected Pair beats1;
 	protected Pair beats2;
 	protected Pair beats3;
@@ -58,8 +58,11 @@ public class CreatedBeatTable extends ThrowableTester{
 		beatTable.setElement(choice2, choice3, new Pair(11, 4));
 		beatTable.setElement(choice3, choice1, new Pair(2, 4));
 		beatTable.setElement(choice3, choice2, new Pair(4, 11));
+		beatTable.setElement(choice1, choice1, new Pair(0, 0));
+		beatTable.setElement(choice2, choice2, new Pair(0, 0));
+		beatTable.setElement(choice3, choice3, new Pair(0, 0));
 	}
-	
+
 	protected void createNewBeatTableWithEqualData() {
 		createNewBeatTableWithData();
 		beatTable.setElement(choice1, choice2, new Pair(2, 2));
@@ -69,9 +72,9 @@ public class CreatedBeatTable extends ThrowableTester{
 		beatTable.setElement(choice2, choice3, new Pair(4, 1));
 		beatTable.setElement(choice3, choice2, new Pair(4, 4));
 	}
-	
+
 	protected void setGetElementAsResult(final String first, final String second) {
-		result = beatTable.getElement(first, second);	
+		result = beatTable.getElement(first, second);
 	}
 
 	protected void setCompareBeatsAsResult(final Pair first, final Pair second) {
