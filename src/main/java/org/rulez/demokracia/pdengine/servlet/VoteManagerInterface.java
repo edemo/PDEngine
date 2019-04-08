@@ -35,7 +35,7 @@ public class VoteManagerInterface {
 	public Response createVote(final CreateVoteRequest request) {
 		VoteAdminInfo adminInfo;
 		try {
-			adminInfo = IVoteManager.getVoteManager(wsContext).createVote(
+			adminInfo = IVoteManager.getVoteManager(wsContext, IVoteManager.getAssuranceManager()).createVote(
 					request.voteName,
 					request.neededAssurances,
 					request.countedAssurances,

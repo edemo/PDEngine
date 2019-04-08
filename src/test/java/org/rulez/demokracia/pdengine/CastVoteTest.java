@@ -46,7 +46,7 @@ public class CastVoteTest extends CreatedDefaultChoice {
 	public void the_assurances_of_the_voter_can_be_obtained_from_a_cast_vote_if_canupdate_is_true() {
 		vote.parameters.canUpdate = true;
 		CastVote castVote = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertEquals("TestAssurances", castVote.assurances.get(0));
+		assertEquals("magyar", castVote.assurances.get(0));
 	}
 	
 	@TestedBehaviour("The assurances of the voter can be obtained from a cast vote if canupdateis true")

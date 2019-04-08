@@ -12,9 +12,9 @@ final public class VoteManagerUtils {
 	private VoteManagerUtils() {
 	}
 
-	public static IVoteManager getVoteManager(final WebServiceContext wsContext) {
+	public static IVoteManager getVoteManager(final WebServiceContext wsContext, AssuranceManager assuranceManager) {
 		if(!registry.containsKey(wsContext)) {
-			registry.put(wsContext, new VoteRegistry(wsContext));
+			registry.put(wsContext, new VoteRegistry(wsContext, assuranceManager));
 		}
 		return registry.get(wsContext);
 	}

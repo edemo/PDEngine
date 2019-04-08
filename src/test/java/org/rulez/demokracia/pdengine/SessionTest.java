@@ -42,8 +42,8 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void two_voteManagers_for_the_same_session_context_are_the_same() {
 		WebServiceContext wsContext = mock(WebServiceContext.class);
-		IVoteManager voteManager1 = IVoteManager.getVoteManager(wsContext);
-		IVoteManager voteManager2 = IVoteManager.getVoteManager(wsContext);
+		IVoteManager voteManager1 = IVoteManager.getVoteManager(wsContext, fakeAssuranceManager);
+		IVoteManager voteManager2 = IVoteManager.getVoteManager(wsContext, fakeAssuranceManager);
 		assertEquals(voteManager1, voteManager2);
 	}
 	
