@@ -11,9 +11,9 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 import com.google.gson.JsonObject;
 
 public class VoteRegistry extends ChoiceManager implements IVoteManager {
-	private AssuranceManager assuranceManager;
+	final private AssuranceManager assuranceManager;
 	
-	public VoteRegistry(final WebServiceContext wsContext, AssuranceManager assuranceManager) {
+	public VoteRegistry(final WebServiceContext wsContext, final AssuranceManager assuranceManager) {
 		super(wsContext);
 		this.assuranceManager = assuranceManager;
 	}
