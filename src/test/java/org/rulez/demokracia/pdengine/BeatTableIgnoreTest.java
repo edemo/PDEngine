@@ -3,7 +3,7 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,6 @@ import jersey.repackaged.com.google.common.collect.Sets;
 @TestedBehaviour("only choices not in ignoredChoices are considered")
 public class BeatTableIgnoreTest extends CreatedBeatTable {
 
-	private BeatTableIgnore beatTableIgnore;
 	private Collection<String> ignoredChoices;
 	private BeatTable ignoredBeatTable;
 
@@ -27,7 +26,7 @@ public class BeatTableIgnoreTest extends CreatedBeatTable {
 	public void setUp() {
 		super.setUp();
 		createNewBeatTableWithComplexData();
-		beatTableIgnore = new BeatTableIgnoreImpl();
+		BeatTableIgnore beatTableIgnore = new BeatTableIgnoreImpl();
 		ignoredChoices = Arrays.asList("name1", "name2");
 		ignoredBeatTable = beatTableIgnore.ignoreChoices(beatTable, ignoredChoices);
 	}
@@ -48,7 +47,7 @@ public class BeatTableIgnoreTest extends CreatedBeatTable {
 	}
 
 	private void assertBeatsEqualsInSubset(final BeatTable table1, final BeatTable table2,
-			final HashSet<String> choices) {
+			final Set<String> choices) {
 		for (String choice1 : choices) {
 			for (String choice2 : choices) {
 				assertEquals(table1.getElement(choice1, choice2), table2.getElement(choice1, choice2));

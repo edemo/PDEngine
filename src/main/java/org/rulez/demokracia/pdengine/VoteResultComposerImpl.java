@@ -54,6 +54,7 @@ public class VoteResultComposerImpl implements VoteResultComposer {
 		return result;
 	}
 
+	@Override
 	public void setWinnerCalculator(final WinnerCalculator winnerCalculator) {
 		this.winnerCalculator = winnerCalculator;
 	}

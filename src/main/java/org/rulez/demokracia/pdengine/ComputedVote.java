@@ -11,7 +11,7 @@ public class ComputedVote implements ComputedVoteInterface, Serializable {
 	private BeatTable beatTable;
 	private final Vote vote;
 	private BeatTable beatPathTable;
-	private final transient VoteResultComposer voteResultComposer;
+	private transient VoteResultComposer voteResultComposer;
 
 
 	public ComputedVote(final Vote vote) {
@@ -57,5 +57,9 @@ public class ComputedVote implements ComputedVoteInterface, Serializable {
 
 	public Vote getVote() {
 		return vote;
+	}
+
+	public void setVoteResultComposer(final VoteResultComposer voteResultComposer) {
+		this.voteResultComposer = voteResultComposer;
 	}
 }

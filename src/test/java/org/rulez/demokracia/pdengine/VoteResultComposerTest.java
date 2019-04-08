@@ -17,7 +17,7 @@ import jersey.repackaged.com.google.common.collect.Sets;
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
 @TestedBehaviour("the winners list contains the looses to the first one")
-public class ComputedVoteResultTest extends CreatedVoteResultComposer {
+public class VoteResultComposerTest extends CreatedVoteResultComposer {
 
 	private Set<String> choicesReturned;
 	private Set<String> keySetOfInitialBeatTable;

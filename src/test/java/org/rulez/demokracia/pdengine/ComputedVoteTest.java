@@ -3,6 +3,8 @@ package org.rulez.demokracia.pdengine;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,13 +12,12 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRankedChoices;
-
+import org.rulez.demokracia.pdengine.testhelpers.CreatedComputedVote;
 import jersey.repackaged.com.google.common.collect.Sets;
 
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
-public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
+public class ComputedVoteTest extends CreatedComputedVote {
 
 	private static final Pair ZERO_PAIR = new Pair(0, 0);
 
@@ -85,6 +86,15 @@ public class ComputedVoteTest extends CreatedDefaultCastVoteWithRankedChoices {
 		BeatTable secondBeatTable = computedVote.getBeatPathTable();
 
 		assertBeatTableEquals(firstBeatTable, secondBeatTable);
+	}
+
+	@TestedBehaviour("the winners list contains the looses to the first one")
+	@Test
+	public void computedVote_returns_the_loses_against_first_ones() {
+		List<VoteResult> computeVote = computedVote.computeVote();
+		Set<String> expectedKeySet = Sets.newHashSet("A", "B");
+		Set<String> actualKeySet = computeVote.get(1).getBeats().get("C").keySet();
+		assertEquals(expectedKeySet, actualKeySet);
 	}
 
 	private void assertBeatTableEquals(final BeatTable firstBeatTable, final BeatTable secondBeatTable) {
