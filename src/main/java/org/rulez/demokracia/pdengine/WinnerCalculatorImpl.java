@@ -1,5 +1,6 @@
 package org.rulez.demokracia.pdengine;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,11 +8,18 @@ import org.rulez.demokracia.pdengine.dataobjects.Pair;
 
 public class WinnerCalculatorImpl implements WinnerCalculator {
 
+	private final BeatTableIgnore beatTableIgnore;
+
+	public WinnerCalculatorImpl() {
+		beatTableIgnore = new BeatTableIgnoreImpl();
+	}
+
 	@Override
-	public List<String> calculateWinners(final BeatTable beatTable) {
-		return beatTable.getKeyCollection()
+	public List<String> calculateWinners(final BeatTable beatTable, final Collection<String> ignoredChoices) {
+		BeatTable ignoredBeatTable = beatTableIgnore.ignoreChoices(beatTable, ignoredChoices);
+		return ignoredBeatTable.getKeyCollection()
 				.stream()
-				.filter(choice -> isWinner(choice, beatTable))
+				.filter(choice -> isWinner(choice, ignoredBeatTable))
 				.collect(Collectors.toList());
 	}
 

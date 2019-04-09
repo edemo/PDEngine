@@ -55,9 +55,9 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 				RankedChoice column = preferences.get(columnIndex);
 				for (int rowIndex = columnIndex + 1; rowIndex < preferences.size(); rowIndex++) {
 					RankedChoice row = preferences.get(rowIndex);
-					if (column.rank > row.rank) {
+					if (column.rank < row.rank) {
 						increasePairValue(preferences, columnIndex, rowIndex);
-					} else if(column.rank < row.rank){
+					} else if (column.rank > row.rank) {
 						increasePairValue(preferences, rowIndex, columnIndex);
 					}
 				}
