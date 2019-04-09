@@ -21,6 +21,10 @@ http://adadocs.demokracia.rulez.org/PDEngine/edemo/master/index.html
 
 # For developers
 
+If you want to use shippable (if you want to issue a pull request, then you must),
+then you have to have an integration in shippable called 'publicpipeline', containing a key 'sonarkey' with your sonar token as the value,
+and 'issuetoken' with a github token. You don't have to give any special privileges to the github token.
+
 !!! even the unit tests use hardware random generator (/dev/random). install the haveged package,
 otherwise tests will take ages!!!
 
