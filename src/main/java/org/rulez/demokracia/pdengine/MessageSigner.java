@@ -26,14 +26,14 @@ public final class MessageSigner {
 	private PublicKey pubkey;
 	private PrivateKey privkey;
 
-	private static class Storage {
-		private static final MessageSigner INSTANCE = new MessageSigner();
-	}
-
 	private KeyStore keyStore;
     private String keyStorePath;
     private String keyAlias;
     private char[] keyStorePassword;
+
+	private static class Storage {
+		private static final MessageSigner INSTANCE = new MessageSigner();
+	}
 
     public static MessageSigner getInstance() {
         return Storage.INSTANCE;
