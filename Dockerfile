@@ -9,7 +9,7 @@ RUN until apt-key adv --keyserver keys.gnupg.net --recv 43DB103F31060848; do ech
 RUN echo deb http://repos.demokracia.rulez.org/apt/debian/ master main >/etc/apt/sources.list.d/repos.demokracia.rulez.org.list
 
 RUN apt-get update
-RUN apt-get -y install openjdk-8-jdk wget git xvfb unzip docbook-xsl make firefox vnc4server\
+RUN apt-get -y install openjdk-10-jdk wget git xvfb unzip docbook-xsl make firefox vnc4server\
     dblatex libwebkitgtk-3.0-0 libswt-webkit-gtk-3-jni python-yaml python-pip python-dateutil\
     zip debhelper devscripts zenta zenta-tools maven haveged vim sudo less
 

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
 <settings>
-    <pluginGroups>
-        <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
-    </pluginGroups>
-    <profiles>
-        <profile>
-            <id>sonar</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <!-- Optional URL to server. Default value is http://localhost:9000 -->
-                <sonar.host.url>https://sonarqube.com</sonar.host.url>
-                <sonar.login>ce65ee556595e9eea1e7d0ee3dccf506f811b809</sonar.login>
-            </properties>
-        </profile>
-     </profiles>
+	<pluginGroups>
+		<pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+	</pluginGroups>
+	<profiles>
+		<profile>
+			<id>sonar</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Optional URL to server. Default value is http://localhost:9000 -->
+				<sonar.host.url>https://sonarqube.com</sonar.host.url>
+				<sonar.login>ce65ee556595e9eea1e7d0ee3dccf506f811b809</sonar.login>
+			</properties>
+		</profile>
+	</profiles>
 </settings>

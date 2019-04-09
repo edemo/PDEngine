@@ -19,58 +19,60 @@ import jersey.repackaged.com.google.common.collect.Sets;
 @TestedBehaviour("the winners list contains the looses to the first one")
 public class VoteResultComposerTest extends CreatedVoteResultComposer {
 
-	private Set<String> choicesReturned;
-	private Set<String> keySetOfInitialBeatTable;
+  private Set<String> choicesReturned;
+  private Set<String> keySetOfInitialBeatTable;
 
-	@Before
-	@Override
-	public void setUp() {
-		super.setUp();
+  @Before
+  @Override
+  public void setUp() {
+    super.setUp();
 
-		choicesReturned = convertResultToChoiceSet(result);
-		keySetOfInitialBeatTable = Sets.newHashSet("A", "B", "C", "D");
+    choicesReturned = convertResultToChoiceSet(result);
+    keySetOfInitialBeatTable = Sets.newHashSet("A", "B", "C", "D");
 
-	}
+  }
 
-	@Test
-	public void compute_vote_results_returns_every_choice() {
-		assertEquals(keySetOfInitialBeatTable, choicesReturned);
-	}
+  @Test
+  public void compute_vote_results_returns_every_choice() {
+    assertEquals(keySetOfInitialBeatTable, choicesReturned);
+  }
 
-	@Test
-	public void compute_vote_results_returns_each_choices_once() {
-		List<String> keyList = result.stream().map(VoteResult::getChoices)
-				.flatMap(List::stream)
-				.collect(Collectors.toList());
-		assertEquals(keyList.size(), choicesReturned.size());
-	}
+  @Test
+  public void compute_vote_results_returns_each_choices_once() {
+    List<String> keyList = result.stream().map(VoteResult::getChoices)
+        .flatMap(List::stream)
+        .collect(Collectors.toList());
+    assertEquals(keyList.size(), choicesReturned.size());
+  }
 
-	@Test
-	public void compute_vote_results_assigns_no_beat_to_winners() {
-		int winnersLoses = getNumberOfBeats(result.get(0));
-		assertEquals(0, winnersLoses);
-	}
+  @Test
+  public void compute_vote_results_assigns_no_beat_to_winners() {
+    int winnersLoses = getNumberOfBeats(result.get(0));
+    assertEquals(0, winnersLoses);
+  }
 
-	@Test
-	public void compute_vote_results_return_nonzero_loses_for_nonwinners() {
-		for (VoteResult choiceMap : result.subList(1, result.size())) {
-			assertEachChoiceHaveBeaten(choiceMap);
-		}
-	}
+  @Test
+  public void compute_vote_results_return_nonzero_loses_for_nonwinners() {
+    for (VoteResult choiceMap : result.subList(1, result.size())) {
+      assertEachChoiceHaveBeaten(choiceMap);
+    }
+  }
 
-	private void assertEachChoiceHaveBeaten(final VoteResult voteResult) {
-		boolean allMatch = voteResult.getBeats().values().stream().allMatch(m -> !m.isEmpty());
-		assertTrue(allMatch);
-	}
+  private void assertEachChoiceHaveBeaten(final VoteResult voteResult) {
+    boolean allMatch =
+        voteResult.getBeats().values().stream().allMatch(m -> !m.isEmpty());
+    assertTrue(allMatch);
+  }
 
-	private Integer getNumberOfBeats(final VoteResult voteResult) {
-		return voteResult.getBeats().values().stream().map(m -> m.size()).reduce((a, b) -> a + b).get();
-	}
+  private Integer getNumberOfBeats(final VoteResult voteResult) {
+    return voteResult.getBeats().values().stream().map(m -> m.size())
+        .reduce((a, b) -> a + b).get();
+  }
 
-	private Set<String> convertResultToChoiceSet(final List<VoteResult> result) {
-		return result.stream()
-				.map(voteResult -> voteResult.getChoices())
-				.flatMap(List::stream)
-				.collect(Collectors.toSet());
-	}
+  private Set<String> convertResultToChoiceSet(final List<VoteResult> result) {
+    return result.stream()
+        .map(voteResult -> voteResult.getChoices())
+        .flatMap(List::stream)
+        .collect(Collectors.toSet());
+  }
 }

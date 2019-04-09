@@ -9,12 +9,12 @@ import org.rulez.demokracia.pdengine.dataobjects.UserEntity;
 @Entity
 public class User extends UserEntity {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public User(final String proxyId)  {
-		super();
-		this.proxyId = proxyId;
-		assurances = new ArrayList<>();
-	}
+  public User(final String proxyId) {
+    super();
+    this.proxyId = proxyId;
+    assurances = new ArrayList<>();
+  }
 
 }

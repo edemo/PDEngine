@@ -13,16 +13,15 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class ContextTest extends CreatedDefaultVoteRegistry {
 
-
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("get context parameter")
-	@TestedBehaviour("context parameters can be obtained from the VoteManager")
-	@Test
-	public void obtain_context_parameter_from_the_VoteManager() {
-		WebServiceContext wsContext = mock(WebServiceContext.class);
-		VoteManager voteManager = new VoteManager(wsContext);
-		WebServiceContext wsContextFromVoteManager = voteManager.getWsContext();
-		assertEquals(wsContextFromVoteManager, wsContext);
-	}
+  @TestedFeature("Supporting functionality")
+  @TestedOperation("get context parameter")
+  @TestedBehaviour("context parameters can be obtained from the VoteManager")
+  @Test
+  public void obtain_context_parameter_from_the_VoteManager() {
+    WebServiceContext wsContext = mock(WebServiceContext.class);
+    VoteManager voteManager = new VoteManager(wsContext);
+    WebServiceContext wsContextFromVoteManager = voteManager.getWsContext();
+    assertEquals(wsContextFromVoteManager, wsContext);
+  }
 
 }

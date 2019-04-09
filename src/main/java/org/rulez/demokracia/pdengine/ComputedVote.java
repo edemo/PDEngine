@@ -7,59 +7,59 @@ import java.util.stream.Collectors;
 
 public class ComputedVote implements ComputedVoteInterface, Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private BeatTable beatTable;
-	private final Vote vote;
-	private BeatTable beatPathTable;
-	private transient VoteResultComposer voteResultComposer;
+  private static final long serialVersionUID = 1L;
+  private BeatTable beatTable;
+  private final Vote vote;
+  private BeatTable beatPathTable;
+  private transient VoteResultComposer voteResultComposer;
 
+  public ComputedVote(final Vote vote) {
+    this.vote = vote;
+    voteResultComposer = new VoteResultComposerImpl();
+  }
 
-	public ComputedVote(final Vote vote) {
-		this.vote = vote;
-		voteResultComposer = new VoteResultComposerImpl();
-	}
+  @Override
+  public List<VoteResult> computeVote() {
+    Set<String> keySet = computeKeySetFromVoteCast();
 
-	@Override
-	public List<VoteResult> computeVote() {
-		Set<String> keySet = computeKeySetFromVoteCast();
+    initializeBeatTable(keySet);
+    normalizeBeatTable();
+    beatPathTable.computeTransitiveClosure();
+    return voteResultComposer.composeResult(beatPathTable);
+  }
 
-		initializeBeatTable(keySet);
-		normalizeBeatTable();
-		beatPathTable.computeTransitiveClosure();
-		return voteResultComposer.composeResult(beatPathTable);
-	}
+  private void normalizeBeatTable() {
+    beatPathTable = new BeatTable(beatTable);
+    beatPathTable.normalize();
+  }
 
-	private void normalizeBeatTable() {
-		beatPathTable = new BeatTable(beatTable);
-		beatPathTable.normalize();
-	}
+  private void initializeBeatTable(final Set<String> keySet) {
+    beatTable = new BeatTable(keySet);
+    beatTable.initialize(vote.getVotesCast());
+  }
 
-	private void initializeBeatTable(final Set<String> keySet) {
-		beatTable = new BeatTable(keySet);
-		beatTable.initialize(vote.getVotesCast());
-	}
+  private Set<String> computeKeySetFromVoteCast() {
+    return vote.getVotesCast().stream()
+        .map(CastVote::getPreferences)
+        .flatMap(List::stream)
+        .map(p -> p.choiceId)
+        .collect(Collectors.toSet());
+  }
 
-	private Set<String> computeKeySetFromVoteCast() {
-		return vote.getVotesCast().stream()
-				.map(CastVote::getPreferences)
-				.flatMap(List::stream)
-				.map(p -> p.choiceId)
-				.collect(Collectors.toSet());
-	}
+  public BeatTable getBeatTable() {
+    return beatTable;
+  }
 
-	public BeatTable getBeatTable() {
-		return beatTable;
-	}
+  public BeatTable getBeatPathTable() {
+    return beatPathTable;
+  }
 
-	public BeatTable getBeatPathTable() {
-		return beatPathTable;
-	}
+  public Vote getVote() {
+    return vote;
+  }
 
-	public Vote getVote() {
-		return vote;
-	}
-
-	public void setVoteResultComposer(final VoteResultComposer voteResultComposer) {
-		this.voteResultComposer = voteResultComposer;
-	}
+  public void
+      setVoteResultComposer(final VoteResultComposer voteResultComposer) {
+    this.voteResultComposer = voteResultComposer;
+  }
 }

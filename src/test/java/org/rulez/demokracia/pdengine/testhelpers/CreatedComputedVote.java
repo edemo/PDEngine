@@ -16,29 +16,36 @@ import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import jersey.repackaged.com.google.common.collect.Maps;
 import jersey.repackaged.com.google.common.collect.Sets;
 
-public class CreatedComputedVote extends CreatedDefaultCastVoteWithRankedChoices {
+public class CreatedComputedVote
+    extends CreatedDefaultCastVoteWithRankedChoices {
 
-	protected ComputedVote computedVote;
-	protected List<VoteResult> result;
+  protected ComputedVote computedVote;
+  protected List<VoteResult> result;
 
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-		getTheVote().votesCast = castVote;
-		computedVote = new ComputedVote(getTheVote());
-		computedVote.setVoteResultComposer(createVoteResultComposerMock());
-		result = computedVote.computeVote();
-	}
+  @Override
+  @Before
+  public void setUp() {
+    super.setUp();
+    getTheVote().votesCast = castVote;
+    computedVote = new ComputedVote(getTheVote());
+    computedVote.setVoteResultComposer(createVoteResultComposerMock());
+    result = computedVote.computeVote();
+  }
 
-	private VoteResultComposer createVoteResultComposerMock() {
-		VoteResultComposer voteResultComposerMock = mock(VoteResultComposer.class);
-		when(voteResultComposerMock.composeResult(ArgumentMatchers.any())).thenReturn(Arrays.asList(
-				new VoteResult(Arrays.asList("A", "B"), new HashMap<>()),
-				new VoteResult(Arrays.asList("C"),
-						Maps.asMap(Sets.newHashSet("C"),
-								(c) -> Maps.asMap(Sets.newHashSet("A", "B"), (d) -> new Pair(3, 1))))));
-		return voteResultComposerMock;
-	}
+  private VoteResultComposer createVoteResultComposerMock() {
+    VoteResultComposer voteResultComposerMock = mock(VoteResultComposer.class);
+    when(voteResultComposerMock.composeResult(ArgumentMatchers.any()))
+        .thenReturn(
+            Arrays.asList(
+                new VoteResult(Arrays.asList("A", "B"), new HashMap<>()),
+                new VoteResult(Arrays.asList("C"),
+                    Maps.asMap(Sets.newHashSet("C"),
+                        (c) -> Maps.asMap(Sets.newHashSet("A", "B"), (d) -> new Pair(3, 1))
+                    )
+                )
+            )
+        );
+    return voteResultComposerMock;
+  }
 
 }
