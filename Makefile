@@ -47,7 +47,7 @@ target/PDEngine-0.0.1-SNAPSHOT.jar:
 
 clean:
 	git clean -fdx
-	rm -rf zenta-tools
+	rm -rf zenta-tools xml-doclet
 
 inputs/engine.issues.xml: shippable/engine-implementedBehaviours.xml shippable/engine-testcases.xml
 	mkdir -p inputs

@@ -1,15 +1,19 @@
 set -x
 export DISPLAY=:0
-if [ ! -s /tmp/.X11-unix/X0 ]
+if [ -a /tmp/.X11-unix/X0 ]
 then
+	echo skipping X server
+else
     Xvnc4 -SecurityTypes none :0 &
 fi
-set +x
-. <(./tools/decrypt_secret_env $ORG_NAME)
-set -x
 #!!!do not do it on a production system!!!
 #run haveged instead
 sudo rm /dev/random
 sudo cp -a /dev/urandom /dev/random
 #end of workaround for low entropy level
 sudo apt-get install -y openjdk-10-jdk
+git clone --branch feature/compile_with_java_11 https://github.com/magwas/xml-doclet.git
+cd xml-doclet/
+mvn install
+cd ..
+

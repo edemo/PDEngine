@@ -23,7 +23,8 @@ RUN git clone https://github.com/devcon5io/mutation-analysis-plugin.git; \
 RUN mkdir -p /usr/local/lib
 RUN cp mutation-analysis-plugin/target/mutation-analysis-plugin-1.3-SNAPSHOT.jar /usr/local/lib
 RUN cp ~/.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar /usr/local/lib
-RUN wget http://search.maven.org/remotecontent?filepath=com/github/markusbernhardt/xml-doclet/1.0.5/xml-doclet-1.0.5-jar-with-dependencies.jar -O /usr/local/lib/xml-doclet.jar
+RUN git clone --branch feature/compile_with_java_11 https://github.com/magwas/xml-doclet.git
+RUN cd xml-doclet/; mvn install
 
 RUN git clone https://github.com/edemo/PDEngine.git
 RUN rm /dev/random; cp -a /dev/urandom /dev/random; ls -l /dev/random /dev/urandom;Xvnc4 -SecurityTypes none :0 & export DISPLAY=:0;cd PDEngine; make
