@@ -23,7 +23,7 @@ RUN pip install jira
 RUN git clone --branch feature/compile_with_java_11 https://github.com/magwas/xml-doclet.git
 RUN cd xml-doclet/; mvn install
 
-RUN git clone https://github.com/edemo/PDEngine.git
+RUN git clone --branch feature/java10_and_formatting https://github.com/magwas/PDEngine.git
 RUN rm /dev/random; cp -a /dev/urandom /dev/random; ls -l /dev/random /dev/urandom;Xvnc4 -SecurityTypes none :0 & export DISPLAY=:0;cd PDEngine; make
 RUN rm -rf PDEngine mutation-analysis-plugin
 RUN sed 's/.ALL:ALL./(ALL) NOPASSWD:/' -i /etc/sudoers
