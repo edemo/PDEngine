@@ -1,6 +1,10 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +17,8 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedComputedVote;
-import jersey.repackaged.com.google.common.collect.Sets;
+
+import com.google.common.collect.Sets;
 
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
@@ -42,7 +47,7 @@ public class ComputedVoteTest extends CreatedComputedVote {
   public void
       compute_vote_should_create_empty_initial_matrix_when_voteCast_is_empty() {
     getTheVote().votesCast = new ArrayList<>();
-    ComputedVote tmpVote = new ComputedVote(getTheVote());
+    final ComputedVote tmpVote = new ComputedVote(getTheVote());
     tmpVote.computeVote();
     beatTable = tmpVote.getBeatTable();
     assertEquals(
@@ -53,7 +58,7 @@ public class ComputedVoteTest extends CreatedComputedVote {
   @TestedBehaviour("compares and stores initial beat matrix")
   @Test
   public void after_compute_vote_beat_table_should_contain_beat_information() {
-    Pair abPair = beatTable.getElement("A", "B");
+    final Pair abPair = beatTable.getElement("A", "B");
     assertPairInitialized(abPair);
   }
 
@@ -66,23 +71,23 @@ public class ComputedVoteTest extends CreatedComputedVote {
   @TestedBehaviour("calculates and stores beatpath matrix")
   @Test
   public void beat_path_matrix_is_normalized() {
-    BeatTable beatPathTable = computedVote.getBeatPathTable();
-    for (String choice1 : beatPathTable.getKeyCollection()) {
-      for (String choice2 : beatPathTable.getKeyCollection()) {
-        Pair beat1 = beatPathTable.getElement(choice1, choice2);
-        Pair beat2 = beatPathTable.getElement(choice2, choice1);
+    final BeatTable beatPathTable = computedVote.getBeatPathTable();
+    for (final String choice1 : beatPathTable.getKeyCollection())
+      for (final String choice2 : beatPathTable.getKeyCollection()) {
+        final Pair beat1 = beatPathTable.getElement(choice1, choice2);
+        final Pair beat2 = beatPathTable.getElement(choice2, choice1);
         assertEquals(ZERO_PAIR, beatPathTable.lessBeat(beat1, beat2));
       }
-    }
   }
 
   @TestedBehaviour("calculates and stores beatpath matrix")
   @Test
   public void transitive_closure_done_on_beat_path_matrix() {
-    BeatTable firstBeatTable = new BeatTable(computedVote.getBeatPathTable());
+    final BeatTable firstBeatTable =
+        new BeatTable(computedVote.getBeatPathTable());
 
     computedVote.getBeatPathTable().computeTransitiveClosure();
-    BeatTable secondBeatTable = computedVote.getBeatPathTable();
+    final BeatTable secondBeatTable = computedVote.getBeatPathTable();
 
     assertBeatTableEquals(firstBeatTable, secondBeatTable);
   }
@@ -90,22 +95,21 @@ public class ComputedVoteTest extends CreatedComputedVote {
   @TestedBehaviour("the winners list contains the looses to the first one")
   @Test
   public void computedVote_returns_the_loses_against_first_ones() {
-    List<VoteResult> computeVote = computedVote.computeVote();
-    Set<String> expectedKeySet = Sets.newHashSet("A", "B");
-    Set<String> actualKeySet = computeVote.get(1).getBeats().get("C").keySet();
+    final List<VoteResult> computeVote = computedVote.computeVote();
+    final Set<String> expectedKeySet = Sets.newHashSet("A", "B");
+    final Set<String> actualKeySet =
+        computeVote.get(1).getBeats().get("C").keySet();
     assertEquals(expectedKeySet, actualKeySet);
   }
 
   private void assertBeatTableEquals(
       final BeatTable firstBeatTable, final BeatTable secondBeatTable
   ) {
-    for (String choice1 : firstBeatTable.getKeyCollection()) {
-      for (String choice2 : firstBeatTable.getKeyCollection()) {
+    for (final String choice1 : firstBeatTable.getKeyCollection())
+      for (final String choice2 : firstBeatTable.getKeyCollection())
         assertEquals(
             secondBeatTable.getElement(choice1, choice2), firstBeatTable.getElement(choice1, choice2)
         );
-      }
-    }
   }
 
   private void assertPairInitialized(final Pair pair) {
@@ -119,7 +123,8 @@ public class ComputedVoteTest extends CreatedComputedVote {
   @Test
   public void
       vote_result_includes_the_votes_cast_with_the_secret_cast_vote_id() {
-    String secretId = computedVote.getVote().getVotesCast().get(0).secretId;
+    final String secretId =
+        computedVote.getVote().getVotesCast().get(0).secretId;
     assertFalse(secretId.isEmpty());
   }
 }

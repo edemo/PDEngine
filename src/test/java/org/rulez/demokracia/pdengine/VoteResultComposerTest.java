@@ -1,10 +1,12 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
@@ -12,7 +14,7 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedVoteResultComposer;
 
-import jersey.repackaged.com.google.common.collect.Sets;
+import com.google.common.collect.Sets;
 
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
@@ -39,7 +41,7 @@ public class VoteResultComposerTest extends CreatedVoteResultComposer {
 
   @Test
   public void compute_vote_results_returns_each_choices_once() {
-    List<String> keyList = result.stream().map(VoteResult::getChoices)
+    final List<String> keyList = result.stream().map(VoteResult::getChoices)
         .flatMap(List::stream)
         .collect(Collectors.toList());
     assertEquals(keyList.size(), choicesReturned.size());
@@ -47,19 +49,18 @@ public class VoteResultComposerTest extends CreatedVoteResultComposer {
 
   @Test
   public void compute_vote_results_assigns_no_beat_to_winners() {
-    int winnersLoses = getNumberOfBeats(result.get(0));
+    final int winnersLoses = getNumberOfBeats(result.get(0));
     assertEquals(0, winnersLoses);
   }
 
   @Test
   public void compute_vote_results_return_nonzero_loses_for_nonwinners() {
-    for (VoteResult choiceMap : result.subList(1, result.size())) {
+    for (final VoteResult choiceMap : result.subList(1, result.size()))
       assertEachChoiceHaveBeaten(choiceMap);
-    }
   }
 
   private void assertEachChoiceHaveBeaten(final VoteResult voteResult) {
-    boolean allMatch =
+    final boolean allMatch =
         voteResult.getBeats().values().stream().allMatch(m -> !m.isEmpty());
     assertTrue(allMatch);
   }

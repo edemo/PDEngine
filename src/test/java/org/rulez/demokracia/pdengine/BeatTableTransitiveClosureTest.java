@@ -14,7 +14,7 @@ import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
 
-import jersey.repackaged.com.google.common.collect.Sets;
+import com.google.common.collect.Sets;
 
 @TestedFeature("Schulze method")
 @TestedOperation("compare beats")
@@ -30,7 +30,7 @@ public class BeatTableTransitiveClosureTest extends CreatedBeatTable {
 
   @Test
   public void transitive_closure_on_empty_beat_table_results_empty_result() {
-    BeatTable actual = new BeatTable();
+    final BeatTable actual = new BeatTable();
     actual.computeTransitiveClosure();
     assertTrue(actual.getKeyCollection().isEmpty());
   }
@@ -38,27 +38,24 @@ public class BeatTableTransitiveClosureTest extends CreatedBeatTable {
   @Test
   public void transitive_closure_computes_the_shortest_paths_by_pairs() {
     beatTable.computeTransitiveClosure();
-    Collection<String> keyCollection = beatTable.getKeyCollection();
-    for (String i : keyCollection) {
-      for (String j : keyCollection) {
-        if (i.equals(j)) {
+    final Collection<String> keyCollection = beatTable.getKeyCollection();
+    for (final String i : keyCollection)
+      for (final String j : keyCollection) {
+        if (i.equals(j))
           continue;
-        }
         assertNoShorterPathBetweenChoices(keyCollection, i, j);
       }
-    }
   }
 
   private void assertNoShorterPathBetweenChoices(
       final Collection<String> keyCollection, final String choice1,
       final String choice2
   ) {
-    for (String k : keyCollection) {
-      if (Sets.newHashSet(choice1, choice2).contains(k)) {
+    for (final String k : keyCollection) {
+      if (Sets.newHashSet(choice1, choice2).contains(k))
         continue;
-      }
-      Pair greater = beatTable.getElement(choice1, choice2);
-      Pair less = beatTable.lessBeat(
+      final Pair greater = beatTable.getElement(choice1, choice2);
+      final Pair less = beatTable.lessBeat(
           beatTable.getElement(choice1, k), beatTable.getElement(k, choice2)
       );
       assertEquals(greater, beatTable.compareBeats(less, greater));
@@ -67,10 +64,10 @@ public class BeatTableTransitiveClosureTest extends CreatedBeatTable {
 
   @Test
   public void less_beat_returns_the_less_beat() {
-    Pair pair1 = new Pair(20, 10);
-    Pair pair2 = new Pair(10, 10);
+    final Pair pair1 = new Pair(20, 10);
+    final Pair pair2 = new Pair(10, 10);
 
-    Pair lessBeat = beatTable.lessBeat(pair1, pair2);
+    final Pair lessBeat = beatTable.lessBeat(pair1, pair2);
     assertEquals(pair2, lessBeat);
   }
 }

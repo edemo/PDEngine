@@ -6,15 +6,14 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Before;
 import org.mockito.ArgumentMatchers;
 import org.rulez.demokracia.pdengine.ComputedVote;
 import org.rulez.demokracia.pdengine.VoteResult;
 import org.rulez.demokracia.pdengine.VoteResultComposer;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
-
-import jersey.repackaged.com.google.common.collect.Maps;
-import jersey.repackaged.com.google.common.collect.Sets;
 
 public class CreatedComputedVote
     extends CreatedDefaultCastVoteWithRankedChoices {
@@ -33,14 +32,16 @@ public class CreatedComputedVote
   }
 
   private VoteResultComposer createVoteResultComposerMock() {
-    VoteResultComposer voteResultComposerMock = mock(VoteResultComposer.class);
+    final VoteResultComposer voteResultComposerMock =
+        mock(VoteResultComposer.class);
     when(voteResultComposerMock.composeResult(ArgumentMatchers.any()))
         .thenReturn(
             Arrays.asList(
                 new VoteResult(Arrays.asList("A", "B"), new HashMap<>()),
                 new VoteResult(Arrays.asList("C"),
-                    Maps.asMap(Sets.newHashSet("C"),
-                        (c) -> Maps.asMap(Sets.newHashSet("A", "B"), (d) -> new Pair(3, 1))
+                    Map.of(
+                        "C",
+                        Map.of("A", new Pair(3, 1), "B", new Pair(3, 1))
                     )
                 )
             )

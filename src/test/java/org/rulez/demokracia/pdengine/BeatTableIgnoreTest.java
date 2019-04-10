@@ -1,6 +1,8 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
@@ -11,7 +13,8 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
-import jersey.repackaged.com.google.common.collect.Sets;
+
+import com.google.common.collect.Sets;
 
 @TestedFeature("Vote")
 @TestedOperation("calculate winners")
@@ -26,7 +29,7 @@ public class BeatTableIgnoreTest extends CreatedBeatTable {
   public void setUp() {
     super.setUp();
     createNewBeatTableWithComplexData();
-    BeatTableIgnore beatTableIgnore = new BeatTableIgnoreImpl();
+    final BeatTableIgnore beatTableIgnore = new BeatTableIgnoreImpl();
     ignoredChoices = Arrays.asList("name1", "name2");
     ignoredBeatTable = beatTableIgnore.ignoreChoices(beatTable, ignoredChoices);
   }
@@ -56,13 +59,11 @@ public class BeatTableIgnoreTest extends CreatedBeatTable {
       final BeatTable table1, final BeatTable table2,
       final Set<String> choices
   ) {
-    for (String choice1 : choices) {
-      for (String choice2 : choices) {
+    for (final String choice1 : choices)
+      for (final String choice2 : choices)
         assertEquals(
             table1.getElement(choice1, choice2), table2.getElement(choice1, choice2)
         );
-      }
-    }
 
   }
 
