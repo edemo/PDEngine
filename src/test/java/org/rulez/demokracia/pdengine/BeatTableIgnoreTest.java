@@ -11,7 +11,8 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
-import jersey.repackaged.com.google.common.collect.Sets;
+
+import com.google.common.collect.Sets;
 
 @TestedFeature("Vote")
 @TestedOperation("calculate winners")

@@ -3,8 +3,8 @@ package org.rulez.demokracia.pdengine;
 import java.util.Collection;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 
-import jersey.repackaged.com.google.common.collect.Sets;
-import jersey.repackaged.com.google.common.collect.Sets.SetView;
+import com.google.common.collect.Sets;
+import com.google.common.collect.Sets.SetView;
 
 public class BeatTableIgnoreImpl implements BeatTableIgnore {
 

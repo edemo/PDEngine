@@ -2,7 +2,8 @@ package org.rulez.demokracia.pdengine;
 
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 
-import jersey.repackaged.com.google.common.collect.Sets;
+import com.google.common.collect.Sets;
+
 
 public interface TransitiveClosable extends ContainingBeats {
 
