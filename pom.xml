@@ -6,7 +6,7 @@
 
 	<groupId>org.rulez.demokracia</groupId>
 	<artifactId>PDEngine</artifactId>
-	<version>0.0.1-feature_java10_and_formatting.734906c</version>
+	<version>0.0.1-feature_java10_and_formatting-afterDocker.23767fc</version>
 	<packaging>war</packaging>
 
 	<name>PDEngine</name>

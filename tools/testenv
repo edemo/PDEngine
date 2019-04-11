@@ -13,6 +13,6 @@ then
 fi
 
 docker run --rm $PORTMAP -e PULL_REQUEST=false -e DEVUID=${DEV_UID} -e DEVGID=${DEV_GID} -e ORG_NAME=local \
-    -v $(pwd):/pdengine -v ${DEVHOME}:/home/developer -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -w /pdengine -it ${PDENGINE_IMAGE}
+    -v $(pwd):/build -v ${DEVHOME}:/home/developer -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -w /build -it ${PDENGINE_IMAGE}
 
