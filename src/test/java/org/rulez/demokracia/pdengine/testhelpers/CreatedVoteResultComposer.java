@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -29,7 +28,7 @@ public class CreatedVoteResultComposer extends CreatedDefaultCastVoteWithRankedC
 	}
 
 	private BeatTable createBeatTable() {
-		BeatTable beatTable = new BeatTable(Arrays.asList("A", "B", "C", "D"));
+		BeatTable beatTable = new BeatTable(List.of("A", "B", "C", "D"));
 		beatTable.initialize(castVote);
 		beatTable.normalize();
 		beatTable.computeTransitiveClosure();
@@ -39,9 +38,9 @@ public class CreatedVoteResultComposer extends CreatedDefaultCastVoteWithRankedC
 	private WinnerCalculator createWinnerCalculatorMock() {
 		WinnerCalculator winnerCalculator = mock(WinnerCalculator.class);
 		when(winnerCalculator.calculateWinners(any(), any()))
-		.thenReturn(Arrays.asList("A", "B"))
-		.thenReturn(Arrays.asList("C"))
-		.thenReturn(Arrays.asList("D"));
+				.thenReturn(List.of("A", "B"))
+				.thenReturn(List.of("C"))
+				.thenReturn(List.of("D"));
 		return winnerCalculator;
 	}
 

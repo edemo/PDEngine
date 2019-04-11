@@ -1,10 +1,10 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.*;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
@@ -25,7 +25,7 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	public void setUp() {
 		super.setUp();
 		winnerCalculator = new WinnerCalculatorImpl();
-		beatPathTable = new BeatTable(Arrays.asList("A", "B", "C", "D"));
+		beatPathTable = new BeatTable(List.of("A", "B", "C", "D"));
 		beatPathTable.initialize(castVote);
 		beatPathTable.normalize();
 		beatPathTable.computeTransitiveClosure();
@@ -34,7 +34,7 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@TestedBehaviour("only choices not in ignoredChoices are considered")
 	@Test
 	public void calculate_winners_returns_none_of_the_ignored_choices() {
-		Collection<String> ignoredChoices = Arrays.asList("A");
+		Collection<String> ignoredChoices = List.of("A");
 		List<String> winners = winnerCalculator
 				.calculateWinners(beatPathTable, ignoredChoices);
 		assertFalse(winners.contains("A"));
@@ -44,20 +44,20 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@TestedBehaviour("only choices not in ignoredChoices are considered")
 	@Test
 	public void calculate_winners_returns_not_ignored_winner() {
-		List<String> winners = winnerCalculator.calculateWinners(beatPathTable, Arrays.asList("C"));
+		List<String> winners = winnerCalculator.calculateWinners(beatPathTable, List.of("C"));
 		assertTrue(winners.contains("A"));
 	}
 
 	@TestedBehaviour("all non-beaten candidates are winners")
 	@Test
 	public void calculate_winners_doesnt_return_beaten_candidates() {
-		assertNoWinnerIsBeaten(winnerCalculator.calculateWinners(beatPathTable, new HashSet<>()));
+		assertNoWinnerIsBeaten(winnerCalculator.calculateWinners(beatPathTable, Set.of()));
 	}
 
 	@TestedBehaviour("all non-beaten candidates are winners")
 	@Test
 	public void calculate_winners_return_all_non_beaten_candidates() {
-		assertNonbeatensAreWinner(winnerCalculator.calculateWinners(beatPathTable, new HashSet<>()));
+		assertNonbeatensAreWinner(winnerCalculator.calculateWinners(beatPathTable, Set.of()));
 	}
 
 	private void assertNoWinnerIsBeaten(final List<String> winners) {

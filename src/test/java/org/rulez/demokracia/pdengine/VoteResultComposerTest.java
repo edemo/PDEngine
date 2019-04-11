@@ -12,8 +12,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedVoteResultComposer;
 
-import com.google.common.collect.Sets;
-
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
 @TestedBehaviour("the winners list contains the looses to the first one")
@@ -28,7 +26,7 @@ public class VoteResultComposerTest extends CreatedVoteResultComposer {
 		super.setUp();
 
 		choicesReturned = convertResultToChoiceSet(result);
-		keySetOfInitialBeatTable = Sets.newHashSet("A", "B", "C", "D");
+		keySetOfInitialBeatTable = Set.of("A", "B", "C", "D");
 
 	}
 

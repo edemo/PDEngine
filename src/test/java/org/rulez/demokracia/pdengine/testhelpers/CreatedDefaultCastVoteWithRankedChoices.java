@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine.testhelpers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -21,13 +20,13 @@ public class CreatedDefaultCastVoteWithRankedChoices extends CreatedDefaultChoic
 
 	private List<CastVote> createCastVote() {
 		List<CastVote> result = new ArrayList<>();
-		result.add(createRankedChoices(Arrays.asList("A", "C", "B", "D")));
-		result.add(createRankedChoices(Arrays.asList("D", "A", "B", "C")));
-		result.add(createRankedChoices(Arrays.asList("B", "A", "C", "D")));
-		result.add(createRankedChoices(Arrays.asList("B", "A", "C", "D")));
+		result.add(createRankedChoices(List.of("A", "C", "B", "D")));
+		result.add(createRankedChoices(List.of("D", "A", "B", "C")));
+		result.add(createRankedChoices(List.of("B", "A", "C", "D")));
+		result.add(createRankedChoices(List.of("B", "A", "C", "D")));
 		for (int i = 0; i < 3; ++i) {
-			result.add(createRankedChoices(Arrays.asList("A", "C")));
-			result.add(createRankedChoices(Arrays.asList("C", "D")));
+			result.add(createRankedChoices(List.of("A", "C")));
+			result.add(createRankedChoices(List.of("C", "D")));
 		}
 
 		return result;

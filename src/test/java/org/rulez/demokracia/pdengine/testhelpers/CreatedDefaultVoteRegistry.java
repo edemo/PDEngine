@@ -4,9 +4,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -72,9 +72,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 	}
 
 	protected String createLongString(final int length) {
-		char[] charArray = new char[length];
-		Arrays.fill(charArray, 'w');
-		return new String(charArray);
+		return IntStream.range(0, length).boxed().map(a -> "w").reduce("", String::concat);
 	}
 
 

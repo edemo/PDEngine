@@ -1,8 +1,8 @@
 package org.rulez.demokracia.pdengine;
 
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import java.util.Set;
 
-import com.google.common.collect.Sets;
+import org.rulez.demokracia.pdengine.dataobjects.Pair;
 
 
 public interface TransitiveClosable extends ContainingBeats {
@@ -15,7 +15,7 @@ public interface TransitiveClosable extends ContainingBeats {
 	}
 
 	default void selectShorterPath(final String choice1, final String choice2, final String middleChoice) {
-		if (!Sets.newHashSet(choice1, choice2).contains(middleChoice)) {
+		if (!Set.of(choice1, choice2).contains(middleChoice)) {
 			setElement(choice1, choice2,
 					compareBeats(getElement(choice1, choice2),
 							lessBeat(getElement(choice1, middleChoice), getElement(middleChoice, choice2))));

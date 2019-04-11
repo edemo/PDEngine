@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +14,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
-
-import com.google.common.collect.Sets;
 
 @TestedFeature("Schulze method")
 @TestedOperation("compare beats")
@@ -52,7 +51,7 @@ public class BeatTableTransitiveClosureTest extends CreatedBeatTable {
 	private void assertNoShorterPathBetweenChoices(final Collection<String> keyCollection, final String choice1,
 			final String choice2) {
 		for (String k : keyCollection) {
-			if (Sets.newHashSet(choice1, choice2).contains(k)) {
+			if (Set.of(choice1, choice2).contains(k)) {
 				continue;
 			}
 			Pair greater = beatTable.getElement(choice1, choice2);

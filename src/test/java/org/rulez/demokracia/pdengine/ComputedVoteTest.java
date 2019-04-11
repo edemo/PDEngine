@@ -14,8 +14,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedComputedVote;
 
-import com.google.common.collect.Sets;
-
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
 public class ComputedVoteTest extends CreatedComputedVote {
@@ -33,7 +31,7 @@ public class ComputedVoteTest extends CreatedComputedVote {
 	@TestedBehaviour("compares and stores initial beat matrix")
 	@Test
 	public void compute_vote_should_create_initial_matrix_with_full_key_set() {
-		assertEquals(Sets.newHashSet("A", "B", "C", "D"), Sets.newHashSet(beatTable.getKeyCollection()));
+		assertEquals(Set.of("A", "B", "C", "D"), Set.copyOf(beatTable.getKeyCollection()));
 	}
 
 	@TestedBehaviour("compares and stores initial beat matrix")
@@ -43,7 +41,7 @@ public class ComputedVoteTest extends CreatedComputedVote {
 		ComputedVote tmpVote = new ComputedVote(getTheVote());
 		tmpVote.computeVote();
 		beatTable = tmpVote.getBeatTable();
-		assertEquals(Sets.newHashSet(), Sets.newHashSet(beatTable.getKeyCollection()));
+		assertEquals(Set.of(), Set.copyOf(beatTable.getKeyCollection()));
 	}
 
 	@TestedBehaviour("compares and stores initial beat matrix")
@@ -87,7 +85,7 @@ public class ComputedVoteTest extends CreatedComputedVote {
 	@Test
 	public void computedVote_returns_the_loses_against_first_ones() {
 		List<VoteResult> computeVote = computedVote.computeVote();
-		Set<String> expectedKeySet = Sets.newHashSet("A", "B");
+		Set<String> expectedKeySet = Set.of("A", "B");
 		Set<String> actualKeySet = computeVote.get(1).getBeats().get("C").keySet();
 		assertEquals(expectedKeySet, actualKeySet);
 	}

@@ -4,9 +4,13 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class ReportedException extends RuntimeException {
 
 	private static final long serialVersionUID = 3322550743512295289L;
