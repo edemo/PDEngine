@@ -1,5 +1,4 @@
 set -x
-set |sed 's/=[a-z0-9].*/=EXISTS/'
 export DISPLAY=:0
 if [ -a /tmp/.X11-unix/X0 ]
 then
@@ -13,3 +12,5 @@ sudo rm /dev/random
 sudo cp -a /dev/urandom /dev/random
 #end of workaround for low entropy level
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+set |sed 's/=[a-z0-9].*/=EXISTS/'
+ls -l /usr/lib/jvm/*/bin/java
