@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.xml.ws.WebServiceContext;
 
 import org.junit.Before;
+import org.mockito.MockitoAnnotations;
 import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
@@ -31,7 +32,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester {
 
   @Before
   public void setUp() {
-    WebServiceContext wsContext = setupMockWsContext();
+    final WebServiceContext wsContext = setupMockWsContext();
     voteManager = IVoteManager.getVoteManager(wsContext);
     neededAssurances = new HashSet<>();
     countedAssurances = new HashSet<>();
@@ -40,11 +41,19 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester {
     neededAssurances.add(ASSURANCE_NAME);
     voteName = "testVote";
     adminInfo = createAVote();
+    setupInitialContextTest();
+  }
+
+  private void setupInitialContextTest() {
+    MockitoAnnotations.initMocks(this);
+    System.setProperty(
+        "java.naming.factory.initial", InitialContextFactoryMock.class.getName()
+    );
   }
 
   private WebServiceContext setupMockWsContext() {
-    WebServiceContext wsContext = mock(WebServiceContext.class);
-    Principal principal = mock(Principal.class);
+    final WebServiceContext wsContext = mock(WebServiceContext.class);
+    final Principal principal = mock(Principal.class);
     when(wsContext.getUserPrincipal()).thenReturn(principal);
     when(principal.getName()).thenReturn(TEST_USER_NAME);
     when(wsContext.isUserInRole(ASSURANCE_NAME)).thenReturn(true);
@@ -53,7 +62,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester {
   }
 
   public void setupUnauthenticatedMockWsContext() {
-    WebServiceContext wsContext = mock(WebServiceContext.class);
+    final WebServiceContext wsContext = mock(WebServiceContext.class);
     when(wsContext.getUserPrincipal()).thenReturn(null);
     voteManager = IVoteManager.getVoteManager(wsContext);
   }
@@ -70,12 +79,12 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester {
   }
 
   protected void setVoteEndorseable() {
-    Vote vote = getTheVote();
+    final Vote vote = getTheVote();
     vote.parameters.canEndorse = true;
   }
 
   protected String createLongString(final int length) {
-    char[] charArray = new char[length];
+    final char[] charArray = new char[length];
     Arrays.fill(charArray, 'w');
     return new String(charArray);
   }
