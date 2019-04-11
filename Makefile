@@ -54,6 +54,7 @@ maven-build:
 
 buildreports: maven
 	zenta-xslt-runner -xsl:cpd2pmd.xslt -s:target/pmd.xml -o target/pmd_full.xml
+	ls -l /home/developer/.m2/repository/org/slf4j/slf4j-api/1.7.24/slf4j-api-1.7.24.jar /home/developer/.m2/repository/org/slf4j/slf4j-simple/1.7.24/slf4j-simple-1.7.24.jar
 	java -cp /home/developer/.m2/repository/org/slf4j/slf4j-api/1.7.24/slf4j-api-1.7.24.jar:/home/developer/.m2/repository/org/slf4j/slf4j-simple/1.7.24/slf4j-simple-1.7.24.jar:/usr/local/lib/mutation-analysis-plugin-1.3-SNAPSHOT.jar ch.devcon5.sonar.plugins.mutationanalysis.StandaloneAnalysis
 
 clean:
