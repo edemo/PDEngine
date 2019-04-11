@@ -37,30 +37,24 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
   @TestedBehaviour("validates inputs")
   @Test
   public void invalid_voteId_is_rejected() {
-    final String invalidVoteId = "invalidVoteId";
-
     assertThrows(
-        () -> voteManager.modifyChoice(new VoteAdminInfo(invalidVoteId, adminKey), choiceId, choice)
+        () -> voteManager.modifyChoice(new VoteAdminInfo("invalidVoteId", adminKey), choiceId, choice)
     ).assertMessageIs("illegal voteId");
   }
 
   @TestedBehaviour("validates inputs")
   @Test
   public void invalid_choiceId_is_rejected() {
-    final String invalidChoiceId = "invalidChoiceId";
-
     assertThrows(
-        () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, adminKey), invalidChoiceId, choice)
+        () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, adminKey), "invalidChoiceId", choice)
     ).assertMessageIs("Illegal choiceId");
   }
 
   @TestedBehaviour("validates inputs")
   @Test
   public void invalid_adminKey_is_rejected() {
-    final String invalidAdminKey = "invalidAdminKey";
-
     assertThrows(
-        () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, invalidAdminKey), choiceId, choice)
+        () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, "invalidAdminKey"), choiceId, choice)
     ).assertMessageIs("Illegal adminKey");
   }
 

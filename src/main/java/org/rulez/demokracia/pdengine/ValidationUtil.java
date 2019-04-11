@@ -16,6 +16,8 @@ public class ValidationUtil {
   public static final int MAX_STRING_LENGTH = 255;
   public static final String EMPTY_STRING = "";
   public static final String COUNTED = "counted";
+  private static final String NO_SPACES_PATTERN = "(\\d|\\w)+";
+  private static String WITH_SPACES_PATTERN = "(\\d| |\\w)+";
 
   public static void checkVoteName(final String voteName) {
     checkStringWithSpaces(voteName, "vote name");
@@ -47,15 +49,15 @@ public class ValidationUtil {
 
   public static void
       checkStringNoSpaces(final String inputString, final String description) {
-    final String noSpaceString = "(\\d|\\w)+";
-    checkStringForPattern(inputString, description, noSpaceString);
+
+    checkStringForPattern(inputString, description, NO_SPACES_PATTERN);
   }
 
   public static void checkStringWithSpaces(
       final String inputString, final String description
   ) {
-    final String noSpaceString = "(\\d| |\\w)+";
-    checkStringForPattern(inputString, description, noSpaceString);
+
+    checkStringForPattern(inputString, description, WITH_SPACES_PATTERN);
   }
 
   public static void checkStringForPattern(
