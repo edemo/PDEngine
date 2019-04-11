@@ -19,12 +19,8 @@ codedocs: shippable/engine-testcases.xml shippable/engine-implementedBehaviours.
 shippable/engine-testcases.xml: engine.richescape shippable
 	zenta-xslt-runner -xsl:generate_test_cases.xslt -s engine.richescape outputbase=shippable/engine-
 
-shippable/engine-implementedBehaviours.xml: javadoc shippable
+shippable/engine-implementedBehaviours.xml: target/PDEngine-0.0.1-SNAPSHOT.jar shippable
 	zenta-xslt-runner -xsl:generate-behaviours.xslt -s target/test/javadoc.xml outputbase=shippable/engine-
-
-javadoc:
-	mkdir -p target/production target/test
-	JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 mvn javadoc:javadoc javadoc:test-javadoc site
 
 CONSISTENCY_INPUTS=shippable/engine-testcases.xml shippable/engine-implementedBehaviours.xml
 
@@ -41,7 +37,7 @@ javabuild: target/PDEngine-0.0.1-SNAPSHOT.jar
 
 target/PDEngine-0.0.1-SNAPSHOT.jar:
 	mvn build-helper:parse-version versions:set versions:commit -DnewVersion=\$${parsedVersion.majorVersion}.\$${parsedVersion.minorVersion}.\$${parsedVersion.incrementalVersion}-$$(tools/getbranch|sed 'sA/A_Ag').$$(git rev-parse --short HEAD)
-	mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install org.pitest:pitest-maven:mutationCoverage site -Pintegration-test
+	JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install org.pitest:pitest-maven:mutationCoverage site -Pintegration-test
 	zenta-xslt-runner -xsl:cpd2pmd.xslt -s:target/pmd.xml -o target/pmd_full.xml
 	java -cp /home/developer/.m2/repository/org/slf4j/slf4j-api/1.7.24/slf4j-api-1.7.24.jar:/home/developer/.m2/repository/org/slf4j/slf4j-simple/1.7.24/slf4j-simple-1.7.24.jar:/usr/local/lib/mutation-analysis-plugin-1.3-SNAPSHOT.jar ch.devcon5.sonar.plugins.mutationanalysis.StandaloneAnalysis
 
