@@ -17,6 +17,7 @@ public interface Voteable extends VoteInterface {
 
 		CastVote castVote = new CastVote(proxyId, theVote);
 		getVotesCast().add(castVote);
+		castVote.updateSignature();
 		return castVote;
 	}
 
