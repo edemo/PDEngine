@@ -12,5 +12,10 @@ fi
 sudo rm /dev/random
 sudo cp -a /dev/urandom /dev/random
 #end of workaround for low entropy level
+sudo apt-get install -y openjdk-10-jdk
+git clone --branch feature/compile_with_java_11 https://github.com/magwas/xml-doclet.git
+cd xml-doclet/
+mvn install
+cd ..
 export JAVA_PATH=/usr/lib/jvm/java-11-openjdk-amd64
 
