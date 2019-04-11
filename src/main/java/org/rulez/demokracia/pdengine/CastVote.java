@@ -25,4 +25,22 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
   public List<String> getAssurances() {
     throw new UnsupportedOperationException();
   }
+
+  public String contentToBeSigned() {
+    final StringBuilder str = new StringBuilder();
+    final String delimiter = "|";
+
+    str.append(proxyId).append(delimiter)
+        .append(secretId).append(delimiter);
+    for (final RankedChoice rc : preferences)
+      str.append(rc.id).append(delimiter)
+          .append(rc.choiceId).append(delimiter)
+          .append(rc.rank).append(delimiter);
+    return str.toString();
+  }
+
+  public void updateSignature() {
+    signature = MessageSigner.getInstance()
+        .signatureOfMessage(contentToBeSigned().getBytes());
+  }
 }

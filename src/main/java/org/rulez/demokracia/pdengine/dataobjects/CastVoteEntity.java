@@ -14,5 +14,6 @@ public class CastVoteEntity extends BaseEntity {
   public List<RankedChoice> preferences;
   public String proxyId;
   public String secretId;
+  public String signature;
 
 }
