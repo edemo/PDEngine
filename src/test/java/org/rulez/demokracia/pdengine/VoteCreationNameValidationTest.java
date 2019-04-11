@@ -17,14 +17,14 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
   @Test
   public void vote_name_can_contain_spaces() {
     voteName = "This contains spaces";
-    VoteAdminInfo voteadm = createAVote();
+    final VoteAdminInfo voteadm = createAVote();
     assertEquals(voteName, voteManager.getVote(voteadm.voteId).name);
 
   }
 
   @Test
   public void vote_name_cannot_be_null() {
-    voteName = null;
+    voteName = null;//NOPMD
     assertThrows(
         () -> createAVote()
     ).assertMessageIs("vote name is null");
@@ -40,8 +40,8 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 
   @Test
   public void votename_max_length_is_255_characters() {
-    int length = 255;
-    String str255 = createLongString(length);
+    final int length = 255;
+    final String str255 = createLongString(length);
     voteName = str255;
 
     createAVote();
@@ -65,7 +65,7 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
   public void votename_can_contain_local_characters() {
     voteName = "ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ";
 
-    VoteAdminInfo secondVote = createAVote();
+    final VoteAdminInfo secondVote = createAVote();
 
     assertEquals(voteName, voteManager.getVote(secondVote.voteId).name);
 

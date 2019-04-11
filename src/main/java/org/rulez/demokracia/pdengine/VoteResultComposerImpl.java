@@ -21,10 +21,11 @@ public class VoteResultComposerImpl implements VoteResultComposer {
 
   @Override
   public List<VoteResult> composeResult(final BeatTable beatTable) {
-    List<VoteResult> result = new ArrayList<>();
-    HashSet<String> keyCollection = new HashSet<>(beatTable.getKeyCollection());
+    final List<VoteResult> result = new ArrayList<>();
+    final HashSet<String> keyCollection =
+        new HashSet<>(beatTable.getKeyCollection());
     while (!ignoredSet.equals(keyCollection)) {
-      List<String> winners =
+      final List<String> winners =
           winnerCalculator.calculateWinners(beatTable, ignoredSet);
 
       result.add(createVoteResult(beatTable, winners));
@@ -40,7 +41,7 @@ public class VoteResultComposerImpl implements VoteResultComposer {
 
   private Map<String, Map<String, Pair>>
       getBeats(final List<String> choices, final BeatTable beatTable) {
-    Map<String, Map<String, Pair>> result = new ConcurrentHashMap<>();
+    final Map<String, Map<String, Pair>> result = new ConcurrentHashMap<>();
     choices.stream()
         .forEach(c -> result.put(c, getBeatsForChoice(c, beatTable)));
     return result;
@@ -48,13 +49,12 @@ public class VoteResultComposerImpl implements VoteResultComposer {
 
   private Map<String, Pair>
       getBeatsForChoice(final String choice, final BeatTable beatTable) {
-    Pair zeroPair = new Pair(0, 0);
-    Map<String, Pair> result = new ConcurrentHashMap<>();
-    for (String row : beatTable.getKeyCollection()) {
-      Pair beat = beatTable.getElement(row, choice);
-      if (!zeroPair.equals(beat)) {
+    final Pair zeroPair = new Pair(0, 0);
+    final Map<String, Pair> result = new ConcurrentHashMap<>();
+    for (final String row : beatTable.getKeyCollection()) {
+      final Pair beat = beatTable.getElement(row, choice);
+      if (!zeroPair.equals(beat))
         result.put(row, beat);
-      }
     }
     return result;
   }

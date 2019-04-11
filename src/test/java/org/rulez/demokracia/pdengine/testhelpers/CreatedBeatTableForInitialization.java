@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.BeatTable;
-import org.rulez.demokracia.pdengine.RankedChoice;
 import org.rulez.demokracia.pdengine.CastVote;
+import org.rulez.demokracia.pdengine.RankedChoice;
 
 public class CreatedBeatTableForInitialization extends CreatedBeatTable {
 
@@ -30,11 +30,12 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable {
 
   protected List<String> list;
 
+  @Override
   @Before
   public void setUp() {
     super.setUp();
 
-    preferences = new ArrayList<RankedChoice>();
+    preferences = new ArrayList<>();
     rankedChoice1 = new RankedChoice(FIRST, 2);
     rankedChoice2 = new RankedChoice(SECOND, 3);
     rankedChoice3 = new RankedChoice(THIRD, 1);
@@ -43,7 +44,7 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable {
     preferences.add(rankedChoice2);
     preferences.add(rankedChoice3);
 
-    castVotes = new ArrayList<CastVote>();
+    castVotes = new ArrayList<>();
     castVote1 = new CastVote("TestUser1", preferences);
     castVote2 = new CastVote("TestUser2", preferences);
     castVote3 = new CastVote("TestUser3", new ArrayList<RankedChoice>());
@@ -52,7 +53,7 @@ public class CreatedBeatTableForInitialization extends CreatedBeatTable {
     castVotes.add(castVote1);
     castVotes.add(castVote2);
 
-    list = new ArrayList<String>();
+    list = new ArrayList<>();
     list.add(FIRST);
     list.add(SECOND);
     list.add(THIRD);

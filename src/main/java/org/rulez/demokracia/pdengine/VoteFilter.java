@@ -9,9 +9,10 @@ public class VoteFilter {
 
   public List<CastVote>
       filterVotes(final List<CastVote> votes, final String assurance) {
-    Function<? super String, List<CastVote>> voteFilter = a -> votes.stream()
-        .filter(v -> v.getAssurances().contains(a))
-        .collect(Collectors.toList());
+    final Function<? super String, List<CastVote>> voteFilter =
+        a -> votes.stream()
+            .filter(v -> v.getAssurances().contains(a))
+            .collect(Collectors.toList());
 
     return Optional.ofNullable(assurance)
         .map(voteFilter)

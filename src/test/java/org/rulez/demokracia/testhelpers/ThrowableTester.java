@@ -12,12 +12,11 @@ public class ThrowableTester {
   public ThrowableTester assertThrows(final Thrower thrower) {
     try {
       thrower.throwException();
-    } catch (RuntimeException exception) {
+    } catch (final RuntimeException exception) {//NOPMD
       thrown = exception;
     }
-    if (thrown == null) {
+    if (thrown == null)
       fail("no exception thrown");
-    }
     return this;
   }
 
@@ -32,7 +31,7 @@ public class ThrowableTester {
 
   public ThrowableTester
       assertException(final Class<? extends RuntimeException> klass) {
-    String message = String.format(
+    final String message = String.format(
         "expected %s but got %s", klass, ExceptionUtils.getStackTrace(thrown)
     );
     assertEquals(message, klass, thrown.getClass());

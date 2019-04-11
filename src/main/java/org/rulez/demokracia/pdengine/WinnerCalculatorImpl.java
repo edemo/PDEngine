@@ -18,7 +18,7 @@ public class WinnerCalculatorImpl implements WinnerCalculator {
   public List<String> calculateWinners(
       final BeatTable beatTable, final Collection<String> ignoredChoices
   ) {
-    BeatTable ignoredBeatTable =
+    final BeatTable ignoredBeatTable =
         beatTableIgnore.ignoreChoices(beatTable, ignoredChoices);
     return ignoredBeatTable.getKeyCollection()
         .stream()
@@ -27,7 +27,7 @@ public class WinnerCalculatorImpl implements WinnerCalculator {
   }
 
   private boolean isWinner(final String choice, final BeatTable beatTable) {
-    Pair nonbeatingPair = new Pair(0, 0);
+    final Pair nonbeatingPair = new Pair(0, 0);
 
     return beatTable.getKeyCollection()
         .stream()

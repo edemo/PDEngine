@@ -34,5 +34,6 @@ RUN sed 's/.ALL:ALL./(ALL) NOPASSWD:/' -i /etc/sudoers
 RUN wget "http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/2019-03/R/eclipse-jee-2019-03-R-linux-gtk-x86_64.tar.gz" -O /tmp/eclipse.tar.gz;\
     cd /opt ; tar xzf /tmp/eclipse.tar.gz;\
     rm /tmp/eclipse.tar.gz
+RUN /opt/eclipse/eclipse -application org.eclipse.equinox.p2.director -repository https://dl.bintray.com/pmd/pmd-eclipse-plugin/releases/4.2.0.v20190331-1136 -installIUs net.sourceforge.pmd.eclipse.feature.group -noSplash
 ENTRYPOINT ["/build/tools/entrypoint"]
 CMD ["/bin/bash"]

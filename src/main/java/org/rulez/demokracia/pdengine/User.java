@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import org.rulez.demokracia.pdengine.dataobjects.UserEntity;
 
 @Entity
-public class User extends UserEntity {
+public class User extends UserEntity {//NOPMD
 
   private static final long serialVersionUID = 1L;
 

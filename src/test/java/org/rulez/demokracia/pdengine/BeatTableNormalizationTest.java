@@ -28,6 +28,10 @@ public class BeatTableNormalizationTest extends CreatedBeatTable {
   @Test
   public void normalization_sets_the_diagonal_to_0_0() {
     beatTable.normalize();
+    assertAllDiagonalsAreZero();
+  }
+
+  private void assertAllDiagonalsAreZero() {
     beatTable.getKeyCollection().forEach(k -> assertDiagonalElementIsZero(k));
   }
 

@@ -30,7 +30,7 @@ public class CreatedBeatTable extends ThrowableTester {
   @Before
   public void setUp() {
     beatTable = new BeatTable();
-    list = new ArrayList<String>();
+    list = new ArrayList<>();
     pair = new Pair(4, 5);
     choice1 = "name1";
     choice2 = "name2";

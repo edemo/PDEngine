@@ -20,15 +20,14 @@ final public class RandomUtils {
   }
 
   private static void initializeEntropySource() {
-    if (null == entropySource) {
+    if (null == entropySource)
       try {
         entropySource = SecureRandom.getInstance("NativePRNGBlocking");
-      } catch (NoSuchAlgorithmException e) {
+      } catch (final NoSuchAlgorithmException e) {
         LOGGER.log(
             Level.SEVERE, "no NativePRNGBlocking random implementation", e
         );
-        System.exit(-1);
+        System.exit(-1);//NOPMD
       }
-    }
   }
 }

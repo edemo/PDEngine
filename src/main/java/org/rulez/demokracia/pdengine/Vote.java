@@ -15,7 +15,7 @@ import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import com.google.gson.JsonObject;
 
 @Entity
-public class Vote extends VoteEntity implements VoteInterface, Admnistrable,
+public class Vote extends VoteEntity implements VoteInterface, Admnistrable, //NOPMD
     HasChoices, HasBallots, Endorseable, Voteable {
 
   private static final long serialVersionUID = 1L;
@@ -26,18 +26,18 @@ public class Vote extends VoteEntity implements VoteInterface, Admnistrable,
       final boolean isClosed, final int minEndorsements
   ) {
     super();
-    this.name = voteName;
-    this.adminKey = RandomUtils.createRandomKey();
+    name = voteName;
+    adminKey = RandomUtils.createRandomKey();
     this.neededAssurances = new ArrayList<>(neededAssurances);
     this.countedAssurances = new ArrayList<>(countedAssurances);
-    this.isPrivate = isClosed;
-    this.parameters = new VoteParameters();
-    this.parameters.minEndorsements = minEndorsements;
-    this.creationTime = Instant.now().getEpochSecond();
-    this.choices = new HashMap<>();
-    this.ballots = new ArrayList<>();
-    this.votesCast = new ArrayList<>();
-    this.recordedBallots = new HashMap<>();
+    isPrivate = isClosed;
+    parameters = new VoteParameters();
+    parameters.minEndorsements = minEndorsements;
+    creationTime = Instant.now().getEpochSecond();
+    choices = new HashMap<>();
+    ballots = new ArrayList<>();
+    votesCast = new ArrayList<>();
+    recordedBallots = new HashMap<>();
   }
 
   public JsonObject toJson() {
@@ -46,42 +46,42 @@ public class Vote extends VoteEntity implements VoteInterface, Admnistrable,
 
   @Override
   public VoteParameters getParameters() {
-    return this.parameters;
+    return parameters;
   }
 
   @Override
   public String getAdminKey() {
-    return this.adminKey;
+    return adminKey;
   }
 
   @Override
   public Map<String, Choice> getChoices() {
-    return this.choices;
+    return choices;
   }
 
   @Override
   public Map<String, Integer> getRecordedBallots() {
-    return this.recordedBallots;
+    return recordedBallots;
   }
 
   @Override
   public List<String> getBallots() {
-    return this.ballots;
+    return ballots;
   }
 
   @Override
   public List<CastVote> getVotesCast() {
-    return this.votesCast;
+    return votesCast;
   }
 
   @Override
   public String getId() {
-    return this.id;
+    return id;
   }
 
   @Override
   public List<String> getNeededAssurances() {
-    return new ArrayList<>(this.neededAssurances);
+    return new ArrayList<>(neededAssurances);
   }
 
   public List<CastVote> filterVotes(final String assurance) {
