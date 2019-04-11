@@ -6,7 +6,7 @@
 
 	<groupId>org.rulez.demokracia</groupId>
 	<artifactId>PDEngine</artifactId>
-	<version>0.0.1-feature_java10_and_formatting.5865d96</version>
+	<version>0.0.1-feature_java10_and_formatting.2fa6f13</version>
 	<packaging>war</packaging>
 
 	<name>PDEngine</name>
@@ -14,8 +14,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>10</maven.compiler.source>
-		<maven.compiler.target>10</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<sonar.github.repository>edemo/PDEngine</sonar.github.repository>
 		<xmldoclet-version>1.0.6-SNAPSHOT</xmldoclet-version>
 	</properties>
