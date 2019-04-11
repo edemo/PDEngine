@@ -24,7 +24,7 @@ shippable/engine-implementedBehaviours.xml: javadoc shippable
 
 javadoc:
 	mkdir -p target/production target/test
-	mvn javadoc:javadoc javadoc:test-javadoc site
+	JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 mvn javadoc:javadoc javadoc:test-javadoc site
 
 CONSISTENCY_INPUTS=shippable/engine-testcases.xml shippable/engine-implementedBehaviours.xml
 
