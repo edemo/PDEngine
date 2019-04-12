@@ -23,7 +23,7 @@ RUN git clone --branch feature/compile_with_java_11 https://github.com/magwas/xm
     cd xml-doclet/; mvn install;\
     cd .. ; rm -rf xml-doclet
 
-RUN git clone --branch feature/java10_and_formatting-afterDocker https://github.com/magwas/PDEngine.git;\
+RUN git clone --branch docker/java11 https://github.com/magwas/PDEngine.git;\
     rm /dev/random; cp -a /dev/urandom /dev/random;\
     cd PDEngine; export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64;\
     make maven;\
