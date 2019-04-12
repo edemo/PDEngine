@@ -63,7 +63,7 @@ clean:
 
 inputs/engine.issues.xml: shippable/engine-implementedBehaviours.xml shippable/engine-testcases.xml
 	mkdir -p inputs
-	tools/getGithubIssues edemo PDEngine >inputs/engine.issues.xml
+	tools/getGithubIssues edemo PDEngine f279765590d25bedfc9f08f7fc39a8c39c891711 >inputs/engine.issues.xml
 
 zentaworkaround:
 	mkdir -p ~/.zenta/.metadata/.plugins/org.eclipse.e4.workbench/
