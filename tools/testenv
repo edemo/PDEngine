@@ -3,7 +3,7 @@ set -xe
 DEVHOME=${DEVHOME:-~/pdengine-developer-home/}
 DEV_UID=$(id -u)
 DEV_GID=$(id -g)
-PDENGINE_IMAGE=${PDENGINE_IMAGE:-edemo/pdengine}
+PDENGINE_IMAGE=${PDENGINE_IMAGE:-$(grep build_image shippable.yml|awk '{print $2}')}
 VNCPORT=5900
 PORTMAP="-p $VNCPORT:$VNCPORT"
 if docker ps | grep -q ":$VNCPORT-"
