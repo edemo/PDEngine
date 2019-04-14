@@ -23,6 +23,7 @@ public interface Voteable extends VoteInterface {
 
 		CastVote castVote = new CastVote(proxyId, theVote, assurances);
 		getVotesCast().add(castVote);
+		castVote.updateSignature();
 		return castVote;
 	}
 
