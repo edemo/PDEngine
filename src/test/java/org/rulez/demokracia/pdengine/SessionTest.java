@@ -1,7 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -37,8 +37,8 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
   @Test
   public void
       you_get_the_same_hibernate_session_by_calling_getDBSession_on_DBSessionManager() {
-    Session session1 = DBSessionManagerUtils.getDBSession();
-    Session session2 = DBSessionManagerUtils.getDBSession();
+    final Session session1 = DBSessionManagerUtils.getDBSession();
+    final Session session2 = DBSessionManagerUtils.getDBSession();
     assertEquals(session1, session2);
   }
 
@@ -47,16 +47,16 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
   )
   @Test
   public void two_voteManagers_for_the_same_session_context_are_the_same() {
-    WebServiceContext wsContext = mock(WebServiceContext.class);
-    IVoteManager voteManager1 = IVoteManager.getVoteManager(wsContext);
-    IVoteManager voteManager2 = IVoteManager.getVoteManager(wsContext);
+    final WebServiceContext wsContext = mock(WebServiceContext.class);
+    final IVoteManager voteManager1 = IVoteManager.getVoteManager(wsContext);
+    final IVoteManager voteManager2 = IVoteManager.getVoteManager(wsContext);
     assertEquals(voteManager1, voteManager2);
   }
 
   @TestedBehaviour("Hibernate session is obtainable from the VoteManager")
   @Test
   public void database_session_is_closed_when_DBSessionManager_is_closed() {
-    Session session = DBSessionManagerUtils.getDBSession();
+    final Session session = DBSessionManagerUtils.getDBSession();
     DBSessionManagerUtils.close();
     assertThrows(() -> {
       session.beginTransaction();
@@ -67,8 +67,8 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
   @TestedBehaviour("Hibernate session is obtainable from the VoteManager")
   @Test
   public void database_factory_is_closed_when_DBSessionManager_is_closed() {
-    Session session = DBSessionManagerUtils.getDBSession();
-    SessionFactory sessionFactory = session.getSessionFactory();
+    final Session session = DBSessionManagerUtils.getDBSession();
+    final SessionFactory sessionFactory = session.getSessionFactory();
     DBSessionManagerUtils.close();
     assertThrows(() -> {
       sessionFactory.createEntityManager();
@@ -79,9 +79,9 @@ public class SessionTest extends CreatedDefaultVoteRegistry {
   @TestedBehaviour("Hibernate session is obtainable from the VoteManager")
   @Test
   public void you_get_a_new_hibernate_session_by_closing_DBSessionManager() {
-    Session session1 = DBSessionManagerUtils.getDBSession();
+    final Session session1 = DBSessionManagerUtils.getDBSession();
     DBSessionManagerUtils.close();
-    Session session2 = DBSessionManagerUtils.getDBSession();
+    final Session session2 = DBSessionManagerUtils.getDBSession();
     assertNotEquals(session1, session2);
   }
 

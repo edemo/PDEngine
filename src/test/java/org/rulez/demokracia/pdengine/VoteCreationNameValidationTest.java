@@ -14,6 +14,8 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 @TestedBehaviour("formally validates all inputs")
 public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 
+  final static int LENGTH = 255;
+
   @Test
   public void vote_name_can_contain_spaces() {
     voteName = "This contains spaces";
@@ -40,8 +42,7 @@ public class VoteCreationNameValidationTest extends CreatedDefaultVoteRegistry {
 
   @Test
   public void votename_max_length_is_255_characters() {
-    final int length = 255;
-    final String str255 = createLongString(length);
+    final String str255 = createLongString(LENGTH);
     voteName = str255;
 
     createAVote();

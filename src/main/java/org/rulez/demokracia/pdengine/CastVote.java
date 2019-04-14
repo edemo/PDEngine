@@ -8,6 +8,7 @@ import org.rulez.demokracia.pdengine.dataobjects.CastVoteEntity;
 public class CastVote extends CastVoteEntity implements CastVoteInterface {
 
   private static final long serialVersionUID = 1L;
+  private static final String DELIMITER = "|";
 
   public CastVote(final String proxyId, final List<RankedChoice> preferences) {
     super();
@@ -28,14 +29,13 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 
   public String contentToBeSigned() {
     final StringBuilder str = new StringBuilder();
-    final String delimiter = "|";
 
-    str.append(proxyId).append(delimiter)
-        .append(secretId).append(delimiter);
+    str.append(proxyId).append(DELIMITER)
+        .append(secretId).append(DELIMITER);
     for (final RankedChoice rc : preferences)
-      str.append(rc.id).append(delimiter)
-          .append(rc.choiceId).append(delimiter)
-          .append(rc.rank).append(delimiter);
+      str.append(rc.id).append(DELIMITER)
+          .append(rc.choiceId).append(DELIMITER)
+          .append(rc.rank).append(DELIMITER);
     return str.toString();
   }
 
