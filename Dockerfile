@@ -11,10 +11,8 @@ RUN echo deb http://repos.demokracia.rulez.org/apt/debian/ master main >/etc/apt
 RUN apt-get update
 RUN export DEBIAN_FRONTEND=noninteractive;apt-get -y install openjdk-11-jdk wget git xvfb unzip docbook-xsl make firefox vnc4server\
     dblatex libwebkitgtk-3.0-0 libswt-webkit-gtk-3-jni python-yaml python-pip python-dateutil\
-    zip debhelper devscripts zenta zenta-tools maven haveged vim sudo less
+    zip debhelper devscripts zenta zenta-tools maven haveged vim sudo less rsync curl jq
 
-#RUN wget "http://search.maven.org/remotecontent?filepath=net/sourceforge/saxon/saxon/9.1.0.8/saxon-9.1.0.8.jar" -O /usr/local/lib/saxon9.jar
-#RUN wget http://search.maven.org/remotecontent?filepath=com/github/markusbernhardt/xml-doclet/1.0.5/xml-doclet-1.0.5-jar-with-dependencies.jar -O /usr/local/lib/xml-doclet.jar
 RUN pip install jira 
 RUN git clone --branch standalone-analysis-java11 https://github.com/magwas/mutation-analysis-plugin.git; \
 	cd mutation-analysis-plugin;\
@@ -25,7 +23,7 @@ RUN git clone --branch feature/compile_with_java_11 https://github.com/magwas/xm
     cd xml-doclet/; mvn install;\
     cd .. ; rm -rf xml-doclet
 
-RUN git clone --branch feature/java10_and_formatting-afterDocker https://github.com/magwas/PDEngine.git;\
+RUN git clone --branch docker/java11 https://github.com/magwas/PDEngine.git;\
     rm /dev/random; cp -a /dev/urandom /dev/random;\
     cd PDEngine; export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64;\
     make maven;\

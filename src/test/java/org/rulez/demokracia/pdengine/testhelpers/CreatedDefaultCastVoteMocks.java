@@ -12,33 +12,35 @@ import org.rulez.demokracia.pdengine.CastVote;
 
 public class CreatedDefaultCastVoteMocks extends CreatedDefaultChoice {
 
-	protected List<CastVote> castVoteMocks;
+  protected List<CastVote> castVoteMocks;
 
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-		castVoteMocks = castVoteMocksWithIncrementalAssurances(5);
-	}
+  @Override
+  @Before
+  public void setUp() {
+    super.setUp();
+    castVoteMocks = castVoteMocksWithIncrementalAssurances(5);
+  }
 
-	private List<CastVote> castVoteMocksWithIncrementalAssurances(final int limit) {
-		return IntStream.range(1, limit)
-				.boxed()
-				.map(this::nFirstIntAsString)
-				.map(this::castVoteMockFromAssurances)
-				.collect(Collectors.toList());
-	}
+  private List<CastVote>
+      castVoteMocksWithIncrementalAssurances(final int limit) {
+    return IntStream.range(1, limit)
+        .boxed()
+        .map(this::nFirstIntAsString)
+        .map(this::castVoteMockFromAssurances)
+        .collect(Collectors.toList());
+  }
 
-	private List<String> nFirstIntAsString(final Integer limit) {
-		return IntStream.range(0, limit)
-				.boxed()
-				.map(Object::toString)
-				.collect(Collectors.toList());
-	}
+  private List<String> nFirstIntAsString(final Integer limit) {
+    return IntStream.range(0, limit)
+        .boxed()
+        .map(Object::toString)
+        .collect(Collectors.toList());
+  }
 
-	private CastVote castVoteMockFromAssurances(final List<String> assuranceList) {
-		CastVote castVote = mock(CastVote.class);
-		when(castVote.getAssurances()).thenReturn(assuranceList);
-		return castVote;
-	}
+  private CastVote
+      castVoteMockFromAssurances(final List<String> assuranceList) {
+    CastVote castVote = mock(CastVote.class);
+    when(castVote.getAssurances()).thenReturn(assuranceList);
+    return castVote;
+  }
 }

@@ -24,35 +24,43 @@ import com.google.gson.JsonObject;
 @Path("vote")
 public class VoteManagerInterface {
 
-	private static final Logger LOGGER = Logger.getLogger( RandomUtils.class.getName() );
+  private static final Logger LOGGER =
+      Logger.getLogger(RandomUtils.class.getName());
 
-	@Resource
-	private WebServiceContext wsContext;
+  @Resource
+  private WebServiceContext wsContext;
 
-	@POST
-	@Produces({MediaType.APPLICATION_JSON})
-	@Consumes({MediaType.APPLICATION_JSON})
-	public Response createVote(final CreateVoteRequest request) {
-		VoteAdminInfo adminInfo;
-		try {
-			adminInfo = IVoteManager.getVoteManager(wsContext, IVoteManager.getAssuranceManager()).createVote(
-					request.voteName,
-					request.neededAssurances,
-					request.countedAssurances,
-					request.isPrivate,
-					request.minEndorsements);
-		} catch (ReportedException e) {
-			JsonObject jsonObject = new JsonObject();
-			jsonObject.add("error", e.toJSON());
-			jsonObject.add("input", new Gson().toJsonTree(request));
-			String result = new Gson().toJson(jsonObject);
-			LOGGER.log(Level.FINE, result);
-			return Response.status(400).entity(result).build();
-		}
-		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("adminKey", adminInfo.adminKey);
-		jsonObject.addProperty("voteId", adminInfo.voteId);
-		String result = new Gson().toJson(jsonObject);
-		return Response.status(200).entity(result).build();
-	}
+  @POST
+  @Produces({
+      MediaType.APPLICATION_JSON
+  })
+  @Consumes({
+      MediaType.APPLICATION_JSON
+  })
+  public Response createVote(final CreateVoteRequest request) {
+    VoteAdminInfo adminInfo;
+    try {
+      adminInfo = IVoteManager.getVoteManager(
+          wsContext, IVoteManager.getAssuranceManager()
+      ).createVote(
+          request.voteName,
+          request.neededAssurances,
+          request.countedAssurances,
+          request.isPrivate,
+          request.minEndorsements
+      );
+    } catch (final ReportedException e) {
+      final JsonObject jsonObject = new JsonObject();
+      jsonObject.add("error", e.toJSON());
+      jsonObject.add("input", new Gson().toJsonTree(request));
+      final String result = new Gson().toJson(jsonObject);
+      LOGGER.log(Level.FINE, result);
+      return Response.status(400).entity(result).build();
+    }
+    final JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("adminKey", adminInfo.adminKey);
+    jsonObject.addProperty("voteId", adminInfo.voteId);
+    final String result = new Gson().toJson(jsonObject);
+    return Response.status(200).entity(result).build();
+  }
 }

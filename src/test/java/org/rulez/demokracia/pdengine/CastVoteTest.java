@@ -17,44 +17,51 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 @TestedOperation("CastVote")
 public class CastVoteTest extends CreatedDefaultChoice {
 
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-		initializeVoteCastTest();
-	}
+  @Override
+  @Before
+  public void setUp() {
+    super.setUp();
+    initializeVoteCastTest();
+  }
 
-	@TestedBehaviour("The preferences described by a cast vote can be obtained")
-	@Test
-	public void the_preferences_can_be_obtained_when_they_are_empty() {
-		CastVote castVote = new CastVote(TEST_USER_NAME, theCastVote);
-		List<RankedChoice> preferences = castVote.getPreferences();
-		assertEquals(new ArrayList<>(), preferences);
-	}
+  @TestedBehaviour("The preferences described by a cast vote can be obtained")
+  @Test
+  public void the_preferences_can_be_obtained_when_they_are_empty() {
+    final CastVote castVote = new CastVote(TEST_USER_NAME, theCastVote);
+    final List<RankedChoice> preferences = castVote.getPreferences();
+    assertEquals(new ArrayList<>(), preferences);
+  }
 
-	@TestedBehaviour("The preferences described by a cast vote can be obtained")
-	@Test
-	public void the_preferences_can_be_obtained_when_they_contain_choices() {
-		theCastVote.add(new RankedChoice("1", 1));
-		CastVote castVote = new CastVote(TEST_USER_NAME, theCastVote);
-		List<RankedChoice> preferences = castVote.getPreferences();
-		assertEquals(theCastVote, preferences);
-	}
-	
-	@TestedBehaviour("The assurances of the voter can be obtained from a cast vote if canupdateis true")
-	@Test
-	public void the_assurances_of_the_voter_can_be_obtained_from_a_cast_vote_if_canupdate_is_true() {
-		vote.parameters.canUpdate = true;
-		CastVote castVote = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertEquals("magyar", castVote.assurances.get(0));
-	}
-	
-	@TestedBehaviour("The assurances of the voter can be obtained from a cast vote if canupdateis true")
-	@Test
-	public void the_assurances_of_the_voter_is_null_if_canupdate_is_false() {
-		vote.parameters.canUpdate = false;
-		CastVote castVote = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		List<String> assurances = castVote.getAssurances();
-		assertTrue(assurances == null);
-	}
+  @TestedBehaviour("The preferences described by a cast vote can be obtained")
+  @Test
+  public void the_preferences_can_be_obtained_when_they_contain_choices() {
+    theCastVote.add(new RankedChoice("1", 1));
+    final CastVote castVote = new CastVote(TEST_USER_NAME, theCastVote);
+    final List<RankedChoice> preferences = castVote.getPreferences();
+    assertEquals(theCastVote, preferences);
+  }
+
+  @TestedBehaviour(
+    "The assurances of the voter can be obtained from a cast vote if canupdateis true"
+  )
+  @Test
+  public void
+      the_assurances_of_the_voter_can_be_obtained_from_a_cast_vote_if_canupdate_is_true() {
+    vote.parameters.canUpdate = true;
+    final CastVote castVote =
+        voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+    assertEquals("magyar", castVote.assurances.get(0));
+  }
+
+  @TestedBehaviour(
+    "The assurances of the voter can be obtained from a cast vote if canupdateis true"
+  )
+  @Test
+  public void the_assurances_of_the_voter_is_null_if_canupdate_is_false() {
+    vote.parameters.canUpdate = false;
+    final CastVote castVote =
+        voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+    final List<String> assurances = castVote.getAssurances();
+    assertTrue(assurances == null);
+  }
 }
