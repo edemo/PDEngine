@@ -4,6 +4,7 @@ import java.util.Collection;
 
 public interface BeatTableIgnore {
 
-	BeatTable ignoreChoices(BeatTable beatPathTable, Collection<String> ignoredChoices);
+  BeatTable
+      ignoreChoices(BeatTable beatPathTable, Collection<String> ignoredChoices);
 
 }

@@ -1,10 +1,7 @@
-build_image: edemo/pdengine:latest
+build_image: edemo/pdengine:docker_java11
 language: python
 python:
   - 2.7
-integrations:
-  generic:
-    - integrationName: publicpipeline
 
 build:
   ci:

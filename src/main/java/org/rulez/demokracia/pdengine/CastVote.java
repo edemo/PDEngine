@@ -6,40 +6,41 @@ import java.util.List;
 import org.rulez.demokracia.pdengine.dataobjects.CastVoteEntity;
 
 public class CastVote extends CastVoteEntity implements CastVoteInterface {
-	private static final long serialVersionUID = 1L;
 
-	public CastVote(final String proxyId, final List<RankedChoice> preferences) {
-		super();
-		this.proxyId = proxyId;
-		this.preferences = new ArrayList<>(preferences);
-		secretId = RandomUtils.createRandomKey();
-	}
+  private static final long serialVersionUID = 1L;
+  private static final String DELIMITER = "|";
 
-	@Override
-	public List<RankedChoice> getPreferences() {
-		return preferences;
-	}
+  public CastVote(final String proxyId, final List<RankedChoice> preferences) {
+    super();
+    this.proxyId = proxyId;
+    this.preferences = new ArrayList<>(preferences);
+    secretId = RandomUtils.createRandomKey();
+  }
 
-	@Override
-	public List<String> getAssurances() {
-		throw new UnsupportedOperationException();
-	}
+  @Override
+  public List<RankedChoice> getPreferences() {
+    return preferences;
+  }
 
-	public String contentToBeSigned() {
-		StringBuilder str  = new StringBuilder();
-		String delimiter="|";
+  @Override
+  public List<String> getAssurances() {
+    throw new UnsupportedOperationException();
+  }
 
-		str.append(proxyId) .append(delimiter)
-		   .append(secretId).append(delimiter);
-		for (RankedChoice rc : preferences) {
-			str.append(rc.id)      .append(delimiter)
-			   .append(rc.choiceId).append(delimiter)
-			   .append(rc.rank)    .append(delimiter);
-		}
-		return str.toString();
-	}
+  public String contentToBeSigned() {
+    final StringBuilder str = new StringBuilder();
 
-	public void updateSignature() {
-		signature = MessageSigner.getInstance().signatureOfMessage(contentToBeSigned().getBytes());
-	}
+    str.append(proxyId).append(DELIMITER)
+        .append(secretId).append(DELIMITER);
+    for (final RankedChoice rc : preferences)
+      str.append(rc.id).append(DELIMITER)
+          .append(rc.choiceId).append(DELIMITER)
+          .append(rc.rank).append(DELIMITER);
+    return str.toString();
+  }
+
+  public void updateSignature() {
+    signature = MessageSigner.getInstance()
+        .signatureOfMessage(contentToBeSigned().getBytes());
+  }
 }

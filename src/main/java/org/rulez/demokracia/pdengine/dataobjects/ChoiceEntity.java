@@ -7,10 +7,10 @@ import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
 public class ChoiceEntity extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-	public String name;
-	public String userName;
-	@ElementCollection
-	public List<String> endorsers;
+  private static final long serialVersionUID = 1L;
+  public String name;
+  public String userName;
+  @ElementCollection
+  public List<String> endorsers;
 
 }

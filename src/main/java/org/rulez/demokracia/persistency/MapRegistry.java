@@ -2,7 +2,7 @@ package org.rulez.demokracia.persistency;
 
 @FunctionalInterface
 public interface MapRegistry {
-	
-	PersistentMap getMapFor(String mapIdentifier);
+
+  PersistentMap getMapFor(String mapIdentifier);
 
 }
