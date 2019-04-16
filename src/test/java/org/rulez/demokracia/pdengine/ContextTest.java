@@ -1,7 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -13,16 +13,16 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class ContextTest extends CreatedDefaultVoteRegistry {
 
-
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("get context parameter")
-	@TestedBehaviour("context parameters can be obtained from the VoteManager")
-	@Test
-	public void obtain_context_parameter_from_the_VoteManager() {
-		WebServiceContext wsContext = mock(WebServiceContext.class);
-		VoteManager voteManager = new VoteManager(wsContext);
-		WebServiceContext wsContextFromVoteManager = voteManager.getWsContext();
-		assertEquals(wsContextFromVoteManager, wsContext);
-	}
+  @TestedFeature("Supporting functionality")
+  @TestedOperation("get context parameter")
+  @TestedBehaviour("context parameters can be obtained from the VoteManager")
+  @Test
+  public void obtain_context_parameter_from_the_VoteManager() {
+    final WebServiceContext wsContext = mock(WebServiceContext.class);
+    final VoteManager voteManager = new VoteManager(wsContext);
+    final WebServiceContext wsContextFromVoteManager =
+        voteManager.getWsContext();
+    assertEquals(wsContextFromVoteManager, wsContext);
+  }
 
 }

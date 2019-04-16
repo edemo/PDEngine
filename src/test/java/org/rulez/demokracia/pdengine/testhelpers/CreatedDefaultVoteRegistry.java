@@ -11,71 +11,82 @@ import java.util.Set;
 import javax.xml.ws.WebServiceContext;
 
 import org.junit.Before;
+import org.mockito.MockitoAnnotations;
 import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.testhelpers.ThrowableTester;
 
-public class CreatedDefaultVoteRegistry extends ThrowableTester{
+public class CreatedDefaultVoteRegistry extends ThrowableTester {
 
-	public static final String ASSURANCE_NAME = "magyar";
-	public static final String TEST_USER_NAME = "test_user_in_ws_context";
-	public IVoteManager voteManager;
-	public VoteAdminInfo adminInfo;
-	public String voteName = "VoteInitialValuesTest";
+  public static final String ASSURANCE_NAME = "magyar";
+  public static final String TEST_USER_NAME = "test_user_in_ws_context";
+  public IVoteManager voteManager;
+  public VoteAdminInfo adminInfo;
+  public String voteName = "VoteInitialValuesTest";
 
-	protected Set<String> neededAssurances;
-	protected Set<String> countedAssurances;
-	protected boolean isPrivate;
-	protected int minEndorsements;
+  protected Set<String> neededAssurances;
+  protected Set<String> countedAssurances;
+  protected boolean isPrivate;
+  protected int minEndorsements;
 
-	@Before
-	public void setUp() {
-		WebServiceContext wsContext = setupMockWsContext();
-		voteManager = IVoteManager.getVoteManager(wsContext);
-		neededAssurances = new HashSet<>();
-		countedAssurances = new HashSet<>();
-		isPrivate = true;
-		minEndorsements = 0;
-		neededAssurances.add(ASSURANCE_NAME);
-		voteName = "testVote";
-		adminInfo = createAVote();
-	}
+  @Before
+  public void setUp() {
+    final WebServiceContext wsContext = setupMockWsContext();
+    voteManager = IVoteManager.getVoteManager(wsContext);
+    neededAssurances = new HashSet<>();
+    countedAssurances = new HashSet<>();
+    isPrivate = true;
+    minEndorsements = 0;
+    neededAssurances.add(ASSURANCE_NAME);
+    voteName = "testVote";
+    adminInfo = createAVote();
+    setupInitialContextTest();
+  }
 
-	private WebServiceContext setupMockWsContext() {
-		WebServiceContext wsContext = mock(WebServiceContext.class);
-		Principal principal = mock(Principal.class);
-		when(wsContext.getUserPrincipal()).thenReturn(principal);
-		when(principal.getName()).thenReturn(TEST_USER_NAME);
-		when(wsContext.isUserInRole(ASSURANCE_NAME)).thenReturn(true);
-		when(wsContext.isUserInRole("appmagyar")).thenReturn(true);
-		return wsContext;
-	}
+  private void setupInitialContextTest() {
+    MockitoAnnotations.initMocks(this);
+    System.setProperty(
+        "java.naming.factory.initial", InitialContextFactoryMock.class.getName()
+    );
+  }
 
-	public void setupUnauthenticatedMockWsContext() {
-		WebServiceContext wsContext = mock(WebServiceContext.class);
-		when(wsContext.getUserPrincipal()).thenReturn(null);
-		voteManager = IVoteManager.getVoteManager(wsContext);
-	}
+  private WebServiceContext setupMockWsContext() {
+    final WebServiceContext wsContext = mock(WebServiceContext.class);
+    final Principal principal = mock(Principal.class);
+    when(wsContext.getUserPrincipal()).thenReturn(principal);
+    when(principal.getName()).thenReturn(TEST_USER_NAME);
+    when(wsContext.isUserInRole(ASSURANCE_NAME)).thenReturn(true);
+    when(wsContext.isUserInRole("appmagyar")).thenReturn(true);
+    return wsContext;
+  }
 
-	protected VoteAdminInfo createAVote() {
-		return voteManager.createVote(voteName, neededAssurances, countedAssurances, isPrivate, minEndorsements );
-	}
+  public void setupUnauthenticatedMockWsContext() {
+    final WebServiceContext wsContext = mock(WebServiceContext.class);
+    when(wsContext.getUserPrincipal()).thenReturn(null);
+    voteManager = IVoteManager.getVoteManager(wsContext);
+  }
 
-	protected Vote getTheVote() {
-		return voteManager.getVote(adminInfo.voteId);
-	}
+  protected VoteAdminInfo createAVote() {
+    return voteManager.createVote(
+        voteName, neededAssurances, countedAssurances, isPrivate,
+        minEndorsements
+    );
+  }
 
-	protected void setVoteEndorseable() {
-		Vote vote = getTheVote();
-		vote.parameters.canEndorse=true;
-	}
+  protected Vote getTheVote() {
+    return voteManager.getVote(adminInfo.voteId);
+  }
 
-	protected String createLongString(final int length) {
-		char[] charArray = new char[length];
-		Arrays.fill(charArray, 'w');
-		return new String(charArray);
-	}
+  protected void setVoteEndorseable() {
+    final Vote vote = getTheVote();
+    vote.parameters.canEndorse = true;
+  }
 
+  protected String createLongString(final int length) {
+    final char[] charArray = new char[length];
+    Arrays.fill(charArray, 'w');
+    return new String(charArray);
+  }
 
 }

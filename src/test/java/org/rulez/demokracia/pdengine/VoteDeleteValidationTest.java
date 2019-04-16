@@ -11,55 +11,63 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 @TestedOperation("delete vote")
 public class VoteDeleteValidationTest extends CreatedDefaultVoteRegistry {
 
-	@TestedBehaviour("validate inputs")
-	@Test
-	public void invalid_voteId_is_rejected() {
-		String invalidvoteId = RandomUtils.createRandomKey();
-		assertThrows(
-			() -> voteManager.deleteVote(new VoteAdminInfo(invalidvoteId, adminInfo.adminKey))
-		).assertMessageIs("illegal voteId");
-	}
+  @TestedBehaviour("validate inputs")
+  @Test
+  public void invalid_voteId_is_rejected() {
+    String invalidvoteId = RandomUtils.createRandomKey();
+    assertThrows(
+        () -> voteManager
+            .deleteVote(new VoteAdminInfo(invalidvoteId, adminInfo.adminKey))
+    ).assertMessageIs("illegal voteId");
+  }
 
+  @TestedBehaviour("validate inputs")
+  @Test
+  public void invalid_adminKey_is_rejected() {
+    String invalidAdminKey = RandomUtils.createRandomKey();
+    assertThrows(
+        () -> voteManager
+            .deleteVote(new VoteAdminInfo(adminInfo.voteId, invalidAdminKey))
+    ).assertMessageIs("Illegal adminKey");
+  }
 
-	@TestedBehaviour("validate inputs")
-	@Test
-	public void invalid_adminKey_is_rejected() {
-		String invalidAdminKey = RandomUtils.createRandomKey();
-		assertThrows(
-			() -> voteManager.deleteVote(new VoteAdminInfo(adminInfo.voteId, invalidAdminKey))
-		).assertMessageIs("Illegal adminKey");
-	}
-	
-	@TestedBehaviour("deletes the vote with all parameters, choices, ballots and votes cast")
-	@Test
-	public void proper_voteId_and_adminKey_with_ballot_does_not_delete_vote() {
-		String voteId = adminInfo.voteId;
-		Vote vote = voteManager.getVote(voteId);
-		vote.ballots.add("TestBallot");
-		assertThrows(
-			() -> voteManager.deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey))
-		).assertMessageIs("This vote cannot be modified it has issued ballots.");
-	}
-	
-	@TestedBehaviour("deletes the vote with all parameters, choices, ballots and votes cast")
-	@Test
-	public void proper_voteId_and_adminKey_does_delete_vote() {
-		String voteId = adminInfo.voteId;
-		voteManager.deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey));
-		assertThrows(
-			() -> voteManager.getVote(voteId)
-		).assertMessageIs("illegal voteId");
-	}
-	
-	@TestedBehaviour("A vote cannot be deleted if it have issued ballots.")
-	@Test
-	public void proper_voteId_and_adminKey_with_issued_ballots_does_not_delete_vote() {
-		String voteId = adminInfo.voteId;
-		Vote vote = voteManager.getVote(voteId);
-		vote.ballots.add("TestBallots");
-		
-		assertThrows(
-			() -> voteManager.deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey))
-		).assertMessageIs("This vote cannot be modified it has issued ballots.");
-	}
+  @TestedBehaviour(
+    "deletes the vote with all parameters, choices, ballots and votes cast"
+  )
+  @Test
+  public void proper_voteId_and_adminKey_with_ballot_does_not_delete_vote() {
+    String voteId = adminInfo.voteId;
+    Vote vote = voteManager.getVote(voteId);
+    vote.ballots.add("TestBallot");
+    assertThrows(
+        () -> voteManager
+            .deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey))
+    ).assertMessageIs("This vote cannot be modified it has issued ballots.");
+  }
+
+  @TestedBehaviour(
+    "deletes the vote with all parameters, choices, ballots and votes cast"
+  )
+  @Test
+  public void proper_voteId_and_adminKey_does_delete_vote() {
+    String voteId = adminInfo.voteId;
+    voteManager.deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey));
+    assertThrows(
+        () -> voteManager.getVote(voteId)
+    ).assertMessageIs("illegal voteId");
+  }
+
+  @TestedBehaviour("A vote cannot be deleted if it have issued ballots.")
+  @Test
+  public void
+      proper_voteId_and_adminKey_with_issued_ballots_does_not_delete_vote() {
+    String voteId = adminInfo.voteId;
+    Vote vote = voteManager.getVote(voteId);
+    vote.ballots.add("TestBallots");
+
+    assertThrows(
+        () -> voteManager
+            .deleteVote(new VoteAdminInfo(voteId, adminInfo.adminKey))
+    ).assertMessageIs("This vote cannot be modified it has issued ballots.");
+  }
 }

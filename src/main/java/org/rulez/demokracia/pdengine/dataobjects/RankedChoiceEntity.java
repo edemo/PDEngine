@@ -4,8 +4,8 @@ import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
 public class RankedChoiceEntity extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-	public String choiceId;
-	public int rank;
-	
+  private static final long serialVersionUID = 1L;
+  public String choiceId;
+  public int rank;
+
 }

@@ -14,44 +14,51 @@ import com.google.gson.JsonObject;
 
 @TestedFeature("Manage votes")
 @TestedOperation("show vote")
-@TestedBehaviour("if adminKey is anon, the user should have any of the countedAssurances")
-public class ForShowVoteTheUserNeedsACountedAssuranceTest extends CreatedDefaultVoteRegistry {
+@TestedBehaviour(
+  "if adminKey is anon, the user should have any of the countedAssurances"
+)
+public class ForShowVoteTheUserNeedsACountedAssuranceTest
+    extends CreatedDefaultVoteRegistry {
 
-	@Test
-	public void a_user_with_not_all_assourances_cannot_show_the_vote() throws ReportedException {
+  @Test
+  public void a_user_with_not_all_assourances_cannot_show_the_vote()
+      throws ReportedException {
 
-		Vote vote = getTheVote();
-		vote.countedAssurances.add("german");
+    Vote vote = getTheVote();
+    vote.countedAssurances.add("german");
 
-		assertAssurancesMissing(vote);
-	}
+    assertAssurancesMissing(vote);
+  }
 
-	@Test
-	public void a_user_with_not_all_assourances_cannot_show_the_vote_even_with_more_assurances() throws ReportedException {
+  @Test
+  public void
+      a_user_with_not_all_assourances_cannot_show_the_vote_even_with_more_assurances()
+          throws ReportedException {
 
-		Vote vote = getTheVote();
-		vote.countedAssurances.add("magyar");
-		vote.countedAssurances.add("german");
+    Vote vote = getTheVote();
+    vote.countedAssurances.add("magyar");
+    vote.countedAssurances.add("german");
 
-		assertAssurancesMissing(vote);
-	}
+    assertAssurancesMissing(vote);
+  }
 
-	@Test
-	public void a_user_with_all_assourances_can_show_the_vote() throws ReportedException {
+  @Test
+  public void a_user_with_all_assourances_can_show_the_vote()
+      throws ReportedException {
 
-		Vote vote = getTheVote();
-		vote.countedAssurances.add("magyar");
-		VoteAdminInfo aminInfo = new VoteAdminInfo(vote.id, "user");
-		JsonObject voteJson = voteManager.showVote(aminInfo);
+    Vote vote = getTheVote();
+    vote.countedAssurances.add("magyar");
+    VoteAdminInfo aminInfo = new VoteAdminInfo(vote.id, "user");
+    JsonObject voteJson = voteManager.showVote(aminInfo);
 
-		assertNotNull(voteJson);
-	}
+    assertNotNull(voteJson);
+  }
 
-	private void assertAssurancesMissing(final Vote vote) {
-		VoteAdminInfo aminInfo = new VoteAdminInfo(vote.id, "user");
+  private void assertAssurancesMissing(final Vote vote) {
+    VoteAdminInfo aminInfo = new VoteAdminInfo(vote.id, "user");
 
-		assertThrows(
-				() -> voteManager.showVote(aminInfo)
-				).assertMessageIs("missing assurances");
-	}
+    assertThrows(
+        () -> voteManager.showVote(aminInfo)
+    ).assertMessageIs("missing assurances");
+  }
 }
