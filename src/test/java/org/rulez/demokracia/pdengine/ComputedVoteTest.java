@@ -37,7 +37,7 @@ public class ComputedVoteTest extends CreatedComputedVote {
 	@TestedBehaviour("compares and stores initial beat matrix")
 	@Test
 	public void compute_vote_should_create_empty_initial_matrix_when_voteCast_is_empty() {
-		getTheVote().votesCast = new ArrayList<>();
+		getTheVote().setVotesCast(new ArrayList<>());
 		ComputedVote tmpVote = new ComputedVote(getTheVote());
 		tmpVote.computeVote();
 		beatTable = tmpVote.getBeatTable();

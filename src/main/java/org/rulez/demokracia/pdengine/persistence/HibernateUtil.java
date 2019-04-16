@@ -8,7 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.rulez.demokracia.pdengine.Choice;
-import org.rulez.demokracia.pdengine.Vote;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 final public class HibernateUtil {
     private static final Logger LOGGER = Logger.getLogger( HibernateUtil.class.getName() );

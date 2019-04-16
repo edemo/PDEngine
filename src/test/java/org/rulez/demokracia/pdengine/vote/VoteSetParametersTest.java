@@ -1,22 +1,38 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.vote;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.rulez.demokracia.pdengine.RandomUtils;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
+import org.rulez.demokracia.pdengine.vote.Vote;
+import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 @TestedFeature("Manage votes")
 @TestedOperation("set vote parameters")
-public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
+@RunWith(MockitoJUnitRunner.class)
+public class VoteSetParametersTest extends ThrowableTester {
+
+	@InjectMocks
+	private VoteServiceImpl voteService;
+
+	@Mock
+	private VoteRepository voteRepository;
 
 	private Vote vote;
 	private String originVoteId;
@@ -29,36 +45,43 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	private VoteParameters voteParameters;
 
 	@Before
-	@Override
 	public void setUp() {
-		super.setUp();
-		vote = voteManager.getVote(adminInfo.voteId);
+		vote = new Vote("name", Set.of(), Set.of(), false, 1);
 
-		originVoteId = vote.id;
-		originAdminKey = vote.adminKey;
-		originNeededAssurances = new ArrayList<>(vote.neededAssurances);
-		originCountedAssurances = new ArrayList<>(vote.countedAssurances);
-		originIsPrivate = vote.isPrivate;
-		originCreationTime = vote.creationTime;
-		originCanUpdate = vote.parameters.canUpdate;
+		when(voteRepository.findById(vote.getId())).thenReturn(Optional.of(vote));
 
+		saveOriginalValues();
+		setVoteParameters();
+
+		voteService.setVoteParameters(new VoteAdminInfo(vote.getId(), vote.getAdminKey()), voteParameters);
+	}
+
+	private void setVoteParameters() {
 		voteParameters = new VoteParameters();
-		voteParameters.minEndorsements = 0;
-		voteParameters.canAddin = true;
-		voteParameters.canEndorse = true;
-		voteParameters.canVote = true;
-		voteParameters.canView = true;
+		voteParameters.setMinEndorsements(0);
+		voteParameters.setAddinable(true);
+		voteParameters.setEndorsable(true);
+		voteParameters.setVotable(true);
+		voteParameters.setViewable(true);
+	}
 
-		voteManager.setVoteParameters(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey),voteParameters);
+	private void saveOriginalValues() {
+		originVoteId = vote.getId();
+		originAdminKey = vote.getAdminKey();
+		originNeededAssurances = new ArrayList<>(vote.getNeededAssurances());
+		originCountedAssurances = new ArrayList<>(vote.getCountedAssurances());
+		originIsPrivate = vote.isPrivate();
+		originCreationTime = vote.getCreationTime();
+		originCanUpdate = vote.getParameters().isUpdatable();
 	}
 
 	@TestedBehaviour("validates inputs")
 	@Test
 	public void invalid_voteId_is_rejected() {
-		String voteName = "modifiedVoteName";
+		String invalidVoteId = RandomUtils.createRandomKey();
 		assertThrows(
 				() -> {
-					voteManager.setVoteParameters(new VoteAdminInfo(voteName, adminInfo.adminKey), voteParameters);
+					voteService.setVoteParameters(new VoteAdminInfo(invalidVoteId, vote.getAdminKey()), voteParameters);
 				}
 				).assertMessageIs("illegal voteId");
 	}
@@ -68,7 +91,7 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	public void invalid_adminKey_is_rejected() {
 		String invalidAdminKey = RandomUtils.createRandomKey();
 		assertThrows(
-				() -> voteManager.setVoteParameters(new VoteAdminInfo(adminInfo.voteId, invalidAdminKey), voteParameters)
+				() -> voteService.setVoteParameters(new VoteAdminInfo(vote.getId(), invalidAdminKey), voteParameters)
 				).assertMessageIs("Illegal adminKey");
 	}
 
@@ -76,81 +99,81 @@ public class VoteSetParametersTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void invalid_minEndorsements_is_rejected() {
 		int invalidMinEndorsements = -2;
-		voteParameters.minEndorsements = invalidMinEndorsements;
+		voteParameters.setMinEndorsements(invalidMinEndorsements);
 		assertThrows(
-				() -> voteManager.setVoteParameters(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), voteParameters)
+				() -> voteService.setVoteParameters(new VoteAdminInfo(vote.getId(), vote.getAdminKey()), voteParameters)
 				).assertMessageIs("Illegal minEndorsements");
 	}
 
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_minEndorsement_parameter_of_the_vote() {
-		assertEquals(minEndorsements, vote.parameters.minEndorsements);
+		assertEquals(voteParameters.getMinEndorsements(), vote.getParameters().getMinEndorsements());
 	}
 
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canAddIn_parameter_of_the_vote() {
-		assertEquals(true, vote.parameters.canAddin);
+		assertEquals(true, vote.getParameters().isAddinable());
 	}
 
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canEndorse_parameter_of_the_vote() {
-		assertEquals(true, vote.parameters.canEndorse);
+		assertEquals(true, vote.getParameters().isEndorsable());
 	}
 
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canVote_parameter_of_the_vote() {
-		assertEquals(true, vote.parameters.canVote);
+		assertEquals(true, vote.getParameters().isVotable());
 	}
 
 	@TestedBehaviour("sets the parameters of the vote")
 	@Test
 	public void setVoteParameters_sets_the_canView_parameter_of_the_vote() {
-		assertEquals(true, vote.parameters.canView);
+		assertEquals(true, vote.getParameters().isViewable());
 	}
 
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void setVoteParameters_does_not_overwrite_vote_id_value() {
-		assertEquals(originVoteId, vote.id);
+		assertEquals(originVoteId, vote.getId());
 	}
 
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void setVoteParameters_does_not_overwrite_admin_key_value() {
-		assertEquals(originAdminKey, vote.adminKey);
+		assertEquals(originAdminKey, vote.getAdminKey());
 	}
 
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void setVoteParameters_does_not_overwrite_neededAssurances_value() {
-		assertEquals(originNeededAssurances, vote.neededAssurances);
+		assertEquals(originNeededAssurances, vote.getNeededAssurances());
 	}
 
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void setVoteParameters_does_not_overwrite_countedAssurances_value() {
-		assertEquals(originCountedAssurances, vote.countedAssurances);
+		assertEquals(originCountedAssurances, vote.getCountedAssurances());
 	}
 
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void setVoteParameters_does_not_overwrite_isPrivate_value() {
-		assertEquals(originIsPrivate, vote.isPrivate);
+		assertEquals(originIsPrivate, vote.isPrivate());
 	}
 
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void setVoteParameters_does_not_overwrite_creationTime_value() {
-		assertEquals(originCreationTime, vote.creationTime);
+		assertEquals(originCreationTime, vote.getCreationTime());
 	}
 
 	@TestedBehaviour("updatable is a vote invariant")
 	@Test
 	public void setVoteParameters_does_not_overwrite_canUpdate_value() {
-		assertEquals(originCanUpdate, vote.parameters.canUpdate);
+		assertEquals(originCanUpdate, vote.getParameters().isUpdatable());
 	}
 }

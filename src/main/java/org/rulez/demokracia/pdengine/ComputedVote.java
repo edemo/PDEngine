@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.rulez.demokracia.pdengine.vote.Vote;
+
 public class ComputedVote implements ComputedVoteInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;

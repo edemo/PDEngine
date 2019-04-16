@@ -21,8 +21,8 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
-import org.rulez.demokracia.pdengine.servlet.requests.CreateVoteRequest;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
+import org.rulez.demokracia.pdengine.vote.CreateVoteRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -55,8 +55,8 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	}
 
 	private void assertVoteNameAndKeyIsCorrect(final VoteAdminInfo adminInfo, final VoteEntity vote) {
-		assertEquals(req.voteName,vote.name);
-		assertEquals(adminInfo.adminKey,vote.adminKey);
+		assertEquals(req.getVoteName(), vote.getName());
+		assertEquals(adminInfo.adminKey, vote.getAdminKey());
 	}
 
 	@Test
@@ -95,7 +95,7 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 	}
 
 	private Response restCallWithBadInput() {
-		req.voteName = "`drop table little_bobby tables;`";
+		req.setVoteName("`drop table little_bobby tables;`");
 		return createWebClient().post(Entity.entity(req, MediaType.APPLICATION_JSON));
 	}
 
@@ -107,16 +107,16 @@ public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
 
 	private CreateVoteRequest initializeCreateVoteRequest() {
 		req = new CreateVoteRequest();
-		req.voteName = "voteName";
+		req.setVoteName("voteName");
 		Set<String> countedAssurances = new HashSet<>();
 		countedAssurances.add("");
 		countedAssurances.add(ASSURANCE_NAME);
-		req.countedAssurances = countedAssurances;
-		req.minEndorsements=3;
+		req.setCountedAssurances(countedAssurances);
+		req.setMinEndorsements(3);
 		Set<String> neededAssurances = new HashSet<>();
 		neededAssurances.add(ASSURANCE_NAME);
-		req.neededAssurances=neededAssurances;
-		req.isPrivate=false;
+		req.setNeededAssurances(neededAssurances);
+		req.setPrivate(false);
 		return req;
 	}
 

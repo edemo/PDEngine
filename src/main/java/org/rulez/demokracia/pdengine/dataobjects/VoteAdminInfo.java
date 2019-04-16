@@ -1,5 +1,8 @@
 package org.rulez.demokracia.pdengine.dataobjects;
 
+import lombok.Data;
+
+@Data
 public class VoteAdminInfo {
 	public String adminKey;
 	public String voteId;

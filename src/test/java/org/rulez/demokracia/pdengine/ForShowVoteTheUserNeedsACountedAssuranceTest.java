@@ -9,6 +9,7 @@ import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 import com.google.gson.JsonObject;
 
@@ -21,7 +22,7 @@ public class ForShowVoteTheUserNeedsACountedAssuranceTest extends CreatedDefault
 	public void a_user_with_not_all_assourances_cannot_show_the_vote() throws ReportedException {
 
 		Vote vote = getTheVote();
-		vote.countedAssurances.add("german");
+		vote.getCountedAssurances().add("german");
 
 		assertAssurancesMissing(vote);
 	}
@@ -30,8 +31,8 @@ public class ForShowVoteTheUserNeedsACountedAssuranceTest extends CreatedDefault
 	public void a_user_with_not_all_assourances_cannot_show_the_vote_even_with_more_assurances() throws ReportedException {
 
 		Vote vote = getTheVote();
-		vote.countedAssurances.add("magyar");
-		vote.countedAssurances.add("german");
+		vote.getCountedAssurances().add("magyar");
+		vote.getCountedAssurances().add("german");
 
 		assertAssurancesMissing(vote);
 	}
@@ -40,15 +41,15 @@ public class ForShowVoteTheUserNeedsACountedAssuranceTest extends CreatedDefault
 	public void a_user_with_all_assourances_can_show_the_vote() throws ReportedException {
 
 		Vote vote = getTheVote();
-		vote.countedAssurances.add("magyar");
-		VoteAdminInfo aminInfo = new VoteAdminInfo(vote.id, "user");
+		vote.getCountedAssurances().add("magyar");
+		VoteAdminInfo aminInfo = new VoteAdminInfo(vote.getId(), "user");
 		JsonObject voteJson = voteManager.showVote(aminInfo);
 
 		assertNotNull(voteJson);
 	}
 
 	private void assertAssurancesMissing(final Vote vote) {
-		VoteAdminInfo aminInfo = new VoteAdminInfo(vote.id, "user");
+		VoteAdminInfo aminInfo = new VoteAdminInfo(vote.getId(), "user");
 
 		assertThrows(
 				() -> voteManager.showVote(aminInfo)

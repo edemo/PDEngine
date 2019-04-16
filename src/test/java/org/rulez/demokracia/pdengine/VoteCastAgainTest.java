@@ -17,6 +17,7 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 @TestedBehaviour("if there was a cast vote from the same user, the old one is deleted")
 public class VoteCastAgainTest extends CreatedDefaultChoice {
 
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -25,54 +26,54 @@ public class VoteCastAgainTest extends CreatedDefaultChoice {
 
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_top_of_the_list() {
-		vote.parameters.canUpdate = true;
-		
+		vote.getParameters().setUpdatable(true);
+
 		addCastVote(TEST_USER_NAME, theCastVote);
 		addfirstDummies();
 		addSecondDummies();
-		
+
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		
-		assertTrue(vote.votesCast.get(7).proxyId.equals(TEST_USER_NAME));
+
+		assertTrue(vote.getVotesCast().get(7).proxyId.equals(TEST_USER_NAME));
 	}
-	
+
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_bottom_of_the_list() {
 		List<RankedChoice> theCastVote1 = new ArrayList<>();
-		vote.parameters.canUpdate = true;
-		
+		vote.getParameters().setUpdatable(true);
+
 		addfirstDummies();
 		addSecondDummies();
 		addCastVote(TEST_USER_NAME, theCastVote1);
-		
+
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 
-		assertTrue(vote.votesCast.get(7).preferences.equals(theCastVote1));
+		assertTrue(vote.getVotesCast().get(7).preferences.equals(theCastVote1));
 	}
-	
+
 	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_middle_of_the_list() {
-		vote.parameters.canUpdate = true;
-		
+		vote.getParameters().setUpdatable(true);
+
 		addfirstDummies();
 		addCastVote(TEST_USER_NAME, theCastVote);
 		addSecondDummies();
-		
+
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
 
-		assertTrue(vote.votesCast.get(7).proxyId.equals(TEST_USER_NAME));
+		assertTrue(vote.getVotesCast().get(7).proxyId.equals(TEST_USER_NAME));
 	}
 
-	@Test 
+	@Test
 	public void cast_vote_records_the_vote_with_same_user_votesCast_when_the_list_does_not_contain_same_user() {
-		vote.parameters.canUpdate = true;
-		
+		vote.getParameters().setUpdatable(true);
+
 		addCastVote("OtherUser1", theCastVote);
 		addCastVote("OtherUser2", theCastVote);
 		addCastVote("OtherUser3", theCastVote);
 		addCastVote("OtherUser4", theCastVote);
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		
-		assertTrue(vote.votesCast.get(4).proxyId.equals(TEST_USER_NAME));
+
+		assertTrue(vote.getVotesCast().get(4).proxyId.equals(TEST_USER_NAME));
 	}
 }

@@ -15,6 +15,7 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -61,7 +62,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void the_name_attribute_contains_the_name_of_the_vote() {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get(NAME).getAsString(), vote.name);
+		assertEquals(result.get(NAME).getAsString(), vote.getName());
 	}
 
 	@Test
@@ -69,26 +70,26 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(CAN_ADDIN).getAsBoolean(),
-				vote.parameters.canAddin);
+				vote.getParameters().isAddinable());
 	}
 
 	@Test
 	public void the_creationTime_attribute_contains_the_creation_time_of_the_vote() {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get(CREATION_TIME).getAsLong(), vote.creationTime);
+		assertEquals(result.get(CREATION_TIME).getAsLong(), vote.getCreationTime());
 	}
 
 	@Test
 	public void the_choices_attribute_contains_the_choices_of_the_vote() {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(vote.choices.size(), result.get(CHOICES).getAsJsonObject().entrySet().size());
+		assertEquals(vote.getChoices().size(), result.get(CHOICES).getAsJsonObject().entrySet().size());
 	}
 	@Test
 	public void the_initiator_of_the_choice_is_in_the_json() {
 		JsonObject choicesJson = vote.toJson().get(CHOICES).getAsJsonObject();
-		assertChoicesJsonContainsAllUserNames(choicesJson, vote.choices);
+		assertChoicesJsonContainsAllUserNames(choicesJson, vote.getChoices());
 	}
 
 	private void assertEntrySetIsNotEmpty(final JsonObject choicesJson) {
@@ -100,16 +101,16 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(CAN_ENDORSE).getAsBoolean(),
-				vote.parameters.canEndorse);
+				vote.getParameters().isEndorsable());
 	}
 
 	@Test
 	public void the_countedAssurances_attribute_contains_the_counted_assurances_of_the_vote() {
-		vote.countedAssurances.add(COUNTED_ASSURANCE);
+		vote.getCountedAssurances().add(COUNTED_ASSURANCE);
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		JsonArray jsonCountedAssurances = result.get(COUNTED_ASSURANCES).getAsJsonArray();
 
-		assertJsonContainsAllElement(jsonCountedAssurances, vote.countedAssurances);
+		assertJsonContainsAllElement(jsonCountedAssurances, vote.getCountedAssurances());
 	}
 
 	@Test
@@ -117,7 +118,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 		JsonArray jsonNeededAssurances = result.get(NEEDED_ASSURANCES).getAsJsonArray();
 
-		assertJsonContainsAllElement(jsonNeededAssurances, vote.neededAssurances);
+		assertJsonContainsAllElement(jsonNeededAssurances, vote.getNeededAssurances());
 	}
 
 	@Test
@@ -125,14 +126,14 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(MIN_ENDORSEMENTS).getAsInt(),
-				vote.parameters.minEndorsements);
+				vote.getParameters().getMinEndorsements());
 	}
 
 	@Test
 	public void the_id_attribute_contains_the_id_of_the_vote() {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
-		assertEquals(result.get("id").getAsString(), vote.id);
+		assertEquals(result.get("id").getAsString(), vote.getId());
 	}
 
 	@Test
@@ -140,7 +141,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(CAN_VIEW).getAsBoolean(),
-				vote.parameters.canView);
+				vote.getParameters().isViewable());
 	}
 
 	@Test
@@ -148,7 +149,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 		JsonObject result = voteManager.showVote(new VoteAdminInfo(voteId, adminKey));
 
 		assertEquals(result.get(VOTE_PARAMETERS).getAsJsonObject().get(CAN_VOTE).getAsBoolean(),
-				vote.parameters.canVote);
+				vote.getParameters().isVotable());
 	}
 
 	@Test
@@ -169,14 +170,14 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 			final Map<String, Choice> choices) {
 		assertEntrySetIsNotEmpty(choicesJson);
 		choicesJson.entrySet()
-				.forEach(e -> assertJsonContainsUserName(e.getValue(), choices.get(e.getKey()).userName));
+		.forEach(e -> assertJsonContainsUserName(e.getValue(), choices.get(e.getKey()).userName));
 	}
 
 	private void assertJsonContainsUserName(final JsonElement entry, final String userName) {
 		assertEquals(
 				entry.getAsJsonObject()
-						.get(USER_NAME)
-						.getAsString(),
+				.get(USER_NAME)
+				.getAsString(),
 				userName);
 	}
 }

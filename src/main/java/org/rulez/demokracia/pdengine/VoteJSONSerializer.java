@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine;
 
 import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

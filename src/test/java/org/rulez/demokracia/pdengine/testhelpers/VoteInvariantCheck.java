@@ -14,12 +14,12 @@ public class VoteInvariantCheck extends InvariantTesting {
 	}
 
 	public void checkInvariables() {
-		assertEquals(savedVoteId, savedVote.id);
-		assertEquals(savedAdminKey, savedVote.adminKey);
-		assertEquals(savedNeededAssurances,savedVote.neededAssurances);
-		assertEquals(savedCountedAssurances,savedVote.countedAssurances);
-		assertEquals(savedIsPrivate, savedVote.isPrivate);
-		assertEquals(savedCreationTime, savedVote.creationTime);
+		assertEquals(savedVoteId, savedVote.getId());
+		assertEquals(savedAdminKey, savedVote.getAdminKey());
+		assertEquals(savedNeededAssurances, savedVote.getNeededAssurances());
+		assertEquals(savedCountedAssurances, savedVote.getCountedAssurances());
+		assertEquals(savedIsPrivate, savedVote.isPrivate());
+		assertEquals(savedCreationTime, savedVote.getCreationTime());
 	}
 
 }

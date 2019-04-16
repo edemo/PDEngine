@@ -6,10 +6,10 @@ import java.util.List;
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.CastVote;
 import org.rulez.demokracia.pdengine.RankedChoice;
-import org.rulez.demokracia.pdengine.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 
@@ -65,19 +65,19 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 	}
 
 	protected void addCastVote(final String proxyId, final List<RankedChoice> theCastVote) {
-		vote.votesCast.add(new CastVote(proxyId, theCastVote));
+		vote.getVotesCast().add(new CastVote(proxyId, theCastVote));
 	}
 
 	protected void addCastVote(final CastVote castVote) {
-		vote.votesCast.add(castVote);
+		vote.getVotesCast().add(castVote);
 	}
 
 	protected void initializeVoteCastTest() {
 		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		theCastVote = new ArrayList<>();
 		vote = getTheVote();
-		vote.parameters.canVote = true;
-		vote.votesCast.clear();
+		vote.getParameters().setVotable(true);
+		vote.getVotesCast().clear();
 	}
 
 }

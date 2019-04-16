@@ -21,7 +21,7 @@ public class CreatedComputedVote extends CreatedDefaultCastVoteWithRankedChoices
 	@Before
 	public void setUp() {
 		super.setUp();
-		getTheVote().votesCast = castVote;
+		getTheVote().setVotesCast(castVote);
 		computedVote = new ComputedVote(getTheVote());
 		computedVote.setVoteResultComposer(createVoteResultComposerMock());
 		result = computedVote.computeVote();

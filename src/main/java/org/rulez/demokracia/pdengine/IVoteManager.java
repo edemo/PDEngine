@@ -1,13 +1,11 @@
 package org.rulez.demokracia.pdengine;
 
 import java.util.List;
-import java.util.Set;
-
 import javax.xml.ws.WebServiceContext;
 
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 import com.google.gson.JsonObject;
 
@@ -18,9 +16,6 @@ public interface IVoteManager {
 	}
 
 	WebServiceContext getWsContext();
-
-	VoteAdminInfo createVote(final String voteName, final Set<String> neededAssurances, final Set<String> countedAssurances,
-			final boolean isPrivate, final int minEndorsements);
 
 	Vote getVote(final String voteId);
 
@@ -42,12 +37,6 @@ public interface IVoteManager {
 
 	boolean hasAssurance(final String role);
 
-	void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName);
-
-	void deleteVote(final VoteAdminInfo adminInfo);
-
 	JsonObject showVote(final VoteAdminInfo adminInfo);
-
-	void setVoteParameters(final VoteAdminInfo adminInfo, final VoteParameters voteParameters);
 
 }

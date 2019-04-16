@@ -30,7 +30,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	@Test
 	public void cast_vote_deletes_ballot_if_canVote_is_true() {
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertFalse(vote.ballots.contains(ballot));
+		assertFalse(vote.getBallots().contains(ballot));
 	}
 
 	@TestedBehaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
@@ -39,7 +39,7 @@ public class VoteTest extends CreatedDefaultChoice {
 		newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK);
 
 		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertFalse(vote.ballots.contains(ballot));
+		assertFalse(vote.getBallots().contains(ballot));
 	}
 
 	@TestedBehaviour("works only if canVote is true")
@@ -96,7 +96,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	@TestedBehaviour("if updatable is true, only authenticated users can vote")
 	@Test
 	public void cannot_cast_a_user_if_canUpdate_is_true_but_not_logged_in() {
-		vote.parameters.canUpdate = true;
+		vote.getParameters().setUpdatable(true);
 		setupUnauthenticatedMockWsContext();
 
 		newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK);
@@ -111,7 +111,7 @@ public class VoteTest extends CreatedDefaultChoice {
 		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
 		vote = getTheVote();
-		vote.parameters.canVote = canVote;
+		vote.getParameters().setVotable(canVote);
 		return theCastVote;
 	}
 

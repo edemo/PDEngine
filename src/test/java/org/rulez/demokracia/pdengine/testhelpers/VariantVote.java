@@ -2,7 +2,7 @@ package org.rulez.demokracia.pdengine.testhelpers;
 
 import java.util.ArrayList;
 
-import org.rulez.demokracia.pdengine.Vote;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 public class VariantVote extends Vote {
 

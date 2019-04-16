@@ -4,29 +4,36 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.ElementCollection;
-
+import javax.persistence.Entity;
 import org.rulez.demokracia.pdengine.CastVote;
 import org.rulez.demokracia.pdengine.Choice;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
 public class VoteEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-	public String name;
+	private String name;
 	@ElementCollection
-	public List<String> neededAssurances;
+	private List<String> neededAssurances;
 	@ElementCollection
-	public List<String> countedAssurances;
+	private List<String> countedAssurances;
 	@ElementCollection
-	public List<String> ballots;
-	public boolean isPrivate;
-	public String adminKey;
-	public long creationTime;
-	public VoteParameters parameters;
+	private List<String> ballots;
+	private boolean isPrivate;
+	private String adminKey;
+	private long creationTime;
+	private VoteParameters parameters;
 	@ElementCollection
-	public Map<String,Choice> choices;
+	private Map<String, Choice> choices;
 	@ElementCollection
-	public List<CastVote> votesCast;
-	public Map<String,Integer> recordedBallots;
+	private List<CastVote> votesCast;
+	@ElementCollection
+	private Map<String, Integer> recordedBallots;
 
 }

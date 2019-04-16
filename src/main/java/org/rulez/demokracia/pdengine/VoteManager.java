@@ -1,35 +1,14 @@
 package org.rulez.demokracia.pdengine;
 
-import java.util.Set;
-
 import javax.xml.ws.WebServiceContext;
 
-import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 public class VoteManager extends SessionFactoryManager {
 
 	public VoteManager(final WebServiceContext wsContext) {
 		super(wsContext);
-	}
-
-	public VoteAdminInfo createVote(final String voteName, final Set<String> neededAssurances,
-			final Set<String> countedAssurances, final boolean isClosed, final int minEndorsements)
-	{
-
-		ValidationUtil.checkVoteName(voteName);
-
-		VoteAdminInfo admininfo = new VoteAdminInfo();
-		Vote vote = new Vote (
-				voteName,
-				ValidationUtil.checkAssurances(neededAssurances, "needed"),
-				ValidationUtil.checkAssurances(countedAssurances, "counted"),
-				isClosed,
-				minEndorsements);
-		admininfo.adminKey = vote.getAdminKey();
-		admininfo.voteId = vote.getId();
-		session.save(vote);
-		return admininfo;
 	}
 
 	public Vote getVote(final String voteId) {
@@ -47,7 +26,7 @@ public class VoteManager extends SessionFactoryManager {
 
 	protected void checkIfVoteIsEndorseable(final String voteId) {
 		Vote vote = getVote(voteId);
-		if(! vote.isEndorseable()) {
+		if(! vote.isEndorsable()) {
 			throw new ReportedException("user cannot endorse this vote");
 		}
 	}

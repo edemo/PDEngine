@@ -20,7 +20,7 @@ public class BaseEntityHashEqualsTest {
 	public void entities_with_equal_fields_are_equal() {
 		Pair pair1 = new Pair(12, 42);
 		Pair pair2 = new Pair(12, 42);
-		assertNotEquals(pair1.id, pair2.id);
+		assertNotEquals(pair1.getId(), pair2.getId());
 		assertEquals(pair1, pair2);
 	}
 

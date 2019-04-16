@@ -11,6 +11,7 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteMocks;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 public class VoteFilterTest extends CreatedDefaultCastVoteMocks {
 
@@ -21,7 +22,7 @@ public class VoteFilterTest extends CreatedDefaultCastVoteMocks {
 	public void setUp() {
 		super.setUp();
 		vote = getTheVote();
-		vote.votesCast = castVoteMocks;
+		vote.setVotesCast(castVoteMocks);
 
 	}
 

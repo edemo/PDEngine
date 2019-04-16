@@ -9,11 +9,13 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 @TestedFeature("Manage votes")
 @TestedOperation("Obtain ballot")
 public class ObtainBallotTest extends CreatedDefaultChoice{
 
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
@@ -23,26 +25,26 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 	@TestedBehaviour("creates a new ballot with an id for the vote")
 	@Test
 	public void obtain_ballot_returns_the_ballot_string() {
-		String ballot = voteManager.obtainBallot(vote.id,vote.adminKey);
+		String ballot = voteManager.obtainBallot(vote.getId(), vote.getAdminKey());
 		assertTrue(ballot instanceof String);
 	}
 
 	@TestedBehaviour("creates a new ballot with an id for the vote")
 	@Test
 	public void two_ballots_are_different() {
-		String ballot1 = voteManager.obtainBallot(vote.id,vote.adminKey);
-		String ballot2 = voteManager.obtainBallot(vote.id,vote.adminKey);
+		String ballot1 = voteManager.obtainBallot(vote.getId(), vote.getAdminKey());
+		String ballot2 = voteManager.obtainBallot(vote.getId(), vote.getAdminKey());
 		assertNotEquals(ballot1,ballot2);
 	}
-	
+
 	@TestedBehaviour("validates inputs")
 	@Test
 	public void voteId_is_checked_to_be_the_id_of_an_existig_vote() {
 		assertThrows(() -> {
-			voteManager.obtainBallot("invalidvoteId",vote.adminKey);
+			voteManager.obtainBallot("invalidvoteId", vote.getAdminKey());
 		})
-				.assertException(ReportedException.class)
-				.assertMessageIs("illegal voteId");
+		.assertException(ReportedException.class)
+		.assertMessageIs("illegal voteId");
 
 	}
 
@@ -50,10 +52,10 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 	@Test
 	public void adminKey_is_checked() {
 		assertThrows(() -> {
-			voteManager.obtainBallot(vote.id,"illegalAdminKey");
+			voteManager.obtainBallot(vote.getId(), "illegalAdminKey");
 		})
-				.assertException(ReportedException.class)
-				.assertMessageIs("Illegal adminKey");
+		.assertException(ReportedException.class)
+		.assertMessageIs("Illegal adminKey");
 
 	}
 
@@ -62,7 +64,7 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 	public void obtainBallot_stores_the_ballot() {
 		String ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		Vote vote = getTheVote();
-		assertTrue(vote.ballots.contains(ballot));
+		assertTrue(vote.getBallots().contains(ballot));
 	}
 
 	@TestedBehaviour("the number of ballots obtained with adminKey are recorded for \"admin\"")
@@ -70,7 +72,7 @@ public class ObtainBallotTest extends CreatedDefaultChoice{
 	public void obtainBallot_increases_recordedBallots_when_adminKey_is_admin() {
 		String voteId = adminInfo.voteId;
 		String adminKey = adminInfo.adminKey;
-		
+
 		Vote vote = voteManager.getVote(voteId);
 		int originalObtainedBallots = vote.getRecordedBallotsCount(adminKey);
 		voteManager.obtainBallot(voteId, adminKey);

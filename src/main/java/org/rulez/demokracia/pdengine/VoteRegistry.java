@@ -5,8 +5,8 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 import com.google.gson.JsonObject;
 
@@ -61,7 +61,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 		CastVote receipt;
 
-		if (vote.getParameters().canUpdate) {
+		if (vote.getParameters().isUpdatable()) {
 			receipt = vote.addCastVote(getWsUserName(), theVote);
 		} else {
 			receipt = vote.addCastVote(null, theVote);
@@ -93,39 +93,15 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	private void checkIfUpdateConditionsAreConsistent(final Vote vote) {
-		if (vote.getParameters().canUpdate && getWsContext().getUserPrincipal() == null) {
+		if (vote.getParameters().isUpdatable() && getWsContext().getUserPrincipal() == null) {
 			throw new ReportedException("canUpdate is true but the user is not authenticated");
 		}
 	}
 
 	private void checkIfVotingEnabled(final Vote vote) {
-		if (!vote.parameters.canVote) {
+		if (!vote.getParameters().isVotable()) {
 			throw new ReportedException("This issue cannot be voted on yet");
 		}
-	}
-
-	@Override
-	public void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName) {
-		ValidationUtil.checkVoteName(voteName);
-		Vote vote = checkIfVoteCanBeModified(voteAdminInfo);
-
-		vote.name = voteName;
-	}
-
-	@Override
-	public void deleteVote(final VoteAdminInfo adminInfo) {
-		Vote vote = checkIfVoteCanBeModified(adminInfo);
-
-		session.remove(vote);
-	}
-
-	private Vote checkIfVoteCanBeModified(final VoteAdminInfo adminInfo) {
-		Vote vote = checkAdminInfo(adminInfo);
-
-		if (vote.hasIssuedBallots()) {
-			throw new IllegalArgumentException("This vote cannot be modified it has issued ballots.");
-		}
-		return vote;
 	}
 
 	private Vote checkAdminInfo(final VoteAdminInfo adminInfo) {
@@ -137,7 +113,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	@Override
 	public JsonObject showVote(final VoteAdminInfo adminInfo) {
 		Vote vote = checkAdminInfo(adminInfo);
-		if (!adminInfo.adminKey.equals(vote.adminKey)) {
+		if (!adminInfo.adminKey.equals(vote.getAdminKey())) {
 			checkAssurances(vote);
 		}
 
@@ -145,7 +121,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 	}
 
 	private void checkAssurances(final Vote vote) {
-		for(String assurance : vote.countedAssurances) {
+		for (String assurance : vote.getCountedAssurances()) {
 			if (!this.hasAssurance(assurance)) {
 				throw new ReportedException("missing assurances", assurance);
 			}
@@ -159,8 +135,8 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		Choice votesChoice = vote.getChoice(choiceId);
 		if ("user".equals(voteAdminInfo.adminKey)) {
 			if (votesChoice.userName.equals(getWsUserName())) {
-				if (vote.parameters.canAddin) {
-					vote.choices.remove(votesChoice.id);
+				if (vote.getParameters().isAddinable()) {
+					vote.getChoices().remove(votesChoice.getId());
 				} else {
 					throw new IllegalArgumentException("The adminKey is \"user\" but canAddin is false.");
 				}
@@ -169,7 +145,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 						"The adminKey is \"user\" but the user is not same with that user who added the choice.");
 			}
 		} else {
-			vote.choices.remove(votesChoice.id);
+			vote.getChoices().remove(votesChoice.getId());
 		}
 		return "OK";
 	}
@@ -180,7 +156,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 		Choice votesChoice = vote.getChoice(choiceId);
 		if ("user".equals(adminInfo.adminKey)) {
-			if (!vote.parameters.canAddin) {
+			if (!vote.getParameters().isAddinable()) {
 				throw new ReportedException(
 						"Choice modification disallowed: adminKey is user, but canAddin is false");
 			}
@@ -194,18 +170,6 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		}
 
 		votesChoice.name = choiceName;
-	}
-
-	@Override
-	public void setVoteParameters(final VoteAdminInfo adminInfo, final VoteParameters voteParameters) {
-		Vote vote = checkAdminInfo(adminInfo);
-
-		if (voteParameters.minEndorsements >= 0) {
-			vote.setParameters(voteParameters.minEndorsements, voteParameters.canAddin, voteParameters.canEndorse,
-					voteParameters.canVote, voteParameters.canView);
-		} else {
-			throw new ReportedException("Illegal minEndorsements", Integer.toString(voteParameters.minEndorsements));
-		}
 	}
 }
 

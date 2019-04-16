@@ -12,8 +12,8 @@ import javax.xml.ws.WebServiceContext;
 
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.IVoteManager;
-import org.rulez.demokracia.pdengine.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
+import org.rulez.demokracia.pdengine.vote.Vote;
 import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class CreatedDefaultVoteRegistry extends ThrowableTester{
@@ -28,6 +28,8 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 	protected Set<String> countedAssurances;
 	protected boolean isPrivate;
 	protected int minEndorsements;
+
+	private Vote vote;
 
 	@Before
 	public void setUp() {
@@ -59,16 +61,17 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester{
 	}
 
 	protected VoteAdminInfo createAVote() {
-		return voteManager.createVote(voteName, neededAssurances, countedAssurances, isPrivate, minEndorsements );
+		vote = new Vote(voteName, neededAssurances, countedAssurances, isPrivate, minEndorsements);
+		return new VoteAdminInfo(vote.getId(), vote.getAdminKey());
 	}
 
 	protected Vote getTheVote() {
-		return voteManager.getVote(adminInfo.voteId);
+		return vote;
 	}
 
 	protected void setVoteEndorseable() {
 		Vote vote = getTheVote();
-		vote.parameters.canEndorse=true;
+		vote.getParameters().setEndorsable(true);
 	}
 
 	protected String createLongString(final int length) {

@@ -11,6 +11,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.rulez.demokracia.pdengine.RandomUtils;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class BaseEntity implements Serializable {
@@ -18,7 +21,7 @@ public abstract class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	public String id;
+	private String id;
 
 	public BaseEntity() {
 		id = RandomUtils.createRandomKey();

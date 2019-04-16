@@ -20,21 +20,21 @@ public class VoteCastReceiptTest extends CreatedDefaultChoice {
 
 		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		vote = getTheVote();
-		vote.parameters.canVote = true;
-		vote.parameters.canUpdate = true;
-		vote.votesCast.clear();
+		vote.getParameters().setVotable(true);
+		vote.getParameters().setUpdatable(true);
+		vote.getVotesCast().clear();
 	}
 
 	@Test
 	public void cast_vote_returns_the_cast_vote_id() {
 		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertEquals(vote.votesCast.get(0).secretId, receipt.secretId);
+		assertEquals(vote.getVotesCast().get(0).secretId, receipt.secretId);
 	}
 
 	@Test
 	public void cast_vote_returns_the_cast_vote_preferences() {
 		CastVote receipt = voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
-		assertEquals(vote.votesCast.get(0).preferences.get(0).choiceId, receipt.preferences.get(0).choiceId);
+		assertEquals(vote.getVotesCast().get(0).preferences.get(0).choiceId, receipt.preferences.get(0).choiceId);
 	}
 
 }

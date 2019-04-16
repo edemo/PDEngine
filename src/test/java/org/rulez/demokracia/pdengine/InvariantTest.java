@@ -27,9 +27,8 @@ public class InvariantTest extends VoteInvariantCheck {
 
 	@Test
 	public void vote_id_is_invariant() {
-		vote.id=BAD;
+		vote.setId(BAD);
 		assertInvariantViolation();
-		vote.id=savedVoteId;
 	}
 
 	private void assertInvariantViolation() {
@@ -43,41 +42,36 @@ public class InvariantTest extends VoteInvariantCheck {
 
 	@Test
 	public void adminKey_is_invariant() {
-		vote.adminKey=BAD;
+		vote.setAdminKey(BAD);
 		assertInvariantViolation();
-		vote.adminKey=savedAdminKey;
 	}
 
 	@Test
 	public void neededAssurances_is_invariant() {
 		ArrayList<String> badAssurances = new ArrayList<>();
 		badAssurances.add(BAD);
-		vote.neededAssurances = badAssurances;
+		vote.setNeededAssurances(badAssurances);
 		assertInvariantViolation();
-		vote.neededAssurances = savedNeededAssurances;
 	}
 
 	@Test
 	public void countedAssurances_is_invariant() {
 		ArrayList<String> badAssurances = new ArrayList<>();
 		badAssurances.add(BAD);
-		vote.countedAssurances = badAssurances;
+		vote.setCountedAssurances(badAssurances);
 		assertInvariantViolation();
-		vote.countedAssurances = savedCountedAssurances;
 	}
 
 	@Test
 	public void isPrivate_is_invariant() {
-		vote.isPrivate=!savedIsPrivate;
+		vote.setPrivate(!savedIsPrivate);
 		assertInvariantViolation();
-		vote.isPrivate=savedIsPrivate;
 	}
 
 	@Test
 	public void creationTime_is_invariant() {
-		vote.creationTime=0;
+		vote.setCreationTime(0);
 		assertInvariantViolation();
-		vote.creationTime=savedCreationTime;
 	}
 
 }

@@ -6,8 +6,8 @@ public interface HasChoices extends VoteInterface {
 
 	default String addChoice(final String choiceName, final String user) {
 		Choice choice = new Choice(choiceName, user);
-		getChoices().put(choice.id, choice);
-		return choice.id;
+		getChoices().put(choice.getId(), choice);
+		return choice.getId();
 	}
 
 	default Choice getChoice(final String choiceId) {

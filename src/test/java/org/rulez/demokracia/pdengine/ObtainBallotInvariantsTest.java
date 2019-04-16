@@ -24,20 +24,21 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	private long originalCreationTime;
 
 
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
 		originalVoteId = adminInfo.voteId;
 		originalAdminKey = adminInfo.adminKey;
 		vote = voteManager.getVote(originalVoteId);
-		
-		originalNeededAssurances = new ArrayList<>(vote.neededAssurances);
-		originalCountedAssurances = new ArrayList<>(vote.countedAssurances);
-		originalIsPrivate = vote.isPrivate;
-		originalCreationTime = vote.creationTime;
-		originalCanUpdate = vote.parameters.canUpdate;
-		
-		
+
+		originalNeededAssurances = new ArrayList<>(vote.getNeededAssurances());
+		originalCountedAssurances = new ArrayList<>(vote.getCountedAssurances());
+		originalIsPrivate = vote.isPrivate();
+		originalCreationTime = vote.getCreationTime();
+		originalCanUpdate = vote.getParameters().isUpdatable();
+
+
 		voteManager.obtainBallot(originalVoteId, originalAdminKey);
 	}
 
@@ -46,40 +47,40 @@ public class ObtainBallotInvariantsTest extends CreatedDefaultChoice{
 	public void voteId_is_Invariant() {
 		assertEquals(originalVoteId, adminInfo.voteId);
 	}
-	
+
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void adminKey_is_Invariant() {
-		assertEquals(originalAdminKey, vote.adminKey);
+		assertEquals(originalAdminKey, vote.getAdminKey());
 	}
-	
+
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void neededAssurances_is_Invariant() {
-		assertEquals(originalNeededAssurances, vote.neededAssurances);
+		assertEquals(originalNeededAssurances, vote.getNeededAssurances());
 	}
-	
+
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void countedAssurances_is_Invariant() {
-		assertEquals(originalCountedAssurances, vote.countedAssurances);
+		assertEquals(originalCountedAssurances, vote.getCountedAssurances());
 	}
-	
+
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void isPrivate_is_Invariant() {
-		assertEquals(originalIsPrivate, vote.isPrivate);
+		assertEquals(originalIsPrivate, vote.isPrivate());
 	}
-	
+
 	@TestedBehaviour("vote invariants")
 	@Test
 	public void creationTime_is_Invariant() {
-		assertEquals(originalCreationTime, vote.creationTime);
+		assertEquals(originalCreationTime, vote.getCreationTime());
 	}
-	
+
 	@TestedBehaviour("updatable is a vote invariant")
 	@Test
 	public void canUpdate_is_Invariant() {
-		assertEquals(originalCanUpdate, vote.parameters.canUpdate);
+		assertEquals(originalCanUpdate, vote.getParameters().isUpdatable());
 	}
 }

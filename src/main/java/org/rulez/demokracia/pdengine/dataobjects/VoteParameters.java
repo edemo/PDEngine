@@ -4,15 +4,18 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 
+import lombok.Data;
+
+@Data
 @Entity
 public class VoteParameters implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	public int minEndorsements;
-	public boolean canAddin;
-	public boolean canEndorse;
-	public boolean canVote;
-	public boolean canView;
-	public boolean canUpdate;
+	private int minEndorsements;
+	private boolean addinable;
+	private boolean endorsable;
+	private boolean votable;
+	private boolean viewable;
+	private boolean updatable;
 }

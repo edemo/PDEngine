@@ -10,6 +10,7 @@ import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 @TestedFeature("Manage votes")
 @TestedOperation("modify vote")
@@ -76,7 +77,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void when_ballots_are_already_issued_choices_cannot_be_modified() {
 		Vote vote = voteManager.getVote(voteId);
-		vote.ballots.add("Test Ballot");
+		vote.getBallots().add("Test Ballot");
 
 		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, adminKey), choiceId, "something else")
 				).assertMessageIs("Vote modification disallowed: ballots already issued");
@@ -86,8 +87,8 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void userAdmin_cannot_modify_choice_if_canAddin_is_false() {
 		Vote vote = voteManager.getVote(voteId);
-		vote.parameters.canAddin=false;
-		
+		vote.getParameters().setAddinable(false);
+
 		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice)
 				).assertMessageIs("Choice modification disallowed: adminKey is user, but canAddin is false");
 
@@ -97,8 +98,8 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void userAdmin_cannot_modify_choice_if_it_is_not_added_by_other_user() {
 		Vote vote = voteManager.getVote(voteId);
-		vote.parameters.canAddin=true;
-		
+		vote.getParameters().setAddinable(true);
+
 		assertThrows( () -> voteManager.modifyChoice(new VoteAdminInfo(voteId, USER), choiceId, choice)
 				).assertMessageIs("Choice modification disallowed: adminKey is user, " +
 						"and the choice was added by a different user");
@@ -109,7 +110,7 @@ public class ChoiceModifyValidationTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() {
 		Vote vote = voteManager.getVote(voteId);
-		vote.parameters.canAddin=true;
+		vote.getParameters().setAddinable(true);
 		String myName = voteManager.getWsUserName();
 		choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice2", myName);
 

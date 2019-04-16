@@ -4,6 +4,7 @@ import javax.xml.ws.WebServiceContext;
 
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 public class ChoiceManager extends VoteManager {
 

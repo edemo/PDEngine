@@ -12,19 +12,20 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class VoteRegistryTest extends CreatedDefaultVoteRegistry {
 
+	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
 	}
 
 
-	@Test
 	@TestedFeature("Manage votes")
 	@TestedOperation("create vote")
 	@TestedBehaviour("Creates a vote")
+	@Test
 	public void create_creates_a_vote_with_the_given_name() {
 		VoteEntity vote = voteManager.getVote(adminInfo.voteId);
-		assertEquals(vote.name, voteName);
+		assertEquals(vote.getName(), voteName);
 	}
 
 	@Test
