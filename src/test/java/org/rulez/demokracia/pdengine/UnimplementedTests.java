@@ -1,7 +1,5 @@
 package org.rulez.demokracia.pdengine;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
@@ -14,9 +12,8 @@ import org.rulez.demokracia.testhelpers.ThrowableTester;
 public class UnimplementedTests extends ThrowableTester {
 
   @Test
-  public void the_getAssurances_method_is_not_implemented_yet() {
-    assertUnimplemented(
-        () -> new CastVote("proxyId", new ArrayList<>()).getAssurances()
-    );
+  public void getAssurances_in_ADAAssuranceManager_is_unimplemented() {
+    final ADAAssuranceManager a = new ADAAssuranceManager();
+    assertUnimplemented(() -> a.getAssurances("UnImplementedTest"));
   }
 }

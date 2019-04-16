@@ -8,13 +8,20 @@ import org.rulez.demokracia.pdengine.dataobjects.CastVoteEntity;
 public class CastVote extends CastVoteEntity implements CastVoteInterface {
 
   private static final long serialVersionUID = 1L;
-  private static final String DELIMITER = "|";
 
   public CastVote(final String proxyId, final List<RankedChoice> preferences) {
     super();
     this.proxyId = proxyId;
     this.preferences = new ArrayList<>(preferences);
     secretId = RandomUtils.createRandomKey();
+  }
+
+  public CastVote(
+      final String proxyId, final List<RankedChoice> preferences,
+      final List<String> assurances
+  ) {
+    this(proxyId, preferences);
+    this.assurances = assurances;
   }
 
   @Override
@@ -24,18 +31,19 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 
   @Override
   public List<String> getAssurances() {
-    throw new UnsupportedOperationException();
+    return assurances;
   }
 
   public String contentToBeSigned() {
     final StringBuilder str = new StringBuilder();
+    final String delimiter = "|";
 
-    str.append(proxyId).append(DELIMITER)
-        .append(secretId).append(DELIMITER);
+    str.append(proxyId).append(delimiter)
+        .append(secretId).append(delimiter);
     for (final RankedChoice rc : preferences)
-      str.append(rc.id).append(DELIMITER)
-          .append(rc.choiceId).append(DELIMITER)
-          .append(rc.rank).append(DELIMITER);
+      str.append(rc.id).append(delimiter)
+          .append(rc.choiceId).append(delimiter)
+          .append(rc.rank).append(delimiter);
     return str.toString();
   }
 

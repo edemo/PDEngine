@@ -12,6 +12,7 @@ import javax.xml.ws.WebServiceContext;
 
 import org.junit.Before;
 import org.mockito.MockitoAnnotations;
+import org.rulez.demokracia.pdengine.AssuranceManager;
 import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.Vote;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
@@ -29,11 +30,15 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester {
   protected Set<String> countedAssurances;
   protected boolean isPrivate;
   protected int minEndorsements;
+  protected AssuranceManager fakeAssuranceManager;
 
   @Before
   public void setUp() {
     final WebServiceContext wsContext = setupMockWsContext();
-    voteManager = IVoteManager.getVoteManager(wsContext);
+    fakeAssuranceManager = mock(AssuranceManager.class);
+    when(fakeAssuranceManager.getAssurances(TEST_USER_NAME))
+        .thenReturn(Arrays.asList("magyar", "német"));
+    voteManager = IVoteManager.getVoteManager(wsContext, fakeAssuranceManager);
     neededAssurances = new HashSet<>();
     countedAssurances = new HashSet<>();
     isPrivate = true;
@@ -64,7 +69,7 @@ public class CreatedDefaultVoteRegistry extends ThrowableTester {
   public void setupUnauthenticatedMockWsContext() {
     final WebServiceContext wsContext = mock(WebServiceContext.class);
     when(wsContext.getUserPrincipal()).thenReturn(null);
-    voteManager = IVoteManager.getVoteManager(wsContext);
+    voteManager = IVoteManager.getVoteManager(wsContext, fakeAssuranceManager);
   }
 
   protected VoteAdminInfo createAVote() {

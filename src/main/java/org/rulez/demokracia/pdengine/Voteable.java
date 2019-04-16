@@ -7,15 +7,24 @@ public interface Voteable extends VoteInterface {
 
   default CastVote
       addCastVote(final String proxyId, final List<RankedChoice> theVote) {
+    final CastVote castVote = new CastVote(proxyId, theVote);
+    getVotesCast().add(castVote);
+    return castVote;
+  }
+
+  default CastVote addCastVote(
+      final String proxyId, final List<RankedChoice> theVote,
+      final List<String> assurances
+  ) {
     final Iterator<CastVote> listIterator = getVotesCast().iterator();
     while (listIterator.hasNext()) {
       final CastVote element = listIterator.next();
 
-      if (element.proxyId != null && element.proxyId.equals(proxyId))
+      if (element.proxyId.equals(proxyId))
         listIterator.remove();
     }
 
-    final CastVote castVote = new CastVote(proxyId, theVote);
+    final CastVote castVote = new CastVote(proxyId, theVote, assurances);
     getVotesCast().add(castVote);
     castVote.updateSignature();
     return castVote;

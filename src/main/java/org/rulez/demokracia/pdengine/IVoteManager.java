@@ -13,8 +13,10 @@ import com.google.gson.JsonObject;
 
 public interface IVoteManager {
 
-  static IVoteManager getVoteManager(final WebServiceContext wsContext) {
-    return VoteManagerUtils.getVoteManager(wsContext);
+  static IVoteManager getVoteManager(
+      final WebServiceContext wsContext, final AssuranceManager assuranceManager
+  ) {
+    return VoteManagerUtils.getVoteManager(wsContext, assuranceManager);
   }
 
   WebServiceContext getWsContext();
@@ -65,5 +67,11 @@ public interface IVoteManager {
   void setVoteParameters(
       final VoteAdminInfo adminInfo, final VoteParameters voteParameters
   );
+
+  List<String> getAssurances();
+
+  static AssuranceManager getAssuranceManager() {
+    return new ADAAssuranceManager();
+  }
 
 }

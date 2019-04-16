@@ -10,13 +10,11 @@ final public class VoteManagerUtils {
   private static Map<WebServiceContext, IVoteManager> registry =
       new HashMap<>();
 
-  private VoteManagerUtils() {
-  }
-
-  public static IVoteManager getVoteManager(final WebServiceContext wsContext) {
-    if (!registry.containsKey(wsContext)) {
-      registry.put(wsContext, new VoteRegistry(wsContext));
-    }
+  public static IVoteManager getVoteManager(
+      final WebServiceContext wsContext, final AssuranceManager assuranceManager
+  ) {
+    if (!registry.containsKey(wsContext))
+      registry.put(wsContext, new VoteRegistry(wsContext, assuranceManager));
     return registry.get(wsContext);
   }
 }
