@@ -13,47 +13,65 @@ import com.google.gson.JsonObject;
 
 public interface IVoteManager {
 
-	static IVoteManager getVoteManager(final WebServiceContext wsContext, AssuranceManager assuranceManager) {
-		return VoteManagerUtils.getVoteManager(wsContext, assuranceManager);
-	}
+  static IVoteManager getVoteManager(
+      final WebServiceContext wsContext, final AssuranceManager assuranceManager
+  ) {
+    return VoteManagerUtils.getVoteManager(wsContext, assuranceManager);
+  }
 
-	WebServiceContext getWsContext();
+  WebServiceContext getWsContext();
 
-	VoteAdminInfo createVote(final String voteName, final Set<String> neededAssurances, final Set<String> countedAssurances,
-			final boolean isPrivate, final int minEndorsements);
+  VoteAdminInfo createVote(
+      final String voteName, final Set<String> neededAssurances,
+      final Set<String> countedAssurances,
+      final boolean isPrivate, final int minEndorsements
+  );
 
-	Vote getVote(final String voteId);
+  Vote getVote(final String voteId);
 
-	String addChoice(final VoteAdminInfo voteAdminInfo, final String choiceName, final String user);
+  String addChoice(
+      final VoteAdminInfo voteAdminInfo, final String choiceName,
+      final String user
+  );
 
-	String deleteChoice(final VoteAdminInfo voteAdminInfo, final String choiceId);
+  String deleteChoice(final VoteAdminInfo voteAdminInfo, final String choiceId);
 
-	void modifyChoice(final VoteAdminInfo adminInfo, final String choiceId, final String choiceName);
+  void modifyChoice(
+      final VoteAdminInfo adminInfo, final String choiceId,
+      final String choiceName
+  );
 
-	ChoiceEntity getChoice(final String voteId, final String choiceId);
+  ChoiceEntity getChoice(final String voteId, final String choiceId);
 
-	void endorseChoice(final VoteAdminInfo voteAdminInfo, final String choiceId, final String statedUserName);
+  void endorseChoice(
+      final VoteAdminInfo voteAdminInfo, final String choiceId,
+      final String statedUserName
+  );
 
-	String obtainBallot(final String identifier, final String adminKey);
+  String obtainBallot(final String identifier, final String adminKey);
 
-	CastVote castVote(final String voteId, final String ballot, final List<RankedChoice> theVote);
+  CastVote castVote(
+      final String voteId, final String ballot, final List<RankedChoice> theVote
+  );
 
-	String getWsUserName();
+  String getWsUserName();
 
-	boolean hasAssurance(final String role);
+  boolean hasAssurance(final String role);
 
-	void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName);
+  void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName);
 
-	void deleteVote(final VoteAdminInfo adminInfo);
+  void deleteVote(final VoteAdminInfo adminInfo);
 
-	JsonObject showVote(final VoteAdminInfo adminInfo);
+  JsonObject showVote(final VoteAdminInfo adminInfo);
 
-	void setVoteParameters(final VoteAdminInfo adminInfo, final VoteParameters voteParameters);
-	
-	List<String> getAssurances();
-	
-	static AssuranceManager getAssuranceManager() {
-		return new ADAAssuranceManager();
-	}
+  void setVoteParameters(
+      final VoteAdminInfo adminInfo, final VoteParameters voteParameters
+  );
+
+  List<String> getAssurances();
+
+  static AssuranceManager getAssuranceManager() {
+    return new ADAAssuranceManager();
+  }
 
 }

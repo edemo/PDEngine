@@ -12,19 +12,21 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 @TestedBehaviour("validates inputs")
 public class VoteShowValidationTest extends CreatedDefaultVoteRegistry {
 
-	@Test
-	public void invalid_voteId_is_rejected() {
-		String invalidvoteId = RandomUtils.createRandomKey();
-		assertThrows(
-			() -> voteManager.showVote(new VoteAdminInfo(invalidvoteId, adminInfo.adminKey))
-		).assertMessageIs("illegal voteId");
-	}
-	
-	@Test
-	public void invalid_adminKey_is_rejected() {
-		String invalidAdminKey = RandomUtils.createRandomKey();
-		assertThrows(
-			() -> voteManager.showVote(new VoteAdminInfo(adminInfo.voteId, invalidAdminKey))
-		).assertMessageIs("Illegal adminKey");
-	}
+  @Test
+  public void invalid_voteId_is_rejected() {
+    String invalidvoteId = RandomUtils.createRandomKey();
+    assertThrows(
+        () -> voteManager
+            .showVote(new VoteAdminInfo(invalidvoteId, adminInfo.adminKey))
+    ).assertMessageIs("illegal voteId");
+  }
+
+  @Test
+  public void invalid_adminKey_is_rejected() {
+    String invalidAdminKey = RandomUtils.createRandomKey();
+    assertThrows(
+        () -> voteManager
+            .showVote(new VoteAdminInfo(adminInfo.voteId, invalidAdminKey))
+    ).assertMessageIs("Illegal adminKey");
+  }
 }

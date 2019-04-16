@@ -6,11 +6,11 @@ import org.rulez.demokracia.pdengine.dataobjects.RankedChoiceEntity;
 @Entity
 public class RankedChoice extends RankedChoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public RankedChoice(final String choiceId, final int rank) {
-		super();
-		this.choiceId = choiceId;
-		this.rank = rank;
-	}
+  public RankedChoice(final String choiceId, final int rank) {
+    super();
+    this.choiceId = choiceId;
+    this.rank = rank;
+  }
 }
