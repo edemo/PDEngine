@@ -4,7 +4,7 @@ if [ -a /tmp/.X11-unix/X0 ]
 then
 	echo skipping X server
 else
-    Xvnc4 -SecurityTypes none :0 &
+    Xvnc4 -SecurityTypes none -localhost :0 &
 fi
 #!!!do not do it on a production system!!!
 #run haveged instead
