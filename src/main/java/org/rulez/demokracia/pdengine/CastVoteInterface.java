@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CastVoteInterface {
 
-	List<RankedChoice> getPreferences();
+  List<RankedChoice> getPreferences();
 
-	List<String> getAssurances();
+  List<String> getAssurances();
 }

@@ -1,15 +1,16 @@
 set -x
 export DISPLAY=:0
-if [ ! -s /tmp/.X11-unix/X0 ]
+if [ -a /tmp/.X11-unix/X0 ]
 then
+	echo skipping X server
+else
     Xvnc4 -SecurityTypes none :0 &
 fi
-set +x
-. <(./tools/decrypt_secret_env $ORG_NAME)
-set -x
 #!!!do not do it on a production system!!!
 #run haveged instead
 sudo rm /dev/random
 sudo cp -a /dev/urandom /dev/random
 #end of workaround for low entropy level
-
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+set |sed 's/=[a-z0-9].*/=EXISTS/'
+ls -l /usr/lib/jvm/*/bin/java

@@ -12,29 +12,28 @@ import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 
 public class VoteRegistryTest extends CreatedDefaultVoteRegistry {
 
-	@Before
-	public void setUp() {
-		super.setUp();
-	}
+  @Before
+  public void setUp() {
+    super.setUp();
+  }
 
+  @Test
+  @TestedFeature("Manage votes")
+  @TestedOperation("create vote")
+  @TestedBehaviour("Creates a vote")
+  public void create_creates_a_vote_with_the_given_name() {
+    VoteEntity vote = voteManager.getVote(adminInfo.voteId);
+    assertEquals(vote.name, voteName);
+  }
 
-	@Test
-	@TestedFeature("Manage votes")
-	@TestedOperation("create vote")
-	@TestedBehaviour("Creates a vote")
-	public void create_creates_a_vote_with_the_given_name() {
-		VoteEntity vote = voteManager.getVote(adminInfo.voteId);
-		assertEquals(vote.name, voteName);
-	}
-
-	@Test
-	@TestedFeature("Manage votes")
-	@TestedOperation("create vote")
-	@TestedBehaviour("Creates a vote")
-	public void a_vote_got_frome_the_registry_two_times_is_the_same() {
-		VoteEntity entity1 = voteManager.getVote(adminInfo.voteId);
-		VoteEntity entity2 = voteManager.getVote(adminInfo.voteId);
-		assertEquals(entity1, entity2);
-	}
+  @Test
+  @TestedFeature("Manage votes")
+  @TestedOperation("create vote")
+  @TestedBehaviour("Creates a vote")
+  public void a_vote_got_frome_the_registry_two_times_is_the_same() {
+    VoteEntity entity1 = voteManager.getVote(adminInfo.voteId);
+    VoteEntity entity2 = voteManager.getVote(adminInfo.voteId);
+    assertEquals(entity1, entity2);
+  }
 
 }

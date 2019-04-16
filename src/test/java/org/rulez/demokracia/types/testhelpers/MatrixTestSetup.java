@@ -10,22 +10,22 @@ import org.rulez.demokracia.types.Matrix;
 
 public class MatrixTestSetup extends ThrowableTester {
 
-	protected Matrix<String, Integer> theMatrix;
-	protected Collection<String> keyCollection;
-	protected String rowKey;
-	protected String columnKey;
-	protected Integer value;
+  protected Matrix<String, Integer> theMatrix;
+  protected Collection<String> keyCollection;
+  protected String rowKey;
+  protected String columnKey;
+  protected Integer value;
 
-	@Before
-	public void setUp() {
-		keyCollection = new ArrayList<>();
-		rowKey = "initialRowKey";
-		columnKey = "initialColumnKey";
-		value = 42;
-	}
+  @Before
+  public void setUp() {
+    keyCollection = new ArrayList<>();
+    rowKey = "initialRowKey";
+    columnKey = "initialColumnKey";
+    value = 42;
+  }
 
-	protected void updateMatrix() {
-		theMatrix = new MapMatrix<>(keyCollection);
-	}
+  protected void updateMatrix() {
+    theMatrix = new MapMatrix<>(keyCollection);
+  }
 
 }
