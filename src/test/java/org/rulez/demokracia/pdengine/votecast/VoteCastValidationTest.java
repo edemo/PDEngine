@@ -1,26 +1,32 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.votecast;
 
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.rulez.demokracia.pdengine.RandomUtils;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
 @TestedFeature("Vote")
 @TestedOperation("Cast vote")
-public class VoteTest extends CreatedDefaultChoice {
+@RunWith(MockitoJUnitRunner.class)
+public class VoteCastValidationTest extends CastVoteTestBase {
 
 	private static final int LAST_WRONG_RANK = -1;
 	private static final int FIRST_GOOD_RANK = 0;
+	private List<RankedChoice> theCastVote;
 	@Override
 	@Before
 	public void setUp() {
@@ -31,7 +37,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	@TestedBehaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
 	@Test
 	public void cast_vote_deletes_ballot_if_canVote_is_true() {
-		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		castVoteService.castVote(vote.getId(), ballot, theCastVote);
 		assertFalse(vote.getBallots().contains(ballot));
 	}
 
@@ -40,7 +46,7 @@ public class VoteTest extends CreatedDefaultChoice {
 	public void cast_vote_deletes_ballot_if_it_gets_a_proper_not_empty_cast_vote() {
 		newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK);
 
-		voteManager.castVote(adminInfo.voteId, ballot, theCastVote);
+		castVoteService.castVote(vote.getId(), ballot, theCastVote);
 		assertFalse(vote.getBallots().contains(ballot));
 	}
 
@@ -49,8 +55,8 @@ public class VoteTest extends CreatedDefaultChoice {
 	public void cast_vote_does_not_delete_ballot_if_canVote_is_false() {
 		List<RankedChoice> theCastVote = prepareCastVote(false);
 
-		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
-				).assertException(ReportedException.class)
+		assertThrows(() -> castVoteService.castVote(vote.getId(), ballot,
+				theCastVote)).assertException(ReportedException.class)
 		.assertMessageIs("This issue cannot be voted on yet");
 	}
 
@@ -58,9 +64,10 @@ public class VoteTest extends CreatedDefaultChoice {
 	@Test
 	public void cast_vote_checks_vote_id() {
 		String wrongVoteId = "wrong_ID";
+		doThrow(new ReportedException("illegal voteId")).when(voteService).getVote(wrongVoteId);
 
-		assertThrows(() -> voteManager.castVote(wrongVoteId, ballot, theCastVote)
-				).assertException(ReportedException.class)
+		assertThrows(() -> castVoteService.castVote(wrongVoteId, ballot, theCastVote))
+		.assertException(ReportedException.class)
 		.assertMessageIs("illegal voteId");
 	}
 
@@ -69,8 +76,8 @@ public class VoteTest extends CreatedDefaultChoice {
 	public void cast_vote_checks_ballot() {
 		String wrongBallot = RandomUtils.createRandomKey();
 
-		assertThrows(() -> voteManager.castVote(adminInfo.voteId, wrongBallot, theCastVote)
-				).assertException(ReportedException.class)
+		assertThrows(() -> castVoteService.castVote(vote.getId(), wrongBallot,
+				theCastVote)).assertException(ReportedException.class)
 		.assertMessageIs("Illegal ballot");
 	}
 
@@ -79,8 +86,8 @@ public class VoteTest extends CreatedDefaultChoice {
 	public void cast_vote_checks_the_cast_if_choiceids_are_valid() {
 		prepareRankedChoice(theCastVote, RandomUtils.createRandomKey(), 42);
 
-		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
-				).assertException(ReportedException.class)
+		assertThrows(() -> castVoteService.castVote(vote.getId(), ballot,
+				theCastVote)).assertException(ReportedException.class)
 		.assertMessageIs("Invalid choiceId");
 	}
 
@@ -90,8 +97,8 @@ public class VoteTest extends CreatedDefaultChoice {
 
 		newChoiceAndRankedList(theCastVote, LAST_WRONG_RANK);
 
-		assertThrows(() -> voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
-				).assertException(ReportedException.class)
+		assertThrows(() -> castVoteService.castVote(vote.getId(), ballot,
+				theCastVote)).assertException(ReportedException.class)
 		.assertMessageIs("Invalid rank");
 	}
 
@@ -99,20 +106,18 @@ public class VoteTest extends CreatedDefaultChoice {
 	@Test
 	public void cannot_cast_a_user_if_canUpdate_is_true_but_not_logged_in() {
 		vote.getParameters().setUpdatable(true);
-		setupUnauthenticatedMockWsContext();
+		when(authService.getUserPrincipal()).thenReturn(null);
 
 		newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK);
 
-		assertThrows(() ->  voteManager.castVote(adminInfo.voteId, ballot, theCastVote)
-				).assertException(ReportedException.class)
+		assertThrows(() -> castVoteService.castVote(vote.getId(), ballot,
+				theCastVote)).assertException(ReportedException.class)
 		.assertMessageIs("canUpdate is true but the user is not authenticated");
 
 	}
 
 	private List<RankedChoice> prepareCastVote(final boolean canVote) {
-		ballot = voteManager.obtainBallot(adminInfo.voteId, adminInfo.adminKey);
 		List<RankedChoice> theCastVote = new ArrayList<>();
-		vote = getTheVote();
 		vote.getParameters().setVotable(canVote);
 		return theCastVote;
 	}

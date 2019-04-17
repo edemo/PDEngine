@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.rulez.demokracia.pdengine.votecast.CastVote;
+
 public class VoteFilter {
 
 	public List<CastVote> filterVotes(final List<CastVote> votes, final String assurance) {

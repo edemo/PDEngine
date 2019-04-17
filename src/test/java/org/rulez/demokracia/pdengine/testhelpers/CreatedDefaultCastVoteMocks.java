@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.junit.Before;
-import org.rulez.demokracia.pdengine.CastVote;
+import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 public class CreatedDefaultCastVoteMocks extends CreatedDefaultChoice {
 

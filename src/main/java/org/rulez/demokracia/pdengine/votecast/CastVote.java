@@ -1,10 +1,10 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.votecast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.rulez.demokracia.pdengine.RandomUtils;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
-import org.rulez.demokracia.pdengine.dataobjects.CastVoteEntity;
 
 
 public class CastVote extends CastVoteEntity implements CastVoteInterface {
@@ -12,14 +12,9 @@ public class CastVote extends CastVoteEntity implements CastVoteInterface {
 
 	public CastVote(final String proxyId, final List<RankedChoice> preferences) {
 		super();
-		this.proxyId = proxyId;
-		this.preferences = new ArrayList<>(preferences);
-		secretId = RandomUtils.createRandomKey();
-	}
-
-	@Override
-	public List<RankedChoice> getPreferences() {
-		return preferences;
+		this.setProxyId(proxyId);
+		this.setPreferences(new ArrayList<>(preferences));
+		setSecretId(RandomUtils.createRandomKey());
 	}
 
 	@Override

@@ -19,4 +19,6 @@ public interface VoteService {
 
 	void setVoteParameters(final VoteAdminInfo adminInfo, final VoteParameters voteParameters);
 
+	Vote saveVote(Vote vote);
+
 }

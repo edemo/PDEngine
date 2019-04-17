@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.rulez.demokracia.pdengine.vote.Vote;
+import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 public class ComputedVote implements ComputedVoteInterface, Serializable {
 
@@ -45,7 +46,7 @@ public class ComputedVote implements ComputedVoteInterface, Serializable {
 		return vote.getVotesCast().stream()
 				.map(CastVote::getPreferences)
 				.flatMap(List::stream)
-				.map(p -> p.choiceId)
+				.map(p -> p.getChoiceId())
 				.collect(Collectors.toSet());
 	}
 

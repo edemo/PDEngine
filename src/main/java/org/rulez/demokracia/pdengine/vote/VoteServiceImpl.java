@@ -37,7 +37,7 @@ public class VoteServiceImpl implements VoteService {
 		Vote vote = getModifiableVote(voteAdminInfo);
 
 		vote.setName(voteName);
-		voteRepository.save(vote);
+		saveVote(vote);
 	}
 
 	@Override
@@ -76,6 +76,11 @@ public class VoteServiceImpl implements VoteService {
 				voteParameters.isEndorsable(),
 				voteParameters.isVotable(),
 				voteParameters.isViewable());
+	}
+
+	@Override
+	public Vote saveVote(final Vote vote) {
+		return voteRepository.save(vote);
 	}
 
 }

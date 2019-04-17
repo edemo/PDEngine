@@ -1,25 +1,20 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.votecast;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
+import org.rulez.demokracia.pdengine.votecast.CastVote;
 
-public class CastVoteTest extends CreatedDefaultChoice {
+public class CastVoteTest {
 
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-	}
+	private static final String TEST_USER_NAME = "TesztElek";
 
 	@TestedFeature("Supporting functionality")
 	@TestedOperation("CastVote")
@@ -31,7 +26,7 @@ public class CastVoteTest extends CreatedDefaultChoice {
 		List<RankedChoice> preferences = castVote.getPreferences();
 		assertEquals(new ArrayList<>(), preferences);
 	}
-	
+
 	@TestedFeature("Supporting functionality")
 	@TestedOperation("CastVote")
 	@TestedBehaviour("The preferences described by a cast vote can be obtained")
@@ -43,5 +38,5 @@ public class CastVoteTest extends CreatedDefaultChoice {
 		List<RankedChoice> preferences = castVote.getPreferences();
 		assertEquals(theCastVote, preferences);
 	}
-	
+
 }

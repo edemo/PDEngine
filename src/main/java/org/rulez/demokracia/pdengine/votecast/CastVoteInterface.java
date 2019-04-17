@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.votecast;
 
 import java.util.List;
 

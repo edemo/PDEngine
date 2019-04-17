@@ -5,10 +5,10 @@ import java.util.Map;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import org.rulez.demokracia.pdengine.CastVote;
 import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
+import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 import lombok.Getter;
 import lombok.Setter;

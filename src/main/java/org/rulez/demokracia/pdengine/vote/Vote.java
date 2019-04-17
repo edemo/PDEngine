@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.Entity;
 
 import org.rulez.demokracia.pdengine.Admnistrable;
-import org.rulez.demokracia.pdengine.CastVote;
 import org.rulez.demokracia.pdengine.Endorsable;
 import org.rulez.demokracia.pdengine.HasBallots;
 import org.rulez.demokracia.pdengine.HasChoices;
@@ -19,16 +18,16 @@ import org.rulez.demokracia.pdengine.ValidationUtil;
 import org.rulez.demokracia.pdengine.VoteFilter;
 import org.rulez.demokracia.pdengine.VoteInterface;
 import org.rulez.demokracia.pdengine.VoteJSONSerializer;
-import org.rulez.demokracia.pdengine.Voteable;
 import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 import com.google.gson.JsonObject;
 
 @Entity
 public class Vote extends VoteEntity
-implements VoteInterface, Admnistrable, HasChoices, HasBallots, Endorsable, Voteable {
+		implements VoteInterface, Admnistrable, HasChoices, HasBallots, Endorsable {
 
 	private static final long serialVersionUID = 1L;
 

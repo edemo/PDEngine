@@ -1,7 +1,9 @@
-package org.rulez.demokracia.pdengine.choice;
+package org.rulez.demokracia.pdengine.votecast;
 
 import static org.mockito.Mockito.when;
 
+import org.apache.catalina.connector.CoyotePrincipal;
+import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rulez.demokracia.pdengine.authentication.AuthenticatedUserService;
@@ -10,10 +12,10 @@ import org.rulez.demokracia.pdengine.vote.Vote;
 import org.rulez.demokracia.pdengine.vote.VoteService;
 import org.rulez.demokracia.testhelpers.ThrowableTester;
 
-public class ChoiceTest extends ThrowableTester {
+public class CastVoteTestBase extends ThrowableTester {
 
 	@InjectMocks
-	protected ChoiceServiceImpl choiceService;
+	protected CastVoteServiceImpl castVoteService;
 
 	@Mock
 	protected VoteService voteService;
@@ -22,11 +24,15 @@ public class ChoiceTest extends ThrowableTester {
 
 	protected Vote vote = new VariantVote();
 
-	protected String invalidvoteId;
+	protected String ballot = "ballotgyorgy";
 
+	@Before
 	public void setUp() {
-		invalidvoteId = "invalidVoteId";
 		when(voteService.getVote(vote.getId())).thenReturn(vote);
+		when(authService.getUserPrincipal()).thenReturn(new CoyotePrincipal("name"));
+		vote.getParameters().setVotable(true);
+		vote.getParameters().setUpdatable(true);
+		CastVoteTestHelper.fillVoteWithDummyCastVotes(vote);
+		vote.addBallot(ballot);
 	}
-
 }

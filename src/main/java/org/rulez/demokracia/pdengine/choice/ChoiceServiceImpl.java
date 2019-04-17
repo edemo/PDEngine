@@ -4,7 +4,6 @@ import org.rulez.demokracia.pdengine.authentication.AuthenticatedUserService;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.vote.Vote;
-import org.rulez.demokracia.pdengine.vote.VoteRepository;
 import org.rulez.demokracia.pdengine.vote.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,9 +24,6 @@ public class ChoiceServiceImpl implements ChoiceService {
 	private VoteService voteService;
 
 	@Autowired
-	private VoteRepository voteRepository;
-
-	@Autowired
 	private AuthenticatedUserService authenticatedUserService;
 
 	@Override
@@ -35,7 +31,7 @@ public class ChoiceServiceImpl implements ChoiceService {
 		Vote vote = getModifiableVote(voteAdminInfo);
 		Choice choice = new Choice(choiceName, user);
 		vote.addChoice(choice);
-		voteRepository.save(vote);
+		voteService.saveVote(vote);
 		return choice;
 	}
 
@@ -67,7 +63,7 @@ public class ChoiceServiceImpl implements ChoiceService {
 			vote.getChoices().remove(votesChoice.getId());
 		}
 
-		voteRepository.save(vote);
+		voteService.saveVote(vote);
 	}
 
 	@Override
@@ -78,6 +74,7 @@ public class ChoiceServiceImpl implements ChoiceService {
 		validateModifyInput(adminInfo, vote, votesChoice);
 
 		votesChoice.setName(choiceName);
+		voteService.saveVote(vote);
 	}
 
 	private void validateModifyInput(final VoteAdminInfo adminInfo, final Vote vote, final Choice votesChoice) {

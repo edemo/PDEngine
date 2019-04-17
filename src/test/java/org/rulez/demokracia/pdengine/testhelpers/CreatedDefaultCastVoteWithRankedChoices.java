@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.rulez.demokracia.pdengine.CastVote;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
+import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 public class CreatedDefaultCastVoteWithRankedChoices extends CreatedDefaultChoice {
 

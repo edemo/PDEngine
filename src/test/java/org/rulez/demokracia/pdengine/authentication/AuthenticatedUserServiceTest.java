@@ -17,4 +17,9 @@ public class AuthenticatedUserServiceTest extends ThrowableTester {
 		assertUnimplemented(() -> authenticatedUserService.getAuthenticatedUserName());
 	}
 
+	@Test
+	public void getUserPrincipal_is_unimplemented_yet() throws Exception {
+		assertUnimplemented(() -> authenticatedUserService.getUserPrincipal());
+	}
+
 }

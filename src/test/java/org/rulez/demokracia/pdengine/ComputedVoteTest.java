@@ -106,7 +106,7 @@ public class ComputedVoteTest extends CreatedComputedVote {
 	@TestedBehaviour("vote result includes the votes cast with the secret cast vote identifier.")
 	@Test
 	public void vote_result_includes_the_votes_cast_with_the_secret_cast_vote_id() {
-		String secretId = computedVote.getVote().getVotesCast().get(0).secretId;
+		String secretId = computedVote.getVote().getVotesCast().get(0).getSecretId();
 		assertFalse(secretId.isEmpty());
 	}
 }

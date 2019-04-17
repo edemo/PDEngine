@@ -63,7 +63,7 @@ public class ChoiceDeleteAdminKeyIsUserTest extends ChoiceTest {
 		Choice choiceToDelete = createChoice(TEST_USER_NAME, true);
 		when(authService.getAuthenticatedUserName()).thenReturn(TEST_USER_NAME);
 		choiceService.deleteChoice(new VoteAdminInfo(vote.getId(), USER), choiceToDelete.getId());
-		verify(voteRepository).save(vote);
+		verify(voteService).saveVote(vote);
 	}
 
 	@TestedBehaviour("if the vote has ballots issued, the choice cannot be deleted")

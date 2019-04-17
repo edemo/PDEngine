@@ -7,6 +7,7 @@ import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.vote.Vote;
+import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 import com.google.gson.JsonObject;
 

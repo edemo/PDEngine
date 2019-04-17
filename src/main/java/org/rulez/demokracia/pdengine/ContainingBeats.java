@@ -6,6 +6,7 @@ import org.rulez.demokracia.pdengine.BeatTable.Direction;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.votecast.CastVote;
 import org.rulez.demokracia.types.Matrix;
 
 public interface ContainingBeats extends Matrix<String, Pair> {
@@ -56,9 +57,9 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 				RankedChoice column = preferences.get(columnIndex);
 				for (int rowIndex = columnIndex + 1; rowIndex < preferences.size(); rowIndex++) {
 					RankedChoice row = preferences.get(rowIndex);
-					if (column.rank < row.rank) {
+					if (column.getRank() < row.getRank()) {
 						increasePairValue(preferences, columnIndex, rowIndex);
-					} else if (column.rank > row.rank) {
+					} else if (column.getRank() > row.getRank()) {
 						increasePairValue(preferences, rowIndex, columnIndex);
 					}
 				}
@@ -75,12 +76,12 @@ public interface ContainingBeats extends Matrix<String, Pair> {
 	}
 
 	default void increasePairValue(final List<RankedChoice> preferences, final int column, final int row) {
-		Pair value1 = getPair(preferences.get(column).choiceId, preferences.get(row).choiceId);
-		setElement(preferences.get(column).choiceId, preferences.get(row).choiceId,
+		Pair value1 = getPair(preferences.get(column).getChoiceId(), preferences.get(row).getChoiceId());
+		setElement(preferences.get(column).getChoiceId(), preferences.get(row).getChoiceId(),
 				new Pair(value1.winning + 1, value1.losing));
 
-		Pair value2 = getPair(preferences.get(row).choiceId, preferences.get(column).choiceId);
-		setElement(preferences.get(row).choiceId, preferences.get(column).choiceId,
+		Pair value2 = getPair(preferences.get(row).getChoiceId(), preferences.get(column).getChoiceId());
+		setElement(preferences.get(row).getChoiceId(), preferences.get(column).getChoiceId(),
 				new Pair(value2.winning, value2.losing + 1));
 	}
 }
