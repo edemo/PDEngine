@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 
+import org.rulez.demokracia.pdengine.choice.Choice;
+import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.vote.Vote;
@@ -134,7 +136,7 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 
 		Choice votesChoice = vote.getChoice(choiceId);
 		if ("user".equals(voteAdminInfo.adminKey)) {
-			if (votesChoice.userName.equals(getWsUserName())) {
+			if (votesChoice.getUserName().equals(getWsUserName())) {
 				if (vote.getParameters().isAddinable()) {
 					vote.getChoices().remove(votesChoice.getId());
 				} else {
@@ -161,15 +163,15 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 						"Choice modification disallowed: adminKey is user, but canAddin is false");
 			}
 
-			if (!votesChoice.userName.equals(getWsUserName())) {
+			if (!votesChoice.getUserName().equals(getWsUserName())) {
 				throw new ReportedException(
 						"Choice modification disallowed: adminKey is user, "
 								+ "and the choice was added by a different user",
-								votesChoice.userName);
+						votesChoice.getUserName());
 			}
 		}
 
-		votesChoice.name = choiceName;
+		votesChoice.setName(choiceName);
 	}
 }
 

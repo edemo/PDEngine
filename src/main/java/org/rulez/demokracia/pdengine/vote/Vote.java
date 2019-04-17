@@ -20,8 +20,9 @@ import org.rulez.demokracia.pdengine.VoteFilter;
 import org.rulez.demokracia.pdengine.VoteInterface;
 import org.rulez.demokracia.pdengine.VoteJSONSerializer;
 import org.rulez.demokracia.pdengine.Voteable;
-import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
+import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
+import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 import com.google.gson.JsonObject;
 
@@ -63,5 +64,18 @@ implements VoteInterface, Admnistrable, HasChoices, HasBallots, Endorsable, Vote
 
 	public List<CastVote> filterVotes(final String assurance) {
 		return new VoteFilter().filterVotes(this.getVotesCast(), assurance);
+	}
+
+	@Override
+	public void addChoice(final Choice choice) {
+		getChoices().put(choice.getId(), choice);
+	}
+
+	@Override
+	public Choice getChoice(final String choiceId) {
+		if (!getChoices().containsKey(choiceId)) {
+			throw new ReportedException("Illegal choiceId", choiceId);
+		}
+		return getChoices().get(choiceId);
 	}
 }

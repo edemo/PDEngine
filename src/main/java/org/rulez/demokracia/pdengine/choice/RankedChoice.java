@@ -1,7 +1,6 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.choice;
 
 import javax.persistence.Entity;
-import org.rulez.demokracia.pdengine.dataobjects.RankedChoiceEntity;
 
 @Entity
 public class RankedChoice extends RankedChoiceEntity {

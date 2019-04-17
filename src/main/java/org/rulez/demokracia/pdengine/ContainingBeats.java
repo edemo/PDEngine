@@ -3,6 +3,7 @@ package org.rulez.demokracia.pdengine;
 import java.util.List;
 
 import org.rulez.demokracia.pdengine.BeatTable.Direction;
+import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.dataobjects.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.types.Matrix;

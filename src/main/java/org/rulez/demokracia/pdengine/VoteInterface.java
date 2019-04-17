@@ -3,6 +3,7 @@ package org.rulez.demokracia.pdengine;
 import java.util.List;
 import java.util.Map;
 
+import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 
 public interface VoteInterface {

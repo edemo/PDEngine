@@ -3,6 +3,8 @@ package org.rulez.demokracia.pdengine;
 import java.util.Iterator;
 import java.util.List;
 
+import org.rulez.demokracia.pdengine.choice.RankedChoice;
+
 public interface Voteable extends VoteInterface {
 
 	default CastVote addCastVote(final String proxyId, final List<RankedChoice> theVote) {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 
-import org.rulez.demokracia.pdengine.RankedChoice;
+import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
 public class CastVoteEntity extends BaseEntity {

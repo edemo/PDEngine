@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine.dataobjects;
+package org.rulez.demokracia.pdengine.vote;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,8 @@ import java.util.Map;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import org.rulez.demokracia.pdengine.CastVote;
-import org.rulez.demokracia.pdengine.Choice;
+import org.rulez.demokracia.pdengine.choice.Choice;
+import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
 import lombok.Getter;

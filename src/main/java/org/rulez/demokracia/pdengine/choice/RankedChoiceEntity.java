@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine.dataobjects;
+package org.rulez.demokracia.pdengine.choice;
 
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 

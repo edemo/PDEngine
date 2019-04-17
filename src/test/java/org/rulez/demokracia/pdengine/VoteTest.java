@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.choice.Choice;
+import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultChoice;
 
@@ -121,7 +123,8 @@ public class VoteTest extends CreatedDefaultChoice {
 	}
 
 	private void newChoiceAndRankedList(final List<RankedChoice> theCastVote, final int firstGoodRank) {
-		String choiceId = vote.addChoice("valid_choice","userke");
-		prepareRankedChoice(theCastVote, choiceId, firstGoodRank);
+		Choice choice = new Choice("valid_choice", "userke");
+		vote.addChoice(choice);
+		prepareRankedChoice(theCastVote, choice.getId(), firstGoodRank);
 	}
 }

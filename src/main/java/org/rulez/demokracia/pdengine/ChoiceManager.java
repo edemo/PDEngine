@@ -2,6 +2,7 @@ package org.rulez.demokracia.pdengine;
 
 import javax.xml.ws.WebServiceContext;
 
+import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.vote.Vote;
@@ -15,7 +16,9 @@ public class ChoiceManager extends VoteManager {
 	public String addChoice(final VoteAdminInfo voteAdminInfo, final String choiceName, final String user) {
 		Vote vote = getVoteIfModifiable(voteAdminInfo.voteId, voteAdminInfo.adminKey);
 
-		return vote.addChoice(choiceName, user);
+		Choice choice = new Choice(choiceName, user);
+		vote.addChoice(choice);
+		return choice.getId();
 	}
 
 	public Choice getChoice(final String voteId, final String choiceId) {

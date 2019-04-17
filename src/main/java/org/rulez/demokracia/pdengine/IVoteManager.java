@@ -3,7 +3,8 @@ package org.rulez.demokracia.pdengine;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
-import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
+import org.rulez.demokracia.pdengine.choice.Choice;
+import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.vote.Vote;
 
@@ -25,7 +26,7 @@ public interface IVoteManager {
 
 	void modifyChoice(final VoteAdminInfo adminInfo, final String choiceId, final String choiceName);
 
-	ChoiceEntity getChoice(final String voteId, final String choiceId);
+	Choice getChoice(final String voteId, final String choiceId);
 
 	void endorseChoice(final VoteAdminInfo voteAdminInfo, final String choiceId, final String statedUserName);
 

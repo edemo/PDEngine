@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.CastVote;
-import org.rulez.demokracia.pdengine.RankedChoice;
-import org.rulez.demokracia.pdengine.dataobjects.ChoiceEntity;
+import org.rulez.demokracia.pdengine.choice.Choice;
+import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.vote.Vote;
@@ -36,7 +36,7 @@ public class CreatedDefaultChoice extends CreatedDefaultVoteRegistry {
 		choiceId = voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), "choice1", "user");
 	}
 
-	protected ChoiceEntity getChoice(final String theChoice) {
+	protected Choice getChoice(final String theChoice) {
 		return voteManager.getChoice(adminInfo.voteId, theChoice);
 	}
 

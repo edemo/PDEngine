@@ -20,9 +20,9 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 import org.rulez.demokracia.pdengine.vote.CreateVoteRequest;
+import org.rulez.demokracia.pdengine.vote.VoteEntity;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

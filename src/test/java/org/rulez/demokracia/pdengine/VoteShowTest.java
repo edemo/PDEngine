@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 import org.rulez.demokracia.pdengine.vote.Vote;
@@ -52,7 +53,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 	public void setUp() {
 		super.setUp();
 		vote = voteManager.getVote(adminInfo.voteId);
-		vote.addChoice(CHOICE_NAME, USER);
+		vote.addChoice(new Choice(CHOICE_NAME, USER));
 		voteManager.addChoice(new VoteAdminInfo(adminInfo.voteId, adminInfo.adminKey), CHOICE_NAME, USER);
 		voteId = adminInfo.voteId;
 		adminKey = adminInfo.adminKey;
@@ -170,7 +171,7 @@ public class VoteShowTest extends CreatedDefaultVoteRegistry {
 			final Map<String, Choice> choices) {
 		assertEntrySetIsNotEmpty(choicesJson);
 		choicesJson.entrySet()
-		.forEach(e -> assertJsonContainsUserName(e.getValue(), choices.get(e.getKey()).userName));
+				.forEach(e -> assertJsonContainsUserName(e.getValue(), choices.get(e.getKey()).getUserName()));
 	}
 
 	private void assertJsonContainsUserName(final JsonElement entry, final String userName) {

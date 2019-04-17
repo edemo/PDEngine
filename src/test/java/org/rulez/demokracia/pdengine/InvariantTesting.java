@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
 import org.rulez.demokracia.pdengine.vote.Vote;
+import org.rulez.demokracia.pdengine.vote.VoteEntity;
 
 public class InvariantTesting {
 
