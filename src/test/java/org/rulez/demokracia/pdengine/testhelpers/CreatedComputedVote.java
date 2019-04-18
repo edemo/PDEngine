@@ -10,7 +10,7 @@ import org.mockito.ArgumentMatchers;
 import org.rulez.demokracia.pdengine.ComputedVote;
 import org.rulez.demokracia.pdengine.VoteResult;
 import org.rulez.demokracia.pdengine.VoteResultComposer;
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import org.rulez.demokracia.pdengine.beattable.Pair;
 
 public class CreatedComputedVote extends CreatedDefaultCastVoteWithRankedChoices {
 

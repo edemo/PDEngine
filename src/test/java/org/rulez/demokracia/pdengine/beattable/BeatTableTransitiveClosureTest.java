@@ -1,42 +1,49 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.beattable;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper.createNewBeatTableWithComplexData;
 
 import java.util.Collection;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import org.rulez.demokracia.pdengine.beattable.BeatTable;
+import org.rulez.demokracia.pdengine.beattable.Pair;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedBeatTable;
 
 @TestedFeature("Schulze method")
 @TestedOperation("compare beats")
 @TestedBehaviour("implements the Floyd-Warshall algorithm")
-public class BeatTableTransitiveClosureTest extends CreatedBeatTable {
+@RunWith(MockitoJUnitRunner.class)
+public class BeatTableTransitiveClosureTest {
 
-	@Override
+	@InjectMocks
+	private BeatTableTransitiveClosureServiceImpl beatTableTransitiveClosureService;
+	private BeatTable beatTable;
+
 	@Before
 	public void setUp() throws ReportedException {
-		super.setUp();
-		createNewBeatTableWithComplexData();
+		beatTable = createNewBeatTableWithComplexData();
 	}
 
 	@Test
 	public void transitive_closure_on_empty_beat_table_results_empty_result() {
 		BeatTable actual = new BeatTable();
-		actual.computeTransitiveClosure();
+		actual = beatTableTransitiveClosureService.computeTransitiveClosure(actual);
 		assertTrue(actual.getKeyCollection().isEmpty());
 	}
 
 	@Test
 	public void transitive_closure_computes_the_shortest_paths_by_pairs() {
-		beatTable.computeTransitiveClosure();
+		beatTable = beatTableTransitiveClosureService.computeTransitiveClosure(beatTable);
 		Collection<String> keyCollection = beatTable.getKeyCollection();
 		for (String i : keyCollection) {
 			for (String j : keyCollection) {
@@ -55,17 +62,12 @@ public class BeatTableTransitiveClosureTest extends CreatedBeatTable {
 				continue;
 			}
 			Pair greater = beatTable.getElement(choice1, choice2);
-			Pair less = beatTable.lessBeat(beatTable.getElement(choice1, k), beatTable.getElement(k, choice2));
+			Pair less = lessBeat(beatTable.getElement(choice1, k), beatTable.getElement(k, choice2));
 			assertEquals(greater, beatTable.compareBeats(less, greater));
 		}
 	}
 
-	@Test
-	public void less_beat_returns_the_less_beat() {
-		Pair pair1 = new Pair(20, 10);
-		Pair pair2 = new Pair(10, 10);
-
-		Pair lessBeat = beatTable.lessBeat(pair1, pair2);
-		assertEquals(pair2, lessBeat);
+	private Pair lessBeat(final Pair beat1, final Pair beat2) {
+		return beat1.compareTo(beat2) >= 0 ? beat2 : beat1;
 	}
 }

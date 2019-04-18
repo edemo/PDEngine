@@ -11,7 +11,8 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import org.rulez.demokracia.pdengine.beattable.BeatTable;
+import org.rulez.demokracia.pdengine.beattable.Pair;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedComputedVote;
 
 @TestedFeature("Vote")
@@ -65,7 +66,7 @@ public class ComputedVoteTest extends CreatedComputedVote {
 			for (String choice2 : beatPathTable.getKeyCollection()) {
 				Pair beat1 = beatPathTable.getElement(choice1, choice2);
 				Pair beat2 = beatPathTable.getElement(choice2, choice1);
-				assertEquals(ZERO_PAIR, beatPathTable.lessBeat(beat1, beat2));
+				assertEquals(ZERO_PAIR, beat1.compareTo(beat2) >= 0 ? beat2 : beat1);
 			}
 		}
 	}
@@ -100,7 +101,7 @@ public class ComputedVoteTest extends CreatedComputedVote {
 
 	private void assertPairInitialized(final Pair pair) {
 		assertNotNull(pair);
-		assertNotEquals(0, pair.winning + pair.losing);
+		assertNotEquals(0, pair.getWinning() + pair.getLosing());
 	}
 
 	@TestedBehaviour("vote result includes the votes cast with the secret cast vote identifier.")

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.rulez.demokracia.pdengine.beattable.BeatTable;
 import org.rulez.demokracia.pdengine.vote.Vote;
 import org.rulez.demokracia.pdengine.votecast.CastVote;
 

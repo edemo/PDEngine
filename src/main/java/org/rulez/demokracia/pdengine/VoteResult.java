@@ -3,7 +3,7 @@ package org.rulez.demokracia.pdengine;
 import java.util.List;
 import java.util.Map;
 
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import org.rulez.demokracia.pdengine.beattable.Pair;
 
 public class VoteResult {
 

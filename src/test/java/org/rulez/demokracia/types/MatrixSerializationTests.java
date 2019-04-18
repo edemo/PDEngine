@@ -13,6 +13,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.rulez.demokracia.pdengine.beattable.MapMatrix;
+import org.rulez.demokracia.pdengine.beattable.Matrix;
 
 public class MatrixSerializationTests extends MatrixGetterSetterTest {
 

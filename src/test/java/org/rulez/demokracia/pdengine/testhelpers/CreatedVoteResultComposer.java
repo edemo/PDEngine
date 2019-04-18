@@ -7,11 +7,11 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 
 import org.junit.Before;
-import org.rulez.demokracia.pdengine.BeatTable;
 import org.rulez.demokracia.pdengine.VoteResult;
 import org.rulez.demokracia.pdengine.VoteResultComposer;
 import org.rulez.demokracia.pdengine.VoteResultComposerImpl;
 import org.rulez.demokracia.pdengine.WinnerCalculator;
+import org.rulez.demokracia.pdengine.beattable.BeatTable;
 
 public class CreatedVoteResultComposer extends CreatedDefaultCastVoteWithRankedChoices {
 

@@ -4,14 +4,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import org.rulez.demokracia.pdengine.beattable.BeatTable;
+import org.rulez.demokracia.pdengine.beattable.BeatTableIgnoreService;
+import org.rulez.demokracia.pdengine.beattable.BeatTableIgnoreServiceImpl;
+import org.rulez.demokracia.pdengine.beattable.Pair;
 
 public class WinnerCalculatorImpl implements WinnerCalculator {
 
-	private final BeatTableIgnore beatTableIgnore;
+	private final BeatTableIgnoreService beatTableIgnore;
 
 	public WinnerCalculatorImpl() {
-		beatTableIgnore = new BeatTableIgnoreImpl();
+		beatTableIgnore = new BeatTableIgnoreServiceImpl();
 	}
 
 	@Override

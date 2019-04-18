@@ -1,8 +1,8 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.beattable;
 
 import java.util.Collection;
 
-public interface BeatTableIgnore {
+public interface BeatTableIgnoreService {
 
 	BeatTable ignoreChoices(BeatTable beatPathTable, Collection<String> ignoredChoices);
 

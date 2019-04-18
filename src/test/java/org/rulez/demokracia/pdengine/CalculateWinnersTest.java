@@ -10,7 +10,8 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.dataobjects.Pair;
+import org.rulez.demokracia.pdengine.beattable.BeatTable;
+import org.rulez.demokracia.pdengine.beattable.Pair;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRankedChoices;
 
 @TestedFeature("Vote")

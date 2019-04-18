@@ -1,4 +1,4 @@
-package org.rulez.demokracia.types;
+package org.rulez.demokracia.pdengine.beattable;
 
 import java.io.Serializable;
 import java.util.Collection;
