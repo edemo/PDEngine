@@ -7,36 +7,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.junit.Before;
 import org.rulez.demokracia.pdengine.votecast.CastVote;
 
-public class CreatedDefaultCastVoteMocks extends CreatedDefaultChoice {
+public class CastVoteMockTestHelper {
 
-	protected List<CastVote> castVoteMocks;
-
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-		castVoteMocks = castVoteMocksWithIncrementalAssurances(5);
+	public static List<CastVote> createMockedCastVotes() {
+		return castVoteMocksWithIncrementalAssurances(5);
 	}
 
-	private List<CastVote> castVoteMocksWithIncrementalAssurances(final int limit) {
+	private static List<CastVote> castVoteMocksWithIncrementalAssurances(final int limit) {
 		return IntStream.range(1, limit)
 				.boxed()
-				.map(this::nFirstIntAsString)
-				.map(this::castVoteMockFromAssurances)
+				.map(CastVoteMockTestHelper::nFirstIntAsString)
+				.map(CastVoteMockTestHelper::castVoteMockFromAssurances)
 				.collect(Collectors.toList());
 	}
 
-	private List<String> nFirstIntAsString(final Integer limit) {
+	private static List<String> nFirstIntAsString(final Integer limit) {
 		return IntStream.range(0, limit)
 				.boxed()
 				.map(Object::toString)
 				.collect(Collectors.toList());
 	}
 
-	private CastVote castVoteMockFromAssurances(final List<String> assuranceList) {
+	private static CastVote castVoteMockFromAssurances(final List<String> assuranceList) {
 		CastVote castVote = mock(CastVote.class);
 		when(castVote.getAssurances()).thenReturn(assuranceList);
 		return castVote;

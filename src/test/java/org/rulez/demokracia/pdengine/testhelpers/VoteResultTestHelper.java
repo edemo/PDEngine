@@ -1,9 +1,10 @@
-package org.rulez.demokracia.pdengine.voteCalculator;
+package org.rulez.demokracia.pdengine.testhelpers;
 
 import java.util.List;
 import java.util.Map;
 
 import org.rulez.demokracia.pdengine.beattable.Pair;
+import org.rulez.demokracia.pdengine.votecalculator.VoteResult;
 
 public class VoteResultTestHelper {
 

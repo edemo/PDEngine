@@ -15,8 +15,8 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.testhelpers.LongStringGenerator;
-import org.rulez.demokracia.testhelpers.ThrowableTester;
+import org.rulez.demokracia.pdengine.testhelpers.LongStringGenerator;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 
 @TestedFeature("Manage votes")
 @TestedOperation("create vote")

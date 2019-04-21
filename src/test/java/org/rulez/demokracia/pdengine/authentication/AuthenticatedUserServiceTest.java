@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.rulez.demokracia.testhelpers.ThrowableTester;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuthenticatedUserServiceTest extends ThrowableTester {

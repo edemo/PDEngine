@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine.voteCalculator;
+package org.rulez.demokracia.pdengine.votecalculator;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,7 +17,9 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper;
-import org.rulez.demokracia.pdengine.voteCalculator.VoteResult;
+import org.rulez.demokracia.pdengine.votecalculator.VoteResult;
+import org.rulez.demokracia.pdengine.votecalculator.VoteResultComposerImpl;
+import org.rulez.demokracia.pdengine.votecalculator.WinnerCalculatorService;
 
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
@@ -37,9 +39,9 @@ public class VoteResultComposerTest {
 	@Before
 	public void setUp() {
 		when(winnerCalculatorService.calculateWinners(any(), any()))
-				.thenReturn(List.of("A", "B"))
-				.thenReturn(List.of("C"))
-				.thenReturn(List.of("D"));
+		.thenReturn(List.of("A", "B"))
+		.thenReturn(List.of("C"))
+		.thenReturn(List.of("D"));
 
 		result = voteResultComposer
 				.composeResult(BeatTableTestHelper.createTransitiveClosedBeatTable());

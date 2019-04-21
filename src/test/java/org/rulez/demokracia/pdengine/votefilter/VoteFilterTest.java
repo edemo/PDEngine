@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.votefilter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -7,53 +7,53 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteMocks;
-import org.rulez.demokracia.pdengine.vote.Vote;
+import org.rulez.demokracia.pdengine.testhelpers.CastVoteMockTestHelper;
+import org.rulez.demokracia.pdengine.votefilter.VoteFilterImpl;
 import org.rulez.demokracia.pdengine.votecast.CastVote;
 
-public class VoteFilterTest extends CreatedDefaultCastVoteMocks {
+@TestedFeature("Supporting functionality")
+@TestedOperation("filter votes")
 
-	private Vote vote;
+@RunWith(MockitoJUnitRunner.class)
+public class VoteFilterTest {
 
-	@Override
+	@InjectMocks
+	private VoteFilterImpl voteFilter;
+
+	private List<CastVote> castVoteMocks;
+
 	@Before
 	public void setUp() {
-		super.setUp();
-		vote = getTheVote();
-		vote.setVotesCast(castVoteMocks);
-
+		castVoteMocks = CastVoteMockTestHelper.createMockedCastVotes();
 	}
 
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("filter votes")
 	@TestedBehaviour("null assurance means all of the votes")
 	@Test
 	public void filter_returns_full_list_on_null_assurance() {
-		final List<CastVote> filteredVotes = vote.filterVotes(null);
+		final List<CastVote> filteredVotes = voteFilter.filterVotes(castVoteMocks, null);
 		assertEquals(castVoteMocks, filteredVotes);
 	}
 
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("filter votes")
 	@TestedBehaviour("the output of the filter contains all votes with the given assurance")
 	@Test
 	public void filter_returns_all_votes_with_given_assurance() {
 		final List<CastVote> expected = castVoteMocks.subList(1, 4);
-		final List<CastVote> actual = vote.filterVotes("1");
+		final List<CastVote> actual = voteFilter.filterVotes(castVoteMocks, "1");
 		for (final CastVote vote : expected) {
 			assertTrue(actual.contains(vote));
 		}
 	}
 
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("filter votes")
 	@TestedBehaviour("the output of the filter contains only votes with the given assurance")
 	@Test
 	public void filter_returns_only_votes_with_given_assurance() {
-		final List<CastVote> actual = vote.filterVotes("3");
+		final List<CastVote> actual = voteFilter.filterVotes(castVoteMocks, "3");
 		for (final CastVote vote : actual) {
 			assertTrue(vote.getAssurances().contains("3"));
 		}

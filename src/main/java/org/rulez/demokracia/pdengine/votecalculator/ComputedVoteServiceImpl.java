@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine.voteCalculator;
+package org.rulez.demokracia.pdengine.votecalculator;
 
 import org.rulez.demokracia.pdengine.beattable.BeatTable;
 import org.rulez.demokracia.pdengine.beattable.BeatTableService;

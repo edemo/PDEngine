@@ -5,10 +5,10 @@ import static org.mockito.Mockito.when;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rulez.demokracia.pdengine.authentication.AuthenticatedUserService;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
 import org.rulez.demokracia.pdengine.vote.Vote;
 import org.rulez.demokracia.pdengine.vote.VoteService;
-import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class ChoiceTest extends ThrowableTester {
 

@@ -16,8 +16,8 @@ import org.rulez.demokracia.pdengine.beattable.BeatTable;
 import org.rulez.demokracia.pdengine.beattable.BeatTableServiceImpl;
 import org.rulez.demokracia.pdengine.beattable.Pair;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 import org.rulez.demokracia.pdengine.votecast.CastVote;
-import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 
 @TestedFeature("Schulze method")

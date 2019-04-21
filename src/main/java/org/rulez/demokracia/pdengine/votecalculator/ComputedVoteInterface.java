@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine.voteCalculator;
+package org.rulez.demokracia.pdengine.votecalculator;
 
 import java.util.List;
 

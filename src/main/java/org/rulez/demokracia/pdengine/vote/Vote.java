@@ -6,7 +6,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import javax.persistence.Entity;
 
 import org.rulez.demokracia.pdengine.Admnistrable;
@@ -15,14 +14,11 @@ import org.rulez.demokracia.pdengine.HasBallots;
 import org.rulez.demokracia.pdengine.HasChoices;
 import org.rulez.demokracia.pdengine.RandomUtils;
 import org.rulez.demokracia.pdengine.ValidationUtil;
-import org.rulez.demokracia.pdengine.VoteFilter;
 import org.rulez.demokracia.pdengine.VoteInterface;
 import org.rulez.demokracia.pdengine.VoteJSONSerializer;
 import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
-import org.rulez.demokracia.pdengine.votecast.CastVote;
-
 import com.google.gson.JsonObject;
 
 @Entity
@@ -59,10 +55,6 @@ public class Vote extends VoteEntity
 
 	public JsonObject toJson() {
 		return new VoteJSONSerializer().fromVote(this);
-	}
-
-	public List<CastVote> filterVotes(final String assurance) {
-		return new VoteFilter().filterVotes(this.getVotesCast(), assurance);
 	}
 
 	@Override

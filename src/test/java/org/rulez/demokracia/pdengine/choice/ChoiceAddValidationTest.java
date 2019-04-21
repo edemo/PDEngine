@@ -15,11 +15,11 @@ import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
 import org.rulez.demokracia.pdengine.vote.Vote;
 import org.rulez.demokracia.pdengine.vote.VoteRepository;
 import org.rulez.demokracia.pdengine.vote.VoteService;
-import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 @TestedFeature("Manage votes")
 @TestedOperation("Add choice")

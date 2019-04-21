@@ -1,10 +1,11 @@
-package org.rulez.demokracia.pdengine.votecast;
+package org.rulez.demokracia.pdengine.testhelpers;
 
 import java.util.List;
 
 import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.vote.Vote;
+import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 public class CastVoteTestHelper {
 

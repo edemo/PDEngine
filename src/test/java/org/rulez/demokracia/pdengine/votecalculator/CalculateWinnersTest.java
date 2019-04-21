@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine.voteCalculator;
+package org.rulez.demokracia.pdengine.votecalculator;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -20,6 +20,7 @@ import org.rulez.demokracia.pdengine.beattable.BeatTable;
 import org.rulez.demokracia.pdengine.beattable.BeatTableIgnoreService;
 import org.rulez.demokracia.pdengine.beattable.Pair;
 import org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper;
+import org.rulez.demokracia.pdengine.votecalculator.WinnerCalculatorServiceImpl;
 
 @TestedFeature("Vote")
 @TestedOperation("calculate winners")

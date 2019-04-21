@@ -17,8 +17,8 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 import org.rulez.demokracia.pdengine.vote.Vote;
-import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 @TestedFeature("Manage votes")
 @TestedOperation("delete vote")

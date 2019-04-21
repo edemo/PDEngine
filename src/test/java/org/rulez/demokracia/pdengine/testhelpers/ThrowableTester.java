@@ -1,4 +1,4 @@
-package org.rulez.demokracia.testhelpers;
+package org.rulez.demokracia.pdengine.testhelpers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

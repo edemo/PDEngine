@@ -14,7 +14,7 @@ import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.beattable.Pair;
 import org.rulez.demokracia.pdengine.beattable.BeatTable.Direction;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
-import org.rulez.demokracia.testhelpers.ThrowableTester;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 
 @TestedFeature("Schulze method")
 @TestedOperation("normalize beat matrix")

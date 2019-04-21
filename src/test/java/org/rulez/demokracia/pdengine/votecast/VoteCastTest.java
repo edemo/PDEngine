@@ -2,7 +2,7 @@ package org.rulez.demokracia.pdengine.votecast;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
-import static org.rulez.demokracia.pdengine.votecast.CastVoteTestHelper.CHOICE_B;
+import static org.rulez.demokracia.pdengine.testhelpers.CastVoteTestHelper.CHOICE_B;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.rulez.demokracia.testhelpers;
+package org.rulez.demokracia.pdengine.testhelpers;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.rulez.demokracia.pdengine.IVoteManager;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.vote.Vote;
-import org.rulez.demokracia.testhelpers.ThrowableTester;
 
 public class CreatedDefaultVoteRegistry extends ThrowableTester{
 

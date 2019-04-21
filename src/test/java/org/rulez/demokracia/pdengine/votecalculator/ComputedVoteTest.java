@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine.voteCalculator;
+package org.rulez.demokracia.pdengine.votecalculator;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,7 +24,10 @@ import org.rulez.demokracia.pdengine.beattable.BeatTableService;
 import org.rulez.demokracia.pdengine.beattable.BeatTableTransitiveClosureService;
 import org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper;
 import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
-import org.rulez.demokracia.pdengine.voteCalculator.ComputedVote;
+import org.rulez.demokracia.pdengine.testhelpers.VoteResultTestHelper;
+import org.rulez.demokracia.pdengine.votecalculator.ComputedVote;
+import org.rulez.demokracia.pdengine.votecalculator.ComputedVoteServiceImpl;
+import org.rulez.demokracia.pdengine.votecalculator.VoteResultComposer;
 import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 @TestedFeature("Vote")
