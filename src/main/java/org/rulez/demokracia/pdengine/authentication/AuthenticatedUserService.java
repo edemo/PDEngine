@@ -8,4 +8,6 @@ public interface AuthenticatedUserService {
 
 	Principal getUserPrincipal();
 
+	boolean hasAssurance(String neededAssurance);
+
 }

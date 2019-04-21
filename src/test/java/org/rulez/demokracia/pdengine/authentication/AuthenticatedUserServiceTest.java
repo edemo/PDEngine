@@ -22,4 +22,9 @@ public class AuthenticatedUserServiceTest extends ThrowableTester {
 		assertUnimplemented(() -> authenticatedUserService.getUserPrincipal());
 	}
 
+	@Test
+	public void hasAssurance_is_unimplemented_yet() throws Exception {
+		assertUnimplemented(() -> authenticatedUserService.hasAssurance("assurance"));
+	}
+
 }

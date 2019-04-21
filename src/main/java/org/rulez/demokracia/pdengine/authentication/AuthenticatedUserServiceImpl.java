@@ -14,4 +14,9 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public boolean hasAssurance(final String neededAssurance) {
+		throw new UnsupportedOperationException();
+	}
+
 }
