@@ -8,6 +8,7 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.beattable.Pair;
+import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
 import org.rulez.demokracia.pdengine.vote.VoteEntity;
 
 @TestedFeature("Supporting functionality")
@@ -41,7 +42,7 @@ public class BaseEntityHashEqualsTest {
 	@Test
 	public void hashCode_should_return_different_hash_on_different_entities() {
 		Pair pair = new Pair(10, 10);
-		VoteEntity vote = new VoteEntity();
+		VoteEntity vote = new VariantVote();
 		assertNotEquals(pair.hashCode(), vote.hashCode());
 	}
 }

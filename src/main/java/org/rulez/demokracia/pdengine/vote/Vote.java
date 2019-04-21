@@ -1,52 +1,35 @@
 package org.rulez.demokracia.pdengine.vote;
 
-import static org.rulez.demokracia.pdengine.vote.AssuranceType.*;
 
-import java.time.Instant;
-import java.util.ArrayList;
+
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.List;
+
 import javax.persistence.Entity;
 
 import org.rulez.demokracia.pdengine.Admnistrable;
 import org.rulez.demokracia.pdengine.Endorsable;
 import org.rulez.demokracia.pdengine.HasBallots;
 import org.rulez.demokracia.pdengine.HasChoices;
-import org.rulez.demokracia.pdengine.RandomUtils;
-import org.rulez.demokracia.pdengine.ValidationUtil;
 import org.rulez.demokracia.pdengine.VoteInterface;
 import org.rulez.demokracia.pdengine.VoteJSONSerializer;
 import org.rulez.demokracia.pdengine.choice.Choice;
-import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import com.google.gson.JsonObject;
 
 @Entity
 public class Vote extends VoteEntity
-		implements VoteInterface, Admnistrable, HasChoices, HasBallots, Endorsable {
+implements VoteInterface, Admnistrable, HasChoices, HasBallots, Endorsable {
 
 	private static final long serialVersionUID = 1L;
 
 	public Vote(final String voteName, final Collection<String> neededAssurances, final Collection<String> countedAssurances,
 			final boolean isPrivate, final int minEndorsements) {
-		super();
-		this.setName(voteName);
-		this.setAdminKey(RandomUtils.createRandomKey());
-		this.setNeededAssurances(ValidationUtil.checkAssurances(neededAssurances, NEEDED));
-		this.setCountedAssurances(ValidationUtil.checkAssurances(countedAssurances, COUNTED));
-		this.setPrivate(isPrivate);
-		VoteParameters voteParameters = new VoteParameters();
-		voteParameters.setMinEndorsements(minEndorsements);
-		this.setParameters(voteParameters);
-		this.setCreationTime(Instant.now().getEpochSecond());
-		this.setChoices(new HashMap<>());
-		this.setBallots(new ArrayList<>());
-		this.setVotesCast(new ArrayList<>());
-		this.setRecordedBallots(new HashMap<>());
+		super(voteName, neededAssurances, countedAssurances, isPrivate, minEndorsements);
 	}
 
 	public Vote(final CreateVoteRequest request) {
-		this(request.getVoteName(),
+		super(request.getVoteName(),
 				request.getNeededAssurances(),
 				request.getCountedAssurances(),
 				request.isPrivate(),
@@ -68,5 +51,35 @@ public class Vote extends VoteEntity
 			throw new ReportedException("Illegal choiceId", choiceId);
 		}
 		return getChoices().get(choiceId);
+	}
+
+	@Override
+	public void setId(final String id) {
+		throw new UnsupportedOperationException("Id is invariant");
+	}
+
+	@Override
+	public void setAdminKey(final String adminKey) {
+		throw new UnsupportedOperationException("Admin Key is invariant");
+	}
+
+	@Override
+	public void setNeededAssurances(final List<String> neededAssurances) {
+		throw new UnsupportedOperationException("Needed Assurances are invariant");
+	}
+
+	@Override
+	public void setCountedAssurances(final List<String> countedAssurances) {
+		throw new UnsupportedOperationException("Counted Assurances are invariant");
+	}
+
+	@Override
+	public void setPrivate(final boolean isPrivate) {
+		throw new UnsupportedOperationException("IsPrivate is invariant");
+	}
+
+	@Override
+	public void setCreationTime(final long creationTime) {
+		throw new UnsupportedOperationException("Creation Time is invariant");
 	}
 }

@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.vote;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,12 +6,13 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
+import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
+import org.rulez.demokracia.pdengine.vote.Vote;
 
 @TestedFeature("Manage votes")
 @TestedOperation("create vote")
 @TestedBehaviour("The vote initially can only be modified with the adminkey")
-public class VoteInitialValuesTest extends CreatedDefaultVoteRegistry {
+public class VoteInitialValuesTest {
 
 
 	@Test
@@ -37,5 +38,9 @@ public class VoteInitialValuesTest extends CreatedDefaultVoteRegistry {
 	@Test
 	public void canUpdate_is_false_in_the_created_vote() {
 		assertEquals(false, getTheVote().getParameters().isUpdatable());
+	}
+
+	private Vote getTheVote() {
+		return new VariantVote();
 	}
 }

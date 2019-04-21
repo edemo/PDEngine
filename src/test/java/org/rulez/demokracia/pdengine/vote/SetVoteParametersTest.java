@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.vote;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +9,7 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
+import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
 import org.rulez.demokracia.pdengine.vote.Vote;
 
 @TestedFeature("Manage votes")
@@ -21,7 +22,7 @@ public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
 	@Before
 	public void setUp() {
 		super.setUp();
-		vote = voteManager.getVote(adminInfo.voteId);
+		vote = new VariantVote();
 		int minEndorsements = 3;
 		boolean canAddin = true;
 		boolean canEndorse = true;
