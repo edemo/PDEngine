@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.voteCalculator;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,14 +9,19 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.rulez.demokracia.pdengine.beattable.BeatTable;
 import org.rulez.demokracia.pdengine.beattable.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VoteResultComposerImpl implements VoteResultComposer {
 
-	private WinnerCalculator winnerCalculator;
+	@Autowired
+	private WinnerCalculatorService winnerCalculator;
+
 	private final Set<String> ignoredSet;
 
 	public VoteResultComposerImpl() {
-		winnerCalculator = new WinnerCalculatorImpl();
+		winnerCalculator = new WinnerCalculatorServiceImpl();
 		ignoredSet = new HashSet<>();
 	}
 
@@ -56,7 +61,7 @@ public class VoteResultComposerImpl implements VoteResultComposer {
 	}
 
 	@Override
-	public void setWinnerCalculator(final WinnerCalculator winnerCalculator) {
+	public void setWinnerCalculator(final WinnerCalculatorService winnerCalculator) {
 		this.winnerCalculator = winnerCalculator;
 	}
 }

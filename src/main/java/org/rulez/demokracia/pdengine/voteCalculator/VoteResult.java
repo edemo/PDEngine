@@ -1,10 +1,13 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.voteCalculator;
 
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Entity;
+
 import org.rulez.demokracia.pdengine.beattable.Pair;
 
+@Entity
 public class VoteResult {
 
 	private final List<String> choices;

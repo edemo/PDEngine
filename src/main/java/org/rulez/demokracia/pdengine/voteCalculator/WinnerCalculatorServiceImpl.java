@@ -1,4 +1,4 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.voteCalculator;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,16 +6,16 @@ import java.util.stream.Collectors;
 
 import org.rulez.demokracia.pdengine.beattable.BeatTable;
 import org.rulez.demokracia.pdengine.beattable.BeatTableIgnoreService;
-import org.rulez.demokracia.pdengine.beattable.BeatTableIgnoreServiceImpl;
 import org.rulez.demokracia.pdengine.beattable.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class WinnerCalculatorImpl implements WinnerCalculator {
+@Service
+public class WinnerCalculatorServiceImpl implements WinnerCalculatorService {
 
-	private final BeatTableIgnoreService beatTableIgnore;
+	@Autowired
+	private BeatTableIgnoreService beatTableIgnore;
 
-	public WinnerCalculatorImpl() {
-		beatTableIgnore = new BeatTableIgnoreServiceImpl();
-	}
 
 	@Override
 	public List<String> calculateWinners(final BeatTable beatTable, final Collection<String> ignoredChoices) {

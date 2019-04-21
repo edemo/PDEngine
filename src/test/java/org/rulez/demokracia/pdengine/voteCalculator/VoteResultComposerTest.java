@@ -1,30 +1,48 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.voteCalculator;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedVoteResultComposer;
+import org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper;
+import org.rulez.demokracia.pdengine.voteCalculator.VoteResult;
 
 @TestedFeature("Vote")
 @TestedOperation("Compute vote results")
 @TestedBehaviour("the winners list contains the looses to the first one")
-public class VoteResultComposerTest extends CreatedVoteResultComposer {
+@RunWith(MockitoJUnitRunner.class)
+public class VoteResultComposerTest {
+
+	@InjectMocks
+	private VoteResultComposerImpl voteResultComposer;
+	@Mock
+	private WinnerCalculatorService winnerCalculatorService;
 
 	private Set<String> choicesReturned;
 	private Set<String> keySetOfInitialBeatTable;
+	private List<VoteResult> result;
 
 	@Before
-	@Override
 	public void setUp() {
-		super.setUp();
+		when(winnerCalculatorService.calculateWinners(any(), any()))
+				.thenReturn(List.of("A", "B"))
+				.thenReturn(List.of("C"))
+				.thenReturn(List.of("D"));
 
+		result = voteResultComposer
+				.composeResult(BeatTableTestHelper.createTransitiveClosedBeatTable());
 		choicesReturned = convertResultToChoiceSet(result);
 		keySetOfInitialBeatTable = Set.of("A", "B", "C", "D");
 
@@ -57,8 +75,7 @@ public class VoteResultComposerTest extends CreatedVoteResultComposer {
 	}
 
 	private void assertEachChoiceHaveBeaten(final VoteResult voteResult) {
-		boolean allMatch = voteResult.getBeats().values().stream().allMatch(m -> !m.isEmpty());
-		assertTrue(allMatch);
+		assertTrue(voteResult.getBeats().values().stream().allMatch(m -> !m.isEmpty()));
 	}
 
 	private Integer getNumberOfBeats(final VoteResult voteResult) {

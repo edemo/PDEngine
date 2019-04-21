@@ -1,35 +1,45 @@
-package org.rulez.demokracia.pdengine;
+package org.rulez.demokracia.pdengine.voteCalculator;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.beattable.BeatTable;
+import org.rulez.demokracia.pdengine.beattable.BeatTableIgnoreService;
 import org.rulez.demokracia.pdengine.beattable.Pair;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultCastVoteWithRankedChoices;
+import org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper;
 
 @TestedFeature("Vote")
 @TestedOperation("calculate winners")
-public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoices {
+@RunWith(MockitoJUnitRunner.class)
+public class CalculateWinnersTest {
 
-	private WinnerCalculator winnerCalculator;
+	@InjectMocks
+	private WinnerCalculatorServiceImpl winnerCalculator;
+
+	@Mock
+	private BeatTableIgnoreService beatTableIgnore;
+
 	private BeatTable beatPathTable;
 
-	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
-		winnerCalculator = new WinnerCalculatorImpl();
-		beatPathTable = new BeatTable(List.of("A", "B", "C", "D"));
-		beatPathTable.initialize(castVote);
-		beatPathTable.normalize();
-		beatPathTable.computeTransitiveClosure();
+		beatPathTable = BeatTableTestHelper.createTransitiveClosedBeatTable();
+		when(beatTableIgnore.ignoreChoices(beatPathTable, List.of("A")))
+		.thenReturn(BeatTableTestHelper.createTransitiveClosedBeatTable(List.of("B", "C", "D")));
+		when(beatTableIgnore.ignoreChoices(beatPathTable, Set.of())).thenReturn(beatPathTable);
 	}
 
 	@TestedBehaviour("only choices not in ignoredChoices are considered")
@@ -45,8 +55,8 @@ public class CalculateWinnersTest extends CreatedDefaultCastVoteWithRankedChoice
 	@TestedBehaviour("only choices not in ignoredChoices are considered")
 	@Test
 	public void calculate_winners_returns_not_ignored_winner() {
-		List<String> winners = winnerCalculator.calculateWinners(beatPathTable, List.of("C"));
-		assertTrue(winners.contains("A"));
+		List<String> winners = winnerCalculator.calculateWinners(beatPathTable, List.of("A"));
+		assertTrue(winners.contains("B"));
 	}
 
 	@TestedBehaviour("all non-beaten candidates are winners")

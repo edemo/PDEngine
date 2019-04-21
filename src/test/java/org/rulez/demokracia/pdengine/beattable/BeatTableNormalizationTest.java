@@ -21,6 +21,7 @@ import org.rulez.demokracia.testhelpers.ThrowableTester;
 @RunWith(MockitoJUnitRunner.class)
 public class BeatTableNormalizationTest extends ThrowableTester {
 
+
 	@InjectMocks
 	private BeatTableServiceImpl beatTableService;
 

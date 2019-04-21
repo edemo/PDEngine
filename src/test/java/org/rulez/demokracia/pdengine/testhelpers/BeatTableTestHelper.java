@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine.testhelpers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.rulez.demokracia.pdengine.beattable.BeatTable;
 import org.rulez.demokracia.pdengine.beattable.Pair;
@@ -48,5 +49,25 @@ public class BeatTableTestHelper{
 		beatTable.setElement(CHOICE2, CHOICE3, new Pair(4, 1));
 		beatTable.setElement(CHOICE3, CHOICE2, new Pair(4, 4));
 		return beatTable;
+	}
+
+	public static BeatTable createTransitiveClosedBeatTable() {
+		return createTransitiveClosedBeatTable(List.of("A", "B", "C", "D"));
+	}
+
+	public static BeatTable createTransitiveClosedBeatTable(final List<String> keys) {
+		BeatTable beatTable = new BeatTable(keys);
+		addPairIfInKeys(beatTable, "A", "C", new Pair(4, 2));
+		addPairIfInKeys(beatTable, "A", "D", new Pair(3, 1));
+		addPairIfInKeys(beatTable, "B", "C", new Pair(4, 2));
+		addPairIfInKeys(beatTable, "B", "D", new Pair(3, 1));
+		addPairIfInKeys(beatTable, "C", "D", new Pair(2, 0));
+		return beatTable;
+	}
+
+	private static void addPairIfInKeys(final BeatTable beatTable, final String winner, final String loser, final Pair pair) {
+		if (beatTable.getKeyCollection().containsAll(Set.of(winner, loser))) {
+			beatTable.setElement(winner, loser, pair);
+		}
 	}
 }
