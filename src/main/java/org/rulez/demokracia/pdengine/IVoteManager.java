@@ -9,8 +9,6 @@ import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 import org.rulez.demokracia.pdengine.vote.Vote;
 import org.rulez.demokracia.pdengine.votecast.CastVote;
 
-import com.google.gson.JsonObject;
-
 public interface IVoteManager {
 
 	static IVoteManager getVoteManager(final WebServiceContext wsContext) {
@@ -38,7 +36,5 @@ public interface IVoteManager {
 	String getWsUserName();
 
 	boolean hasAssurance(final String role);
-
-	JsonObject showVote(final VoteAdminInfo adminInfo);
 
 }

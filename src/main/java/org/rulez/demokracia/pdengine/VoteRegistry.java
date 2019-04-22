@@ -57,30 +57,6 @@ public class VoteRegistry extends ChoiceManager implements IVoteManager {
 		throw new UnsupportedOperationException();
 	}
 
-	private Vote checkAdminInfo(final VoteAdminInfo adminInfo) {
-		Vote vote = getVote(adminInfo.voteId);
-		vote.checkAdminKey(adminInfo.adminKey);
-		return vote;
-	}
-
-	@Override
-	public JsonObject showVote(final VoteAdminInfo adminInfo) {
-		Vote vote = checkAdminInfo(adminInfo);
-		if (!adminInfo.adminKey.equals(vote.getAdminKey())) {
-			checkAssurances(vote);
-		}
-
-		return vote.toJson();
-	}
-
-	private void checkAssurances(final Vote vote) {
-		for (String assurance : vote.getCountedAssurances()) {
-			if (!this.hasAssurance(assurance)) {
-				throw new ReportedException("missing assurances", assurance);
-			}
-		}
-	}
-
 	@Override
 	public String deleteChoice(final VoteAdminInfo voteAdminInfo, final String choiceId) {
 		throw new UnsupportedOperationException();

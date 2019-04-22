@@ -12,7 +12,6 @@ import org.rulez.demokracia.pdengine.Endorsable;
 import org.rulez.demokracia.pdengine.HasBallots;
 import org.rulez.demokracia.pdengine.HasChoices;
 import org.rulez.demokracia.pdengine.VoteInterface;
-import org.rulez.demokracia.pdengine.VoteJSONSerializer;
 import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import com.google.gson.JsonObject;
@@ -34,10 +33,6 @@ implements VoteInterface, Admnistrable, HasChoices, HasBallots, Endorsable {
 				request.getCountedAssurances(),
 				request.isPrivate(),
 				request.getMinEndorsements());
-	}
-
-	public JsonObject toJson() {
-		return new VoteJSONSerializer().fromVote(this);
 	}
 
 	@Override
