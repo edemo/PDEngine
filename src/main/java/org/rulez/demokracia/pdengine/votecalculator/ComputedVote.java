@@ -1,6 +1,8 @@
 package org.rulez.demokracia.pdengine.votecalculator;
 
 import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
 import org.rulez.demokracia.pdengine.beattable.BeatTable;
@@ -18,6 +20,7 @@ public class ComputedVote extends BaseEntity {
 	private BeatTable beatTable;
 	private final Vote vote;
 	private BeatTable beatPathTable;
+	@ElementCollection
 	private List<VoteResult> voteResults;
 
 

@@ -10,8 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.rulez.demokracia.pdengine.RandomUtils;
 import org.rulez.demokracia.pdengine.ValidationUtil;
@@ -47,6 +50,9 @@ public class VoteEntity extends BaseEntity {
 		this.recordedBallots = new HashMap<>();
 	}
 
+	public VoteEntity() {
+	}
+
 	private static final long serialVersionUID = 1L;
 	private String name;
 	@ElementCollection
@@ -58,6 +64,8 @@ public class VoteEntity extends BaseEntity {
 	private boolean isPrivate;
 	private String adminKey;
 	private long creationTime;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "parameters_id", referencedColumnName = "id")
 	private VoteParameters parameters;
 	@ElementCollection
 	private Map<String, Choice> choices;

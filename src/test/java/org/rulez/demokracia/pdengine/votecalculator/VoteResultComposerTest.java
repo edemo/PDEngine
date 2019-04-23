@@ -77,11 +77,11 @@ public class VoteResultComposerTest {
 	}
 
 	private void assertEachChoiceHaveBeaten(final VoteResult voteResult) {
-		assertTrue(voteResult.getBeats().values().stream().allMatch(m -> !m.isEmpty()));
+		assertTrue(voteResult.getBeats().values().stream().allMatch(m -> !m.getBeats().isEmpty()));
 	}
 
 	private Integer getNumberOfBeats(final VoteResult voteResult) {
-		return voteResult.getBeats().values().stream().map(m -> m.size()).reduce((a, b) -> a + b).get();
+		return voteResult.getBeats().values().stream().map(m -> m.getBeats().size()).reduce((a, b) -> a + b).get();
 	}
 
 	private Set<String> convertResultToChoiceSet(final List<VoteResult> result) {

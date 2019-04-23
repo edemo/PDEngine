@@ -8,20 +8,17 @@ import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
 import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
 import org.rulez.demokracia.pdengine.vote.Vote;
 
 @TestedFeature("Manage votes")
 @TestedOperation("set vote parameters")
 @TestedBehaviour("sets the parameters of the vote")
-public class SetVoteParametersTest extends CreatedDefaultVoteRegistry {
+public class SetVoteParametersTest {
 
 	private Vote vote;
-	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
 		vote = new VariantVote();
 		int minEndorsements = 3;
 		boolean canAddin = true;

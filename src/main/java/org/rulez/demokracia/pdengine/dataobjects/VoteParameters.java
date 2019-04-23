@@ -1,14 +1,16 @@
 package org.rulez.demokracia.pdengine.dataobjects;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 
-import lombok.Data;
+import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
-public class VoteParameters implements Serializable{
+public class VoteParameters extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 

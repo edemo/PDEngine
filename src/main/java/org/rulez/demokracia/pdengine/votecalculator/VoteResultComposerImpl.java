@@ -42,19 +42,19 @@ public class VoteResultComposerImpl implements VoteResultComposer {
 		return new VoteResult(winners, getBeats(winners, beatTable));
 	}
 
-	private Map<String, Map<String, Pair>> getBeats(final List<String> choices, final BeatTable beatTable) {
-		Map<String, Map<String, Pair>> result = new ConcurrentHashMap<>();
+	private Map<String, VoteResultBeat> getBeats(final List<String> choices, final BeatTable beatTable) {
+		Map<String, VoteResultBeat> result = new ConcurrentHashMap<>();
 		choices.stream().forEach(c -> result.put(c, getBeatsForChoice(c, beatTable)));
 		return result;
 	}
 
-	private Map<String, Pair> getBeatsForChoice(final String choice, final BeatTable beatTable) {
+	private VoteResultBeat getBeatsForChoice(final String choice, final BeatTable beatTable) {
 		Pair zeroPair = new Pair(0, 0);
-		Map<String, Pair> result = new ConcurrentHashMap<>();
+		VoteResultBeat result = new VoteResultBeat();
 		for (String row : beatTable.getKeyCollection()) {
 			Pair beat = beatTable.getElement(row, choice);
 			if (!zeroPair.equals(beat)) {
-				result.put(row, beat);
+				result.getBeats().put(row, beat);
 			}
 		}
 		return result;

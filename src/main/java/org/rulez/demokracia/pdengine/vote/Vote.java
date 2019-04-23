@@ -14,13 +14,16 @@ import org.rulez.demokracia.pdengine.HasChoices;
 import org.rulez.demokracia.pdengine.VoteInterface;
 import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
-import com.google.gson.JsonObject;
 
 @Entity
 public class Vote extends VoteEntity
 implements VoteInterface, Admnistrable, HasChoices, HasBallots, Endorsable {
 
 	private static final long serialVersionUID = 1L;
+
+	public Vote() {
+		super();
+	}
 
 	public Vote(final String voteName, final Collection<String> neededAssurances, final Collection<String> countedAssurances,
 			final boolean isPrivate, final int minEndorsements) {
