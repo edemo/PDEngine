@@ -6,7 +6,7 @@ import org.rulez.demokracia.pdengine.choice.RankedChoice;
 
 public interface CastVoteInterface {
 
-	List<RankedChoice> getPreferences();
+  List<RankedChoice> getPreferences();
 
-	List<String> getAssurances();
+  List<String> getAssurances();
 }

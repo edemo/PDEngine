@@ -9,20 +9,20 @@ import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 public interface VoteInterface {
 
-	VoteParameters getParameters();
+  VoteParameters getParameters();
 
-	String getAdminKey();
+  String getAdminKey();
 
-	Map<String,Choice> getChoices();
+  Map<String, Choice> getChoices();
 
-	Map<String,Integer> getRecordedBallots();
+  Map<String, Integer> getRecordedBallots();
 
-	List<String> getBallots();
+  List<String> getBallots();
 
-	List<CastVote> getVotesCast();
+  List<CastVote> getVotesCast();
 
-	String getId();
+  String getId();
 
-	List<String> getNeededAssurances();
+  List<String> getNeededAssurances();
 
 }
