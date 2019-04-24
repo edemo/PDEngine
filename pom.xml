@@ -11,7 +11,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1-refactor_spring-refactor.76b2743</version>
   <packaging>war</packaging>
   
   <name>PDEngine</name>
@@ -23,6 +23,15 @@
     <maven.compiler.target>11</maven.compiler.target>
     <sonar.github.repository>edemo/PDEngine</sonar.github.repository>
   </properties>
+  
+  <repositories>
+    <repository>
+      <id>springplugins</id>
+      <name>Spring Plugins</name>
+      <url>http://repo.spring.io/plugins-release/</url>
+    </repository>
+  </repositories>
+  
 
   <build>
     <plugins>
@@ -188,7 +197,7 @@
 	          <docletArtifact>
 	            <groupId>com.github.markusbernhardt</groupId>
 	            <artifactId>xml-doclet</artifactId>
-	            <version>1.0.5</version>
+	            <version>1.0.6-SNAPSHOT</version>
 	          </docletArtifact>
 	        </configuration>
 	        <reports>
@@ -207,7 +216,7 @@
 	          <docletArtifact>
 	            <groupId>com.github.markusbernhardt</groupId>
 	            <artifactId>xml-doclet</artifactId>
-	            <version>1.0.5</version>
+	            <version>1.0.6-SNAPSHOT</version>
 	          </docletArtifact>
 	        </configuration>
 	        <reports>
@@ -343,10 +352,15 @@
     	<artifactId>gson</artifactId>
 	</dependency>
 	<dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-api</artifactId>
-    <scope>test</scope>
-</dependency>
+    	<groupId>org.junit.jupiter</groupId>
+    	<artifactId>junit-jupiter-api</artifactId>
+    	<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>com.github.markusbernhardt</groupId>
+	    <artifactId>xml-doclet</artifactId>
+	    <version>1.0.6-SNAPSHOT</version>
+	</dependency>
   </dependencies>
 </project>
 
