@@ -12,14 +12,13 @@ import lombok.Setter;
 @Entity
 public class RankedChoice extends BaseEntity {
 
-	public RankedChoice(final String choiceId, final int rank) {
-		super();
-		this.choiceId = choiceId;
-		this.rank = rank;
-	}
+  private static final long serialVersionUID = 1L;
+  private String choiceId;
+  private int rank;
 
-	private static final long serialVersionUID = 1L;
-	private String choiceId;
-	private int rank;
-
+  public RankedChoice(final String choiceId, final int rank) {
+    super();
+    this.choiceId = choiceId;
+    this.rank = rank;
+  }
 }

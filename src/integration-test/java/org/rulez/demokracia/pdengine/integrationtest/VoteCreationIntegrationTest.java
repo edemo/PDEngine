@@ -38,78 +38,91 @@ import com.google.gson.GsonBuilder;
 @TestedBehaviour("Creates a vote")
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-		webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = PDEngineMain.class)
+    webEnvironment = SpringBootTest.WebEnvironment.MOCK,
+    classes = PDEngineMain.class
+)
 @AutoConfigureMockMvc
 @TestPropertySource(
-		locations = "classpath:application-integrationtest.properties")
+    locations = "classpath:application-integrationtest.properties"
+)
 public class VoteCreationIntegrationTest {
 
-	private static final String ASSURANCE_NAME = "assurance";
-	@Autowired
-	private MockMvc mvc;
+  private static final String ASSURANCE_NAME = "assurance";
+  @Autowired
+  private MockMvc mvc;
 
-	@Autowired
-	private VoteService voteService;
-	private CreateVoteRequest voteRequest;
-	private CreateVoteRequest badVoteRequest;
+  @Autowired
+  private VoteService voteService;
+  private CreateVoteRequest voteRequest;
+  private CreateVoteRequest badVoteRequest;
 
-	@Before
-	public void setUp() {
-		voteRequest = initializeCreateVoteRequest("voteName");
-		badVoteRequest = initializeCreateVoteRequest("`drop table little_bobby tables;`");
-	}
+  @Before
+  public void setUp() {
+    voteRequest = initializeCreateVoteRequest("voteName");
+    badVoteRequest =
+        initializeCreateVoteRequest("`drop table little_bobby tables;`");
+  }
 
+  @Test
+  public void vote_can_be_created_through_rest_interface() throws Exception {
+    MvcResult result = callEndpointWithRequest(voteRequest)
+        .andExpect(status().isOk())
+        .andReturn();
 
-	@Test
-	public void vote_can_be_created_through_rest_interface() throws Exception {
-		MvcResult result = callEndpointWithRequest(voteRequest)
-				.andExpect(status().isOk())
-				.andReturn();
+    VoteAdminInfo info = new Gson().fromJson(
+        result.getResponse().getContentAsString(), VoteAdminInfo.class
+    );
 
-		VoteAdminInfo info = new Gson().fromJson(result.getResponse().getContentAsString(), VoteAdminInfo.class);
+    Vote savedVote = voteService.getVoteWithValidatedAdminKey(info);
 
-		Vote savedVote = voteService.getVoteWithValidatedAdminKey(info);
+    assertEquals(voteRequest.getVoteName(), savedVote.getName());
+  }
 
-		assertEquals(voteRequest.getVoteName(), savedVote.getName());
-	}
+  @Test
+  public void vote_creation_fails_with_400_on_bad_input() throws Exception {
+    callEndpointWithRequest(badVoteRequest).andExpect(status().isBadRequest());
+  }
 
-	@Test
-	public void vote_creation_fails_with_400_on_bad_input() throws Exception {
-		callEndpointWithRequest(badVoteRequest).andExpect(status().isBadRequest());
-	}
+  @Test
+  public void vote_creation_fails_and_reports_error_message_on_bad_input()
+      throws Exception {
+    callEndpointWithRequest(badVoteRequest)
+        .andExpect(
+            jsonPath("error.detailMessage", equalTo("invalid characters in {0}"))
+        );
+  }
 
-	@Test
-	public void vote_creation_fails_and_reports_error_message_on_bad_input() throws Exception {
-		callEndpointWithRequest(badVoteRequest)
-		.andExpect(jsonPath("error.detailMessage", equalTo("invalid characters in {0}")));
-	}
+  @Test
+  public void vote_creation_fails_and_reports_error_details_on_bad_input()
+      throws Exception {
+    callEndpointWithRequest(badVoteRequest)
+        .andExpect(jsonPath("error.additionalDetails[0]", equalTo("vote name")));
+  }
 
-	@Test
-	public void vote_creation_fails_and_reports_error_details_on_bad_input() throws Exception {
-		callEndpointWithRequest(badVoteRequest)
-		.andExpect(jsonPath("error.additionalDetails[0]", equalTo("vote name")));
-	}
+  private CreateVoteRequest initializeCreateVoteRequest(final String name) {
+    CreateVoteRequest req = new CreateVoteRequest();
+    req.setVoteName(name);
+    Set<String> countedAssurances = new HashSet<>();
+    countedAssurances.add("");
+    countedAssurances.add(ASSURANCE_NAME);
+    req.setCountedAssurances(countedAssurances);
+    req.setMinEndorsements(3);
+    Set<String> neededAssurances = new HashSet<>();
+    neededAssurances.add(ASSURANCE_NAME);
+    req.setNeededAssurances(neededAssurances);
+    req.setPrivate(false);
+    return req;
+  }
 
-	private CreateVoteRequest initializeCreateVoteRequest(final String name) {
-		CreateVoteRequest req = new CreateVoteRequest();
-		req.setVoteName(name);
-		Set<String> countedAssurances = new HashSet<>();
-		countedAssurances.add("");
-		countedAssurances.add(ASSURANCE_NAME);
-		req.setCountedAssurances(countedAssurances);
-		req.setMinEndorsements(3);
-		Set<String> neededAssurances = new HashSet<>();
-		neededAssurances.add(ASSURANCE_NAME);
-		req.setNeededAssurances(neededAssurances);
-		req.setPrivate(false);
-		return req;
-	}
-
-	private ResultActions callEndpointWithRequest(final CreateVoteRequest voteRequest) throws Exception {
-		String req = new GsonBuilder().create().toJson(voteRequest);
-		return mvc.perform(post("/vote")
-				.accept(APPLICATION_JSON)
-				.content(req)
-				.contentType(APPLICATION_JSON));
-	}
+  private ResultActions callEndpointWithRequest(
+      final CreateVoteRequest voteRequest
+  ) throws Exception {
+    String req = new GsonBuilder().create().toJson(voteRequest);
+    return mvc.perform(
+        post("/vote")
+            .accept(APPLICATION_JSON)
+            .content(req)
+            .contentType(APPLICATION_JSON)
+    );
+  }
 }

@@ -17,7 +17,7 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 @TestedFeature("Manage votes")
 @TestedOperation("modify vote")
 @RunWith(MockitoJUnitRunner.class)
-public class ChoiceModifyValidationTest extends ChoiceTest {
+public class ChoiceModifyValidationTest extends ChoiceTestBase {
 
 	private static final String NEW_CHOICE_NAME = "NewChoiceName";
 	private static final String USER = "user";

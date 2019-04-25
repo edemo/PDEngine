@@ -10,7 +10,7 @@ import org.rulez.demokracia.pdengine.testhelpers.VariantVote;
 import org.rulez.demokracia.pdengine.vote.Vote;
 import org.rulez.demokracia.pdengine.vote.VoteService;
 
-public class ChoiceTest extends ThrowableTester {
+public class ChoiceTestBase extends ThrowableTester {
 
 	@InjectMocks
 	protected ChoiceServiceImpl choiceService;

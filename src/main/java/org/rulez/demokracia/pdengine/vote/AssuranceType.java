@@ -1,11 +1,11 @@
 package org.rulez.demokracia.pdengine.vote;
 
 public enum AssuranceType {
-	NEEDED("needed"), COUNTED("counted");
+  NEEDED("needed"), COUNTED("counted");
 
-	public final String name;
+  public final String description;
 
-	private AssuranceType(final String name) {
-		this.name = name;
-	}
+  AssuranceType(final String name) {
+    description = name;
+  }
 }

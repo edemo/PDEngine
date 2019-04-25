@@ -16,19 +16,20 @@ import lombok.Setter;
 @Entity
 public class Choice extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-	private String name;
-	private String userName;
-	@ElementCollection
-	private List<String> endorsers;
+  private static final long serialVersionUID = 1L;
+  private String name;
+  private String userName;
+  @ElementCollection
+  private List<String> endorsers;
 
-	public Choice(final String name, final String userName) {
-		this.name = name;
-		this.userName = userName;
-		this.endorsers = new ArrayList<>();
-	}
+  public Choice(final String name, final String userName) {
+    super();
+    this.name = name;
+    this.userName = userName;
+    endorsers = new ArrayList<>();
+  }
 
-	public void endorse(final String userName) {
-		endorsers.add(userName);
-	}
+  public void endorse(final String userName) {
+    endorsers.add(userName);
+  }
 }

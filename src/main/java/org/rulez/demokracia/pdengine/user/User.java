@@ -14,16 +14,17 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@SuppressWarnings("PMD.ShortClassName")
 public class User extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-	private String proxyId;
-	@ElementCollection
-	private List<String> assurances;
+  private static final long serialVersionUID = 1L;
+  private String proxyId;
+  @ElementCollection
+  private List<String> assurances;
 
-	public User(final String proxyId) {
-		super();
-		this.proxyId = proxyId;
-		assurances = new ArrayList<>();
-	}
+  public User(final String proxyId) {
+    super();
+    this.proxyId = proxyId;
+    assurances = new ArrayList<>();
+  }
 }

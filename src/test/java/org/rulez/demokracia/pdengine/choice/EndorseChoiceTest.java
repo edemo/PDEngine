@@ -17,7 +17,7 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 @TestedFeature("Vote")
 @TestedOperation("Endorse option")
 @RunWith(MockitoJUnitRunner.class)
-public class EndorseChoiceTest extends ChoiceTest {
+public class EndorseChoiceTest extends ChoiceTestBase {
 
 	private static final String TEST_USER_NAME = "testuserke";
 	private Choice choice;

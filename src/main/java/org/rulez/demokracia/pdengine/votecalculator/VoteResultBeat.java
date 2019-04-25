@@ -17,17 +17,19 @@ import lombok.Setter;
 @Entity
 public class VoteResultBeat extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public VoteResultBeat() {
-		this.beats = new ConcurrentHashMap<>();
-	}
+  @ElementCollection
+  private Map<String, Pair> beats;
 
-	public VoteResultBeat(final Map<String, Pair> beats) {
-		this.beats = beats;
-	}
+  public VoteResultBeat() {
+    super();
+    beats = new ConcurrentHashMap<>();
+  }
 
-	@ElementCollection
-	private Map<String, Pair> beats;
+  public VoteResultBeat(final Map<String, Pair> beats) {
+    super();
+    this.beats = beats;
+  }
 
 }

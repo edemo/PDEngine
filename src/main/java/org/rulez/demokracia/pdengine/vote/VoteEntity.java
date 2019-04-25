@@ -31,47 +31,52 @@ import lombok.Setter;
 @Entity
 public class VoteEntity extends BaseEntity {
 
-	public VoteEntity(final String voteName, final Collection<String> neededAssurances,
-			final Collection<String> countedAssurances,
-			final boolean isPrivate, final int minEndorsements) {
-		super();
-		this.name = voteName;
-		this.adminKey = RandomUtils.createRandomKey();
-		this.neededAssurances = ValidationUtil.checkAssurances(neededAssurances, NEEDED);
-		this.countedAssurances = ValidationUtil.checkAssurances(countedAssurances, COUNTED);
-		this.isPrivate = isPrivate;
-		VoteParameters voteParameters = new VoteParameters();
-		voteParameters.setMinEndorsements(minEndorsements);
-		this.parameters = voteParameters;
-		this.creationTime = Instant.now().getEpochSecond();
-		this.choices = new HashMap<>();
-		this.ballots = new ArrayList<>();
-		this.votesCast = new ArrayList<>();
-		this.recordedBallots = new HashMap<>();
-	}
+  private static final long serialVersionUID = 1L;
+  private String name;
+  @ElementCollection
+  private List<String> neededAssurances;
+  @ElementCollection
+  private List<String> countedAssurances;
+  @ElementCollection
+  private List<String> ballots;
+  private boolean isPrivate;
+  private String adminKey;
+  private long creationTime;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "parameters_id", referencedColumnName = "id")
+  private VoteParameters parameters;
+  @ElementCollection
+  private Map<String, Choice> choices;
+  @ElementCollection
+  private List<CastVote> votesCast;
+  @ElementCollection
+  private Map<String, Integer> recordedBallots;
 
-	public VoteEntity() {
-	}
+  public VoteEntity(
+      final String voteName, final Collection<String> neededAssurances,
+      final Collection<String> countedAssurances,
+      final boolean isPrivate, final int minEndorsements
+  ) {
+    super();
+    name = voteName;
+    adminKey = RandomUtils.createRandomKey();
+    this.neededAssurances =
+        ValidationUtil.checkAssurances(neededAssurances, NEEDED);
+    this.countedAssurances =
+        ValidationUtil.checkAssurances(countedAssurances, COUNTED);
+    this.isPrivate = isPrivate;
+    VoteParameters voteParameters = new VoteParameters();
+    voteParameters.setMinEndorsements(minEndorsements);
+    parameters = voteParameters;
+    creationTime = Instant.now().getEpochSecond();
+    choices = new HashMap<>();
+    ballots = new ArrayList<>();
+    votesCast = new ArrayList<>();
+    recordedBallots = new HashMap<>();
+  }
 
-	private static final long serialVersionUID = 1L;
-	private String name;
-	@ElementCollection
-	private List<String> neededAssurances;
-	@ElementCollection
-	private List<String> countedAssurances;
-	@ElementCollection
-	private List<String> ballots;
-	private boolean isPrivate;
-	private String adminKey;
-	private long creationTime;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "parameters_id", referencedColumnName = "id")
-	private VoteParameters parameters;
-	@ElementCollection
-	private Map<String, Choice> choices;
-	@ElementCollection
-	private List<CastVote> votesCast;
-	@ElementCollection
-	private Map<String, Integer> recordedBallots;
+  public VoteEntity() {
+    super();
+  }
 
 }

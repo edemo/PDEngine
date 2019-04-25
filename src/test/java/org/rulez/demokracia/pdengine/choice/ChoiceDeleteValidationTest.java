@@ -15,7 +15,7 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 @TestedFeature("Manage votes")
 @TestedOperation("delete choice")
 @RunWith(MockitoJUnitRunner.class)
-public class ChoiceDeleteValidationTest extends ChoiceTest {
+public class ChoiceDeleteValidationTest extends ChoiceTestBase {
 
 	@Override
 	@Before

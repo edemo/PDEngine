@@ -32,7 +32,7 @@ public class ValidationUtil {
 		if (AssuranceType.COUNTED.equals(type) && EMPTY_STRING.equals(assurance)) {
 			return null;
 		} else {
-			checkStringNoSpaces(assurance, type.name + " assurance name");
+			checkStringNoSpaces(assurance, type.description + " assurance name");
 		}
 		return assurance;
 	}

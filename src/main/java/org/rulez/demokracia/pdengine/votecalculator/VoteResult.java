@@ -14,16 +14,19 @@ import lombok.Getter;
 @Entity
 public class VoteResult extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@ElementCollection
-	private final List<String> choices;
-	@ElementCollection
-	private final Map<String, VoteResultBeat> beats;
+  @ElementCollection
+  private final List<String> choices;
+  @ElementCollection
+  private final Map<String, VoteResultBeat> beats;
 
-	public VoteResult(final List<String> choices, final Map<String, VoteResultBeat> beats) {
-		this.choices = choices;
-		this.beats = beats;
-	}
+  public VoteResult(
+      final List<String> choices, final Map<String, VoteResultBeat> beats
+  ) {
+    super();
+    this.choices = choices;
+    this.beats = beats;
+  }
 
 }

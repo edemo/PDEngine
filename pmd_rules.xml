@@ -85,11 +85,27 @@ Rule Description
 		</properties>
 		<example>
  <![CDATA[
-public interface Matryx<KeyType extends Serializable, ValueType extends Serializable> {
+public interface Matrix<KeyType extends Serializable, ValueType extends Serializable> {
     // This is ok...
 }
 ]]>
         </example>
+	</rule>
+	<rule ref="category/java/design.xml/SignatureDeclareThrowsException" >
+    	<properties>
+        	<property name="IgnoreJUnitCompletely" value="true" />
+        	<property name="violationSuppressRegex" value="/src/integration-test/*"/>
+    	</properties>
+	</rule>
+	<rule ref="category/java/codestyle.xml/LinguisticNaming" >
+    	<properties>
+        	<property name="ignoredAnnotations" value="org.junit.Test" />
+    	</properties>
+	</rule>
+	<rule ref="category/java/imports.xml/UnusedImports">
+		<properties>
+			<property name="violationSuppressRegex" value="import static.*\*"/>
+		</properties>
 	</rule>
 
 </ruleset>
