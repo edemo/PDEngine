@@ -102,7 +102,7 @@ public interface Matrix<KeyType extends Serializable, ValueType extends Serializ
         	<property name="ignoredAnnotations" value="org.junit.Test" />
     	</properties>
 	</rule>
-	<rule ref="category/java/imports.xml/UnusedImports">
+	<rule ref="category/java/bestpractices.xml/UnusedImports">
 		<properties>
 			<property name="violationSuppressRegex" value="import static.*\*"/>
 		</properties>

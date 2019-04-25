@@ -11,7 +11,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-refactor_spring-refactor.76b2743</version>
+  <version>0.0.1-refactor_spring-refactor.9bf0afd</version>
   <packaging>war</packaging>
   
   <name>PDEngine</name>
@@ -172,7 +172,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.11.0</version>
             <configuration>
              <minimumTokens>25</minimumTokens>
              <ignoreAnnotations>true</ignoreAnnotations>
@@ -235,6 +234,11 @@
           </reportSet>
         </reportSets>
       </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jxr-plugin</artifactId>
+            <version>2.3</version>
+        </plugin>
     </plugins>
   </reporting>
   <dependencies>
