@@ -28,6 +28,7 @@ import com.google.gson.JsonObject;
 @TestedOperation("show vote")
 @TestedBehaviour("returns the vote in json")
 @RunWith(MockitoJUnitRunner.class)
+@SuppressWarnings("PMD.TooManyMethods")
 public class VoteShowTest extends ShowVoteTestBase {
 
   private static final String COUNTED_ASSURANCE = "CountedAssurance";

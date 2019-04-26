@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine.beattable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper.*;
 
 import java.util.Collection;
@@ -15,7 +14,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 
 @TestedFeature("Schulze method")
 @TestedOperation("compare beats")
@@ -28,7 +26,7 @@ public class BeatTableTransitiveClosureTest {
   private BeatTable beatTable;
 
   @Before
-  public void setUp() throws ReportedException {
+  public void setUp() {
     beatTable = createNewBeatTableWithComplexData();
   }
 

@@ -12,7 +12,6 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.beattable.BeatTable.Direction;
-import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 
 @TestedFeature("Schulze method")
@@ -26,7 +25,7 @@ public class BeatTableNormalizationTest extends ThrowableTester {
   private BeatTable normalizedBeatTable;
 
   @Before
-  public void setUp() throws ReportedException {
+  public void setUp() {
     BeatTable beatTable = createNewBeatTableWithComplexData();
     normalizedBeatTable = beatTableService.normalize(beatTable);
   }

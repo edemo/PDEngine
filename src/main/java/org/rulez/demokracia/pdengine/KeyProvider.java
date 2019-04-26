@@ -33,6 +33,10 @@ public class KeyProvider {
 
   }
 
+  protected void setKeyStore(final KeyStore keyStore) {
+    this.keyStore = keyStore;
+  }
+
   public PrivateKey
       getPrivateKey(final String alias, final String password) throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException {
     return (PrivateKey) keyStore.getKey(alias, password.toCharArray());

@@ -7,7 +7,11 @@ import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.vote.Vote;
 
-public class CastVoteValidationUtil {
+@SuppressWarnings("PMD.CyclomaticComplexity")
+public final class CastVoteValidationUtil {
+
+  private CastVoteValidationUtil() {
+  }
 
   public static void validatePreferences(
       final List<RankedChoice> rankedChoices, final Vote vote
