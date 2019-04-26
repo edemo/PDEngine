@@ -1,15 +1,13 @@
 package org.rulez.demokracia.pdengine.integrationtest;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +22,7 @@ import org.rulez.demokracia.pdengine.vote.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,7 +42,7 @@ import com.google.gson.GsonBuilder;
 )
 @AutoConfigureMockMvc
 @TestPropertySource(
-    locations = "classpath:application-integrationtest.properties"
+    locations = "classpath:application-integrationtest.yml"
 )
 public class VoteCreationIntegrationTest {
 
@@ -79,24 +78,30 @@ public class VoteCreationIntegrationTest {
   }
 
   @Test
+  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void vote_creation_fails_with_400_on_bad_input() throws Exception {
     callEndpointWithRequest(badVoteRequest).andExpect(status().isBadRequest());
   }
 
   @Test
+  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void vote_creation_fails_and_reports_error_message_on_bad_input()
       throws Exception {
     callEndpointWithRequest(badVoteRequest)
         .andExpect(
-            jsonPath("error.detailMessage", equalTo("invalid characters in {0}"))
+            jsonPath(
+                "error.message",
+                CoreMatchers.equalTo("invalid characters in {0}")
+            )
         );
   }
 
   @Test
+  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void vote_creation_fails_and_reports_error_details_on_bad_input()
       throws Exception {
     callEndpointWithRequest(badVoteRequest)
-        .andExpect(jsonPath("error.additionalDetails[0]", equalTo("vote name")));
+        .andExpect(jsonPath("error.details[0]", CoreMatchers.equalTo("vote name")));
   }
 
   private CreateVoteRequest initializeCreateVoteRequest(final String name) {
@@ -120,9 +125,9 @@ public class VoteCreationIntegrationTest {
     String req = new GsonBuilder().create().toJson(voteRequest);
     return mvc.perform(
         post("/vote")
-            .accept(APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
             .content(req)
-            .contentType(APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
     );
   }
 }

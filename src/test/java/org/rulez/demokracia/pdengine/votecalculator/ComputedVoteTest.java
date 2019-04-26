@@ -2,10 +2,8 @@ package org.rulez.demokracia.pdengine.votecalculator;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper.createNewBeatTableWithComplexData;
-import static org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper.createTransitiveClosedBeatTable;
+import static org.mockito.Mockito.*;
+import static org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper.*;
 
 import java.util.List;
 import java.util.Set;

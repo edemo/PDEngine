@@ -2,7 +2,6 @@ package org.rulez.demokracia.pdengine.dataobjects;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
@@ -22,15 +21,6 @@ public class VoteAdminInfoTest {
   public void is_user_returns_true_when_admin_key_is_user() {
     final VoteAdminInfo adminInfo = new VoteAdminInfo(VOTE_ID, USER);
     assertTrue(adminInfo.isUserAdminKey());
-  }
-
-  @Test
-  public void constructor_and_setters_results_equal_vote_admin_info() {
-    final VoteAdminInfo constructor = new VoteAdminInfo(VOTE_ID, USER);
-    final VoteAdminInfo setter = new VoteAdminInfo();
-    setter.setAdminKey(USER);
-    setter.setVoteId(VOTE_ID);
-    assertEquals(constructor, setter);
   }
 
 }

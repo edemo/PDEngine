@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine.choice;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +16,10 @@ import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
 @RunWith(MockitoJUnitRunner.class)
 public class ChoiceDeleteAdminKeyIsUserTest extends ChoiceTestBase {
 
+  private static final String IF_THE_VOTE_HAS_BALLOTS_ISSUED =
+      "if the vote has ballots issued, the choice cannot be deleted";
+  private static final String IF_USER_IS_USED_AS_ADMIN_KEY =
+      "if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true";
   private static final String USER = "user";
   private static final String CHOICE1 = "choice1";
   private static final String TEST_USER_NAME = "teszt_elek";
@@ -28,7 +31,7 @@ public class ChoiceDeleteAdminKeyIsUserTest extends ChoiceTestBase {
   }
 
   @TestedBehaviour(
-    "if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true"
+    IF_USER_IS_USED_AS_ADMIN_KEY
   )
   @Test
   public void if_canAddin_is_false_then_other_users_cannot_delete_choices() {
@@ -40,7 +43,7 @@ public class ChoiceDeleteAdminKeyIsUserTest extends ChoiceTestBase {
   }
 
   @TestedBehaviour(
-    "if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true"
+    IF_USER_IS_USED_AS_ADMIN_KEY
   )
   @Test
   public void
@@ -56,7 +59,7 @@ public class ChoiceDeleteAdminKeyIsUserTest extends ChoiceTestBase {
   }
 
   @TestedBehaviour(
-    "if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true"
+    IF_USER_IS_USED_AS_ADMIN_KEY
   )
   @Test
   public void
@@ -76,7 +79,7 @@ public class ChoiceDeleteAdminKeyIsUserTest extends ChoiceTestBase {
   }
 
   @TestedBehaviour(
-    "if \"user\" is used as adminKey, then the user must be the one who added the choice and canAddIn be true"
+    IF_USER_IS_USED_AS_ADMIN_KEY
   )
   @Test
   public void deleteChoice_saves_vote_if_the_choice_is_deleted() {
@@ -89,7 +92,7 @@ public class ChoiceDeleteAdminKeyIsUserTest extends ChoiceTestBase {
   }
 
   @TestedBehaviour(
-    "if the vote has ballots issued, the choice cannot be deleted"
+    IF_THE_VOTE_HAS_BALLOTS_ISSUED
   )
   @Test
   public void

@@ -10,33 +10,32 @@ import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
-import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 public class CastVoteTest {
 
-	private static final String TEST_USER_NAME = "TesztElek";
+  private static final String TEST_USER_NAME = "TesztElek";
 
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("CastVote")
-	@TestedBehaviour("The preferences described by a cast vote can be obtained")
-	@Test
-	public void the_preferences_can_be_obtained_when_they_are_empty() {
-		List<RankedChoice> theCastVote = new ArrayList<>();
-		CastVote castVote = new CastVote(TEST_USER_NAME, theCastVote);
-		List<RankedChoice> preferences = castVote.getPreferences();
-		assertEquals(new ArrayList<>(), preferences);
-	}
+  @TestedFeature("Supporting functionality")
+  @TestedOperation("CastVote")
+  @TestedBehaviour("The preferences described by a cast vote can be obtained")
+  @Test
+  public void the_preferences_can_be_obtained_when_they_are_empty() {
+    List<RankedChoice> theCastVote = new ArrayList<>();
+    CastVote castVote = new CastVote(TEST_USER_NAME, theCastVote);
+    List<RankedChoice> preferences = castVote.getPreferences();
+    assertEquals(new ArrayList<>(), preferences);
+  }
 
-	@TestedFeature("Supporting functionality")
-	@TestedOperation("CastVote")
-	@TestedBehaviour("The preferences described by a cast vote can be obtained")
-	@Test
-	public void the_preferences_can_be_obtained_when_they_contain_choices() {
-		List<RankedChoice> theCastVote = new ArrayList<>();
-		theCastVote.add(new RankedChoice("1", 1));
-		CastVote castVote = new CastVote(TEST_USER_NAME, theCastVote);
-		List<RankedChoice> preferences = castVote.getPreferences();
-		assertEquals(theCastVote, preferences);
-	}
+  @TestedFeature("Supporting functionality")
+  @TestedOperation("CastVote")
+  @TestedBehaviour("The preferences described by a cast vote can be obtained")
+  @Test
+  public void the_preferences_can_be_obtained_when_they_contain_choices() {
+    List<RankedChoice> theCastVote = new ArrayList<>();
+    theCastVote.add(new RankedChoice("1", 1));
+    CastVote castVote = new CastVote(TEST_USER_NAME, theCastVote);
+    List<RankedChoice> preferences = castVote.getPreferences();
+    assertEquals(theCastVote, preferences);
+  }
 
 }

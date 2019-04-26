@@ -1,8 +1,8 @@
 package org.rulez.demokracia.pdengine.dataobjects;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class VoteAdminInfo {
 
   public String adminKey;
@@ -14,9 +14,9 @@ public class VoteAdminInfo {
   }
 
   public VoteAdminInfo() {
-	}
+  }
 
-	public boolean isUserAdminKey() {
-		return "user".equals(adminKey);
+  public boolean isUserAdminKey() {
+    return "user".equals(adminKey);
   }
 }

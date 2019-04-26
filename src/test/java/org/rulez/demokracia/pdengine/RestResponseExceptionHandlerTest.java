@@ -12,17 +12,18 @@ import org.springframework.web.context.request.WebRequest;
 public class RestResponseExceptionHandlerTest {
 
   private static final String TEST_MESSAGE = "Test message";
-  RestResponseExceptionHandler handler = new RestResponseExceptionHandler();
-  WebRequest request = mock(WebRequest.class);
+  private final RestResponseExceptionHandler handler =
+      new RestResponseExceptionHandler();
+  private final WebRequest request = mock(WebRequest.class);
 
   @Test
   public void test_should_return_the_exception() throws Exception {
-    final ReportedException ex = new TooLongException(TEST_MESSAGE);
+    final ReportedException exception = new TooLongException(TEST_MESSAGE);
     final ResponseEntity<Object> responseEntity =
-        handler.handleBadRequest(ex, request);
+        handler.handleBadRequest(exception, request);
     assertEquals(
-        "{\"error\":{\"additionalDetails\":[\"Test message\"],\"detailMessage\":\"string too long: {0}\",\"stackTrace\":[],\"suppressedExceptions\":[]}}",
-        responseEntity.getBody()
+        "{\"error\":{\"message\":\"string too long: {0}\",\"details\":[\"Test message\"]}}",
+        responseEntity.getBody().toString()
     );
   }
 

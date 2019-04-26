@@ -33,6 +33,7 @@ public class BeatTableIgnoreServiceTest {
   public void setUp() {
     beatTable = createNewBeatTableWithComplexData();
     ignoredChoices = List.of(CHOICE1, CHOICE2);
+    beatTable.setElement(CHOICE3, CHOICE3, new Pair(42, 69));
     ignoredBeatTable =
         beatTableIgnoreService.ignoreChoices(beatTable, ignoredChoices);
   }

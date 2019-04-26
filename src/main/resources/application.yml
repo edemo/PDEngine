@@ -1,0 +1,7 @@
+server:
+  port: 8080
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: changeit
+    key-alias: PDEngineKeys
+    key-password: changeit

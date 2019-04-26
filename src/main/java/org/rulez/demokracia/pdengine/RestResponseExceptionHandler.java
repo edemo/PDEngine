@@ -12,22 +12,11 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.google.gson.Gson;
-
-import lombok.Data;
+import com.google.gson.JsonObject;
 
 @ControllerAdvice
 public class RestResponseExceptionHandler
     extends ResponseEntityExceptionHandler {
-
-  @Data
-  private class ErrorResponse {
-
-    private Exception error;
-
-    public ErrorResponse(final Exception error) {
-      this.error = error;
-    }
-  }
 
   @ExceptionHandler({
       ReportedException.class
@@ -35,9 +24,14 @@ public class RestResponseExceptionHandler
   protected ResponseEntity<Object> handleBadRequest(
       final RuntimeException exception, final WebRequest request
   ) throws IOException {
-    final String bodyOfResponse = new Gson().toJson(new ErrorResponse(exception));
+    final JsonObject bodyOfResponse = new JsonObject();
+    bodyOfResponse.add(
+        "error", new Gson().toJsonTree(((ReportedException) exception).toJSON())
+    );
     return handleExceptionInternal(
-        exception, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request
+        exception, bodyOfResponse.toString(), new HttpHeaders(),
+        HttpStatus.BAD_REQUEST,
+        request
     );
   }
 }

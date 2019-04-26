@@ -24,7 +24,8 @@ import org.rulez.demokracia.pdengine.exception.ReportedException;
 @RunWith(MockitoJUnitRunner.class)
 public class VoteCastValidationTest extends CastVoteTestBase {
 
-	private static final int LAST_WRONG_RANK = -1;
+	private static final String VALIDATES_INPUTS = "validates inputs";
+  private static final int LAST_WRONG_RANK = -1;
 	private static final int FIRST_GOOD_RANK = 0;
 	private List<RankedChoice> theCastVote;
 	@Override
@@ -60,7 +61,7 @@ public class VoteCastValidationTest extends CastVoteTestBase {
 		.assertMessageIs("This issue cannot be voted on yet");
 	}
 
-	@TestedBehaviour("validates inputs")
+	@TestedBehaviour(VALIDATES_INPUTS)
 	@Test
 	public void cast_vote_checks_vote_id() {
 		String wrongVoteId = "wrong_ID";
@@ -71,7 +72,7 @@ public class VoteCastValidationTest extends CastVoteTestBase {
 		.assertMessageIs("illegal voteId");
 	}
 
-	@TestedBehaviour("validates inputs")
+	@TestedBehaviour(VALIDATES_INPUTS)
 	@Test
 	public void cast_vote_checks_ballot() {
 		String wrongBallot = RandomUtils.createRandomKey();
@@ -81,7 +82,7 @@ public class VoteCastValidationTest extends CastVoteTestBase {
 		.assertMessageIs("Illegal ballot");
 	}
 
-	@TestedBehaviour("validates inputs")
+	@TestedBehaviour(VALIDATES_INPUTS)
 	@Test
 	public void cast_vote_checks_the_cast_if_choiceids_are_valid() {
 		prepareRankedChoice(theCastVote, RandomUtils.createRandomKey(), 42);
@@ -91,7 +92,7 @@ public class VoteCastValidationTest extends CastVoteTestBase {
 		.assertMessageIs("Invalid choiceId");
 	}
 
-	@TestedBehaviour("validates inputs")
+	@TestedBehaviour(VALIDATES_INPUTS)
 	@Test
 	public void cast_vote_checks_the_cast_if_ranks_are_nonnegative() {
 

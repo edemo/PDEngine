@@ -80,9 +80,9 @@ public class VoteCreationCountedAssurancesValidationTest
 
   @Test
   public void counted_assurances_can_contain_local_characters() {
-    final String stringWithLocalCharacters =
+    String stringWithLocalCharacters =
         "ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ";
-    final Set<String> countedAssurances = Set.of(stringWithLocalCharacters);
+    Set<String> countedAssurances = Set.of(stringWithLocalCharacters);
     createAVote(countedAssurances);
     verify(voteRepository).save(voteCaptor.capture());
     assertTrue(

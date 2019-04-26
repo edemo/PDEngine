@@ -103,7 +103,7 @@ public class VoteCreationNeededAssurancesValidationTest
 
   @Test
   public void needed_assurances_can_contain_local_characters() {
-    final String stringWithLocalCharacters =
+    String stringWithLocalCharacters =
         "ThisConatinsLocaCharséűáőúöüóíÉÁŰŐÚÖÜÓÍ";
     createAVote(Set.of(stringWithLocalCharacters));
     verify(voteRepository).save(voteCaptor.capture());
