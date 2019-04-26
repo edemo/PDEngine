@@ -1,7 +1,5 @@
 package org.rulez.demokracia.pdengine;
 
-import java.io.IOException;
-
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,7 +21,7 @@ public class RestResponseExceptionHandler
   })
   protected ResponseEntity<Object> handleBadRequest(
       final RuntimeException exception, final WebRequest request
-  ) throws IOException {
+  ) {
     final JsonObject bodyOfResponse = new JsonObject();
     bodyOfResponse.add(
         "error", new Gson().toJsonTree(((ReportedException) exception).toJSON())

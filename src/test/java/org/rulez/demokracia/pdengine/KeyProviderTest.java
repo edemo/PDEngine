@@ -4,18 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.core.io.Resource;
+import org.springframework.data.util.ReflectionUtils;
 
 public class KeyProviderTest {
 
@@ -25,10 +25,18 @@ public class KeyProviderTest {
   private KeyPair keyPair;
 
   @Before
-  public void setUp() throws KeyStoreException, NoSuchAlgorithmException,
-      CertificateException, IOException {
-    KeyStore keyStore = KeyStore.getInstance("jks");
-    keyStore.load(null);
+  public void setUp()
+      throws IOException, NoSuchFieldException, GeneralSecurityException {
+    Resource resource = mock(Resource.class);
+    when(resource.getInputStream()).thenReturn(null);
+    ReflectionUtils.setField(
+        ReflectionUtils.findRequiredField(KeyProvider.class, "keyStorePath"), keyProvider, resource
+    );
+    ReflectionUtils.setField(
+        ReflectionUtils.findRequiredField(KeyProvider.class, "keyStorePass"), keyProvider, PASSWORD123
+    );
+    keyProvider.initKeyStore();
+    KeyStore keyStore = keyProvider.getKeyStore();
     keyPair = KeyPairGenerator.getInstance("RSA").generateKeyPair();
     Certificate certificate = mock(Certificate.class);
     Certificate[] chain = {
@@ -39,7 +47,6 @@ public class KeyProviderTest {
         ALJAS, keyPair.getPrivate(), PASSWORD123.toCharArray(),
         chain
     );
-    keyProvider.setKeyStore(keyStore);
   }
 
   @Test

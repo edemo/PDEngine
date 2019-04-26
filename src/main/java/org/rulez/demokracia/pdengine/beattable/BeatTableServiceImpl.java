@@ -71,9 +71,9 @@ public class BeatTableServiceImpl implements BeatTableService {
 
   private Set<String> collectChoices(final List<CastVote> castVotes) {
     return castVotes.stream()
-        .map(castVote -> castVote.getPreferences())
+        .map(CastVote::getPreferences)
         .flatMap(List::stream)
-        .map(rankedChoice -> rankedChoice.getChoiceId())
+        .map(RankedChoice::getChoiceId)
         .collect(Collectors.toSet());
   }
 

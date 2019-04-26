@@ -24,17 +24,17 @@ public class KeyProvider {
   private KeyStore keyStore;
 
   @Value("${server.ssl.key-store-password}")
-  private char[] keystorePass;
+  private String keyStorePass;
 
   @PostConstruct
   public void initKeyStore() throws GeneralSecurityException, IOException {
     keyStore = KeyStore.getInstance("jks");
-    keyStore.load(keyStorePath.getInputStream(), keystorePass);
+    keyStore.load(keyStorePath.getInputStream(), keyStorePass.toCharArray());
 
   }
 
-  protected void setKeyStore(final KeyStore keyStore) {
-    this.keyStore = keyStore;
+  protected KeyStore getKeyStore() {
+    return keyStore;
   }
 
   public PrivateKey
