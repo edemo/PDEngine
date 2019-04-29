@@ -2,6 +2,7 @@ package org.rulez.demokracia.pdengine;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,14 +21,14 @@ final public class RandomUtils {
   }
 
   private static void initializeEntropySource() {
-    if (null == entropySource)
-      try {
-        entropySource = SecureRandom.getInstance("NativePRNGBlocking");
-      } catch (final NoSuchAlgorithmException e) {
-        LOGGER.log(
-            Level.SEVERE, "no NativePRNGBlocking random implementation", e
-        );
-        System.exit(-1);//NOPMD
-      }
+    try {
+      entropySource = Optional.ofNullable(entropySource)
+          .orElse(SecureRandom.getInstance("NativePRNGBlocking"));
+    } catch (final NoSuchAlgorithmException e) {
+      LOGGER.log(
+          Level.SEVERE, "no NativePRNGBlocking random implementation", e
+      );
+      System.exit(-1);//NOPMD
+    }
   }
 }

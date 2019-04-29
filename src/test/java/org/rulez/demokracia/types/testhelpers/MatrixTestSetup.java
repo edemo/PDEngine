@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.Before;
-import org.rulez.demokracia.testhelpers.ThrowableTester;
-import org.rulez.demokracia.types.MapMatrix;
-import org.rulez.demokracia.types.Matrix;
+import org.rulez.demokracia.pdengine.beattable.MapMatrix;
+import org.rulez.demokracia.pdengine.beattable.Matrix;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
 
 public class MatrixTestSetup extends ThrowableTester {
 
