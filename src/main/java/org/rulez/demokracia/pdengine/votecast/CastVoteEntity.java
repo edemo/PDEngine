@@ -15,11 +15,13 @@ import lombok.Setter;
 @Setter
 @Entity
 public class CastVoteEntity extends BaseEntity {
-	private static final long serialVersionUID = 1L;
-	@ElementCollection
-	private List<RankedChoice> preferences;
-	private String proxyId;
-	private String secretId;
-	private String signature;
+
+  private static final long serialVersionUID = 1L;
+  @ElementCollection
+  private List<RankedChoice> preferences;
+  private String proxyId;
+  private String secretId;
+  private String signature;
+  private List<String> assurances;
 
 }
