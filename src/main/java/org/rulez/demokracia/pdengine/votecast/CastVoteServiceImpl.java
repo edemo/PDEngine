@@ -1,6 +1,7 @@
 package org.rulez.demokracia.pdengine.votecast;
 
-import static org.rulez.demokracia.pdengine.votecast.CastVoteValidationUtil.*;
+import static org.rulez.demokracia.pdengine.votecast.validation.CastVotePreferencesValidatorUtil.validatePreferences;
+import static org.rulez.demokracia.pdengine.votecast.validation.CastVoteValidationUtil.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,25 +27,25 @@ public class CastVoteServiceImpl implements CastVoteService {
       final String voteId, final String ballot,
       final List<RankedChoice> rankedChoices
   ) {
-    Vote vote = voteService.getVote(voteId);
+    final Vote vote = voteService.getVote(voteId);
     validateInput(ballot, rankedChoices, vote);
     vote.removeBallot(ballot);
 
-    CastVote result = addCastVote(rankedChoices, vote);
+    final CastVote result = addCastVote(rankedChoices, vote);
     voteService.saveVote(vote);
     return result;
   }
 
   private CastVote
       addCastVote(final List<RankedChoice> rankedChoices, final Vote vote) {
-    String proxyId = vote.getParameters().isUpdatable() ?
+    final String proxyId = vote.getParameters().isUpdatable() ?
         authService.getAuthenticatedUserName() : null;
 
     if (Objects.nonNull(proxyId))
       vote.getVotesCast()
           .removeIf(castVote -> proxyId.equals(castVote.getProxyId()));
 
-    CastVote castVote = new CastVote(proxyId, rankedChoices);
+    final CastVote castVote = new CastVote(proxyId, rankedChoices);
     vote.getVotesCast().add(castVote);
     return castVote;
   }

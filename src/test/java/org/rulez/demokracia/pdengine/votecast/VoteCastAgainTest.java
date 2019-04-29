@@ -21,7 +21,6 @@ import org.rulez.demokracia.pdengine.choice.RankedChoice;
   "if there was a cast vote from the same user, the old one is deleted"
 )
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class VoteCastAgainTest extends CastVoteTestBase {
 
   @Override
@@ -34,7 +33,7 @@ public class VoteCastAgainTest extends CastVoteTestBase {
   public void
       cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_top_of_the_list() {
     String userName = vote.getVotesCast().get(0).getProxyId();
-    changeVoteOfUser(userName, true);
+    assertChangeVoteOfUser(userName, true);
   }
 
   @Test
@@ -42,23 +41,24 @@ public class VoteCastAgainTest extends CastVoteTestBase {
       cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_bottom_of_the_list() {
     List<CastVote> votesCast = vote.getVotesCast();
     String userName = votesCast.get(votesCast.size() - 1).getProxyId();
-    changeVoteOfUser(userName, true);
+    assertChangeVoteOfUser(userName, true);
   }
 
   @Test
   public void
       cast_vote_records_the_vote_with_same_user_votesCast_when_same_user_is_in_the_middle_of_the_list() {
     String userName = vote.getVotesCast().get(1).getProxyId();
-    changeVoteOfUser(userName, true);
+    assertChangeVoteOfUser(userName, true);
   }
 
   @Test
   public void
       cast_vote_records_the_vote_with_same_user_votesCast_when_the_list_does_not_contain_same_user() {
-    changeVoteOfUser("newUser", false);
+    assertChangeVoteOfUser("newUser", false);
   }
 
-  private void changeVoteOfUser(final String userName, final boolean hasVote) {
+  private void
+      assertChangeVoteOfUser(final String userName, final boolean hasVote) {
     when(authService.getAuthenticatedUserName()).thenReturn(userName);
 
     int expectedVoteNumber = vote.getVotesCast().size() + (hasVote ? 0 : 1);

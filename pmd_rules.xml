@@ -8,10 +8,12 @@
 
 	<rule ref="category/java/bestpractices.xml">
 		<exclude name="JUnitAssertionsShouldIncludeMessage" />
+		<exclude name="JUnitTestsShouldIncludeAssert"/>
 		<exclude name="UseAssertTrueInsteadOfAssertEquals" />
 		<exclude name="UseAssertNullInsteadOfAssertTrue" />
 	</rule>
 	<rule ref="category/java/codestyle.xml">
+		<exclude name="AvoidFinalLocalVariable" />
 		<exclude name="LongVariable" />
 		<exclude name="ControlStatementBraces" />
 		<exclude name="MethodNamingConventions" />
@@ -106,5 +108,33 @@ public interface Matrix<KeyType extends Serializable, ValueType extends Serializ
 			<property name="violationSuppressRegex" value="^import static.*\*$"/>
 		</properties>
 	</rule>
+	<rule name="JUnitTestsShouldIncludeAssert"
+      language="java"
+      message="Junit tests should have checks"
+      class="net.sourceforge.pmd.lang.rule.XPathRule">
+      <!-- externalInfoUrl="TODO"-->
+    <description>
+
+    </description>
+    <priority>3</priority>
+    <properties>
+        <property name="xpath">
+            <value>
+<![CDATA[
+//MethodDeclaration[
+  ./preceding-sibling::Annotation[.//@Image='Test'] and
+  not(
+    .//Name[matches(@Image,'assert')] or
+    .//Name[matches(@Image,'verify')] or
+    .//PrimarySuffix[matches(@Image,'andExpect')]
+  )
+]
+
+]]>
+            </value>
+        </property>
+    </properties>
+    <!--<example><![CDATA[]]></example>-->
+</rule>
 
 </ruleset>

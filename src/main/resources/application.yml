@@ -5,3 +5,8 @@ server:
     key-store-password: changeit
     key-alias: PDEngineKeys
     key-password: changeit
+
+spring:
+  profiles:
+    active:
+    - prod

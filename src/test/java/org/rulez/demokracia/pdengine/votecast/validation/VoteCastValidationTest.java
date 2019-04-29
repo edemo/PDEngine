@@ -1,9 +1,9 @@
-package org.rulez.demokracia.pdengine.votecast;
+package org.rulez.demokracia.pdengine.votecast.validation;
 
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.*;
+import static org.rulez.demokracia.pdengine.votecast.validation.VoteCastValidationTestHelper.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -14,14 +14,14 @@ import org.rulez.demokracia.pdengine.RandomUtils;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
-import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
+import org.rulez.demokracia.pdengine.testhelpers.ThrowableTester;
+import org.rulez.demokracia.pdengine.votecast.CastVoteTestBase;
 
 @TestedFeature("Vote")
 @TestedOperation("Cast vote")
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("PMD.TooManyMethods")
 public class VoteCastValidationTest extends CastVoteTestBase {
 
   private static final String VALIDATES_INPUTS = "validates inputs";
@@ -33,7 +33,7 @@ public class VoteCastValidationTest extends CastVoteTestBase {
   @Before
   public void setUp() {
     super.setUp();
-    theCastVote = prepareCastVote(true);
+    theCastVote = prepareCastVote(vote, true);
   }
 
   @TestedBehaviour(
@@ -51,7 +51,7 @@ public class VoteCastValidationTest extends CastVoteTestBase {
   @Test
   public void
       cast_vote_deletes_ballot_if_it_gets_a_proper_not_empty_cast_vote() {
-    newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK);
+    newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK, vote);
 
     castVoteService.castVote(vote.getId(), ballot, theCastVote);
     assertFalse(vote.getBallots().contains(ballot));
@@ -60,27 +60,21 @@ public class VoteCastValidationTest extends CastVoteTestBase {
   @TestedBehaviour("works only if canVote is true")
   @Test
   public void cast_vote_does_not_delete_ballot_if_canVote_is_false() {
-    List<RankedChoice> theCastVote = prepareCastVote(false);
+    final List<RankedChoice> theCastVote = prepareCastVote(vote, false);
 
-    assertThrows(
-        () -> castVoteService.castVote(
-            vote.getId(), ballot,
-            theCastVote
-        )
-    ).assertException(ReportedException.class)
+    assertCastVoteException(theCastVote, vote.getId(), ballot)
+        .assertException(ReportedException.class)
         .assertMessageIs("This issue cannot be voted on yet");
   }
 
   @TestedBehaviour(VALIDATES_INPUTS)
   @Test
   public void cast_vote_checks_vote_id() {
-    String wrongVoteId = "wrong_ID";
+    final String wrongVoteId = "wrong_ID";
     doThrow(new ReportedException("illegal voteId")).when(voteService)
         .getVote(wrongVoteId);
 
-    assertThrows(
-        () -> castVoteService.castVote(wrongVoteId, ballot, theCastVote)
-    )
+    assertCastVoteException(theCastVote, wrongVoteId, ballot)
         .assertException(ReportedException.class)
         .assertMessageIs("illegal voteId");
   }
@@ -88,14 +82,10 @@ public class VoteCastValidationTest extends CastVoteTestBase {
   @TestedBehaviour(VALIDATES_INPUTS)
   @Test
   public void cast_vote_checks_ballot() {
-    String wrongBallot = RandomUtils.createRandomKey();
+    final String wrongBallot = RandomUtils.createRandomKey();
 
-    assertThrows(
-        () -> castVoteService.castVote(
-            vote.getId(), wrongBallot,
-            theCastVote
-        )
-    ).assertException(ReportedException.class)
+    assertCastVoteException(theCastVote, vote.getId(), wrongBallot)
+        .assertException(ReportedException.class)
         .assertMessageIs("Illegal ballot");
   }
 
@@ -104,12 +94,8 @@ public class VoteCastValidationTest extends CastVoteTestBase {
   public void cast_vote_checks_the_cast_if_choiceids_are_valid() {
     prepareRankedChoice(theCastVote, RandomUtils.createRandomKey(), 42);
 
-    assertThrows(
-        () -> castVoteService.castVote(
-            vote.getId(), ballot,
-            theCastVote
-        )
-    ).assertException(ReportedException.class)
+    assertCastVoteException(theCastVote, vote.getId(), ballot)
+        .assertException(ReportedException.class)
         .assertMessageIs("Invalid choiceId");
   }
 
@@ -117,14 +103,10 @@ public class VoteCastValidationTest extends CastVoteTestBase {
   @Test
   public void cast_vote_checks_the_cast_if_ranks_are_nonnegative() {
 
-    newChoiceAndRankedList(theCastVote, LAST_WRONG_RANK);
+    newChoiceAndRankedList(theCastVote, LAST_WRONG_RANK, vote);
 
-    assertThrows(
-        () -> castVoteService.castVote(
-            vote.getId(), ballot,
-            theCastVote
-        )
-    ).assertException(ReportedException.class)
+    assertCastVoteException(theCastVote, vote.getId(), ballot)
+        .assertException(ReportedException.class)
         .assertMessageIs("Invalid rank");
   }
 
@@ -134,37 +116,23 @@ public class VoteCastValidationTest extends CastVoteTestBase {
     vote.getParameters().setUpdatable(true);
     when(authService.getUserPrincipal()).thenReturn(null);
 
-    newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK);
+    newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK, vote);
 
-    assertThrows(
-        () -> castVoteService.castVote(
-            vote.getId(), ballot,
-            theCastVote
-        )
-    ).assertException(ReportedException.class)
+    assertCastVoteException(theCastVote, vote.getId(), ballot)
+        .assertException(ReportedException.class)
         .assertMessageIs("canUpdate is true but the user is not authenticated");
 
   }
 
-  private List<RankedChoice> prepareCastVote(final boolean canVote) {
-    List<RankedChoice> theCastVote = new ArrayList<>();
-    vote.getParameters().setVotable(canVote);
-    return theCastVote;
-  }
-
-  private void prepareRankedChoice(
-      final List<RankedChoice> theCastVote, final String choiceId,
-      final int rank
+  private ThrowableTester assertCastVoteException(
+      final List<RankedChoice> theCastVote, final String voteId,
+      final String ballot
   ) {
-    RankedChoice rankedChoice = new RankedChoice(choiceId, rank);
-    theCastVote.add(rankedChoice);
-  }
-
-  private void newChoiceAndRankedList(
-      final List<RankedChoice> theCastVote, final int firstGoodRank
-  ) {
-    Choice choice = new Choice("valid_choice", "userke");
-    vote.addChoice(choice);
-    prepareRankedChoice(theCastVote, choice.getId(), firstGoodRank);
+    return assertThrows(
+        () -> castVoteService.castVote(
+            voteId, ballot,
+            theCastVote
+        )
+    );
   }
 }

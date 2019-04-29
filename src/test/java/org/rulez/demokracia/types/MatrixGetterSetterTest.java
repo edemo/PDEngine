@@ -1,6 +1,6 @@
 package org.rulez.demokracia.types;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +8,7 @@ import org.rulez.demokracia.types.testhelpers.MatrixTestSetup;
 
 public class MatrixGetterSetterTest extends MatrixTestSetup {
 
+  @Override
   @Before
   public void setUp() {
     super.setUp();

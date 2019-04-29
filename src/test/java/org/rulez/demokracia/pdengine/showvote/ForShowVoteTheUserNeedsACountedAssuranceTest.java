@@ -48,15 +48,15 @@ public class ForShowVoteTheUserNeedsACountedAssuranceTest
 
   @Test
   public void a_user_with_all_assourances_can_show_the_vote() {
-    Vote vote = createVoteWithCountedAssurances(List.of("magyar"));
-    VoteAdminInfo aminInfo = new VoteAdminInfo(vote.getId(), "user");
-    JsonObject voteJson = showVoteService.showVote(aminInfo);
+    final Vote vote = createVoteWithCountedAssurances(List.of("magyar"));
+    final VoteAdminInfo aminInfo = new VoteAdminInfo(vote.getId(), "user");
+    final JsonObject voteJson = showVoteService.showVote(aminInfo);
 
     assertNotNull(voteJson);
   }
 
   private void assertAssurancesMissing(final Vote vote) {
-    VoteAdminInfo aminInfo = new VoteAdminInfo(vote.getId(), "user");
+    final VoteAdminInfo aminInfo = new VoteAdminInfo(vote.getId(), "user");
 
     assertThrows(
         () -> showVoteService.showVote(aminInfo)
@@ -64,7 +64,7 @@ public class ForShowVoteTheUserNeedsACountedAssuranceTest
   }
 
   private Vote createVoteWithCountedAssurances(final List<String> assurances) {
-    Vote vote = new Vote("name", List.of(), assurances, false, 1);
+    final Vote vote = new Vote("name", List.of(), assurances, false, 1);
     when(voteService.getVoteWithValidatedAdminKey(any())).thenReturn(vote);
     return vote;
   }

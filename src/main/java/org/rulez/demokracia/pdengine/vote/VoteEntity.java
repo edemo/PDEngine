@@ -17,10 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.rulez.demokracia.pdengine.RandomUtils;
-import org.rulez.demokracia.pdengine.ValidationUtil;
 import org.rulez.demokracia.pdengine.choice.Choice;
 import org.rulez.demokracia.pdengine.dataobjects.VoteParameters;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
+import org.rulez.demokracia.pdengine.vote.validation.ValidationUtil;
 import org.rulez.demokracia.pdengine.votecast.CastVote;
 
 import lombok.Getter;

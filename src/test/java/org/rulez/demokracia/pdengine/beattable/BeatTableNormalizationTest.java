@@ -32,8 +32,11 @@ public class BeatTableNormalizationTest extends ThrowableTester {
 
   @TestedBehaviour("the diagonal elements are (0,0)")
   @Test
-  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void normalization_sets_the_diagonal_to_0_0() {
+    assertAllDiagonalElementsAreZero();
+  }
+
+  private void assertAllDiagonalElementsAreZero() {
     normalizedBeatTable.getKeyCollection()
         .forEach(k -> assertDiagonalElementIsZero(k));
   }
