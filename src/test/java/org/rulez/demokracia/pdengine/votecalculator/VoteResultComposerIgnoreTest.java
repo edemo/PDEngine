@@ -33,10 +33,7 @@ public class VoteResultComposerIgnoreTest {
     when(winnerCalculatorService.calculateWinners(any(), any()))
         .thenReturn(List.of(CHOICE1, CHOICE2, CHOICE3));
 
-    voteResultComposer
-        .composeResult(createNewBeatTableWithComplexData());
-
-    verify(winnerCalculatorService, times(1)).calculateWinners(any(), any());
+    verifyWinnerCalculatorRunnedNTimes(3);
   }
 
   @Test
@@ -47,10 +44,15 @@ public class VoteResultComposerIgnoreTest {
         .thenReturn(List.of(CHOICE2))
         .thenReturn(List.of(CHOICE3));
 
+    verifyWinnerCalculatorRunnedNTimes(3);
+  }
+
+  private void verifyWinnerCalculatorRunnedNTimes(final int timesOfRun) {
     voteResultComposer
         .composeResult(createNewBeatTableWithComplexData());
 
-    verify(winnerCalculatorService, times(3)).calculateWinners(any(), any());
+    verify(winnerCalculatorService, times(timesOfRun))
+        .calculateWinners(any(), any());
   }
 
   @Test
