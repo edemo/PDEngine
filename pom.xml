@@ -28,7 +28,7 @@
     <repository>
       <id>xmldoclet</id>
       <name>XML Doclet</name>
-      <url>https://github.com/com.github.markusbernhardt/xml-doclet/raw/repository/</url>
+      <url>https://raw.githubusercontent.com/szirbucz/xml-doclet-1/repository/</url>
     </repository>
   </repositories>
   
