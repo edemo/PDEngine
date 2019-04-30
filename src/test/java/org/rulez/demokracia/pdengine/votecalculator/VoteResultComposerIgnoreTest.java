@@ -33,7 +33,7 @@ public class VoteResultComposerIgnoreTest {
     when(winnerCalculatorService.calculateWinners(any(), any()))
         .thenReturn(List.of(CHOICE1, CHOICE2, CHOICE3));
 
-    verifyWinnerCalculatorRunnedNTimes(3);
+    verifyWinnerCalculatorRunnedNTimes(1);
   }
 
   @Test
