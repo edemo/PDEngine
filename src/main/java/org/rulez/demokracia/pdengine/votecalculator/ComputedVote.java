@@ -23,6 +23,7 @@ public class ComputedVote extends BaseEntity {
   private BeatTable beatPathTable;
   @ElementCollection
   private List<VoteResult> voteResults;
+  private String voteResultsJson;
 
   public ComputedVote(final Vote vote) {
     super();

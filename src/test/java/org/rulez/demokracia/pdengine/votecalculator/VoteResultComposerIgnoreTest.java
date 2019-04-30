@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.OngoingStubbing;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
@@ -26,40 +27,57 @@ public class VoteResultComposerIgnoreTest {
   private VoteResultComposerImpl voteResultComposer;
   @Mock
   private WinnerCalculatorService winnerCalculatorService;
+  private OngoingStubbing<List<String>> whenCalculateWinnersCalled;
 
   @Test
   public void
       winner_calculation_ends_in_one_step_when_all_choices_ignored_at_once() {
-    when(winnerCalculatorService.calculateWinners(any(), any()))
-        .thenReturn(List.of(CHOICE1, CHOICE2, CHOICE3));
-
-    verifyWinnerCalculatorRunnedNTimes(1);
+    verifyWinnerCalculatorRunnedNTimes(
+        createNewBeatTableWithComplexData(),
+        List.of(List.of(CHOICE1, CHOICE2, CHOICE3)), 1
+    );
   }
 
   @Test
   public void
       winner_calculation_ends_in_n_steps_when_choices_ignored_one_by_one() {
-    when(winnerCalculatorService.calculateWinners(any(), any()))
-        .thenReturn(List.of(CHOICE1))
-        .thenReturn(List.of(CHOICE2))
-        .thenReturn(List.of(CHOICE3));
-
-    verifyWinnerCalculatorRunnedNTimes(3);
+    verifyWinnerCalculatorRunnedNTimes(
+        createNewBeatTableWithComplexData(),
+        List.of(List.of(CHOICE1), List.of(CHOICE2), List.of(CHOICE3)), 3
+    );
   }
 
-  private void verifyWinnerCalculatorRunnedNTimes(final int timesOfRun) {
+  @Test
+  public void winner_calculation_ends_in_zero_step_when_beat_table_is_empty() {
+    verifyWinnerCalculatorRunnedNTimes(new BeatTable(), List.of(), 0);
+  }
+
+  private void verifyWinnerCalculatorRunnedNTimes(
+      final BeatTable beatTable,
+      final List<List<String>> returnedChoices, final int timesOfRun
+  ) {
+    prepareMocks(returnedChoices);
+
     voteResultComposer
-        .composeResult(createNewBeatTableWithComplexData());
+        .composeResult(beatTable);
 
     verify(winnerCalculatorService, times(timesOfRun))
         .calculateWinners(any(), any());
   }
 
-  @Test
-  public void winner_calculation_ends_in_zero_step_when_beat_table_is_empty() {
-    voteResultComposer
-        .composeResult(new BeatTable());
+  private void prepareMocks(final List<List<String>> returnedChoices) {
+    whenCalculateWinnersCalled =
+        when(winnerCalculatorService.calculateWinners(any(), any()));
 
-    verify(winnerCalculatorService, never()).calculateWinners(any(), any());
+    returnedChoices.forEach(
+        choiceList -> whenCalculateWinnersCalled =
+            whenCalculateWinnersCalled.thenReturn(choiceList)
+    );
+
+    whenCalculateWinnersCalled.thenThrow(
+        new AssertionError(
+            "Computing vote should stop when all choices are ignored"
+        )
+    );
   }
 }
