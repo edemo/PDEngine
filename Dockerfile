@@ -19,9 +19,6 @@ RUN git clone --branch standalone-analysis-java11 https://github.com/magwas/muta
 	mvn install;\
     cp ~/.m2/repository/ch/devcon5/sonar/mutation-analysis-plugin/1.3-SNAPSHOT/mutation-analysis-plugin-1.3-SNAPSHOT.jar /usr/local/lib/;\
     cd .. ; rm -rf mutation-analysis-plugin
-RUN git clone --branch feature/compile_with_java_11 https://github.com/magwas/xml-doclet.git;\
-    cd xml-doclet/; mvn install;\
-    cd .. ; rm -rf xml-doclet
 
 RUN git clone --branch docker/java11 https://github.com/magwas/PDEngine.git;\
     rm /dev/random; cp -a /dev/urandom /dev/random;\
