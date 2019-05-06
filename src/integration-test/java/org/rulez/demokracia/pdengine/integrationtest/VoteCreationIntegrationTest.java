@@ -1,140 +1,132 @@
 package org.rulez.demokracia.pdengine.integrationtest;
 
 import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import org.junit.After;
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.rulez.demokracia.pdengine.PDEngineMain;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
 import org.rulez.demokracia.pdengine.dataobjects.VoteAdminInfo;
-import org.rulez.demokracia.pdengine.dataobjects.VoteEntity;
-import org.rulez.demokracia.pdengine.servlet.requests.CreateVoteRequest;
-import org.rulez.demokracia.pdengine.testhelpers.CreatedDefaultVoteRegistry;
+import org.rulez.demokracia.pdengine.vote.CreateVoteRequest;
+import org.rulez.demokracia.pdengine.vote.Vote;
+import org.rulez.demokracia.pdengine.vote.VoteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.GsonBuilder;
 
 @TestedFeature("Manage votes")
 @TestedOperation("create vote")
 @TestedBehaviour("Creates a vote")
-public class VoteCreationIntegrationTest extends CreatedDefaultVoteRegistry {
+@RunWith(SpringRunner.class)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.MOCK,
+    classes = PDEngineMain.class
+)
+@AutoConfigureMockMvc
+@TestPropertySource(
+    locations = "classpath:application-integrationtest.yml"
+)
+@ActiveProfiles("integration-test")
+public class VoteCreationIntegrationTest {
 
-  private JettyThread thread;
-  private CreateVoteRequest req;
+  private static final String ASSURANCE_NAME = "assurance";
+  @Autowired
+  private MockMvc mvc;
 
-  @Override
+  @Autowired
+  private VoteService voteService;
+  private CreateVoteRequest voteRequest;
+  private CreateVoteRequest badVoteRequest;
+
   @Before
   public void setUp() {
-    thread = new JettyThread();
-    thread.run();
-    initializeCreateVoteRequest();
-    super.setUp();
+    voteRequest = initializeCreateVoteRequest("voteName");
+    badVoteRequest =
+        initializeCreateVoteRequest("`drop table little_bobby tables;`");
   }
 
   @Test
-  public void vote_can_be_created_through_rest_interface() {
-    final Invocation.Builder invocationBuilder = createWebClient();
-    final Response response =
-        invocationBuilder.post(Entity.entity(req, MediaType.APPLICATION_JSON));
-    final VoteAdminInfo adminInfo = response.readEntity(VoteAdminInfo.class);
-    final VoteEntity vote = voteManager.getVote(adminInfo.voteId);
-    assertVoteNameAndKeyIsCorrect(adminInfo, vote);
-  }
+  public void vote_can_be_created_through_rest_interface() throws Exception {
+    MvcResult result = callEndpointWithRequest(voteRequest)
+        .andExpect(status().isOk())
+        .andReturn();
 
-  private void assertVoteNameAndKeyIsCorrect(
-      final VoteAdminInfo adminInfo, final VoteEntity vote
-  ) {
-    assertEquals(req.voteName, vote.name);
-    assertEquals(adminInfo.adminKey, vote.adminKey);
-  }
-
-  @Test
-  public void vote_creation_fails_with_404_on_bad_input() {
-    final Response response = restCallWithBadInput();
-    assertEquals(400, response.getStatus());
-  }
-
-  @Test
-  public void vote_creation_fails_and_reports_error_message_on_bad_input() {
-    final Response response = restCallWithBadInput();
-    final String responseString = response.readEntity(String.class);
-    final JsonObject responseJson =
-        new JsonParser().parse(responseString).getAsJsonObject();
-    assertEquals(
-        "invalid characters in {0}", responseJson
-            .get("error").getAsJsonObject()
-            .get("message").getAsString()
+    VoteAdminInfo info = new Gson().fromJson(
+        result.getResponse().getContentAsString(), VoteAdminInfo.class
     );
+
+    Vote savedVote = voteService.getVoteWithValidatedAdminKey(info);
+
+    assertEquals(voteRequest.getVoteName(), savedVote.getName());
   }
 
   @Test
-  public void vote_creation_fails_and_reports_error_details_on_bad_input() {
-    final Response response = restCallWithBadInput();
-    final String responseString = response.readEntity(String.class);
-    final JsonObject responseJson =
-        new JsonParser().parse(responseString).getAsJsonObject();
-    assertEquals(
-        "vote name", responseJson
-            .get("error").getAsJsonObject()
-            .get("details").getAsString()
-    );
+  public void vote_creation_fails_with_400_on_bad_input() throws Exception {
+    callEndpointWithRequest(badVoteRequest).andExpect(status().isBadRequest());
   }
 
   @Test
-  public void vote_creation_fails_and_returns_the_bad_input() {
-    final Response response = restCallWithBadInput();
-    final String responseString = response.readEntity(String.class);
-    final JsonObject responseJson =
-        new JsonParser().parse(responseString).getAsJsonObject();
-    assertEquals(
-        new Gson().toJson(req), responseJson
-            .get("input").toString()
-    );
+  public void vote_creation_fails_and_reports_error_message_on_bad_input()
+      throws Exception {
+    callEndpointWithRequest(badVoteRequest)
+        .andExpect(
+            jsonPath(
+                "error.message",
+                CoreMatchers.equalTo("invalid characters in {0}")
+            )
+        );
   }
 
-  private Response restCallWithBadInput() {
-    req.voteName = "`drop table little_bobby tables;`";
-    return createWebClient()
-        .post(Entity.entity(req, MediaType.APPLICATION_JSON));
+  @Test
+  public void vote_creation_fails_and_reports_error_details_on_bad_input()
+      throws Exception {
+    callEndpointWithRequest(badVoteRequest)
+        .andExpect(jsonPath("error.details[0]", CoreMatchers.equalTo("vote name")));
   }
 
-  private Invocation.Builder createWebClient() {
-    final Client client = ClientBuilder.newClient();
-    final WebTarget webTarget = client.target("http://127.0.0.1:8080/vote");
-    return webTarget.request(MediaType.APPLICATION_JSON);
-  }
-
-  private CreateVoteRequest initializeCreateVoteRequest() {
-    req = new CreateVoteRequest();
-    req.voteName = "voteName";
+  private CreateVoteRequest initializeCreateVoteRequest(final String name) {
+    CreateVoteRequest req = new CreateVoteRequest();
+    req.setVoteName(name);
     final Set<String> countedAssurances = new HashSet<>();
     countedAssurances.add("");
     countedAssurances.add(ASSURANCE_NAME);
-    req.countedAssurances = countedAssurances;
-    req.minEndorsements = 3;
-    final Set<String> neededAssurances = new HashSet<>();
+    req.setCountedAssurances(countedAssurances);
+    req.setMinEndorsements(3);
+    Set<String> neededAssurances = new HashSet<>();
     neededAssurances.add(ASSURANCE_NAME);
-    req.neededAssurances = neededAssurances;
-    req.isPrivate = false;
+    req.setNeededAssurances(neededAssurances);
+    req.setPrivate(false);
     return req;
   }
 
-  @After
-  public void tearDown() throws Exception {
-    thread.end();
+  private ResultActions callEndpointWithRequest(
+      final CreateVoteRequest voteRequest
+  ) throws Exception {
+    String req = new GsonBuilder().create().toJson(voteRequest);
+    return mvc.perform(
+        post("/vote")
+            .accept(MediaType.APPLICATION_JSON)
+            .content(req)
+            .contentType(MediaType.APPLICATION_JSON)
+    );
   }
 }

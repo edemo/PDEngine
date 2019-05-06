@@ -5,14 +5,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 	<description>WAR project PMD rules of Kode Konveyor</description>
-	<exclude-pattern>.*/JettyThread.java</exclude-pattern>
 
 	<rule ref="category/java/bestpractices.xml">
 		<exclude name="JUnitAssertionsShouldIncludeMessage" />
+		<exclude name="JUnitTestsShouldIncludeAssert"/>
 		<exclude name="UseAssertTrueInsteadOfAssertEquals" />
 		<exclude name="UseAssertNullInsteadOfAssertTrue" />
 	</rule>
 	<rule ref="category/java/codestyle.xml">
+		<exclude name="AvoidFinalLocalVariable" />
 		<exclude name="LongVariable" />
 		<exclude name="ControlStatementBraces" />
 		<exclude name="MethodNamingConventions" />
@@ -85,11 +86,55 @@ Rule Description
 		</properties>
 		<example>
  <![CDATA[
-public interface Matryx<KeyType extends Serializable, ValueType extends Serializable> {
+public interface Matrix<KeyType extends Serializable, ValueType extends Serializable> {
     // This is ok...
 }
 ]]>
         </example>
 	</rule>
+	<rule ref="category/java/design.xml/SignatureDeclareThrowsException" >
+    	<properties>
+        	<property name="IgnoreJUnitCompletely" value="true" />
+        	<property name="violationSuppressRegex" value="/src/integration-test/*"/>
+    	</properties>
+	</rule>
+	<rule ref="category/java/codestyle.xml/LinguisticNaming" >
+    	<properties>
+        	<property name="ignoredAnnotations" value="org.junit.Test" />
+    	</properties>
+	</rule>
+	<rule ref="category/java/bestpractices.xml/UnusedImports">
+		<properties>
+			<property name="violationSuppressRegex" value="^import static.*\*$"/>
+		</properties>
+	</rule>
+	<rule name="JUnitTestsShouldIncludeAssert"
+      language="java"
+      message="Junit tests should have checks"
+      class="net.sourceforge.pmd.lang.rule.XPathRule">
+      <!-- externalInfoUrl="TODO"-->
+    <description>
+
+    </description>
+    <priority>3</priority>
+    <properties>
+        <property name="xpath">
+            <value>
+<![CDATA[
+//MethodDeclaration[
+  ./preceding-sibling::Annotation[.//@Image='Test'] and
+  not(
+    .//Name[matches(@Image,'assert')] or
+    .//Name[matches(@Image,'verify')] or
+    .//PrimarySuffix[matches(@Image,'andExpect')]
+  )
+]
+
+]]>
+            </value>
+        </property>
+    </properties>
+    <!--<example><![CDATA[]]></example>-->
+</rule>
 
 </ruleset>
