@@ -3,10 +3,8 @@ package org.rulez.demokracia.pdengine.vote;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
-
 import java.time.Instant;
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,10 +41,8 @@ public class VoteServiceCreationTest {
   public void setUp() {
     createVoteRequest = new CreateVoteRequest();
     createVoteRequest.setVoteName(VOTE_NAME);
-    createVoteRequest
-        .setCountedAssurances(Set.of("Ass", "Urance", ASSURANCE_NAME));
-    createVoteRequest
-        .setNeededAssurances(Set.of("Akarmi", "Barmi", ASSURANCE_NAME));
+    createVoteRequest.setCountedAssurances(Set.of("Ass", "Urance", ASSURANCE_NAME));
+    createVoteRequest.setNeededAssurances(Set.of("Akarmi", "Barmi", ASSURANCE_NAME));
   }
 
   @Test
@@ -62,9 +58,7 @@ public class VoteServiceCreationTest {
     assertAdminInfoEquals(createVote, savedVote);
   }
 
-  private void assertAdminInfoEquals(
-      final VoteAdminInfo createVote, final Vote savedVote
-  ) {
+  private void assertAdminInfoEquals(final VoteAdminInfo createVote, final Vote savedVote) {
     assertEquals(createVote.getVoteId(), savedVote.getId());
     assertEquals(createVote.getAdminKey(), savedVote.getAdminKey());
   }
@@ -72,19 +66,15 @@ public class VoteServiceCreationTest {
   @Test
   public void neededAssurances_contains_the_assurances_of_the_input() {
     callCreateVote();
-    assertTrue(
-        voteCaptor.getValue().getNeededAssurances()
-            .containsAll(createVoteRequest.getNeededAssurances())
-    );
+    assertTrue(voteCaptor.getValue().getNeededAssurances()
+        .containsAll(createVoteRequest.getNeededAssurances()));
   }
 
   @Test
   public void countedAssurances_contains_the_assurances_of_the_input() {
     callCreateVote();
-    assertTrue(
-        voteCaptor.getValue().getCountedAssurances()
-            .containsAll(createVoteRequest.getCountedAssurances())
-    );
+    assertTrue(voteCaptor.getValue().getCountedAssurances()
+        .containsAll(createVoteRequest.getCountedAssurances()));
   }
 
   @Test
@@ -105,10 +95,7 @@ public class VoteServiceCreationTest {
   @Test
   public void create_creates_a_vote_with_minEndorsements() {
     callCreateVote();
-    assertEquals(
-        0,
-        voteCaptor.getValue().getParameters().getMinEndorsements()
-    );
+    assertEquals(0, voteCaptor.getValue().getParameters().getMinEndorsements());
   }
 
   private VoteAdminInfo callCreateVote() {
@@ -118,9 +105,8 @@ public class VoteServiceCreationTest {
     return voteAdminInfo;
   }
 
-  private void assertBetweenInstants(
-      final long creationTime, final Instant before, final Instant after
-  ) {
+  private void assertBetweenInstants(final long creationTime, final Instant before,
+      final Instant after) {
     assertTrue(creationTime >= before.getEpochSecond());
     assertTrue(creationTime <= after.getEpochSecond());
   }

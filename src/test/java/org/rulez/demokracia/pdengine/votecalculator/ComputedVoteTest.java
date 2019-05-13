@@ -4,10 +4,8 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.rulez.demokracia.pdengine.testhelpers.BeatTableTestHelper.*;
-
 import java.util.List;
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,34 +47,28 @@ public class ComputedVoteTest {
     when(beatTableService.initializeBeatTable(any()))
         .thenReturn(createNewBeatTableWithComplexData());
     List<String> keys = List.of("A", "B", "C", "D");
-    when(beatTableService.normalize(any()))
-        .thenReturn(createTransitiveClosedBeatTable(keys));
+    when(beatTableService.normalize(any())).thenReturn(createTransitiveClosedBeatTable(keys));
     when(beatTableTransitiveClosureService.computeTransitiveClosure(any()))
         .thenReturn(createTransitiveClosedBeatTable(keys));
     when(voteResultComposer.composeResult(any()))
         .thenReturn(VoteResultTestHelper.createVoteResults());
 
     VariantVote vote = new VariantVote();
-    vote.setVotesCast(
-        List.of(new CastVote(RandomUtils.createRandomKey(), List.of()))
-    );
+    vote.setVotesCast(List.of(new CastVote(RandomUtils.createRandomKey(), List.of())));
     computedVote = computedVoteService.computeVote(vote);
   }
 
   @TestedBehaviour("compares and stores initial beat matrix")
   @Test
   public void compute_vote_should_create_initial_matrix_with_full_key_set() {
-    assertEquals(
-        Set.of("name1", "name2", "name3"), Set.copyOf(computedVote.getBeatTable().getKeyCollection())
-    );
+    assertEquals(Set.of("name1", "name2", "name3"),
+        Set.copyOf(computedVote.getBeatTable().getKeyCollection()));
   }
 
   @TestedBehaviour("compares and stores initial beat matrix")
   @Test
   public void after_compute_vote_beat_table_should_contain_beat_information() {
-    assertBeatTableEquals(
-        computedVote.getBeatTable(), createNewBeatTableWithComplexData()
-    );
+    assertBeatTableEquals(computedVote.getBeatTable(), createNewBeatTableWithComplexData());
   }
 
   @TestedBehaviour("calculates and stores beatpath matrix")
@@ -94,10 +86,7 @@ public class ComputedVoteTest {
   @TestedBehaviour("calculates and stores beatpath matrix")
   @Test
   public void transitive_closure_done_on_beat_path_matrix() {
-    assertBeatTableEquals(
-        createTransitiveClosedBeatTable(),
-        computedVote.getBeatPathTable()
-    );
+    assertBeatTableEquals(createTransitiveClosedBeatTable(), computedVote.getBeatPathTable());
   }
 
   @TestedBehaviour("calculates and stores vote results")
@@ -106,24 +95,18 @@ public class ComputedVoteTest {
     assertFalse(computedVote.getVoteResults().isEmpty());
   }
 
-  private void assertBeatTableEquals(
-      final BeatTable firstBeatTable, final BeatTable secondBeatTable
-  ) {
+  private void assertBeatTableEquals(final BeatTable firstBeatTable,
+      final BeatTable secondBeatTable) {
     for (String choice1 : firstBeatTable.getKeyCollection())
       for (String choice2 : firstBeatTable.getKeyCollection())
-        assertEquals(
-            secondBeatTable.getElement(choice1, choice2), firstBeatTable.getElement(choice1, choice2)
-        );
+        assertEquals(secondBeatTable.getElement(choice1, choice2),
+            firstBeatTable.getElement(choice1, choice2));
   }
 
-  @TestedBehaviour(
-    "vote result includes the votes cast with the secret cast vote identifier."
-  )
+  @TestedBehaviour("vote result includes the votes cast with the secret cast vote identifier.")
   @Test
-  public void
-      vote_result_includes_the_votes_cast_with_the_secret_cast_vote_id() {
-    String secretId =
-        computedVote.getVote().getVotesCast().get(0).getSecretId();
+  public void vote_result_includes_the_votes_cast_with_the_secret_cast_vote_id() {
+    String secretId = computedVote.getVote().getVotesCast().get(0).getSecretId();
     assertFalse(secretId.isEmpty());
   }
 }

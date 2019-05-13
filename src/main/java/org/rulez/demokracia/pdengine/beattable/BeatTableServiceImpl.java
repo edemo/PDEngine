@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.rulez.demokracia.pdengine.votecast.CastVote;
@@ -31,10 +30,7 @@ public class BeatTableServiceImpl implements BeatTableService {
 
     for (final String key1 : keys)
       for (final String key2 : keys)
-        if (
-          original.getElement(key1, key2)
-              .compareTo(original.getElement(key2, key1)) <= 0
-        )
+        if (original.getElement(key1, key2).compareTo(original.getElement(key2, key1)) <= 0)
           result.setElement(key1, key2, getZeroPair());
     return result;
   }
@@ -47,34 +43,21 @@ public class BeatTableServiceImpl implements BeatTableService {
     final List<RankedChoice> preferences = castVote.getPreferences();
     for (final RankedChoice column : preferences)
       for (final RankedChoice row : preferences)
-        result.setElement(
-            column.getChoiceId(), row.getChoiceId(),
-            increasePair(
-                column, row,
-                result.getElement(column.getChoiceId(), row.getChoiceId())
-            )
-        );
+        result.setElement(column.getChoiceId(), row.getChoiceId(),
+            increasePair(column, row, result.getElement(column.getChoiceId(), row.getChoiceId())));
   }
 
-  private Pair increasePair(
-      final RankedChoice column, final RankedChoice row, final Pair element
-  ) {
+  private Pair increasePair(final RankedChoice column, final RankedChoice row, final Pair element) {
 
     final int winIncrement = column.getRank() < row.getRank() ? 1 : 0;
     final int loseIncrement = column.getRank() > row.getRank() ? 1 : 0;
     final Pair pair = Optional.ofNullable(element).orElse(getZeroPair());
-    return new Pair(
-        pair.getWinning() + winIncrement,
-        pair.getLosing() + loseIncrement
-    );
+    return new Pair(pair.getWinning() + winIncrement, pair.getLosing() + loseIncrement);
   }
 
   private Set<String> collectChoices(final List<CastVote> castVotes) {
-    return castVotes.stream()
-        .map(CastVote::getPreferences)
-        .flatMap(List::stream)
-        .map(RankedChoice::getChoiceId)
-        .collect(Collectors.toSet());
+    return castVotes.stream().map(CastVote::getPreferences).flatMap(List::stream)
+        .map(RankedChoice::getChoiceId).collect(Collectors.toSet());
   }
 
 }

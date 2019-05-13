@@ -3,11 +3,9 @@ package org.rulez.demokracia.pdengine.votecalculator;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,13 +34,11 @@ public class VoteResultComposerTest {
 
   @Before
   public void setUp() {
-    when(winnerCalculatorService.calculateWinners(any(), any()))
-        .thenReturn(List.of("A", "B"))
-        .thenReturn(List.of("C"))
-        .thenReturn(List.of("D"));
+    when(winnerCalculatorService.calculateWinners(any(), any())).thenReturn(List.of("A", "B"))
+        .thenReturn(List.of("C")).thenReturn(List.of("D"));
 
-    result = voteResultComposer
-        .composeResult(BeatTableTestHelper.createTransitiveClosedBeatTable());
+    result =
+        voteResultComposer.composeResult(BeatTableTestHelper.createTransitiveClosedBeatTable());
     choicesReturned = convertResultToChoiceSet(result);
     keySetOfInitialBeatTable = Set.of("A", "B", "C", "D");
 
@@ -55,8 +51,7 @@ public class VoteResultComposerTest {
 
   @Test
   public void compute_vote_results_returns_each_choices_once() {
-    List<String> keyList = result.stream().map(VoteResult::getChoices)
-        .flatMap(List::stream)
+    List<String> keyList = result.stream().map(VoteResult::getChoices).flatMap(List::stream)
         .collect(Collectors.toList());
     assertEquals(keyList.size(), choicesReturned.size());
   }
@@ -74,10 +69,7 @@ public class VoteResultComposerTest {
   }
 
   private void assertEachChoiceHaveBeaten(final VoteResult voteResult) {
-    assertTrue(
-        voteResult.getBeats().values().stream()
-            .allMatch(m -> !m.getBeats().isEmpty())
-    );
+    assertTrue(voteResult.getBeats().values().stream().allMatch(m -> !m.getBeats().isEmpty()));
   }
 
   private Integer getNumberOfBeats(final VoteResult voteResult) {
@@ -86,9 +78,7 @@ public class VoteResultComposerTest {
   }
 
   private Set<String> convertResultToChoiceSet(final List<VoteResult> result) {
-    return result.stream()
-        .map(voteResult -> voteResult.getChoices())
-        .flatMap(List::stream)
+    return result.stream().map(voteResult -> voteResult.getChoices()).flatMap(List::stream)
         .collect(Collectors.toSet());
   }
 }

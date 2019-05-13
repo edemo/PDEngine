@@ -1,9 +1,7 @@
 package org.rulez.demokracia.pdengine.choice;
 
 import javax.persistence.Entity;
-
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 

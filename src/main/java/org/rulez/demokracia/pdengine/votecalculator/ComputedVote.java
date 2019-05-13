@@ -1,14 +1,11 @@
 package org.rulez.demokracia.pdengine.votecalculator;
 
 import java.util.List;
-
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-
 import org.rulez.demokracia.pdengine.beattable.BeatTable;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 import org.rulez.demokracia.pdengine.vote.Vote;
-
 import lombok.Getter;
 import lombok.Setter;
 

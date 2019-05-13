@@ -3,9 +3,7 @@ package org.rulez.demokracia.pdengine.votecast;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.rulez.demokracia.pdengine.testhelpers.CastVoteTestHelper.CHOICE_B;
-
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,8 +19,7 @@ import org.rulez.demokracia.pdengine.choice.RankedChoice;
 public class VoteCastTest extends CastVoteTestBase {
 
   private static final String TESZT_ELEK = "TesztElek";
-  private final List<RankedChoice> rankedChoices =
-      List.of(new RankedChoice(CHOICE_B.getId(), 1));
+  private final List<RankedChoice> rankedChoices = List.of(new RankedChoice(CHOICE_B.getId(), 1));
 
   @Override
   @Before
@@ -38,9 +35,7 @@ public class VoteCastTest extends CastVoteTestBase {
     vote.getParameters().setUpdatable(true);
     castVoteService.castVote(vote.getId(), ballot, rankedChoices);
     CastVote voteCast = new CastVote(TESZT_ELEK, rankedChoices);
-    assertEquals(
-        voteCast.getProxyId(), vote.getVotesCast().get(0).getProxyId()
-    );
+    assertEquals(voteCast.getProxyId(), vote.getVotesCast().get(0).getProxyId());
   }
 
   @TestedBehaviour("records cast vote with the vote and user's proxy id")
@@ -48,9 +43,7 @@ public class VoteCastTest extends CastVoteTestBase {
   public void voteCast_records_the_preferences() {
     castVoteService.castVote(vote.getId(), ballot, rankedChoices);
     CastVote voteCast = new CastVote(TESZT_ELEK, rankedChoices);
-    assertTrue(
-        voteCast.getPreferences().containsAll(vote.getVotesCast().get(0).getPreferences())
-    );
+    assertTrue(voteCast.getPreferences().containsAll(vote.getVotesCast().get(0).getPreferences()));
   }
 
   @TestedBehaviour("Cast vote have a secret random identifier")
@@ -60,15 +53,10 @@ public class VoteCastTest extends CastVoteTestBase {
     assertTrue(vote.getVotesCast().get(0).getSecretId() instanceof String);
   }
 
-  @TestedBehaviour(
-    "cast vote identifier is different from the ballot identifier"
-  )
+  @TestedBehaviour("cast vote identifier is different from the ballot identifier")
   @Test
   public void voteCast_identifier_is_different_from_the_ballot_identifier() {
-    CastVote castVote = castVoteService.castVote(
-        vote.getId(), ballot,
-        rankedChoices
-    );
+    CastVote castVote = castVoteService.castVote(vote.getId(), ballot, rankedChoices);
 
     assertNotEquals(ballot, castVote.getSecretId());
   }

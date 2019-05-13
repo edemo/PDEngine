@@ -8,12 +8,12 @@ import org.rulez.demokracia.pdengine.vote.VoteService;
 
 public class ShowVoteTestBase extends ThrowableTester {
 
-	@InjectMocks
-	protected ShowVoteServiceImpl showVoteService;
+  @InjectMocks
+  protected ShowVoteServiceImpl showVoteService;
 
-	@Mock
-	protected VoteService voteService;
+  @Mock
+  protected VoteService voteService;
 
-	@Mock
-	protected AuthenticatedUserService authService;
+  @Mock
+  protected AuthenticatedUserService authService;
 }

@@ -6,8 +6,7 @@ import org.rulez.demokracia.pdengine.vote.Vote;
 
 public final class CastVoteValidationUtil {
 
-  private CastVoteValidationUtil() {
-  }
+  private CastVoteValidationUtil() {}
 
   public static void validateBallot(final String ballot, final Vote vote) {
     if (!vote.getBallots().contains(ballot))
@@ -19,16 +18,10 @@ public final class CastVoteValidationUtil {
       throw new ReportedException("This issue cannot be voted on yet");
   }
 
-  public static void checkIfUpdateConditionsAreConsistent(
-      final Vote vote, final AuthenticatedUserService authService
-  ) {
-    if (
-      vote.getParameters().isUpdatable() &&
-          authService.getUserPrincipal() == null
-    )
-      throw new ReportedException(
-          "canUpdate is true but the user is not authenticated"
-      );
+  public static void checkIfUpdateConditionsAreConsistent(final Vote vote,
+      final AuthenticatedUserService authService) {
+    if (vote.getParameters().isUpdatable() && authService.getUserPrincipal() == null)
+      throw new ReportedException("canUpdate is true but the user is not authenticated");
   }
 
 }

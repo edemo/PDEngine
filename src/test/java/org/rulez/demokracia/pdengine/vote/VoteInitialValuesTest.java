@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine.vote;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;

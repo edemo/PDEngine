@@ -2,7 +2,6 @@ package org.rulez.demokracia.types.testhelpers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.junit.Before;
 import org.rulez.demokracia.pdengine.beattable.MapMatrix;
 import org.rulez.demokracia.pdengine.beattable.Matrix;

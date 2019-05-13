@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ComputedVoteService {
 
-	ComputedVote computeVote(Vote vote);
+  ComputedVote computeVote(Vote vote);
 }

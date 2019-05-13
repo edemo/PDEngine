@@ -2,7 +2,6 @@ package org.rulez.demokracia.pdengine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;

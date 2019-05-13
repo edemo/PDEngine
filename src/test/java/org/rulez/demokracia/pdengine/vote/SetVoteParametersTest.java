@@ -2,7 +2,6 @@ package org.rulez.demokracia.pdengine.vote;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
@@ -29,8 +28,7 @@ public class SetVoteParametersTest {
   }
 
   @Test
-  public void
-      set_vote_parameters_sets_the_minEndorsement_parameter_of_the_vote() {
+  public void set_vote_parameters_sets_the_minEndorsement_parameter_of_the_vote() {
     assertEquals(3, vote.getParameters().getMinEndorsements());
   }
 
