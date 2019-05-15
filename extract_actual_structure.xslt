@@ -20,13 +20,30 @@
   	<xsl:copy-of select="string-join($words,' ')"/>  	
   </xsl:function>
 
+  <xsl:function name="zenta:lastDotted">
+  	<xsl:param name="qualified"/>
+  	<xsl:choose>
+	  	<xsl:when test="count($qualified)>1">
+	  		<xsl:variable name="lasts">
+	  			<xsl:for-each select="$qualified">
+	  				<xsl:copy-of select="zenta:lastDotted(.)"/>
+	  			</xsl:for-each>
+	  		</xsl:variable>
+		  	<xsl:copy-of select="string-join($lasts, ',')"/>
+	  	</xsl:when>
+	  	<xsl:otherwise>
+		  	<xsl:copy-of select="tokenize($qualified, '\.')[last()]"/>
+	  	</xsl:otherwise>
+  	</xsl:choose>
+  </xsl:function>
+
   <xsl:template match="/">
   	<folder name="generated structure" id="folder_generated_structure">
       <xsl:apply-templates select="*"/>
   	</folder>
   </xsl:template>  
   <xsl:template match="package">
-  	<xsl:variable name="lastpart" select="tokenize(@name,'\.')[last()]"/>
+  	<xsl:variable name="lastpart" select="zenta:lastDotted(@name)"/>
   	<folder name="{@name}" id="package_folder_{@name}">
   	  <element xsi:type="zenta:BasicObject" name="{$lastpart}" id="package_{@name}" ancestor="package"/>
       <xsl:apply-templates select="package|class|interface"/>
@@ -58,9 +75,13 @@
 					source="{$id}" target="{$dependent}"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:call-template name="modelField">
-					<xsl:with-param name="id" select = "$id" />
-				</xsl:call-template>
+			<xsl:apply-templates select="type" mode="object">
+				<xsl:with-param name="parentId" select="$id"/>
+				<xsl:with-param name="prefix" select="concat('field_', @name,'_')"/>
+				<xsl:with-param name="relationName" select="@name"/>
+				<xsl:with-param name="relationType" select="'application_component_contains'"/>
+			  	<xsl:with-param name="alwaysObject" select="true()"/>
+			</xsl:apply-templates>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:for-each>
@@ -73,29 +94,6 @@
 	</xsl:if>
   </xsl:template>
 
-<xsl:template name="modelField">
-	<xsl:param name="id"/>
-	<xsl:variable name="fieldId" select="@qualified"/>
-	<element xsi:type="zenta:BasicObject" name="{tokenize($fieldId, '\.')[last()]}" id="{$fieldId}" ancestor="field"/>
-	<element xsi:type="zenta:BasicRelationship" id="field_{name()}_of_{$fieldId}_{$id}" ancestor="application_component_contains"
-		target="{$fieldId}" source="{$id}"/>
-	<xsl:call-template name="enhanceType">
-		<xsl:with-param name="fieldId" select = "$fieldId" />
-	</xsl:call-template>
-</xsl:template>
-
-<xsl:template name="enhanceType">
-	<xsl:param name="fieldId"/>
-<xsl:message select="$fieldId"/>
-	<element xsi:type="zenta:BasicRelationship" id="type_of_{$fieldId}" ancestor="is_of_type"
-		source="{$fieldId}" target="{type/@qualified}"/>
-	<xsl:for-each select="type/generic">
-<xsl:message select="'generic'"/>
-		<element xsi:type="zenta:BasicRelationship" name="{position()}" id="generic_of_{$fieldId}_{@qualified}"
-			ancestor="has_generic"
-			source="{$fieldId}" target="{@qualified}"/>
-	</xsl:for-each>
-</xsl:template>
 
   <xsl:template match="method">
   	<xsl:variable name="package" select="../../@name"/>
@@ -106,15 +104,67 @@
 	<element xsi:type="zenta:BasicObject" name="{$name}" id="{$id}" ancestor="service_method"/>
 	<element xsi:type="zenta:BasicRelationship" id="serviceof_{$id}" ancestor="application_component_contains"
 		source="{$serviceId}" target="{$id}"/>
-	<element xsi:type="zenta:BasicRelationship" id="outputof_{$id}" ancestor="outputs"
-		source="{$id}" target="{return/@qualified}"/>
+	<xsl:apply-templates select="return" mode="object">
+		<xsl:with-param name="parentId" select="$id"/>
+		<xsl:with-param name="prefix" select="'return_of'"/>
+		<xsl:with-param name="relationType" select="'outputs'"/>
+	</xsl:apply-templates>
     <xsl:for-each select="parameter">
-		<element xsi:type="zenta:BasicRelationship" name="{@name}" id="serviceof_{$id}" ancestor="parameter"
-			target="{$id}" source="{type/@qualified}"/>    	
-		<xsl:call-template name="enhanceType">
-			<xsl:with-param name="fieldId" select = "$id" />
-		</xsl:call-template>
-    </xsl:for-each>
+	<xsl:apply-templates select="type" mode="object">
+		<xsl:with-param name="parentId" select="$id"/>
+		<xsl:with-param name="prefix" select="concat('parameter_', @name,'_')"/>
+		<xsl:with-param name="relationName" select="@name"/>
+		<xsl:with-param name="relationType" select="'parameter'"/>
+	</xsl:apply-templates>
+     </xsl:for-each>
+  </xsl:template>
+  
+  <xsl:template match="*" mode="object">
+  	<xsl:param name="parentId"/>
+  	<xsl:param name="prefix"/>
+  	<xsl:param name="relationName" select="''"/>
+  	<xsl:param name="relationType"/>
+  	<xsl:param name="alwaysObject" select="false()"/>
+  	<xsl:param name="ancestorType" select="'object'"/>
+	<xsl:choose>
+	<xsl:when test="generic or $alwaysObject">
+		<xsl:variable name="objectId" select="concat($prefix, '_object_', $parentId)"/>
+		<xsl:variable name="objName" select="
+			if(generic)
+				then
+					concat(zenta:lastDotted(@qualified), '&lt;', zenta:lastDotted(generic/@qualified), '&gt;')
+				else
+					zenta:lastDotted(@qualified)
+				"/>
+		<element xsi:type="zenta:BasicObject"
+			name="{$objName}"
+			id="{$objectId}" ancestor="{$ancestorType}"/>
+		<element xsi:type="zenta:BasicRelationship" id="belonging_{$objectId}" ancestor="{$relationType}"
+			name="{$relationName}"
+			source="{$parentId}" target="{$objectId}"/>
+		<element xsi:type="zenta:BasicRelationship" id="type_of_{$objectId}" ancestor="is_of_type"
+			source="{$objectId}" target="{@qualified}"/>
+		<xsl:for-each select="generic">
+			<xsl:variable name="relationName" select="
+				if (last()=1)
+				then
+					''
+				else if (position()=1)
+					then
+						'key'
+					else
+						'value'
+			"/>
+			<element xsi:type="zenta:BasicRelationship" name="{$relationName}" id="generic_of_{$objectId}_{@qualified}"
+				ancestor="has_generic"
+				source="{$objectId}" target="{@qualified}"/>
+		</xsl:for-each>
+	</xsl:when>
+	<xsl:otherwise>
+		<element xsi:type="zenta:BasicRelationship" id="{$prefix}_{$parentId}"
+			name="{$relationName}" ancestor="{$relationType}"
+			source="{$parentId}" target="{@qualified}"/>
+	</xsl:otherwise>
+	</xsl:choose>
   </xsl:template>
 </xsl:stylesheet>
-
