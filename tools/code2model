@@ -1,0 +1,5 @@
+#!/bin/bash
+set -xe
+mkdir -p target
+zenta-xslt-runner -xsl:extract_actual_structure.xslt -s:target/production/javadoc.xml >target/code_model.xml
+zenta-xslt-runner -xsl:replace.xslt -s:engine.zenta -o:engineout.zenta containerId=folder_generated_structure datafile=target/code_model.xml

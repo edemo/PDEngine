@@ -58,11 +58,25 @@
 $atleast,$atmost)" />
 							<!--xsl:value-of select="../@name"/ -->
 							It
-							<xsl:value-of
-								select="concat(' ',
-                                                                zenta:relationName(.),' ',
-                                                                if (@template='true') then $numbers else ''
-                                                                )" />
+                            <xsl:choose>
+                            <xsl:when test="@ancestor='parameter'">
+                            	<xsl:choose>
+                            		<xsl:when test="@direction=2">
+                            			have parameter <xsl:value-of select="@relationName"/> as 
+                            		</xsl:when>
+                            		<xsl:otherwise>
+                            			is the type of parameter <xsl:value-of select="@relationName"/> in 
+                            		</xsl:otherwise>
+                            	</xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+								<xsl:value-of
+									select="concat(' ',
+                                                  zenta:relationName(.),' ',
+                                                  if (@template='true') then $numbers else ''
+                                                  )" />
+                            </xsl:otherwise>
+                            </xsl:choose>
 							<link linkend="{@target}">
 								<xsl:value-of select="@name" />
 							</link>

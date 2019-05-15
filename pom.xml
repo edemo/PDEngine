@@ -11,7 +11,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-refactor_spring-refactor.9bf0afd</version>
+  <version>0.0.1-feature_object_in_metamodel.8527e0e</version>
   <packaging>war</packaging>
   
   <name>PDEngine</name>
@@ -216,6 +216,7 @@
 	      <reportSet>
 	        <id>production-javadoc</id>
 	        <configuration>
+              <show>private</show>
 	          <doclet>com.github.markusbernhardt.xmldoclet.XmlDoclet</doclet>
 	          <additionalparam>-d ${project.build.directory}/production -filename
 	            javadoc.xml</additionalparam>
