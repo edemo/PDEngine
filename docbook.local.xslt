@@ -61,11 +61,21 @@ $atleast,$atmost)" />
                             <xsl:choose>
                             <xsl:when test="@ancestor='parameter'">
                             	<xsl:choose>
-                            		<xsl:when test="@direction=2">
+                            		<xsl:when test="@direction=1">
                             			have parameter <xsl:value-of select="@relationName"/> as 
                             		</xsl:when>
                             		<xsl:otherwise>
                             			is the type of parameter <xsl:value-of select="@relationName"/> in 
+                            		</xsl:otherwise>
+                            	</xsl:choose>
+                            </xsl:when>
+                            <xsl:when test="@ancestor='application_component_contains' and not(@relationName='') and ../@ancestor='object'">
+                            	<xsl:choose>
+                            		<xsl:when test="@direction=1">
+                            			have field <xsl:value-of select="@relationName"/> as 
+                            		</xsl:when>
+                            		<xsl:otherwise>
+                            			is the type of field <xsl:value-of select="@relationName"/> in 
                             		</xsl:otherwise>
                             	</xsl:choose>
                             </xsl:when>

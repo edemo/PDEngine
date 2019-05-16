@@ -11,7 +11,7 @@
 
   <groupId>org.rulez.demokracia</groupId>
   <artifactId>PDEngine</artifactId>
-  <version>0.0.1-feature_object_in_metamodel.8527e0e</version>
+  <version>0.0.1-feature_object_in_metamodel.b874d67</version>
   <packaging>war</packaging>
   
   <name>PDEngine</name>

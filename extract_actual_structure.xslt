@@ -80,7 +80,6 @@
 				<xsl:with-param name="prefix" select="concat('field_', @name,'_')"/>
 				<xsl:with-param name="relationName" select="@name"/>
 				<xsl:with-param name="relationType" select="'application_component_contains'"/>
-			  	<xsl:with-param name="alwaysObject" select="true()"/>
 			</xsl:apply-templates>
 			</xsl:otherwise>
 		</xsl:choose>
