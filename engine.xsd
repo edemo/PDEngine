@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:zenta="http://magwas.rulez.org/zenta"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema-instance">
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="SessionFactoryManager"
+               type="SessionFactoryManager"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="SessionFactoryManager">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ChoiceManager"
+               type="ChoiceManager"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ChoiceManager">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="" type="VoteManager" minOccurs="0"/>
+         <xs:element name="" type="Addchoice" minOccurs="0"/>
+         <xs:element name="" type="deletechoice" minOccurs="0"/>
+         <xs:element name="" type="modifychoice" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="VoteRegistry"
+               type="VoteRegistry"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="VoteRegistry">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="" type="Castvote" minOccurs="0"/>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="" type="ChoiceManager" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Organisationandballotmanager"
+               type="Organisationandballotmanager"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Organisationandballotmanager">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="" type="ManageBallots" minOccurs="0"/>
+         <xs:element name="" type="Storeorganisationalstructure" minOccurs="0"/>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="VoteManager" type="VoteManager"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="VoteManager">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="" type="Managevotes" minOccurs="0"/>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="" type="SessionFactoryManager" minOccurs="0"/>
+         <xs:element name="" type="modifyvote" minOccurs="0"/>
+         <xs:element name="" type="showvoteandparameters" minOccurs="0"/>
+         <xs:element name="" type="Obtainballot" minOccurs="0"/>
+         <xs:element name="" type="deletevote" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="TallyingEngine"
+               type="TallyingEngine"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="TallyingEngine">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="" type="Vote" minOccurs="0"/>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ReportedError"
+               type="ReportedError"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ReportedError">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="java.security.SecureRandom"
+               type="java.security.SecureRandom"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="java.security.SecureRandom">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="java.util.logging.Logger"
+               type="java.util.logging.Logger"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="java.util.logging.Logger">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               name="org.springframework.core.io.Resource"
+               type="org.springframework.core.io.Resource"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   name="org.springframework.core.io.Resource">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="java.security.KeyStore"
+               type="java.security.KeyStore"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="java.security.KeyStore">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="java.util.Set"
+               type="java.util.Set"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="java.util.Set">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="long" type="long"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="long">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               name="com.google.gson.ExclusionStrategy"
+               type="com.google.gson.ExclusionStrategy"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   name="com.google.gson.ExclusionStrategy">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               name="java.util.concurrent.ConcurrentHashMap"
+               type="java.util.concurrent.ConcurrentHashMap"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   name="java.util.concurrent.ConcurrentHashMap">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Package" type="Package"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Package">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="contains" type="Object" minOccurs="0"/>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Class" type="Class"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Class">
+      <xs:attribute name="name" type="string"/>
+      <xs:attribute name="extends" type="Class" use="optional"/>
+      <xs:sequence>
+         <xs:element name="implements" type="Interface" minOccurs="0"/>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Interface" type="Interface"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Interface">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ServiceMethod"
+               type="ServiceMethod"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="ServiceMethod">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="inputsisinputfor" type="Object" minOccurs="0"/>
+         <xs:element name="outputsisoutputof" type="Object" minOccurs="1"/>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Field" type="Field"/>
+   <xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Field">
+      <xs:attribute name="name" type="string"/>
+      <xs:sequence>
+         <xs:element name="isoftypeistypeof" type="Object" minOccurs="0"/>
+         <xs:element name="hasgenericisgenericof" type="Object" minOccurs="0"/>
+         <xs:element name="provides" type="Service" minOccurs="1"/>
+         <xs:element name="contains" type="ApplicationComponent" minOccurs="0"/>
+         <xs:element name="implements" type="BusinessFunction" minOccurs="1"/>
+         <xs:element name="inheritsfromisinheritedfrom" type="ApplicationComponent" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>
