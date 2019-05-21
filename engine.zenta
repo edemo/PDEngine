@@ -2442,6 +2442,16 @@ The function is atomic: only a single transaction.</documentation>
             <property key="lineWidth" value="1"/>
             <property key="font"/>
           </element>
+          <element xsi:type="zenta:BasicRelationship" name="extends" id="522e042f-d5ea-43a1-ad04-6e42970205a8" ancestor="basicrelation" source="class" target="class">
+            <property key="textPosition" value="1"/>
+            <property key="lineDecoration" value="DiamondSourceDecoration"/>
+            <property key="lineColor"/>
+            <property key="fontColor"/>
+            <property key="lineWidth" value="1"/>
+            <property key="minOccurs" value="-1/-1"/>
+            <property key="maxOccurs" value="1/-1"/>
+            <property key="font"/>
+          </element>
           <element xsi:type="zenta:BasicRelationship" name="implements" id="b4d132db-a154-4b4f-ab4c-beaa398591a8" ancestor="basicrelation" source="class" target="interface">
             <property key="textPosition" value="1"/>
             <property key="lineDecoration" value=" SmallEndArrowDecoration"/>
