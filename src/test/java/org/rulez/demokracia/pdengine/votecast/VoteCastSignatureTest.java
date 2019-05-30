@@ -2,9 +2,7 @@ package org.rulez.demokracia.pdengine.votecast;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,9 +17,7 @@ import org.rulez.demokracia.pdengine.choice.RankedChoice;
 
 @TestedFeature("Vote")
 @TestedOperation("Cast vote")
-@TestedBehaviour(
-  "the vote receipt is signed by the server"
-)
+@TestedBehaviour("the vote receipt is signed by the server")
 @RunWith(MockitoJUnitRunner.class)
 public class VoteCastSignatureTest {
 
@@ -37,18 +33,15 @@ public class VoteCastSignatureTest {
 
   private String castVoteString;
 
-  private final ArgumentCaptor<String> captor =
-      ArgumentCaptor.forClass(String.class);
+  private final ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 
   @Before
   public void setUp() {
-    castVote =
-        new CastVote("proxyId", List.of(new RankedChoice("choiceId", 1)));
+    castVote = new CastVote("proxyId", List.of(new RankedChoice("choiceId", 1)));
 
-    castVoteString = "proxyId|" + castVote.getSecretId() + "|" +
-        castVote.getPreferences().get(0).getId() + "|choiceId|1";
-    when(messageSignerService.signatureOfMessage(captor.capture()))
-        .thenReturn(SIGNATURE);
+    castVoteString = "proxyId|" + castVote.getSecretId() + "|"
+        + castVote.getPreferences().get(0).getId() + "|choiceId|1";
+    when(messageSignerService.signatureOfMessage(captor.capture())).thenReturn(SIGNATURE);
     castVoteSignatureService.signCastVote(castVote);
   }
 

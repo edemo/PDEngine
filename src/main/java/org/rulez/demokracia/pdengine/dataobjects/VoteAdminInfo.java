@@ -13,8 +13,7 @@ public class VoteAdminInfo {
     this.adminKey = adminKey;
   }
 
-  public VoteAdminInfo() {
-  }
+  public VoteAdminInfo() {}
 
   public boolean isUserAdminKey() {
     return "user".equals(adminKey);

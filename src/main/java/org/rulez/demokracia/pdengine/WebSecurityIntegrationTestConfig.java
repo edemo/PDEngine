@@ -7,8 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableWebSecurity
 @Profile("integration-test")
-public class WebSecurityIntegrationTestConfig
-    extends WebSecurityConfigurerAdapter {
+public class WebSecurityIntegrationTestConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(final HttpSecurity http) throws Exception {

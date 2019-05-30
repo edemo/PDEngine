@@ -2,12 +2,9 @@ package org.rulez.demokracia.pdengine.user;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 

@@ -2,9 +2,7 @@ package org.rulez.demokracia.pdengine.vote;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
-
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,8 +32,7 @@ public class VoteCreationNameValidationTest extends ThrowableTester {
 
   private CreateVoteRequest request;
 
-  private final ArgumentCaptor<Vote> voteCaptor =
-      ArgumentCaptor.forClass(Vote.class);
+  private final ArgumentCaptor<Vote> voteCaptor = ArgumentCaptor.forClass(Vote.class);
 
   private String voteName;
 
@@ -64,17 +61,13 @@ public class VoteCreationNameValidationTest extends ThrowableTester {
 
   @Test
   public void vote_name_cannot_be_null() {
-    assertThrows(
-        () -> createAVote(null)
-    ).assertMessageIs("vote name is null");
+    assertThrows(() -> createAVote(null)).assertMessageIs("vote name is null");
   }
 
   @Test
   public void vote_name_cannot_contain_tabs() {
     voteName = "thiscontainstab\t";
-    assertThrows(
-        () -> createAVote(voteName)
-    ).assertMessageIs("invalid characters in vote name");
+    assertThrows(() -> createAVote(voteName)).assertMessageIs("invalid characters in vote name");
   }
 
   @Test
@@ -83,9 +76,7 @@ public class VoteCreationNameValidationTest extends ThrowableTester {
 
     createAVote(str255);
     final String voteName = str255 + "w";
-    assertThrows(
-        () -> createAVote(voteName)
-    ).assertMessageIs("string too long: vote name");
+    assertThrows(() -> createAVote(voteName)).assertMessageIs("string too long: vote name");
   }
 
   @Test
@@ -93,9 +84,7 @@ public class VoteCreationNameValidationTest extends ThrowableTester {
     voteName = "aaa";
     createAVote(voteName);
     voteName = "aa";
-    assertThrows(
-        () -> createAVote(voteName)
-    ).assertMessageIs("string too short: vote name");
+    assertThrows(() -> createAVote(voteName)).assertMessageIs("string too short: vote name");
   }
 
   @Test

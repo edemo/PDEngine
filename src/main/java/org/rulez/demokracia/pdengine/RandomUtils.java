@@ -9,11 +9,9 @@ import java.util.logging.Logger;
 final public class RandomUtils {
 
   private static SecureRandom entropySource;
-  private static final Logger LOGGER =
-      Logger.getLogger(RandomUtils.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(RandomUtils.class.getName());
 
-  private RandomUtils() {
-  }
+  private RandomUtils() {}
 
   public static String createRandomKey() {
     initializeEntropySource();
@@ -22,13 +20,11 @@ final public class RandomUtils {
 
   private static void initializeEntropySource() {
     try {
-      entropySource = Optional.ofNullable(entropySource)
-          .orElse(SecureRandom.getInstance("NativePRNGBlocking"));
+      entropySource =
+          Optional.ofNullable(entropySource).orElse(SecureRandom.getInstance("NativePRNGBlocking"));
     } catch (final NoSuchAlgorithmException e) {
-      LOGGER.log(
-          Level.SEVERE, "no NativePRNGBlocking random implementation", e
-      );
-      System.exit(-1);//NOPMD
+      LOGGER.log(Level.SEVERE, "no NativePRNGBlocking random implementation", e);
+      System.exit(-1);// NOPMD
     }
   }
 }

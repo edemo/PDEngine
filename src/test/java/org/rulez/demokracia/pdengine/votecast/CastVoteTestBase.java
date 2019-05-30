@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine.votecast;
 
 import static org.mockito.Mockito.when;
-
 import org.apache.catalina.connector.CoyotePrincipal;
 import org.junit.Before;
 import org.mockito.InjectMocks;
@@ -15,25 +14,25 @@ import org.rulez.demokracia.pdengine.vote.VoteService;
 
 public class CastVoteTestBase extends ThrowableTester {
 
-	@InjectMocks
-	protected CastVoteServiceImpl castVoteService;
+  @InjectMocks
+  protected CastVoteServiceImpl castVoteService;
 
-	@Mock
-	protected VoteService voteService;
-	@Mock
-	protected AuthenticatedUserService authService;
+  @Mock
+  protected VoteService voteService;
+  @Mock
+  protected AuthenticatedUserService authService;
 
-	protected Vote vote = new VariantVote();
+  protected Vote vote = new VariantVote();
 
-	protected String ballot = "ballotgyorgy";
+  protected String ballot = "ballotgyorgy";
 
-	@Before
-	public void setUp() {
-		when(voteService.getVote(vote.getId())).thenReturn(vote);
-		when(authService.getUserPrincipal()).thenReturn(new CoyotePrincipal("name"));
-		vote.getParameters().setVotable(true);
-		vote.getParameters().setUpdatable(true);
-		CastVoteTestHelper.fillVoteWithDummyCastVotes(vote);
-		vote.addBallot(ballot);
-	}
+  @Before
+  public void setUp() {
+    when(voteService.getVote(vote.getId())).thenReturn(vote);
+    when(authService.getUserPrincipal()).thenReturn(new CoyotePrincipal("name"));
+    vote.getParameters().setVotable(true);
+    vote.getParameters().setUpdatable(true);
+    CastVoteTestHelper.fillVoteWithDummyCastVotes(vote);
+    vote.addBallot(ballot);
+  }
 }

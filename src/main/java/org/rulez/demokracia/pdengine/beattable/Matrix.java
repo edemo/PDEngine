@@ -3,8 +3,8 @@ package org.rulez.demokracia.pdengine.beattable;
 import java.io.Serializable;
 import java.util.Collection;
 
-public interface Matrix<KeyType extends Serializable,
-    ValueType extends Serializable> extends Serializable {
+public interface Matrix<KeyType extends Serializable, ValueType extends Serializable>
+    extends Serializable {
 
   void setElement(KeyType columnKey, KeyType rowKey, ValueType value);
 

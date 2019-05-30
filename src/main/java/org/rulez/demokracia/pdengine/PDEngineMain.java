@@ -8,8 +8,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties
 public class PDEngineMain {
 
-	public static void main(final String[] args) {
-		SpringApplication.run(PDEngineMain.class, args);
-	}
+  public static void main(final String[] args) {
+    SpringApplication.run(PDEngineMain.class, args);
+  }
 
 }

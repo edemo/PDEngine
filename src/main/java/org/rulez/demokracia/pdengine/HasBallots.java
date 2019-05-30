@@ -3,8 +3,7 @@ package org.rulez.demokracia.pdengine;
 public interface HasBallots extends VoteInterface {
 
   default Integer getRecordedBallotsCount(final String userName) {
-    return getRecordedBallots().containsKey(userName) ?
-        getRecordedBallots().get(userName) : 0;
+    return getRecordedBallots().containsKey(userName) ? getRecordedBallots().get(userName) : 0;
   }
 
   default void increaseRecordedBallots(final String key) {

@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine.choice;
 
 import static org.mockito.Mockito.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,35 +30,29 @@ public class ChoiceAddValidationTest extends ThrowableTester {
   private VoteService voteService;
 
   private final Vote vote = new VariantVote();
-  private final VoteAdminInfo adminInfo =
-      new VoteAdminInfo(vote.getId(), vote.getAdminKey());
+  private final VoteAdminInfo adminInfo = new VoteAdminInfo(vote.getId(), vote.getAdminKey());
   private final String invalidvoteId = RandomUtils.createRandomKey();
 
   @Before
   public void setUp() {
     when(voteService.getVote(adminInfo.getVoteId())).thenReturn(vote);
-    doThrow(new ReportedException("illegal voteId", invalidvoteId))
-        .when(voteService)
+    doThrow(new ReportedException("illegal voteId", invalidvoteId)).when(voteService)
         .getVote(invalidvoteId);
   }
 
   @TestedBehaviour("validates inputs")
   @Test
   public void invalid_voteId_is_rejected() {
-    assertaddChoiceThrowsUp(invalidvoteId, vote.getAdminKey())
-        .assertMessageIs("illegal voteId");
+    assertaddChoiceThrowsUp(invalidvoteId, vote.getAdminKey()).assertMessageIs("illegal voteId");
   }
 
   @TestedBehaviour("validates inputs")
   @Test
   public void invalid_adminKey_is_rejected() {
-    assertaddChoiceThrowsUp(vote.getId(), "invalidAdminKey")
-        .assertMessageIs("Illegal adminKey");
+    assertaddChoiceThrowsUp(vote.getId(), "invalidAdminKey").assertMessageIs("Illegal adminKey");
   }
 
-  @TestedBehaviour(
-    "No choice can be added if there are ballots issued for the vote."
-  )
+  @TestedBehaviour("No choice can be added if there are ballots issued for the vote.")
   @Test
   public void no_choice_can_be_added_there_are_issued_ballots() {
     vote.getBallots().add("TestBallots");
@@ -67,14 +60,9 @@ public class ChoiceAddValidationTest extends ThrowableTester {
         .assertMessageIs("Vote modification disallowed: ballots already issued");
   }
 
-  private ThrowableTester
-      assertaddChoiceThrowsUp(final String voteId, final String adminKey) {
-    return assertThrows(
-        () -> {
-          choiceService.addChoice(
-              new VoteAdminInfo(voteId, adminKey), "choice1", "user"
-          );
-        }
-    );
+  private ThrowableTester assertaddChoiceThrowsUp(final String voteId, final String adminKey) {
+    return assertThrows(() -> {
+      choiceService.addChoice(new VoteAdminInfo(voteId, adminKey), "choice1", "user");
+    });
   }
 }

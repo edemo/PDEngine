@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine.ballot;
 
 import java.util.List;
-
 import org.rulez.demokracia.pdengine.RandomUtils;
 import org.rulez.demokracia.pdengine.authentication.AuthenticatedUserService;
 import org.rulez.demokracia.pdengine.vote.Vote;
@@ -36,29 +35,24 @@ public class BallotServiceImpl implements BallotService {
     vote.increaseRecordedBallots(userName);
   }
 
-  private void
-      checkIfDoesntHaveBallotYet(final Vote vote, final String userName) {
+  private void checkIfDoesntHaveBallotYet(final Vote vote, final String userName) {
     if (vote.getRecordedBallotsCount(userName).intValue() > 0)
       throw new IllegalArgumentException("This user already have a ballot.");
   }
 
   private void checkIfHasAllAssurances(final Vote vote) {
     if (!userHasAllAssurance(vote.getNeededAssurances()))
-      throw new IllegalArgumentException(
-          "The user does not have all of the needed assurances."
-      );
+      throw new IllegalArgumentException("The user does not have all of the needed assurances.");
   }
 
   private void checkIfAuthenticated() {
     if (authenticatedUserService.getUserPrincipal() == null)
       throw new IllegalArgumentException(
-          "Simple user is not authenticated, cannot issue any ballot."
-      );
+          "Simple user is not authenticated, cannot issue any ballot.");
   }
 
   public boolean userHasAllAssurance(final List<String> neededAssuranceList) {
-    return neededAssuranceList.stream()
-        .allMatch(authenticatedUserService::hasAssurance);
+    return neededAssuranceList.stream().allMatch(authenticatedUserService::hasAssurance);
   }
 
 }

@@ -1,9 +1,7 @@
 package org.rulez.demokracia.pdengine.user;
 
 import static org.junit.Assert.*;
-
 import java.util.List;
-
 import org.junit.Test;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
