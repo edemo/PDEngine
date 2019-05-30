@@ -8,9 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.UnrecoverableKeyException;
-
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -37,8 +35,8 @@ public class KeyProvider {
     return keyStore;
   }
 
-  public PrivateKey
-      getPrivateKey(final String alias, final String password) throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException {
+  public PrivateKey getPrivateKey(final String alias, final String password)
+      throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException {
     return (PrivateKey) keyStore.getKey(alias, password.toCharArray());
   }
 

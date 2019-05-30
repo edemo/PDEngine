@@ -10,24 +10,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class ComputedVoteServiceImpl implements ComputedVoteService {
 
-	@Autowired
-	private VoteResultComposer voteResultComposer;
+  @Autowired
+  private VoteResultComposer voteResultComposer;
 
-	@Autowired
-	private BeatTableService beatTableService;
+  @Autowired
+  private BeatTableService beatTableService;
 
-	@Autowired
-	private BeatTableTransitiveClosureService beatTableTransitiveClosureService;
+  @Autowired
+  private BeatTableTransitiveClosureService beatTableTransitiveClosureService;
 
-	@Override
-	public ComputedVote computeVote(final Vote vote) {
-		ComputedVote result = new ComputedVote(vote);
+  @Override
+  public ComputedVote computeVote(final Vote vote) {
+    ComputedVote result = new ComputedVote(vote);
 
-		result.setBeatTable(beatTableService.initializeBeatTable(vote.getVotesCast()));
-		BeatTable beatPathTable = beatTableService.normalize(result.getBeatTable());
-		result.setBeatPathTable(beatTableTransitiveClosureService.computeTransitiveClosure(beatPathTable));
-		result.setVoteResults(voteResultComposer.composeResult(result.getBeatPathTable()));
+    result.setBeatTable(beatTableService.initializeBeatTable(vote.getVotesCast()));
+    BeatTable beatPathTable = beatTableService.normalize(result.getBeatTable());
+    result.setBeatPathTable(
+        beatTableTransitiveClosureService.computeTransitiveClosure(beatPathTable));
+    result.setVoteResults(voteResultComposer.composeResult(result.getBeatPathTable()));
 
-		return result;
-	}
+    return result;
+  }
 }

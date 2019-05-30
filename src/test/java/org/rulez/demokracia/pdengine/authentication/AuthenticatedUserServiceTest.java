@@ -20,9 +20,7 @@ public class AuthenticatedUserServiceTest extends ThrowableTester {
 
   @Test
   public void getAuthenticatedUserName_is_unimplemented_yet() throws Exception {
-    assertUnimplemented(
-        () -> authenticatedUserService.getAuthenticatedUserName()
-    );
+    assertUnimplemented(() -> authenticatedUserService.getAuthenticatedUserName());
   }
 
   @Test
@@ -32,9 +30,7 @@ public class AuthenticatedUserServiceTest extends ThrowableTester {
 
   @Test
   public void hasAssurance_is_unimplemented_yet() throws Exception {
-    assertUnimplemented(
-        () -> authenticatedUserService.hasAssurance("assurance")
-    );
+    assertUnimplemented(() -> authenticatedUserService.hasAssurance("assurance"));
   }
 
 }

@@ -10,16 +10,14 @@ public interface ContainingBeats extends Matrix<String, Pair> {
       throw new ReportedException("Invalid Pair key");
   }
 
-  default int beatInformation(
-      final String choice1, final String choice2, final Direction direction
-  ) {
+  default int beatInformation(final String choice1, final String choice2,
+      final Direction direction) {
     if (direction == null)
       throw new ReportedException("Invalid direction");
 
     final Pair pair = getElement(choice1, choice2);
 
-    return direction.equals(Direction.DIRECTION_FORWARD) ? pair.getWinning() :
-        pair.getLosing();
+    return direction.equals(Direction.DIRECTION_FORWARD) ? pair.getWinning() : pair.getLosing();
   }
 
   default Pair compareBeats(final Pair beat1, final Pair beat2) {

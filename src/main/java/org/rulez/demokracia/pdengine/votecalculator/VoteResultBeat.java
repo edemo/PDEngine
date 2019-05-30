@@ -2,13 +2,10 @@ package org.rulez.demokracia.pdengine.votecalculator;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-
 import org.rulez.demokracia.pdengine.beattable.Pair;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 

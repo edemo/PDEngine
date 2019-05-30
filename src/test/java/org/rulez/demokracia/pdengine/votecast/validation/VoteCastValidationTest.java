@@ -3,9 +3,7 @@ package org.rulez.demokracia.pdengine.votecast.validation;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.*;
 import static org.rulez.demokracia.pdengine.votecast.validation.VoteCastValidationTestHelper.*;
-
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,21 +34,16 @@ public class VoteCastValidationTest extends CastVoteTestBase {
     theCastVote = prepareCastVote(vote, true);
   }
 
-  @TestedBehaviour(
-    "deletes the ballot with ballotId, so only one vote is possible with a ballot"
-  )
+  @TestedBehaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
   @Test
   public void cast_vote_deletes_ballot_if_canVote_is_true() {
     castVoteService.castVote(vote.getId(), ballot, theCastVote);
     assertFalse(vote.getBallots().contains(ballot));
   }
 
-  @TestedBehaviour(
-    "deletes the ballot with ballotId, so only one vote is possible with a ballot"
-  )
+  @TestedBehaviour("deletes the ballot with ballotId, so only one vote is possible with a ballot")
   @Test
-  public void
-      cast_vote_deletes_ballot_if_it_gets_a_proper_not_empty_cast_vote() {
+  public void cast_vote_deletes_ballot_if_it_gets_a_proper_not_empty_cast_vote() {
     newChoiceAndRankedList(theCastVote, FIRST_GOOD_RANK, vote);
 
     castVoteService.castVote(vote.getId(), ballot, theCastVote);
@@ -71,12 +64,10 @@ public class VoteCastValidationTest extends CastVoteTestBase {
   @Test
   public void cast_vote_checks_vote_id() {
     final String wrongVoteId = "wrong_ID";
-    doThrow(new ReportedException("illegal voteId")).when(voteService)
-        .getVote(wrongVoteId);
+    doThrow(new ReportedException("illegal voteId")).when(voteService).getVote(wrongVoteId);
 
     assertCastVoteException(theCastVote, wrongVoteId, ballot)
-        .assertException(ReportedException.class)
-        .assertMessageIs("illegal voteId");
+        .assertException(ReportedException.class).assertMessageIs("illegal voteId");
   }
 
   @TestedBehaviour(VALIDATES_INPUTS)
@@ -85,8 +76,7 @@ public class VoteCastValidationTest extends CastVoteTestBase {
     final String wrongBallot = RandomUtils.createRandomKey();
 
     assertCastVoteException(theCastVote, vote.getId(), wrongBallot)
-        .assertException(ReportedException.class)
-        .assertMessageIs("Illegal ballot");
+        .assertException(ReportedException.class).assertMessageIs("Illegal ballot");
   }
 
   @TestedBehaviour(VALIDATES_INPUTS)
@@ -95,8 +85,7 @@ public class VoteCastValidationTest extends CastVoteTestBase {
     prepareRankedChoice(theCastVote, RandomUtils.createRandomKey(), 42);
 
     assertCastVoteException(theCastVote, vote.getId(), ballot)
-        .assertException(ReportedException.class)
-        .assertMessageIs("Invalid choiceId");
+        .assertException(ReportedException.class).assertMessageIs("Invalid choiceId");
   }
 
   @TestedBehaviour(VALIDATES_INPUTS)
@@ -106,8 +95,7 @@ public class VoteCastValidationTest extends CastVoteTestBase {
     newChoiceAndRankedList(theCastVote, LAST_WRONG_RANK, vote);
 
     assertCastVoteException(theCastVote, vote.getId(), ballot)
-        .assertException(ReportedException.class)
-        .assertMessageIs("Invalid rank");
+        .assertException(ReportedException.class).assertMessageIs("Invalid rank");
   }
 
   @TestedBehaviour("if updatable is true, only authenticated users can vote")
@@ -124,15 +112,8 @@ public class VoteCastValidationTest extends CastVoteTestBase {
 
   }
 
-  private ThrowableTester assertCastVoteException(
-      final List<RankedChoice> theCastVote, final String voteId,
-      final String ballot
-  ) {
-    return assertThrows(
-        () -> castVoteService.castVote(
-            voteId, ballot,
-            theCastVote
-        )
-    );
+  private ThrowableTester assertCastVoteException(final List<RankedChoice> theCastVote,
+      final String voteId, final String ballot) {
+    return assertThrows(() -> castVoteService.castVote(voteId, ballot, theCastVote));
   }
 }

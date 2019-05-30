@@ -32,8 +32,7 @@ public class VoteServiceImpl implements VoteService {
   }
 
   @Override
-  public void
-      modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName) {
+  public void modifyVote(final VoteAdminInfo voteAdminInfo, final String voteName) {
     ValidationUtil.checkVoteName(voteName);
     Vote vote = getModifiableVote(voteAdminInfo);
 
@@ -52,9 +51,7 @@ public class VoteServiceImpl implements VoteService {
     Vote vote = getVoteWithValidatedAdminKey(adminInfo);
 
     if (vote.hasIssuedBallots())
-      throw new IllegalArgumentException(
-          "This vote cannot be modified it has issued ballots."
-      );
+      throw new IllegalArgumentException("This vote cannot be modified it has issued ballots.");
     return vote;
   }
 
@@ -66,29 +63,20 @@ public class VoteServiceImpl implements VoteService {
   }
 
   @Override
-  public void setVoteParameters(
-      final VoteAdminInfo adminInfo, final VoteParameters voteParameters
-  ) {
+  public void setVoteParameters(final VoteAdminInfo adminInfo,
+      final VoteParameters voteParameters) {
     checkMinEndorsementsIsNonnegative(voteParameters);
 
     Vote vote = getVoteWithValidatedAdminKey(adminInfo);
 
-    vote.setParameters(
-        voteParameters.getMinEndorsements(),
-        voteParameters.isAddinable(),
-        voteParameters.isEndorsable(),
-        voteParameters.isVotable(),
-        voteParameters.isViewable()
-    );
+    vote.setParameters(voteParameters.getMinEndorsements(), voteParameters.isAddinable(),
+        voteParameters.isEndorsable(), voteParameters.isVotable(), voteParameters.isViewable());
   }
 
-  private void
-      checkMinEndorsementsIsNonnegative(final VoteParameters voteParameters) {
+  private void checkMinEndorsementsIsNonnegative(final VoteParameters voteParameters) {
     if (voteParameters.getMinEndorsements() < 0)
-      throw new ReportedException(
-          "Illegal minEndorsements",
-          Integer.toString(voteParameters.getMinEndorsements())
-      );
+      throw new ReportedException("Illegal minEndorsements",
+          Integer.toString(voteParameters.getMinEndorsements()));
   }
 
   @Override

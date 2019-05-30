@@ -3,7 +3,6 @@ package org.rulez.demokracia.pdengine.vote;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,8 +23,7 @@ public class VoteControllerTest {
 
   @Test
   public void create_vote_returns_ok() throws Exception {
-    when(voteService.createVote(any()))
-        .thenReturn(new VoteAdminInfo("id", "admin"));
+    when(voteService.createVote(any())).thenReturn(new VoteAdminInfo("id", "admin"));
     ResponseEntity<VoteAdminInfo> responseEntity =
         voteController.createVote(new CreateVoteRequest());
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());

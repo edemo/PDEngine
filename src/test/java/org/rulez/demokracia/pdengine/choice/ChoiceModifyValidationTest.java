@@ -2,7 +2,6 @@ package org.rulez.demokracia.pdengine.choice;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,18 +34,11 @@ public class ChoiceModifyValidationTest extends ChoiceTestBase {
   @TestedBehaviour(VALIDATES_INPUTS)
   @Test
   public void invalid_voteId_is_rejected() {
-    doThrow(
-        new ReportedException(
-            "illegal voteId",
-            invalidvoteId
-        )
-    ).when(voteService).getVote(invalidvoteId);
+    doThrow(new ReportedException("illegal voteId", invalidvoteId)).when(voteService)
+        .getVote(invalidvoteId);
     assertThrows(
-        () -> choiceService.modifyChoice(
-            new VoteAdminInfo(invalidvoteId, vote.getAdminKey()), choice.getId(),
-            NEW_CHOICE_NAME
-        )
-    ).assertMessageIs("illegal voteId");
+        () -> choiceService.modifyChoice(new VoteAdminInfo(invalidvoteId, vote.getAdminKey()),
+            choice.getId(), NEW_CHOICE_NAME)).assertMessageIs("illegal voteId");
   }
 
   @TestedBehaviour(VALIDATES_INPUTS)
@@ -55,11 +47,8 @@ public class ChoiceModifyValidationTest extends ChoiceTestBase {
     String invalidChoiceId = "invalidChoiceId";
 
     assertThrows(
-        () -> choiceService
-            .modifyChoice(new VoteAdminInfo(vote.getId(), vote.getAdminKey()),
-                invalidChoiceId, NEW_CHOICE_NAME
-            )
-    ).assertMessageIs("Illegal choiceId");
+        () -> choiceService.modifyChoice(new VoteAdminInfo(vote.getId(), vote.getAdminKey()),
+            invalidChoiceId, NEW_CHOICE_NAME)).assertMessageIs("Illegal choiceId");
   }
 
   @TestedBehaviour(VALIDATES_INPUTS)
@@ -67,23 +56,15 @@ public class ChoiceModifyValidationTest extends ChoiceTestBase {
   public void invalid_adminKey_is_rejected() {
     String invalidAdminKey = "invalidAdminKey";
 
-    assertThrows(
-        () -> choiceService.modifyChoice(
-            new VoteAdminInfo(
-                vote.getId(),
-                invalidAdminKey
-            ), choice.getId(), NEW_CHOICE_NAME
-        )
-    ).assertMessageIs("Illegal adminKey");
+    assertThrows(() -> choiceService.modifyChoice(new VoteAdminInfo(vote.getId(), invalidAdminKey),
+        choice.getId(), NEW_CHOICE_NAME)).assertMessageIs("Illegal adminKey");
   }
 
   @TestedBehaviour("modifies the string of the choice")
   @Test
   public void proper_voteId_choiceId_and_adminKey_does_modify_choice() {
-    choiceService.modifyChoice(
-        new VoteAdminInfo(vote.getId(), vote.getAdminKey()), choice.getId(),
-        NEW_CHOICE_NAME
-    );
+    choiceService.modifyChoice(new VoteAdminInfo(vote.getId(), vote.getAdminKey()), choice.getId(),
+        NEW_CHOICE_NAME);
 
     assertEquals(NEW_CHOICE_NAME, choice.getName());
   }
@@ -93,75 +74,43 @@ public class ChoiceModifyValidationTest extends ChoiceTestBase {
   public void when_ballots_are_already_issued_choices_cannot_be_modified() {
     vote.getBallots().add("Test Ballot");
 
-    assertThrows(
-        () -> choiceService.modifyChoice(
-            new VoteAdminInfo(
-                vote.getId(),
-                vote.getAdminKey()
-            ), choice.getId(), "something else"
-        )
-    )
-        .assertMessageIs("Vote modification disallowed: ballots already issued");
+    assertThrows(() -> choiceService.modifyChoice(
+        new VoteAdminInfo(vote.getId(), vote.getAdminKey()), choice.getId(), "something else"))
+            .assertMessageIs("Vote modification disallowed: ballots already issued");
   }
 
-  @TestedBehaviour(
-    "if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true"
-  )
+  @TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
   @Test
   public void userAdmin_cannot_modify_choice_if_canAddin_is_false() {
     vote.getParameters().setAddinable(false);
 
-    assertThrows(
-        () -> choiceService.modifyChoice(
-            new VoteAdminInfo(
-                vote.getId(),
-                USER
-            ), choice.getId(), NEW_CHOICE_NAME
-        )
-    )
-        .assertMessageIs(
-            "Choice modification disallowed: adminKey is user, but canAddin is false"
-        );
+    assertThrows(() -> choiceService.modifyChoice(new VoteAdminInfo(vote.getId(), USER),
+        choice.getId(), NEW_CHOICE_NAME)).assertMessageIs(
+            "Choice modification disallowed: adminKey is user, but canAddin is false");
 
   }
 
-  @TestedBehaviour(
-    "if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true"
-  )
+  @TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
   @Test
-  public void
-      userAdmin_cannot_modify_choice_if_it_is_not_added_by_other_user() {
+  public void userAdmin_cannot_modify_choice_if_it_is_not_added_by_other_user() {
     vote.getParameters().setAddinable(true);
 
-    assertThrows(
-        () -> choiceService.modifyChoice(
-            new VoteAdminInfo(
-                vote.getId(),
-                USER
-            ), choice.getId(), NEW_CHOICE_NAME
-        )
-    )
-        .assertMessageIs(
-            "Choice modification disallowed: adminKey is user, " +
-                "and the choice was added by a different user"
-        );
+    assertThrows(() -> choiceService.modifyChoice(new VoteAdminInfo(vote.getId(), USER),
+        choice.getId(), NEW_CHOICE_NAME))
+            .assertMessageIs("Choice modification disallowed: adminKey is user, "
+                + "and the choice was added by a different user");
 
   }
 
-  @TestedBehaviour(
-    "if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true"
-  )
+  @TestedBehaviour("if 'user' is used as adminKey, then the user must be the one who added the choice and canAddIn be true")
   @Test
-  public void
-      userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() {
+  public void userAdmin_can_modify_the_choice_if_canAddin_is_true_and_he_is_the_choice_creator() {
     vote.getParameters().setAddinable(true);
     Choice choice2 = new Choice("choice2", ADMIN);
     vote.addChoice(choice2);
     when(authService.getAuthenticatedUserName()).thenReturn(ADMIN);
-    choiceService
-        .modifyChoice(new VoteAdminInfo(vote.getId(), USER), choice2.getId(),
-            NEW_CHOICE_NAME
-        );
+    choiceService.modifyChoice(new VoteAdminInfo(vote.getId(), USER), choice2.getId(),
+        NEW_CHOICE_NAME);
 
     assertEquals(NEW_CHOICE_NAME, choice2.getName());
   }

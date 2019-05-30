@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface BallotService {
 
-	String obtainBallot(Vote vote, String adminKey);
+  String obtainBallot(Vote vote, String adminKey);
 }

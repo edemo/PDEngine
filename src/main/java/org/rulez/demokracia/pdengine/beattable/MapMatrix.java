@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class MapMatrix<KeyType extends Serializable,
-    ValueType extends Serializable> implements Matrix<KeyType, ValueType> {
+public class MapMatrix<KeyType extends Serializable, ValueType extends Serializable>
+    implements Matrix<KeyType, ValueType> {
 
   private static final long serialVersionUID = 1L;
   private final Map<KeyType, ConcurrentHashMap<KeyType, ValueType>> value =
@@ -19,9 +19,7 @@ public class MapMatrix<KeyType extends Serializable,
     for (KeyType key : keyCollection) {
       value.put(key, (ConcurrentHashMap<KeyType, ValueType>) newRow());
     }
-    this.keyCollection = Collections.unmodifiableSet(
-        new HashSet<KeyType>(keyCollection)
-    );
+    this.keyCollection = Collections.unmodifiableSet(new HashSet<KeyType>(keyCollection));
   }
 
   private Map<KeyType, ValueType> newRow() {
@@ -29,9 +27,7 @@ public class MapMatrix<KeyType extends Serializable,
   }
 
   @Override
-  public void setElement(
-      final KeyType columnKey, final KeyType rowKey, final ValueType value
-  ) {
+  public void setElement(final KeyType columnKey, final KeyType rowKey, final ValueType value) {
     checkKeys(columnKey, rowKey);
     ConcurrentHashMap<KeyType, ValueType> column = this.value.get(columnKey);
     column.put(rowKey, value);
