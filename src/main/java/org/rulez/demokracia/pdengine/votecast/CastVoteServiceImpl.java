@@ -4,6 +4,8 @@ import static org.rulez.demokracia.pdengine.votecast.validation.CastVotePreferen
 import static org.rulez.demokracia.pdengine.votecast.validation.CastVoteValidationUtil.*;
 import java.util.List;
 import java.util.Objects;
+
+import org.rulez.demokracia.pdengine.assurance.AssuranceManager;
 import org.rulez.demokracia.pdengine.authentication.AuthenticatedUserService;
 import org.rulez.demokracia.pdengine.choice.RankedChoice;
 import org.rulez.demokracia.pdengine.vote.Vote;
@@ -19,6 +21,9 @@ public class CastVoteServiceImpl implements CastVoteService {
 
   @Autowired
   private VoteService voteService;
+
+  @Autowired
+  private AssuranceManager assuranceManager;
 
   @Override
   public CastVote castVote(final String voteId, final String ballot,
@@ -39,13 +44,25 @@ public class CastVoteServiceImpl implements CastVoteService {
     if (Objects.nonNull(proxyId))
       vote.getVotesCast().removeIf(castVote -> proxyId.equals(castVote.getProxyId()));
 
-    final CastVote castVote = new CastVote(proxyId, rankedChoices);
+    final CastVote castVote = createCastVote(rankedChoices, proxyId);
     vote.getVotesCast().add(castVote);
     return castVote;
   }
 
-  private void validateInput(final String ballot, final List<RankedChoice> rankedChoices,
-      final Vote vote) {
+  private CastVote
+      createCastVote(
+          final List<RankedChoice> rankedChoices, final String proxyId
+      ) {
+    return Objects.isNull(proxyId) ? new CastVote(proxyId, rankedChoices) :
+        new CastVote(
+            proxyId, rankedChoices, assuranceManager.getAssurances(proxyId)
+        );
+  }
+
+  private void validateInput(
+      final String ballot, final List<RankedChoice> rankedChoices,
+      final Vote vote
+  ) {
     checkIfVotingEnabled(vote);
     checkIfUpdateConditionsAreConsistent(vote, authService);
     validateBallot(ballot, vote);
