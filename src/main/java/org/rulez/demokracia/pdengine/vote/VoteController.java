@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VoteController {
 
-	@Autowired
-	private VoteService voteService;
+  @Autowired
+  private VoteService voteService;
 
-	@PostMapping(path = "/vote", produces = "application/json")
-	public ResponseEntity<VoteAdminInfo> createVote(@RequestBody final CreateVoteRequest request) {
-		VoteAdminInfo adminInfo = voteService.createVote(request);
-		return ResponseEntity.ok(adminInfo);
-	}
+  @PostMapping(path = "/vote", produces = "application/json")
+  public ResponseEntity<VoteAdminInfo> createVote(@RequestBody final CreateVoteRequest request) {
+    VoteAdminInfo adminInfo = voteService.createVote(request);
+    return ResponseEntity.ok(adminInfo);
+  }
 }

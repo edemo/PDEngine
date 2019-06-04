@@ -1,10 +1,8 @@
 package org.rulez.demokracia.pdengine.ballot;
 
 import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.catalina.connector.CoyotePrincipal;
 import org.junit.Before;
 import org.mockito.InjectMocks;
@@ -34,8 +32,6 @@ public class ObtainBallotTestBase extends ThrowableTester {
   }
 
   protected Vote createVote(final List<String> neededAssurances) {
-    return new Vote(
-        "HolVoteHolNemVote", neededAssurances, new ArrayList<>(), false, 1
-    );
+    return new Vote("HolVoteHolNemVote", neededAssurances, new ArrayList<>(), false, 1);
   }
 }

@@ -4,10 +4,10 @@ import java.security.Principal;
 
 public interface AuthenticatedUserService {
 
-	String getAuthenticatedUserName();
+  String getAuthenticatedUserName();
 
-	Principal getUserPrincipal();
+  Principal getUserPrincipal();
 
-	boolean hasAssurance(String neededAssurance);
+  boolean hasAssurance(String neededAssurance);
 
 }

@@ -1,9 +1,7 @@
 package org.rulez.demokracia.types;
 
 import static org.junit.Assert.assertTrue;
-
 import java.util.Collection;
-
 import org.junit.Test;
 import org.rulez.demokracia.types.testhelpers.MatrixTestSetup;
 
@@ -34,8 +32,7 @@ public class MatrixKeyTest extends MatrixTestSetup {
   }
 
   @Test
-  public void
-      after_the_matrix_is_created_there_is_no_way_to_change_its_keyCollection() {
+  public void after_the_matrix_is_created_there_is_no_way_to_change_its_keyCollection() {
     updateMatrixWithNewKey(columnKey);
     keyCollection.add("newRow");
     assertSetElementFailsWith(columnKey, "newRow", "Invalid row key");
@@ -52,9 +49,7 @@ public class MatrixKeyTest extends MatrixTestSetup {
   public void the_keyCollection_of_the_matrix_is_immutable() {
     updateMatrixWithNewKey(rowKey);
     Collection<String> collection = theMatrix.getKeyCollection();
-    assertThrows(
-        () -> collection.add("foo")
-    );
+    assertThrows(() -> collection.add("foo"));
   }
 
   private void updateMatrixWithNewKey(final String key) {
@@ -62,25 +57,17 @@ public class MatrixKeyTest extends MatrixTestSetup {
     updateMatrix();
   }
 
-  private void assertSetElementFailsWith(
-      final String columnKey, final String rowKey, final String message
-  ) {
-    assertThrows(
-        () -> {
-          theMatrix.setElement(columnKey, rowKey, value);
-        }
-    )
-        .assertException(IllegalArgumentException.class).assertMessageIs(message);
+  private void assertSetElementFailsWith(final String columnKey, final String rowKey,
+      final String message) {
+    assertThrows(() -> {
+      theMatrix.setElement(columnKey, rowKey, value);
+    }).assertException(IllegalArgumentException.class).assertMessageIs(message);
   }
 
-  private void assertGetElementFailsWith(
-      final String columnKey, final String rowKey, final String message
-  ) {
-    assertThrows(
-        () -> {
-          theMatrix.getElement(columnKey, rowKey);
-        }
-    )
-        .assertException(IllegalArgumentException.class).assertMessageIs(message);
+  private void assertGetElementFailsWith(final String columnKey, final String rowKey,
+      final String message) {
+    assertThrows(() -> {
+      theMatrix.getElement(columnKey, rowKey);
+    }).assertException(IllegalArgumentException.class).assertMessageIs(message);
   }
 }

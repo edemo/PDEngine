@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine.showvote;
 
 import static org.mockito.Mockito.doThrow;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,32 +19,27 @@ public class VoteShowValidationTest extends ShowVoteTestBase {
 
   private static final String VALID = "valid";
   private static final String INVALID = "invalid";
-  private final VoteAdminInfo invalidIdAdminInfo =
-      new VoteAdminInfo(INVALID, "user");
-  private final VoteAdminInfo invalidAdminKeyAdminInfo =
-      new VoteAdminInfo(VALID, INVALID);
+  private final VoteAdminInfo invalidIdAdminInfo = new VoteAdminInfo(INVALID, "user");
+  private final VoteAdminInfo invalidAdminKeyAdminInfo = new VoteAdminInfo(VALID, INVALID);
 
   @Before
   public void setUp() {
-    doThrow(new ReportedException("illegal voteId", INVALID))
-        .when(voteService).getVoteWithValidatedAdminKey(invalidIdAdminInfo);
-    doThrow(new ReportedException("Illegal adminKey", INVALID))
-        .when(voteService)
+    doThrow(new ReportedException("illegal voteId", INVALID)).when(voteService)
+        .getVoteWithValidatedAdminKey(invalidIdAdminInfo);
+    doThrow(new ReportedException("Illegal adminKey", INVALID)).when(voteService)
         .getVoteWithValidatedAdminKey(invalidAdminKeyAdminInfo);
 
   }
 
   @Test
   public void invalid_voteId_is_rejected() {
-    assertThrows(
-        () -> showVoteService.showVote(invalidIdAdminInfo)
-    ).assertMessageIs("illegal voteId");
+    assertThrows(() -> showVoteService.showVote(invalidIdAdminInfo))
+        .assertMessageIs("illegal voteId");
   }
 
   @Test
   public void invalid_adminKey_is_rejected() {
-    assertThrows(
-        () -> showVoteService.showVote(invalidAdminKeyAdminInfo)
-    ).assertMessageIs("Illegal adminKey");
+    assertThrows(() -> showVoteService.showVote(invalidAdminKeyAdminInfo))
+        .assertMessageIs("Illegal adminKey");
   }
 }

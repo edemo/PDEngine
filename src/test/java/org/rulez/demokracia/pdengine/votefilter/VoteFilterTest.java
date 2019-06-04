@@ -1,9 +1,7 @@
 package org.rulez.demokracia.pdengine.votefilter;
 
 import static org.junit.Assert.*;
-
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,14 +32,11 @@ public class VoteFilterTest {
   @TestedBehaviour("null assurance means all of the votes")
   @Test
   public void filter_returns_full_list_on_null_assurance() {
-    final List<CastVote> filteredVotes =
-        voteFilter.filterVotes(castVoteMocks, null);
+    final List<CastVote> filteredVotes = voteFilter.filterVotes(castVoteMocks, null);
     assertEquals(castVoteMocks, filteredVotes);
   }
 
-  @TestedBehaviour(
-    "the output of the filter contains all votes with the given assurance"
-  )
+  @TestedBehaviour("the output of the filter contains all votes with the given assurance")
   @Test
   public void filter_returns_all_votes_with_given_assurance() {
     final List<CastVote> expected = castVoteMocks.subList(1, 4);
@@ -50,9 +45,7 @@ public class VoteFilterTest {
       assertTrue(actual.contains(vote));
   }
 
-  @TestedBehaviour(
-    "the output of the filter contains only votes with the given assurance"
-  )
+  @TestedBehaviour("the output of the filter contains only votes with the given assurance")
   @Test
   public void filter_returns_only_votes_with_given_assurance() {
     final List<CastVote> actual = voteFilter.filterVotes(castVoteMocks, "3");

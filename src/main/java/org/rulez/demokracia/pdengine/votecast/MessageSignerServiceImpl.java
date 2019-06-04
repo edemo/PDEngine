@@ -4,7 +4,6 @@ import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.util.Base64;
-
 import org.rulez.demokracia.pdengine.KeyProvider;
 import org.rulez.demokracia.pdengine.exception.ReportedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +30,8 @@ public final class MessageSignerServiceImpl implements MessageSignerService {
       signature.initSign(privateKey);
       signature.update(message.getBytes());
       return Base64.getEncoder().encodeToString(signature.sign());
-    } catch (
-      GeneralSecurityException e
-    ) {
-      throw (ReportedException) new ReportedException(
-          "Cannot compute signature"
-      ).initCause(e);
+    } catch (GeneralSecurityException e) {
+      throw (ReportedException) new ReportedException("Cannot compute signature").initCause(e);
     }
   }
 }

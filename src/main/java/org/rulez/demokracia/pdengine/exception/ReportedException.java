@@ -3,10 +3,8 @@ package org.rulez.demokracia.pdengine.exception;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 

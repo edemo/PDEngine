@@ -2,7 +2,6 @@ package org.rulez.demokracia.pdengine;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
@@ -11,7 +10,6 @@ import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.Resource;
@@ -25,28 +23,20 @@ public class KeyProviderTest {
   private KeyPair keyPair;
 
   @Before
-  public void setUp()
-      throws IOException, NoSuchFieldException, GeneralSecurityException {
+  public void setUp() throws IOException, NoSuchFieldException, GeneralSecurityException {
     Resource resource = mock(Resource.class);
     when(resource.getInputStream()).thenReturn(null);
-    ReflectionUtils.setField(
-        ReflectionUtils.findRequiredField(KeyProvider.class, "keyStorePath"), keyProvider, resource
-    );
-    ReflectionUtils.setField(
-        ReflectionUtils.findRequiredField(KeyProvider.class, "keyStorePass"), keyProvider, PASSWORD123
-    );
+    ReflectionUtils.setField(ReflectionUtils.findRequiredField(KeyProvider.class, "keyStorePath"),
+        keyProvider, resource);
+    ReflectionUtils.setField(ReflectionUtils.findRequiredField(KeyProvider.class, "keyStorePass"),
+        keyProvider, PASSWORD123);
     keyProvider.initKeyStore();
     KeyStore keyStore = keyProvider.getKeyStore();
     keyPair = KeyPairGenerator.getInstance("RSA").generateKeyPair();
     Certificate certificate = mock(Certificate.class);
-    Certificate[] chain = {
-        certificate
-    };
+    Certificate[] chain = {certificate};
     when(certificate.getPublicKey()).thenReturn(keyPair.getPublic());
-    keyStore.setKeyEntry(
-        ALJAS, keyPair.getPrivate(), PASSWORD123.toCharArray(),
-        chain
-    );
+    keyStore.setKeyEntry(ALJAS, keyPair.getPrivate(), PASSWORD123.toCharArray(), chain);
   }
 
   @Test

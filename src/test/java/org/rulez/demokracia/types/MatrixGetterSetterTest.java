@@ -1,7 +1,6 @@
 package org.rulez.demokracia.types;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.rulez.demokracia.types.testhelpers.MatrixTestSetup;
@@ -25,8 +24,7 @@ public class MatrixGetterSetterTest extends MatrixTestSetup {
   }
 
   @Test
-  public void
-      setElement_sets_the_element_and_getElement_gets_it_for_different_rows() {
+  public void setElement_sets_the_element_and_getElement_gets_it_for_different_rows() {
     String newKey = addNewKey();
     theMatrix.setElement(columnKey, rowKey, value);
     theMatrix.setElement(columnKey, newKey, 1);
@@ -34,8 +32,7 @@ public class MatrixGetterSetterTest extends MatrixTestSetup {
   }
 
   @Test
-  public void
-      setElement_sets_the_element_and_getElement_gets_it_for_different_columns() {
+  public void setElement_sets_the_element_and_getElement_gets_it_for_different_columns() {
     String newKey = addNewKey();
     theMatrix.setElement(columnKey, rowKey, value);
     theMatrix.setElement(newKey, rowKey, 1);

@@ -2,9 +2,7 @@ package org.rulez.demokracia.pdengine.vote;
 
 import java.util.Collection;
 import java.util.List;
-
 import javax.persistence.Entity;
-
 import org.rulez.demokracia.pdengine.Admnistrable;
 import org.rulez.demokracia.pdengine.Endorsable;
 import org.rulez.demokracia.pdengine.HasBallots;
@@ -24,25 +22,15 @@ public class Vote extends VoteEntity
     super();
   }
 
-  public Vote(
-      final String voteName, final Collection<String> neededAssurances,
-      final Collection<String> countedAssurances,
-      final boolean isPrivate, final int minEndorsements
-  ) {
-    super(
-        voteName, neededAssurances, countedAssurances, isPrivate,
-        minEndorsements
-    );
+  public Vote(final String voteName, final Collection<String> neededAssurances,
+      final Collection<String> countedAssurances, final boolean isPrivate,
+      final int minEndorsements) {
+    super(voteName, neededAssurances, countedAssurances, isPrivate, minEndorsements);
   }
 
   public Vote(final CreateVoteRequest request) {
-    super(
-        request.getVoteName(),
-        request.getNeededAssurances(),
-        request.getCountedAssurances(),
-        request.isPrivate(),
-        request.getMinEndorsements()
-    );
+    super(request.getVoteName(), request.getNeededAssurances(), request.getCountedAssurances(),
+        request.isPrivate(), request.getMinEndorsements());
   }
 
   @Override

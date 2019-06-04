@@ -6,10 +6,7 @@ import java.util.stream.IntStream;
 public class LongStringGeneratorTestHelper {
 
   public static String generate(final int length) {
-    return IntStream.range(0, length)
-        .boxed()
-        .map(a -> "w")
-        .collect(Collectors.joining());
+    return IntStream.range(0, length).boxed().map(a -> "w").collect(Collectors.joining());
   }
 
 }

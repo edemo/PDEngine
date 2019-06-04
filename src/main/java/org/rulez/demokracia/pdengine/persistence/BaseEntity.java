@@ -1,16 +1,13 @@
 package org.rulez.demokracia.pdengine.persistence;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.rulez.demokracia.pdengine.RandomUtils;
-
 import lombok.Getter;
 import lombok.Setter;
 

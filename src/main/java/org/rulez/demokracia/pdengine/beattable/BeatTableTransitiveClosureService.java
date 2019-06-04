@@ -2,6 +2,6 @@ package org.rulez.demokracia.pdengine.beattable;
 
 public interface BeatTableTransitiveClosureService {
 
-	BeatTable computeTransitiveClosure(BeatTable beatTable);
+  BeatTable computeTransitiveClosure(BeatTable beatTable);
 
 }

@@ -1,7 +1,6 @@
 package org.rulez.demokracia.pdengine.choice;
 
 import static org.mockito.Mockito.when;
-
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
