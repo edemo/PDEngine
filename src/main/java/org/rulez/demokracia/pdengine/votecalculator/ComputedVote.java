@@ -5,10 +5,12 @@ import java.util.Map;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+
 import org.rulez.demokracia.pdengine.beattable.BeatTable;
 import org.rulez.demokracia.pdengine.persistence.BaseEntity;
 import org.rulez.demokracia.pdengine.tally.Tally;
 import org.rulez.demokracia.pdengine.vote.Vote;
+
 import lombok.Getter;
 import lombok.Setter;
 
