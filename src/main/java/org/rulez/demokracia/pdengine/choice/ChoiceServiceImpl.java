@@ -13,18 +13,8 @@ public class ChoiceServiceImpl implements ChoiceService {
 
   private static final String USER = "user";
 
-  private static final String MODIFY_NOT_SAME_USER_MESSAGE =
-      "Choice modification disallowed: adminKey is user, " +
-          "and the choice was added by a different user";
-
-  private static final String MODIFY_CANT_ADDIN_MESSAGE =
-      "Choice modification disallowed: adminKey is user, but canAddin is false";
-
-  private static final String DELETE_CANT_ADDIN =
-      "The adminKey is \"user\" but canAddin is false.";
-
-  private static final String DELETE_NOT_SAME_USER_MESSAGE =
-      "The adminKey is \"user\" but the user is not same with that user who added the choice.";
+  @Autowired
+  private ChoiceModificationValidatorService choiceModificationValidatorService;
 
   @Autowired
   private VoteService voteService;
@@ -70,10 +60,10 @@ public class ChoiceServiceImpl implements ChoiceService {
     final Vote vote = getModifiableVote(voteAdminInfo, voteService);
     final Choice votesChoice = getChoice(voteAdminInfo.getVoteId(), choiceId);
 
-    if (voteAdminInfo.isUserAdminKey())
-      deleteChoiceAsUser(vote, votesChoice);
-    else
-      vote.getChoices().remove(votesChoice.getId());
+    choiceModificationValidatorService
+        .validateDeletion(voteAdminInfo, vote, votesChoice);
+
+    vote.getChoices().remove(votesChoice.getId());
 
     voteService.saveVote(vote);
   }
@@ -86,27 +76,11 @@ public class ChoiceServiceImpl implements ChoiceService {
     final Vote vote = getModifiableVote(adminInfo, voteService);
 
     final Choice votesChoice = vote.getChoice(choiceId);
-    validateModifyInput(adminInfo, vote, votesChoice);
+    choiceModificationValidatorService
+        .validateModification(adminInfo, vote, votesChoice);
 
     votesChoice.setName(choiceName);
     voteService.saveVote(vote);
-  }
-
-  private void validateModifyInput(
-      final VoteAdminInfo adminInfo, final Vote vote,
-      final Choice votesChoice
-  ) {
-    if (!USER.equals(adminInfo.adminKey))
-      return;
-    final ReportedException cantAddinException =
-        new ReportedException(MODIFY_CANT_ADDIN_MESSAGE);
-    final ReportedException notSameUserException = new ReportedException(
-        MODIFY_NOT_SAME_USER_MESSAGE, votesChoice.getUserName()
-    );
-
-    validateChoiceModification(
-        vote, votesChoice, notSameUserException, cantAddinException
-    );
   }
 
   private String getUserName() {
@@ -116,26 +90,6 @@ public class ChoiceServiceImpl implements ChoiceService {
   private void checkIfVoteIsEndorseable(final Vote vote) {
     if (!vote.isEndorsable())
       throw new ReportedException("user cannot endorse this vote");
-  }
-
-  private void deleteChoiceAsUser(final Vote vote, final Choice votesChoice) {
-    final IllegalArgumentException notSameUserException =
-        new IllegalArgumentException(DELETE_NOT_SAME_USER_MESSAGE);
-    final IllegalArgumentException cantAddinException =
-        new IllegalArgumentException(DELETE_CANT_ADDIN);
-    validateChoiceModification(
-        vote, votesChoice, notSameUserException, cantAddinException
-    );
-    vote.getChoices().remove(votesChoice.getId());
-  }
-
-  private void validateChoiceModification(
-      final Vote vote, final Choice votesChoice,
-      final RuntimeException notSameUserException,
-      final RuntimeException cantAddinException
-  ) {
-    checkIfVoteIsAddinable(vote, cantAddinException);
-    checkIfUserIsTheSame(votesChoice, getUserName(), notSameUserException);
   }
 
 }
