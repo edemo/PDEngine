@@ -5,26 +5,27 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 import org.rulez.demokracia.pdengine.votecast.CastVote;
 
-public class BeatTable extends MapMatrix<String, Pair> implements ContainingBeats {
+public class BeatTable extends MapMatrix<String, Pair> {
+
   private static final long serialVersionUID = 1L;
 
   public BeatTable(final BeatTable beatTable) {
     super(beatTable.getKeyCollection());
-    for (String row : getKeyCollection()) {
-      for (String col : getKeyCollection()) {
-        Pair sourcePair = beatTable.getElement(col, row);
-        if (Objects.nonNull(sourcePair)) {
-          this.setElement(col, row, createPair(sourcePair));
-        }
+    for (final String row : getKeyCollection())
+      for (final String col : getKeyCollection()) {
+        final Pair sourcePair = beatTable.getElement(col, row);
+        if (Objects.nonNull(sourcePair))
+          setElement(col, row, createPair(sourcePair));
       }
-    }
   }
 
   @Override
   public Pair getElement(final String columnKey, final String rowKey) {
-    return Optional.ofNullable(super.getElement(columnKey, rowKey)).orElse(new Pair(0, 0));
+    return Optional.ofNullable(super.getElement(columnKey, rowKey))
+        .orElse(new Pair(0, 0));
   }
 
   private Pair createPair(final Pair sourcePair) {
