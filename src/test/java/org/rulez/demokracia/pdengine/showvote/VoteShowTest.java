@@ -2,7 +2,9 @@ package org.rulez.demokracia.pdengine.showvote;
 
 import static org.junit.Assert.*;
 import static org.rulez.demokracia.pdengine.showvote.VoteShowAssertUtil.*;
+
 import java.util.Objects;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.rulez.demokracia.pdengine.annotations.TestedBehaviour;
 import org.rulez.demokracia.pdengine.annotations.TestedFeature;
 import org.rulez.demokracia.pdengine.annotations.TestedOperation;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -40,13 +43,16 @@ public class VoteShowTest extends ShowVoteJSONTestBase {
   }
 
   @Test
-  public void the_creationTime_attribute_contains_the_creation_time_of_the_vote() {
+  public void
+      the_creationTime_attribute_contains_the_creation_time_of_the_vote() {
     assertEquals(result.get(CREATION_TIME).getAsLong(), vote.getCreationTime());
   }
 
   @Test
   public void the_choices_attribute_contains_the_choices_of_the_vote() {
-    assertEquals(vote.getChoices().size(), result.get(CHOICES).getAsJsonObject().entrySet().size());
+    assertEquals(
+        vote.getChoices().size(), result.get(CHOICES).getAsJsonObject().entrySet().size()
+    );
   }
 
   @Test
@@ -56,19 +62,27 @@ public class VoteShowTest extends ShowVoteJSONTestBase {
   }
 
   @Test
-  public void the_countedAssurances_attribute_contains_the_counted_assurances_of_the_vote() {
+  public void
+      the_countedAssurances_attribute_contains_the_counted_assurances_of_the_vote() {
     vote.getCountedAssurances().add(COUNTED_ASSURANCE);
 
-    final JsonArray jsonCountedAssurances = createJson().get(COUNTED_ASSURANCES).getAsJsonArray();
+    final JsonArray jsonCountedAssurances =
+        createJson().get(COUNTED_ASSURANCES).getAsJsonArray();
 
-    assertJsonContainsAllElement(jsonCountedAssurances, vote.getCountedAssurances());
+    assertJsonContainsAllElement(
+        jsonCountedAssurances, vote.getCountedAssurances()
+    );
   }
 
   @Test
-  public void the_neededAssurances_attribute_contains_the_needed_assurances_of_the_vote() {
-    final JsonArray jsonNeededAssurances = result.get(NEEDED_ASSURANCES).getAsJsonArray();
+  public void
+      the_neededAssurances_attribute_contains_the_needed_assurances_of_the_vote() {
+    final JsonArray jsonNeededAssurances =
+        result.get(NEEDED_ASSURANCES).getAsJsonArray();
 
-    assertJsonContainsAllElement(jsonNeededAssurances, vote.getNeededAssurances());
+    assertJsonContainsAllElement(
+        jsonNeededAssurances, vote.getNeededAssurances()
+    );
   }
 
   @Test

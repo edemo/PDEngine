@@ -1,50 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-                        
-    
-    
-    
-    
-    <wb-module deploy-name="PDEngine-0.0.1-refactor_spring-refactor.9bf0afd">
-                                                
-        
-        
-        
-        
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                                                
-        
-        
-        
-        
-        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                                                
-        
-        
-        
-        
-        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/integration-test/java"/>
-                                                
-        
-        
-        
-        
-        <property name="context-root" value="PDEngine"/>
-                                                
-        
-        
-        
-        
-        <property name="java-output-path" value="/PDEngine/target/classes"/>
-                                            
-    
-    
-    
-    
-    </wb-module>
-                    
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId"
+	project-version="1.5.0">
+
+
+
+
+
+	<wb-module
+		deploy-name="PDEngine-0.0.1-refactor_spring-refactor.9bf0afd">
+
+
+
+
+
+		<wb-resource deploy-path="/WEB-INF/classes"
+			source-path="/src/main/java" />
+
+
+
+
+
+		<wb-resource deploy-path="/"
+			source-path="/target/m2e-wtp/web-resources" />
+
+
+
+
+
+		<wb-resource deploy-path="/"
+			source-path="/src/main/webapp" tag="defaultRootSource" />
+
+		<wb-resource deploy-path="/WEB-INF/classes"
+			source-path="/src/main/resources" />
+		<wb-resource deploy-path="/WEB-INF/classes"
+			source-path="/src/integration-test/java" />
+
+
+
+
+
+		<property name="context-root" value="PDEngine" />
+
+
+
+
+
+		<property name="java-output-path"
+			value="/PDEngine/target/classes" />
+
+
+
+
+
+	</wb-module>
+
 
 
 
