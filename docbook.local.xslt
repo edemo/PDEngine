@@ -58,35 +58,44 @@
 $atleast,$atmost)" />
 							<!--xsl:value-of select="../@name"/ -->
 							It
-                            <xsl:choose>
-                            <xsl:when test="@ancestor='parameter'">
-                            	<xsl:choose>
-                            		<xsl:when test="@direction=1">
-                            			have parameter <xsl:value-of select="@relationName"/> as 
-                            		</xsl:when>
-                            		<xsl:otherwise>
-                            			is the type of parameter <xsl:value-of select="@relationName"/> in 
-                            		</xsl:otherwise>
-                            	</xsl:choose>
-                            </xsl:when>
-                            <xsl:when test="@ancestor='application_component_contains' and not(@relationName='') and ../@ancestor='object'">
-                            	<xsl:choose>
-                            		<xsl:when test="@direction=1">
-                            			have field <xsl:value-of select="@relationName"/> as 
-                            		</xsl:when>
-                            		<xsl:otherwise>
-                            			is the type of field <xsl:value-of select="@relationName"/> in 
-                            		</xsl:otherwise>
-                            	</xsl:choose>
-                            </xsl:when>
-                            <xsl:otherwise>
-								<xsl:value-of
-									select="concat(' ',
+							<xsl:choose>
+								<xsl:when test="@ancestor='parameter'">
+									<xsl:choose>
+										<xsl:when test="@direction=1">
+											have parameter
+											<xsl:value-of select="@relationName" />
+											as
+										</xsl:when>
+										<xsl:otherwise>
+											is the type of parameter
+											<xsl:value-of select="@relationName" />
+											in
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:when>
+								<xsl:when
+									test="@ancestor='application_component_contains' and not(@relationName='') and ../@ancestor='object'">
+									<xsl:choose>
+										<xsl:when test="@direction=1">
+											have field
+											<xsl:value-of select="@relationName" />
+											as
+										</xsl:when>
+										<xsl:otherwise>
+											is the type of field
+											<xsl:value-of select="@relationName" />
+											in
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of
+										select="concat(' ',
                                                   zenta:relationName(.),' ',
                                                   if (@template='true') then $numbers else ''
                                                   )" />
-                            </xsl:otherwise>
-                            </xsl:choose>
+								</xsl:otherwise>
+							</xsl:choose>
 							<link linkend="{@target}">
 								<xsl:value-of select="@name" />
 							</link>
