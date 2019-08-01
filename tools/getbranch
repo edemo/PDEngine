@@ -1,9 +1,0 @@
-#!/bin/bash
-a=$(git rev-parse --abbrev-ref HEAD)
-if [ $a == HEAD ]
-then
-    echo $BRANCH
-else
-    echo $a
-fi
-

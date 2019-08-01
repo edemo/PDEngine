@@ -63,10 +63,10 @@
 			select="//element[@xsi:type='Business Function']">
 			<xsl:variable name="feature" select="." />
 			<xsl:for-each
-				select="zenta:neighboursOnPath(/,$feature,'contains,1')">
+				select="zenta:neighbours(/,$feature,'contains,1')">
 				<xsl:variable name="operation" select="." />
 				<xsl:for-each
-					select="zenta:neighboursOnPath($root,$operation,'does/is done by,1')">
+					select="zenta:neighbours($root,$operation,'does/is done by,1')">
 					<xsl:variable name="testcase" select="." />
 					<testcase
 						name="{concat($feature/@name,'/', $operation/@name, '; ', $testcase/@name)}"
@@ -77,12 +77,12 @@
 							select="$testcase/documentation/(text()|*)" />
 					</testcase>
 					<xsl:for-each
-						select="zenta:neighboursOnPath($root,$testcase,'is tested by/tests,2,testcase')">
+						select="zenta:neighbours($root,$testcase,'is tested by/tests,2,testcase')">
 						<xsl:variable name="addtestcase" select="." />
 						<testcase
 							name="{concat($feature/@name,'/', $operation/@name, '; ', $testcase/@name, '/', $addtestcase/@name)}"
 							feature="{concat(
-                                zenta:neighboursOnPath($root,$feature,'contains/iscontained by,2')/@name,'.',
+                                zenta:neighbours($root,$feature,'contains/iscontained by,2')/@name,'.',
                                 $feature/@name)}"
 							operation="{$operation/@name}" testcase="{$testcase/@name}"
 							additionaltestcase="{$addtestcase/@name}">
