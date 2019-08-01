@@ -4,6 +4,9 @@ python:
   - 2.7
 
 build:
+  cache: true
+  cache_dir_list:
+    - ~/.m2
   ci:
     - /usr/local/toolchain/tools/Script
   on_success:
