@@ -12,7 +12,7 @@
 
 	<groupId>org.rulez.demokracia</groupId>
 	<artifactId>PDEngine</artifactId>
-	<version>0.0.1-feature_toolchain.fb84264</version>
+	<version>0.0.1-feature_toolchain.19e66cf</version>
 	<packaging>war</packaging>
 
 	<name>PDEngine</name>
@@ -207,7 +207,7 @@
 					<ignoreAnnotations>true</ignoreAnnotations>
 					<includeTests>true</includeTests>
 					<rulesets>
-						<ruleset>pmd_rules.xml</ruleset>
+						<ruleset>/usr/local/toolchain/pmd_rules.xml</ruleset>
 					</rulesets>
 				</configuration>
 			</plugin>
