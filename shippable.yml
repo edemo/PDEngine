@@ -2,13 +2,16 @@ build_image: kodekonveyor/toolchain:master
 language: python
 python:
   - 2.7
+integrations:
+  generic:
+    - integrationName: kkpipeline
+
 
 build:
   cache: true
   cache_dir_list:
     - ~/.m2
   ci:
-    - rm /dev/random; cp -a /dev/urandom /dev/random
     - /usr/local/toolchain/tools/Script
   on_success:
     - /usr/local/toolchain/tools/publish
