@@ -12,7 +12,7 @@
 			</activation>
 			<properties>
 				<!-- Optional URL to server. Default value is http://localhost:9000 -->
-				<sonar.host.url>https://sonarqube.com</sonar.host.url>
+				<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 				<sonar.login>bf0e1ea9341a539f1a291a85509c010498b43cca</sonar.login>
 			</properties>
 		</profile>
