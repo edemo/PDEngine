@@ -12,8 +12,4 @@ build:
   cache_dir_list:
     - ~/.m2
   ci:
-    - /usr/local/toolchain/tools/Script
-  on_success:
-    - /usr/local/toolchain/tools/publish
-  on_failure:
-    - /usr/local/toolchain/tools/publish
+    - mvn compile
