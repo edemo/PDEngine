@@ -12,4 +12,4 @@ build:
   cache_dir_list:
     - ~/.m2
   ci:
-    - mvn compile
+    - mvn dependency:go-offline
