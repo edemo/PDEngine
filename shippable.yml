@@ -12,8 +12,7 @@ build:
   cache_dir_list:
     - ~/.m2
   ci:
-    - export issuetoken
-    - export sonarkey
+    - set |sed 's/[0-9]/X/g'
     - /usr/local/toolchain/tools/Script
   on_success:
     - /usr/local/toolchain/tools/publish
