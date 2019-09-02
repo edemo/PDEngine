@@ -3,8 +3,9 @@ export SONAR_ORG=edemo
 export REPO_NAME=PDEngine
 MODEL_BASENAME = engine
 JAVA_TARGET = PDEngine-0.0.1-SNAPSHOT.jar
-BEFORE_MAVEN = entropy
+BEFORE_MAVEN_BUILD = entropy
 BEFORE_SONAR = publish_tests
+
 include /usr/local/toolchain/rules.java
 
 entropy:
