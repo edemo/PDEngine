@@ -3,8 +3,15 @@ export SONAR_ORG=edemo
 export REPO_NAME=PDEngine
 MODEL_BASENAME = engine
 JAVA_TARGET = PDEngine-0.0.1-SNAPSHOT.jar
+BEFORE_MAVEN = entropy
+BEFORE_SONAR = publish_tests
 include /usr/local/toolchain/rules.java
 
-maven-build:
-	rm /dev/random; cp -a /dev/urandom /dev/random;set|sed 's/[0-9]/X/g'; mvn org.jacoco:jacoco-maven-plugin:prepare-agent install org.pitest:pitest-maven:mutationCoverage site -Pintegration-test
+entropy:
+	rm /dev/random; cp -a /dev/urandom /dev/random;set|sed 's/[0-9]/X/g'
 
+publish_tests:
+	mvn org.jacoco:jacoco-maven-plugin:report
+	cp -r target/site/jacoco shippable/codecoverage
+	mkdir -p shippable/testresults
+	mv target/surefire-reports/*.xml shippable/testresults
