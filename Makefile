@@ -5,3 +5,6 @@ MODEL_BASENAME = engine
 JAVA_TARGET = PDEngine-0.0.1-SNAPSHOT.jar
 include /usr/local/toolchain/rules.java
 
+maven-build:
+	mvn --debug org.jacoco:jacoco-maven-plugin:prepare-agent install org.pitest:pitest-maven:mutationCoverage site -Pintegration-test
+
