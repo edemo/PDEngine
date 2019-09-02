@@ -12,7 +12,7 @@
 
 	<groupId>org.rulez.demokracia</groupId>
 	<artifactId>PDEngine</artifactId>
-	<version>0.0.1-feature_toolchain.19e66cf</version>
+	<version>0.0.1-feature_toolchain.c1b8551</version>
 	<packaging>war</packaging>
 
 	<name>PDEngine</name>
