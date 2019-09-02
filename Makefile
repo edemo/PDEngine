@@ -5,6 +5,8 @@ MODEL_BASENAME = engine
 JAVA_TARGET = PDEngine-0.0.1-SNAPSHOT.jar
 BEFORE_MAVEN_BUILD = entropy
 BEFORE_SONAR = publish_tests
+export issuetoken
+export sonarkey
 
 include /usr/local/toolchain/rules.java
 
