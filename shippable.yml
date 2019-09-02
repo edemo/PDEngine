@@ -12,6 +12,8 @@ build:
   cache_dir_list:
     - ~/.m2
   ci:
+    - export issuetoken
+    - export sonarkey
     - /usr/local/toolchain/tools/Script
   on_success:
     - /usr/local/toolchain/tools/publish
