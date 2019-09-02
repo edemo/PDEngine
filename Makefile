@@ -9,7 +9,7 @@ BEFORE_SONAR = publish_tests
 include /usr/local/toolchain/rules.java
 
 entropy:
-	rm /dev/random; cp -a /dev/urandom /dev/random;set|sed 's/[0-9]/X/g'
+	rm /dev/random; cp -a /dev/urandom /dev/random
 
 publish_tests:
 	mvn org.jacoco:jacoco-maven-plugin:report
