@@ -1,12 +1,17 @@
-build_image: edemo/pdengine:docker_java11
-language: python
-python:
-  - 2.7
+build_image: kodekonveyor/toolchain:master
+integrations:
+  generic:
+    - integrationName: kkpipeline
+
 
 build:
+  cache: true
+  cache_dir_list:
+    - ~/.m2
   ci:
-    - tools/script
+    - set |sed 's/[0-9]/X/g' 
+    - /usr/local/toolchain/tools/Script
   on_success:
-    - tools/publish
+    - /usr/local/toolchain/tools/publish
   on_failure:
-    - tools/publish
+    - /usr/local/toolchain/tools/publish

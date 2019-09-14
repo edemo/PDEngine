@@ -14,13 +14,15 @@ public class VoteResult extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @ElementCollection
-  private final List<String> choices;
+  private final List<String> winners;
   @ElementCollection
   private final Map<String, VoteResultBeat> beats;
 
-  public VoteResult(final List<String> choices, final Map<String, VoteResultBeat> beats) {
+  public VoteResult(
+      final List<String> winners, final Map<String, VoteResultBeat> beats
+  ) {
     super();
-    this.choices = choices;
+    this.winners = winners;
     this.beats = beats;
   }
 

@@ -12,11 +12,31 @@
 
 	<groupId>org.rulez.demokracia</groupId>
 	<artifactId>PDEngine</artifactId>
-	<version>0.0.1-feature_object_in_metamodel.b874d67</version>
+	<version>0.0.1-feature_toolchain.0146b03</version>
 	<packaging>war</packaging>
 
 	<name>PDEngine</name>
 	<url>http://maven.apache.org</url>
+	<description>A voting engine</description>
+	<licenses>
+		<license>
+			<name>GNU GPL v3 or any later</name>
+			<url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>Community Digital Tools Foundation</name>
+			<email>info@adatom.hu</email>
+			<organization>Community Digital Tools Foundation</organization>
+			<organizationUrl>https://e.demokracia.rules.org/</organizationUrl>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/edemo/PDEngine.git</connection>
+		<developerConnection>scm:git:ssh://github.com:edemo/PDEngine.git</developerConnection>
+		<url>http://github.com/edemo/PDEngine/tree/master</url>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -207,7 +227,7 @@
 					<ignoreAnnotations>true</ignoreAnnotations>
 					<includeTests>true</includeTests>
 					<rulesets>
-						<ruleset>pmd_rules.xml</ruleset>
+						<ruleset>/usr/local/toolchain/pmd_rules.xml</ruleset>
 					</rulesets>
 				</configuration>
 			</plugin>
