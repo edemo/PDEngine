@@ -1,7 +1,4 @@
 build_image: kodekonveyor/toolchain:master
-language: python
-python:
-  - 2.7
 integrations:
   generic:
     - integrationName: kkpipeline
@@ -12,7 +9,6 @@ build:
   cache_dir_list:
     - ~/.m2
   ci:
-    - set |sed 's/[0-9]/X/g'
     - /usr/local/toolchain/tools/Script
   on_success:
     - /usr/local/toolchain/tools/publish
